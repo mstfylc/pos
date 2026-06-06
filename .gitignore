@@ -1,0 +1,42 @@
+# ==== Secrets (ASLA commit edilmez) ====
+.env
+.env.*
+!.env.example
+**/appsettings.json
+!**/appsettings.example.json
+**/appsettings.*.json
+!**/appsettings.example.json
+*.pem
+*.key
+secrets/
+
+# ==== .NET ====
+bin/
+obj/
+*.user
+[Dd]ebug/
+[Rr]elease/
+
+# ==== Node / Web ====
+node_modules/
+dist/
+build/
+.next/
+coverage/
+*.log
+
+# ==== Flutter ====
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins*
+*.iml
+
+# ==== Go ====
+print-bridge/bin/
+*.exe
+
+# ==== OS / IDE ====
+.DS_Store
+.idea/
+.vscode/
+Thumbs.db

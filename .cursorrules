@@ -1,0 +1,25 @@
+# Cursor Kuralları — Mansis POS v2
+
+ÖNCE repo kökündeki ARCHITECTURE.md, docs/WORKFLOW.md ve docs/DEFINITION_OF_DONE.md dosyalarını oku ve uy. Bunlar bağlayıcıdır.
+
+## Cursor ne için kullanılır
+Mevcut koda hassas, satır-satır görünür dokunuşlar: backend migrate sırasında riskli refactor, gözden geçirme gereken değişiklikler, hata ayıklama, küçük cerrahi düzeltmeler. Cursor "içinde olduğun" araçtır; büyük üretimden çok kontrollü değişiklik için.
+
+## Mutlak kurallar (özet — tam hali ARCHITECTURE.md §3)
+- API tipi/fetch elle yazma → packages/api-client-* kullan.
+- Secret yazma → env / secret manager.
+- Tasarım token'ı hardcode etme → packages/design-tokens.
+- Tenant scope (company_id) atlama; finansal işlemler tek transaction + idempotency_key.
+- Append-only tablolarda hard-delete yok.
+- Mevcut backend iş kuralı belirsizse silme/değiştirme; TODO bırak, sor.
+
+## Davranış
+- Değiştireceğin dosyayı önce tamamını oku; bağlamı anla.
+- Küçük, gözden geçirilebilir diff'ler üret; gereksiz dosya/format değişikliği yapma.
+- Mimari katmanı koru: iş mantığı Application/Domain'de, Controller ince.
+- TypeScript strict; any yok.
+- Değişiklik sonrası DEFINITION_OF_DONE listesini uygula.
+
+## Çakışma önleme
+- Aynı anda Claude Code/Codex ile aynı dosyada çalışma.
+- openapi.yaml'ı sadece backend tarafı (Codex) değiştirir; Cursor'da kontrat değiştireceksen önce belirt.
