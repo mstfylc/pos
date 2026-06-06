@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Mansis.Pos.Api/Mansis.Pos.Api.csproj" />
+    <Project Path="src/Mansis.Pos.Application/Mansis.Pos.Application.csproj" />
+    <Project Path="src/Mansis.Pos.Contracts/Mansis.Pos.Contracts.csproj" />
+    <Project Path="src/Mansis.Pos.Domain/Mansis.Pos.Domain.csproj" />
+    <Project Path="src/Mansis.Pos.Infrastructure/Mansis.Pos.Infrastructure.csproj" />
+    <Project Path="src/Mansis.Pos.Workers/Mansis.Pos.Workers.csproj" />
+  </Folder>
+</Solution>
