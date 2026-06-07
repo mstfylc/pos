@@ -2,6 +2,7 @@ using FluentValidation;
 using Mansis.Pos.Application.Auth;
 using Mansis.Pos.Application.Core;
 using Mansis.Pos.Application.Loyalty;
+using Mansis.Pos.Application.Loyalty.RedeemReward;
 using Mansis.Pos.Application.Orders.CancelOrder;
 using MediatR;
 using Mansis.Pos.Application.Orders.CreateOrder;
@@ -20,6 +21,7 @@ public static class DependencyInjection
         services.AddScoped<AuthService>();
         services.AddScoped<CoreCrudService>();
         services.AddScoped<LoyaltyEarnCalculator>();
+        services.AddScoped<RedeemRewardService>();
         services.AddScoped<CancelOrderService>();
         services.AddScoped<CreateOrderService>();
 

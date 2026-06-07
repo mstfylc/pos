@@ -43,6 +43,8 @@ public sealed class CancelOrderServiceTests
         Assert.Equal(-20, store.SavedGraph.LoyaltyReversals[0].Points);
         Assert.Equal(0, store.SavedGraph.LoyaltyAccountsToUpdate[0].PointBalance);
         Assert.Equal(0, store.SavedGraph.LoyaltyAccountsToUpdate[0].LifetimePoints);
+        Assert.Single(store.SavedGraph.RewardRedemptionReversals);
+        Assert.Equal(RewardRedemptionState.Cancelled, store.SavedGraph.RewardRedemptionReversals[0].State);
     }
 
     [Fact]
@@ -149,6 +151,18 @@ public sealed class CancelOrderServiceTests
                 PointBalance = 20,
                 LifetimePoints = 20
             };
+            var rewardRedemption = new RewardRedemption
+            {
+                Id = Guid.NewGuid(),
+                CompanyId = CompanyId,
+                CustomerId = loyaltyAccount.CustomerId,
+                RewardId = Guid.NewGuid(),
+                OrderId = OrderId,
+                Points = 5,
+                State = RewardRedemptionState.Approved,
+                RedemptionCode = "RW-TEST",
+                RequestedAt = DateTimeOffset.UtcNow
+            };
 
             return new FakeOrderCancellationStore(
                 new OrderCancellationSnapshot(
@@ -157,6 +171,7 @@ public sealed class CancelOrderServiceTests
                     [stockMovement],
                     [walletTransaction],
                     [loyaltyTransaction],
+                    [rewardRedemption],
                     new Dictionary<(Guid StoreId, Guid ProductId), StoreProduct>
                     {
                         [(StoreId, ProductId)] = storeProduct

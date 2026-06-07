@@ -70,12 +70,17 @@ internal sealed class EfOrderCancellationStore(PosDbContext dbContext) : IOrderC
             .Where(account => account.CompanyId == companyId && loyaltyAccountIds.Contains(account.Id))
             .ToDictionaryAsync(account => account.Id, cancellationToken);
 
+        var rewardRedemptions = await dbContext.RewardRedemptions
+            .Where(redemption => redemption.CompanyId == companyId && redemption.OrderId == orderId)
+            .ToListAsync(cancellationToken);
+
         return new OrderCancellationSnapshot(
             order,
             payments,
             stockMovements,
             walletTransactions,
             loyaltyTransactions,
+            rewardRedemptions,
             storeProducts,
             walletAccounts,
             loyaltyAccounts);
@@ -89,6 +94,7 @@ internal sealed class EfOrderCancellationStore(PosDbContext dbContext) : IOrderC
         dbContext.StockMovements.AddRange(graph.StockReversals);
         dbContext.WalletTransactions.AddRange(graph.WalletReversals);
         dbContext.LoyaltyPointTransactions.AddRange(graph.LoyaltyReversals);
+        dbContext.RewardRedemptions.AddRange(graph.RewardRedemptionReversals);
 
         await dbContext.SaveChangesAsync(cancellationToken);
         await transaction.CommitAsync(cancellationToken);

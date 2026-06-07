@@ -14,6 +14,7 @@ public sealed record OrderCancellationSnapshot(
     IReadOnlyList<StockMovement> StockMovements,
     IReadOnlyList<WalletTransaction> WalletTransactions,
     IReadOnlyList<LoyaltyPointTransaction> LoyaltyPointTransactions,
+    IReadOnlyList<RewardRedemption> RewardRedemptions,
     IReadOnlyDictionary<(Guid StoreId, Guid ProductId), StoreProduct> StoreProducts,
     IReadOnlyDictionary<Guid, WalletAccount> WalletAccounts,
     IReadOnlyDictionary<Guid, LoyaltyAccount> LoyaltyAccounts);
@@ -24,6 +25,7 @@ public sealed record OrderCancellationGraph(
     IReadOnlyList<StockMovement> StockReversals,
     IReadOnlyList<WalletTransaction> WalletReversals,
     IReadOnlyList<LoyaltyPointTransaction> LoyaltyReversals,
+    IReadOnlyList<RewardRedemption> RewardRedemptionReversals,
     IReadOnlyList<StoreProduct> StoreProductsToUpdate,
     IReadOnlyList<WalletAccount> WalletAccountsToUpdate,
     IReadOnlyList<LoyaltyAccount> LoyaltyAccountsToUpdate);

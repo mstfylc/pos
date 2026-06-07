@@ -142,6 +142,23 @@ public sealed class CancelOrderService(
             }
         }
 
+        var rewardRedemptionReversals = snapshot.RewardRedemptions
+            .Where(redemption => redemption.ReversalOfId is null)
+            .Select(redemption => new RewardRedemption
+            {
+                Id = Guid.NewGuid(),
+                CompanyId = redemption.CompanyId,
+                CustomerId = redemption.CustomerId,
+                RewardId = redemption.RewardId,
+                OrderId = redemption.OrderId,
+                Points = -redemption.Points,
+                State = RewardRedemptionState.Cancelled,
+                RedemptionCode = redemption.RedemptionCode,
+                ReversalOfId = redemption.Id,
+                RequestedAt = now
+            })
+            .ToArray();
+
         await store.ApplyCancellationAsync(
             new OrderCancellationGraph(
                 snapshot.Order,
@@ -149,6 +166,7 @@ public sealed class CancelOrderService(
                 stockReversals,
                 walletReversals,
                 loyaltyReversals,
+                rewardRedemptionReversals,
                 stockUpdates.Values.ToArray(),
                 walletUpdates.Values.ToArray(),
                 loyaltyUpdates.Values.ToArray()),
