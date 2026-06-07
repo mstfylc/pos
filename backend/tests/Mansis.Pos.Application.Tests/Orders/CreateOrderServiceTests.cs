@@ -82,6 +82,30 @@ public sealed class CreateOrderServiceTests
     }
 
     [Fact]
+    public async Task CreateAsync_WhenLifetimePointsCrossTierThreshold_UpgradesTier()
+    {
+        var silver = new LoyaltyTier
+        {
+            Id = Guid.NewGuid(),
+            CompanyId = CompanyId,
+            Name = "Silver",
+            MinimumPoints = 10,
+            EarnMultiplier = 1m,
+            Active = true
+        };
+        var store = FakeOrderCreationStore.Ready(
+            loyaltyLifetimePoints: 0,
+            loyaltyTiers: [silver]);
+        var service = CreateService(store);
+
+        var result = await service.CreateAsync(ValidRequest());
+
+        Assert.True(result.IsSuccess);
+        Assert.Equal(silver.Id, store.SavedGraph!.LoyaltyAccountToUpdate!.LoyaltyTierId);
+        Assert.Equal("Tier upgraded to Silver", store.SavedGraph.LoyaltyPointTransactions[0].Description);
+    }
+
+    [Fact]
     public async Task CreateAsync_WithRepeatedIdempotencyKey_ReturnsExistingOrderWithoutDuplicateGraph()
     {
         var existing = new Order
@@ -156,7 +180,8 @@ public sealed class CreateOrderServiceTests
         decimal walletBalance,
         IReadOnlyList<EarnRule> earnRules,
         IReadOnlyList<LoyaltyTier> loyaltyTiers,
-        Guid? loyaltyTierId)
+        Guid? loyaltyTierId,
+        int loyaltyLifetimePoints)
         : IOrderCreationStore
     {
         public OrderCreationGraph? SavedGraph { get; private set; }
@@ -167,7 +192,8 @@ public sealed class CreateOrderServiceTests
             decimal walletBalance = 100m,
             IReadOnlyList<EarnRule>? earnRules = null,
             IReadOnlyList<LoyaltyTier>? loyaltyTiers = null,
-            Guid? loyaltyTierId = null)
+            Guid? loyaltyTierId = null,
+            int loyaltyLifetimePoints = 0)
         {
             earnRules ??=
             [
@@ -188,7 +214,8 @@ public sealed class CreateOrderServiceTests
                 walletBalance,
                 earnRules,
                 loyaltyTiers ?? [],
-                loyaltyTierId);
+                loyaltyTierId,
+                loyaltyLifetimePoints);
         }
 
         public Task<Order?> FindByIdempotencyKeyAsync(
@@ -227,7 +254,8 @@ public sealed class CreateOrderServiceTests
                     CompanyId = CompanyId,
                     CustomerId = CustomerId,
                     LoyaltyTierId = loyaltyTierId,
-                    PointBalance = 0
+                    PointBalance = 0,
+                    LifetimePoints = loyaltyLifetimePoints
                 },
                 earnRules,
                 loyaltyTiers);

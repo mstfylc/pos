@@ -42,6 +42,7 @@ public sealed class CancelOrderServiceTests
         Assert.Single(store.SavedGraph.LoyaltyReversals);
         Assert.Equal(-20, store.SavedGraph.LoyaltyReversals[0].Points);
         Assert.Equal(0, store.SavedGraph.LoyaltyAccountsToUpdate[0].PointBalance);
+        Assert.Equal(0, store.SavedGraph.LoyaltyAccountsToUpdate[0].LifetimePoints);
     }
 
     [Fact]
@@ -145,7 +146,8 @@ public sealed class CancelOrderServiceTests
                 Id = LoyaltyAccountId,
                 CompanyId = CompanyId,
                 CustomerId = Guid.NewGuid(),
-                PointBalance = 20
+                PointBalance = 20,
+                LifetimePoints = 20
             };
 
             return new FakeOrderCancellationStore(

@@ -155,6 +155,7 @@ public sealed class CreateOrderService(
             var earnResult = loyaltyEarnCalculator.Calculate(snapshot, request.Lines, total, now);
             if (earnResult.Points > 0)
             {
+                var previousTierId = snapshot.LoyaltyAccount.LoyaltyTierId;
                 snapshot.LoyaltyAccount.PointBalance += earnResult.Points;
                 snapshot.LoyaltyAccount.LifetimePoints += earnResult.Points;
                 var nextTier = loyaltyEarnCalculator.ResolveTierAfterEarn(
@@ -166,6 +167,9 @@ public sealed class CreateOrderService(
                     snapshot.LoyaltyAccount.LoyaltyTierId = nextTier.Id;
                 }
 
+                var description = nextTier is not null && previousTierId != nextTier.Id
+                    ? $"Tier upgraded to {nextTier.Name}"
+                    : "Order earn";
                 loyaltyTransactions.Add(new LoyaltyPointTransaction
                 {
                     Id = Guid.NewGuid(),
@@ -175,6 +179,7 @@ public sealed class CreateOrderService(
                     TransactionType = LoyaltyPointTransactionType.Earn,
                     Points = earnResult.Points,
                     State = LedgerEntryState.Posted,
+                    Description = description,
                     ExpiresAt = earnResult.ExpiresAt,
                     OccurredAt = now
                 });
