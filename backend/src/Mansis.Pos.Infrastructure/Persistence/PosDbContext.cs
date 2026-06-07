@@ -120,6 +120,12 @@ public sealed class PosDbContext(
             .HasIndex(order => new { order.CompanyId, order.IdempotencyKey })
             .IsUnique();
 
+        modelBuilder.Entity<Order>()
+            .HasIndex(order => new { order.CompanyId, order.PosId, order.OrderTime });
+
+        modelBuilder.Entity<Order>()
+            .HasIndex(order => new { order.CompanyId, order.CustomerId, order.OrderTime });
+
         modelBuilder.Entity<OrderPayment>()
             .HasIndex(payment => new { payment.CompanyId, payment.OrderId });
 
@@ -142,6 +148,59 @@ public sealed class PosDbContext(
 
         modelBuilder.Entity<LoyaltyAccount>()
             .HasIndex(account => new { account.CompanyId, account.CustomerId })
+            .IsUnique();
+
+        modelBuilder.Entity<Product>()
+            .HasIndex(product => new { product.CompanyId, product.CategoryId, product.Active });
+
+        modelBuilder.Entity<Product>()
+            .HasIndex(product => new { product.CompanyId, product.Barcode });
+
+        modelBuilder.Entity<Product>()
+            .HasIndex(product => new { product.CompanyId, product.StockCode });
+
+        modelBuilder.Entity<Customer>()
+            .HasIndex(customer => new { customer.CompanyId, customer.Username })
+            .IsUnique();
+
+        modelBuilder.Entity<Customer>()
+            .HasIndex(customer => new { customer.CompanyId, customer.Phone });
+
+        modelBuilder.Entity<Customer>()
+            .HasIndex(customer => new { customer.CompanyId, customer.Mail });
+
+        modelBuilder.Entity<DiscountUsageLog>()
+            .HasIndex(usage => new { usage.CompanyId, usage.DiscountId, usage.OrderTime });
+
+        modelBuilder.Entity<DiscountUsageLog>()
+            .HasIndex(usage => new { usage.CompanyId, usage.OrderId });
+
+        modelBuilder.Entity<RolePermission>()
+            .HasIndex(rolePermission => new { rolePermission.RoleId, rolePermission.PermissionId })
+            .IsUnique();
+
+        modelBuilder.Entity<PosProduct>()
+            .HasIndex(posProduct => new { posProduct.PosId, posProduct.ProductId })
+            .IsUnique();
+
+        modelBuilder.Entity<ProductSubProduct>()
+            .HasIndex(productSubProduct => new { productSubProduct.ProductId, productSubProduct.SubProductId })
+            .IsUnique();
+
+        modelBuilder.Entity<BranchUser>()
+            .HasIndex(branchUser => new { branchUser.BranchId, branchUser.UserId })
+            .IsUnique();
+
+        modelBuilder.Entity<PosUser>()
+            .HasIndex(posUser => new { posUser.PosId, posUser.UserId })
+            .IsUnique();
+
+        modelBuilder.Entity<TagProduct>()
+            .HasIndex(tagProduct => new { tagProduct.TagId, tagProduct.ProductId })
+            .IsUnique();
+
+        modelBuilder.Entity<TagOrder>()
+            .HasIndex(tagOrder => new { tagOrder.TagId, tagOrder.OrderId })
             .IsUnique();
     }
 
