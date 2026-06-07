@@ -46,3 +46,7 @@
 - Yapilan: Canli auth Argon2id'e alindi, superadmin seed/docker/smoke/README eklendi, legacy HMAC import-only yapildi.
 - Dosya/commit: 23 dosya, commit fec7b13
 - Takilan: Docker daemon kapali oldugu icin otomatik smoke bu ortamda kosamadi.
+### 2026-06-07 05:03 ADIM 15 - Local Compose Smoke - branch: feat/faz3-auth-seed-smoke-closeout - build: YESIL
+- Yapilan: backend/.env.example tamamlandi, backend klasorunden compose/smoke akisi duzeltildi ve gercek Faz3 smoke PASS aldi.
+- Dosya/commit: 7 dosya, commit 465f44d
+- Takilan: yok
