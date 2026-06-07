@@ -72,5 +72,5 @@
 - Takilan: yok
 ### 2026-06-07 06:04 ADIM 21 - Tier Karari - branch: feat/faz3-auth-seed-smoke-closeout - build: YESIL
 - Yapilan: Tier downgrade DUR kapatildi; upgrade-only karar kod yorumuna ve paket raporuna islendi.
-- Dosya/commit: 2 dosya, commit bekliyor
+- Dosya/commit: 2 dosya, commit 66a6af9
 - Takilan: kampanya cakisma onceligi karar bekliyor.
