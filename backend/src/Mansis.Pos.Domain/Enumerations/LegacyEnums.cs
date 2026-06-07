@@ -20,6 +20,7 @@ public enum TaxType { Bir, Sekiz, OnSekiz }
 public enum LedgerDirection { Debit, Credit }
 public enum LedgerEntryState { Posted, Reversed }
 public enum OrderPaymentState { Pending, Captured, Cancelled, Refunded }
+public enum PaymentSummary { Cash, CreditCard, Ticket, Sodexo, Multinet, Mixed }
 public enum TokenState { Active, Used, Revoked, Expired }
 public enum LoyaltyPointTransactionType { Earn, Redeem, Expire, Adjust, Reverse }
 public enum RewardRedemptionState { Requested, Approved, Cancelled, Completed }

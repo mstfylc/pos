@@ -109,8 +109,40 @@ public sealed class PosDbContext(
         modelBuilder.HasDefaultSchema("pos");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PosDbContext).Assembly);
         ConfigureConventions(modelBuilder);
+        ConfigureIndexes(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
+    }
+
+    private static void ConfigureIndexes(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Order>()
+            .HasIndex(order => new { order.CompanyId, order.IdempotencyKey })
+            .IsUnique();
+
+        modelBuilder.Entity<OrderPayment>()
+            .HasIndex(payment => new { payment.CompanyId, payment.OrderId });
+
+        modelBuilder.Entity<StockMovement>()
+            .HasIndex(movement => new { movement.CompanyId, movement.OperationId, movement.MovementType });
+
+        modelBuilder.Entity<WalletTransaction>()
+            .HasIndex(transaction => new { transaction.CompanyId, transaction.OrderId });
+
+        modelBuilder.Entity<LoyaltyPointTransaction>()
+            .HasIndex(transaction => new { transaction.CompanyId, transaction.OrderId });
+
+        modelBuilder.Entity<StoreProduct>()
+            .HasIndex(storeProduct => new { storeProduct.StoreId, storeProduct.ProductId })
+            .IsUnique();
+
+        modelBuilder.Entity<WalletAccount>()
+            .HasIndex(account => new { account.CompanyId, account.CustomerId, account.Currency })
+            .IsUnique();
+
+        modelBuilder.Entity<LoyaltyAccount>()
+            .HasIndex(account => new { account.CompanyId, account.CustomerId })
+            .IsUnique();
     }
 
     private void ConfigureConventions(ModelBuilder modelBuilder)

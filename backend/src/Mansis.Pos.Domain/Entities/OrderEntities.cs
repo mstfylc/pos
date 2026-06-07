@@ -9,12 +9,14 @@ public sealed class Order : AuditableEntity, ICompanyScoped
     public decimal TaxTotal { get; set; }
     public decimal? TotalDiscount { get; set; }
     public decimal Total { get; set; }
+    public PaymentSummary PaymentSummary { get; set; }
     public ShippingType ShippingType { get; set; }
     public OrderState OrderState { get; set; }
     public DateTimeOffset OrderTime { get; set; }
     public int OrderNumber { get; set; }
     public bool IsClosed { get; set; }
     public bool OfflineOrder { get; set; }
+    public string IdempotencyKey { get; set; } = string.Empty;
     public string? UpdateReason { get; set; }
     public string? Description { get; set; }
     public Guid? AddressId { get; set; }
