@@ -12,5 +12,5 @@
 - Takilan: yok
 ### 2026-06-07 03:17 ADIM 6 - OpenAPI - branch: feat/be-openapi - build: YESIL
 - Yapilan: Admin/App/Loyalty/Stock tag'li OpenAPI kontrati ve TS/Dart codegen client'lari uretildi.
-- Dosya/commit: 80+ dosya, commit bekliyor
+- Dosya/commit: 77 dosya, commit 22d5669
 - Takilan: yok
