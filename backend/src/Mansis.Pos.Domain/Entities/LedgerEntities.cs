@@ -65,6 +65,7 @@ public sealed class LoyaltyPointTransaction : Entity, ICompanyScoped, IAppendOnl
     public int Points { get; set; }
     public LedgerEntryState State { get; set; }
     public Guid? ReversalOfId { get; set; }
+    public string? Description { get; set; }
     public DateTimeOffset OccurredAt { get; set; }
     public LoyaltyAccount? LoyaltyAccount { get; set; }
     public Order? Order { get; set; }

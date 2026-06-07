@@ -44,6 +44,7 @@ public sealed class OrderPayment : Entity, ICompanyScoped, IAppendOnly
     public OrderPaymentState State { get; set; }
     public string? ExternalReference { get; set; }
     public Guid? ReversalOfId { get; set; }
+    public string? Reason { get; set; }
     public DateTimeOffset PaidAt { get; set; }
     public Order? Order { get; set; }
     public OrderPayment? ReversalOf { get; set; }
