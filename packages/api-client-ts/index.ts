@@ -315,10 +315,170 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        get: operations["getAdminDiscount"];
         put: operations["updateAdminDiscount"];
         post?: never;
         delete: operations["deleteAdminDiscount"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminUsers"];
+        put?: never;
+        post: operations["createAdminUser"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/users/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAdminUser"];
+        put: operations["updateAdminUser"];
+        post?: never;
+        delete: operations["deleteAdminUser"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/roles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminRoles"];
+        put?: never;
+        post: operations["createAdminRole"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/roles/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAdminRole"];
+        put: operations["updateAdminRole"];
+        post?: never;
+        delete: operations["deleteAdminRole"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/roles/{id}/permissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateAdminRolePermissions"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/permissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminPermissions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/assignments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminAssignments"];
+        put?: never;
+        post: operations["createAdminAssignment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/assignments/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAdminAssignment"];
+        put: operations["updateAdminAssignment"];
+        post?: never;
+        delete: operations["deleteAdminAssignment"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/campaigns": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminCampaigns"];
+        put?: never;
+        post: operations["createAdminCampaign"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/campaigns/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAdminCampaign"];
+        put: operations["updateAdminCampaign"];
+        post?: never;
+        delete: operations["deleteAdminCampaign"];
         options?: never;
         head?: never;
         patch?: never;
@@ -773,11 +933,17 @@ export interface components {
             amount: string;
             /** Format: decimal */
             maxDiscountAmount: string;
+            /** Format: decimal */
+            monthlyLimit?: string | null;
             /** Format: date-time */
             expireDate?: string | null;
             discountType: components["schemas"]["DiscountType"];
             discountCategory: components["schemas"]["DiscountCategory"];
+            sortOrder: number;
             active: boolean;
+            branchIds: string[];
+            posIds: string[];
+            userIds: string[];
         };
         DiscountWrite: {
             /** Format: uuid */
@@ -789,11 +955,151 @@ export interface components {
             amount: string;
             /** Format: decimal */
             maxDiscountAmount: string;
+            /** Format: decimal */
+            monthlyLimit?: string | null;
             /** Format: date-time */
             expireDate?: string | null;
             discountType: components["schemas"]["DiscountType"];
             discountCategory: components["schemas"]["DiscountCategory"];
             sortOrder: number;
+            branchIds: string[];
+            posIds: string[];
+            userIds: string[];
+        };
+        User: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            firstName: string;
+            lastName: string;
+            username: string;
+            phone?: string | null;
+            mail?: string | null;
+            /** Format: uuid */
+            roleId: string;
+            /** Format: uuid */
+            cardId?: string | null;
+            pin?: string | null;
+            mustChangePassword: boolean;
+            active: boolean;
+            branchIds: string[];
+            posIds: string[];
+            storeIds: string[];
+        };
+        UserWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            firstName: string;
+            lastName: string;
+            username: string;
+            phone?: string | null;
+            mail?: string | null;
+            /** Format: uuid */
+            roleId: string;
+            /** Format: uuid */
+            cardId?: string | null;
+            pin?: string | null;
+            password?: string | null;
+            mustChangePassword: boolean;
+            branchIds: string[];
+            posIds: string[];
+            storeIds: string[];
+        };
+        Role: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            active: boolean;
+            permissionIds: string[];
+        };
+        RoleWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            name: string;
+        };
+        Permission: {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            displayName?: string | null;
+            permissionType: components["schemas"]["PermissionType"];
+        };
+        RolePermissionWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            permissionIds: string[];
+        };
+        Assignment: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            userId: string;
+            /** Format: uuid */
+            companyId: string;
+            assignmentTableType: components["schemas"]["AssignmentTableType"];
+            records: components["schemas"]["AssignmentRecord"][];
+        };
+        AssignmentRecord: {
+            /** Format: uuid */
+            recordId: string;
+            recordName: string;
+        };
+        AssignmentWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            assignmentTableType: components["schemas"]["AssignmentTableType"];
+            recordIds: string[];
+        };
+        Campaign: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            description?: string | null;
+            campaignType: components["schemas"]["CampaignType"];
+            ruleJson: string;
+            priority: number;
+            /** Format: decimal */
+            maxTotalDiscount?: string | null;
+            /** Format: uuid */
+            targetTierId?: string | null;
+            /** Format: date-time */
+            startsAt?: string | null;
+            /** Format: date-time */
+            endsAt?: string | null;
+            active: boolean;
+        };
+        CampaignWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            name: string;
+            description?: string | null;
+            campaignType: components["schemas"]["CampaignType"];
+            ruleJson: string;
+            priority: number;
+            /** Format: decimal */
+            maxTotalDiscount?: string | null;
+            /** Format: uuid */
+            targetTierId?: string | null;
+            /** Format: date-time */
+            startsAt?: string | null;
+            /** Format: date-time */
+            endsAt?: string | null;
+            active: boolean;
         };
         CreateOrderRequest: {
             /** Format: uuid */
@@ -901,6 +1207,12 @@ export interface components {
         DiscountType: "Percentage" | "Amount";
         /** @enum {string} */
         DiscountCategory: "All" | "Branch" | "Personnel" | "Pos";
+        /** @enum {string} */
+        AssignmentTableType: "Pos" | "Branch" | "Store";
+        /** @enum {string} */
+        PermissionType: "Undefined";
+        /** @enum {string} */
+        CampaignType: "ExtraPoints" | "DiscountAmount" | "Stamp";
         /** @enum {string} */
         OrderState: "Received" | "Preparing" | "Completed" | "Cancelled" | "Deleted" | "Transferring";
         /** @enum {string} */
@@ -1674,6 +1986,31 @@ export interface operations {
             default: components["responses"]["Problem"];
         };
     };
+    getAdminDiscount: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Discount detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Discount"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
     updateAdminDiscount: {
         parameters: {
             query?: never;
@@ -1716,6 +2053,549 @@ export interface operations {
         requestBody?: never;
         responses: {
             /** @description Discount deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminUsers: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description User list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["User"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserWrite"];
+            };
+        };
+        responses: {
+            /** @description User created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["User"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    getAdminUser: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description User detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["User"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserWrite"];
+            };
+        };
+        responses: {
+            /** @description User updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["User"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminUser: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+                userId: components["parameters"]["UserId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description User deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminRoles: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Role list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Role"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminRole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RoleWrite"];
+            };
+        };
+        responses: {
+            /** @description Role created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Role"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    getAdminRole: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Role detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Role"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminRole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RoleWrite"];
+            };
+        };
+        responses: {
+            /** @description Role updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Role"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminRole: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+                userId: components["parameters"]["UserId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Role deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminRolePermissions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RolePermissionWrite"];
+            };
+        };
+        responses: {
+            /** @description Role permissions updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Role"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminPermissions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Permission list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Permission"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminAssignments: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+                userId?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Assignment list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Assignment"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminAssignment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssignmentWrite"];
+            };
+        };
+        responses: {
+            /** @description Assignment created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Assignment"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    getAdminAssignment: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Assignment detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Assignment"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminAssignment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssignmentWrite"];
+            };
+        };
+        responses: {
+            /** @description Assignment updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Assignment"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminAssignment: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Assignment deleted */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminCampaigns: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Campaign list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Campaign"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminCampaign: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CampaignWrite"];
+            };
+        };
+        responses: {
+            /** @description Campaign created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Campaign"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    getAdminCampaign: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Campaign detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Campaign"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminCampaign: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CampaignWrite"];
+            };
+        };
+        responses: {
+            /** @description Campaign updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Campaign"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminCampaign: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Campaign deactivated */
             204: {
                 headers: {
                     [name: string]: unknown;

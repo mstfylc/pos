@@ -41,13 +41,13 @@ import 'package:mansis_pos_api_client/api.dart';
 
 
 final api = AdminApi();
-final categoryWrite = CategoryWrite(); // CategoryWrite | 
+final assignmentWrite = AssignmentWrite(); // AssignmentWrite | 
 
 try {
-    final response = await api.createAdminCategory(categoryWrite);
+    final response = await api.createAdminAssignment(assignmentWrite);
     print(response);
 } catch (e) {
-    print("Exception when calling AdminApi->createAdminCategory: $e\n");
+    print("Exception when calling AdminApi->createAdminAssignment: $e\n");
 }
 
 ```
@@ -58,34 +58,57 @@ All URIs are relative to *https://api.example.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AdminApi* | [**createAdminAssignment**](doc\AdminApi.md#createadminassignment) | **POST** /api/v1/admin/assignments | 
+*AdminApi* | [**createAdminCampaign**](doc\AdminApi.md#createadmincampaign) | **POST** /api/v1/admin/campaigns | 
 *AdminApi* | [**createAdminCategory**](doc\AdminApi.md#createadmincategory) | **POST** /api/v1/admin/categories | 
 *AdminApi* | [**createAdminCustomer**](doc\AdminApi.md#createadmincustomer) | **POST** /api/v1/admin/customers | 
 *AdminApi* | [**createAdminDiscount**](doc\AdminApi.md#createadmindiscount) | **POST** /api/v1/admin/discounts | 
 *AdminApi* | [**createAdminPos**](doc\AdminApi.md#createadminpos) | **POST** /api/v1/admin/pos | 
 *AdminApi* | [**createAdminPosProduct**](doc\AdminApi.md#createadminposproduct) | **POST** /api/v1/admin/pos-products | 
 *AdminApi* | [**createAdminProduct**](doc\AdminApi.md#createadminproduct) | **POST** /api/v1/admin/products | 
+*AdminApi* | [**createAdminRole**](doc\AdminApi.md#createadminrole) | **POST** /api/v1/admin/roles | 
 *AdminApi* | [**createAdminStore**](doc\AdminApi.md#createadminstore) | **POST** /api/v1/admin/stores | 
+*AdminApi* | [**createAdminUser**](doc\AdminApi.md#createadminuser) | **POST** /api/v1/admin/users | 
+*AdminApi* | [**deleteAdminAssignment**](doc\AdminApi.md#deleteadminassignment) | **DELETE** /api/v1/admin/assignments/{id} | 
+*AdminApi* | [**deleteAdminCampaign**](doc\AdminApi.md#deleteadmincampaign) | **DELETE** /api/v1/admin/campaigns/{id} | 
 *AdminApi* | [**deleteAdminCategory**](doc\AdminApi.md#deleteadmincategory) | **DELETE** /api/v1/admin/categories/{id} | 
 *AdminApi* | [**deleteAdminCustomer**](doc\AdminApi.md#deleteadmincustomer) | **DELETE** /api/v1/admin/customers/{id} | 
 *AdminApi* | [**deleteAdminDiscount**](doc\AdminApi.md#deleteadmindiscount) | **DELETE** /api/v1/admin/discounts/{id} | 
 *AdminApi* | [**deleteAdminPos**](doc\AdminApi.md#deleteadminpos) | **DELETE** /api/v1/admin/pos/{id} | 
 *AdminApi* | [**deleteAdminProduct**](doc\AdminApi.md#deleteadminproduct) | **DELETE** /api/v1/admin/products/{id} | 
+*AdminApi* | [**deleteAdminRole**](doc\AdminApi.md#deleteadminrole) | **DELETE** /api/v1/admin/roles/{id} | 
 *AdminApi* | [**deleteAdminStore**](doc\AdminApi.md#deleteadminstore) | **DELETE** /api/v1/admin/stores/{id} | 
+*AdminApi* | [**deleteAdminUser**](doc\AdminApi.md#deleteadminuser) | **DELETE** /api/v1/admin/users/{id} | 
+*AdminApi* | [**getAdminAssignment**](doc\AdminApi.md#getadminassignment) | **GET** /api/v1/admin/assignments/{id} | 
+*AdminApi* | [**getAdminCampaign**](doc\AdminApi.md#getadmincampaign) | **GET** /api/v1/admin/campaigns/{id} | 
+*AdminApi* | [**getAdminDiscount**](doc\AdminApi.md#getadmindiscount) | **GET** /api/v1/admin/discounts/{id} | 
+*AdminApi* | [**getAdminRole**](doc\AdminApi.md#getadminrole) | **GET** /api/v1/admin/roles/{id} | 
+*AdminApi* | [**getAdminUser**](doc\AdminApi.md#getadminuser) | **GET** /api/v1/admin/users/{id} | 
+*AdminApi* | [**listAdminAssignments**](doc\AdminApi.md#listadminassignments) | **GET** /api/v1/admin/assignments | 
+*AdminApi* | [**listAdminCampaigns**](doc\AdminApi.md#listadmincampaigns) | **GET** /api/v1/admin/campaigns | 
 *AdminApi* | [**listAdminCategories**](doc\AdminApi.md#listadmincategories) | **GET** /api/v1/admin/categories | 
 *AdminApi* | [**listAdminCompanies**](doc\AdminApi.md#listadmincompanies) | **GET** /api/v1/admin/companies | 
 *AdminApi* | [**listAdminCustomers**](doc\AdminApi.md#listadmincustomers) | **GET** /api/v1/admin/customers | 
 *AdminApi* | [**listAdminDiscounts**](doc\AdminApi.md#listadmindiscounts) | **GET** /api/v1/admin/discounts | 
 *AdminApi* | [**listAdminOrders**](doc\AdminApi.md#listadminorders) | **GET** /api/v1/admin/orders | 
+*AdminApi* | [**listAdminPermissions**](doc\AdminApi.md#listadminpermissions) | **GET** /api/v1/admin/permissions | 
 *AdminApi* | [**listAdminPos**](doc\AdminApi.md#listadminpos) | **GET** /api/v1/admin/pos | 
 *AdminApi* | [**listAdminProducts**](doc\AdminApi.md#listadminproducts) | **GET** /api/v1/admin/products | 
+*AdminApi* | [**listAdminRoles**](doc\AdminApi.md#listadminroles) | **GET** /api/v1/admin/roles | 
 *AdminApi* | [**listAdminStores**](doc\AdminApi.md#listadminstores) | **GET** /api/v1/admin/stores | 
+*AdminApi* | [**listAdminUsers**](doc\AdminApi.md#listadminusers) | **GET** /api/v1/admin/users | 
+*AdminApi* | [**updateAdminAssignment**](doc\AdminApi.md#updateadminassignment) | **PUT** /api/v1/admin/assignments/{id} | 
+*AdminApi* | [**updateAdminCampaign**](doc\AdminApi.md#updateadmincampaign) | **PUT** /api/v1/admin/campaigns/{id} | 
 *AdminApi* | [**updateAdminCategory**](doc\AdminApi.md#updateadmincategory) | **PUT** /api/v1/admin/categories/{id} | 
 *AdminApi* | [**updateAdminCustomer**](doc\AdminApi.md#updateadmincustomer) | **PUT** /api/v1/admin/customers/{id} | 
 *AdminApi* | [**updateAdminDiscount**](doc\AdminApi.md#updateadmindiscount) | **PUT** /api/v1/admin/discounts/{id} | 
 *AdminApi* | [**updateAdminPos**](doc\AdminApi.md#updateadminpos) | **PUT** /api/v1/admin/pos/{id} | 
 *AdminApi* | [**updateAdminPosProduct**](doc\AdminApi.md#updateadminposproduct) | **PUT** /api/v1/admin/pos-products/{id} | 
 *AdminApi* | [**updateAdminProduct**](doc\AdminApi.md#updateadminproduct) | **PUT** /api/v1/admin/products/{id} | 
+*AdminApi* | [**updateAdminRole**](doc\AdminApi.md#updateadminrole) | **PUT** /api/v1/admin/roles/{id} | 
+*AdminApi* | [**updateAdminRolePermissions**](doc\AdminApi.md#updateadminrolepermissions) | **PUT** /api/v1/admin/roles/{id}/permissions | 
 *AdminApi* | [**updateAdminStore**](doc\AdminApi.md#updateadminstore) | **PUT** /api/v1/admin/stores/{id} | 
+*AdminApi* | [**updateAdminUser**](doc\AdminApi.md#updateadminuser) | **PUT** /api/v1/admin/users/{id} | 
 *AppApi* | [**cancelAppOrder**](doc\AppApi.md#cancelapporder) | **POST** /api/v1/app/orders/{orderId}/cancel | 
 *AppApi* | [**createAppOrder**](doc\AppApi.md#createapporder) | **POST** /api/v1/app/orders | 
 *AppApi* | [**getAppCustomerWallet**](doc\AppApi.md#getappcustomerwallet) | **GET** /api/v1/app/customers/{customerId}/wallet | 
@@ -107,7 +130,14 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [Assignment](doc\Assignment.md)
+ - [AssignmentRecord](doc\AssignmentRecord.md)
+ - [AssignmentTableType](doc\AssignmentTableType.md)
+ - [AssignmentWrite](doc\AssignmentWrite.md)
  - [AuthTokenResult](doc\AuthTokenResult.md)
+ - [Campaign](doc\Campaign.md)
+ - [CampaignType](doc\CampaignType.md)
+ - [CampaignWrite](doc\CampaignWrite.md)
  - [CancelOrderResponse](doc\CancelOrderResponse.md)
  - [Category](doc\Category.md)
  - [CategoryWrite](doc\CategoryWrite.md)
@@ -132,6 +162,8 @@ Class | Method | HTTP request | Description
  - [OtpVerifyRequest](doc\OtpVerifyRequest.md)
  - [PaymentSummary](doc\PaymentSummary.md)
  - [PaymentType](doc\PaymentType.md)
+ - [Permission](doc\Permission.md)
+ - [PermissionType](doc\PermissionType.md)
  - [Pos](doc\Pos.md)
  - [PosProduct](doc\PosProduct.md)
  - [PosProductWrite](doc\PosProductWrite.md)
@@ -142,12 +174,17 @@ Class | Method | HTTP request | Description
  - [ProductWrite](doc\ProductWrite.md)
  - [ReasonRequest](doc\ReasonRequest.md)
  - [RefreshTokenRequest](doc\RefreshTokenRequest.md)
+ - [Role](doc\Role.md)
+ - [RolePermissionWrite](doc\RolePermissionWrite.md)
+ - [RoleWrite](doc\RoleWrite.md)
  - [ShippingType](doc\ShippingType.md)
  - [StockMovement](doc\StockMovement.md)
  - [Store](doc\Store.md)
  - [StoreProductMovementType](doc\StoreProductMovementType.md)
  - [StoreWrite](doc\StoreWrite.md)
  - [TaxType](doc\TaxType.md)
+ - [User](doc\User.md)
+ - [UserWrite](doc\UserWrite.md)
  - [WalletAccount](doc\WalletAccount.md)
 
 

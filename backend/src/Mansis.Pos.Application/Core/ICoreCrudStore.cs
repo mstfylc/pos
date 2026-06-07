@@ -19,6 +19,26 @@ public interface ICoreCrudStore
     Task<CustomerDto?> UpdateCustomerAsync(Guid id, CustomerWriteDto request, CancellationToken cancellationToken);
     Task<bool> DeactivateCustomerAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken);
 
+    Task<IReadOnlyList<UserDto>> ListUsersAsync(Guid companyId, CancellationToken cancellationToken);
+    Task<UserDto?> GetUserAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+    Task<UserDto?> CreateUserAsync(UserWriteDto request, CancellationToken cancellationToken);
+    Task<UserDto?> UpdateUserAsync(Guid id, UserWriteDto request, CancellationToken cancellationToken);
+    Task<bool> DeactivateUserAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken);
+
+    Task<IReadOnlyList<RoleDto>> ListRolesAsync(Guid companyId, CancellationToken cancellationToken);
+    Task<RoleDto?> GetRoleAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+    Task<RoleDto?> CreateRoleAsync(RoleWriteDto request, CancellationToken cancellationToken);
+    Task<RoleDto?> UpdateRoleAsync(Guid id, RoleWriteDto request, CancellationToken cancellationToken);
+    Task<bool> DeactivateRoleAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken);
+    Task<IReadOnlyList<PermissionDto>> ListPermissionsAsync(CancellationToken cancellationToken);
+    Task<RoleDto?> UpdateRolePermissionsAsync(Guid roleId, RolePermissionWriteDto request, CancellationToken cancellationToken);
+
+    Task<IReadOnlyList<AssignmentDto>> ListAssignmentsAsync(Guid companyId, Guid? userId, CancellationToken cancellationToken);
+    Task<AssignmentDto?> GetAssignmentAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+    Task<AssignmentDto?> CreateAssignmentAsync(AssignmentWriteDto request, CancellationToken cancellationToken);
+    Task<AssignmentDto?> UpdateAssignmentAsync(Guid id, AssignmentWriteDto request, CancellationToken cancellationToken);
+    Task<bool> DeleteAssignmentAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+
     Task<IReadOnlyList<OrderListDto>> ListOrdersAsync(Guid companyId, CancellationToken cancellationToken);
 
     Task<IReadOnlyList<StoreDto>> ListStoresAsync(Guid companyId, CancellationToken cancellationToken);
@@ -32,7 +52,14 @@ public interface ICoreCrudStore
     Task<bool> DeactivatePosAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken);
 
     Task<IReadOnlyList<DiscountDto>> ListDiscountsAsync(Guid companyId, CancellationToken cancellationToken);
+    Task<DiscountDto?> GetDiscountAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
     Task<DiscountDto?> CreateDiscountAsync(DiscountWriteDto request, CancellationToken cancellationToken);
     Task<DiscountDto?> UpdateDiscountAsync(Guid id, DiscountWriteDto request, CancellationToken cancellationToken);
     Task<bool> DeactivateDiscountAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken);
+
+    Task<IReadOnlyList<CampaignDto>> ListCampaignsAsync(Guid companyId, CancellationToken cancellationToken);
+    Task<CampaignDto?> GetCampaignAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+    Task<CampaignDto?> CreateCampaignAsync(CampaignWriteDto request, CancellationToken cancellationToken);
+    Task<CampaignDto?> UpdateCampaignAsync(Guid id, CampaignWriteDto request, CancellationToken cancellationToken);
+    Task<bool> DeleteCampaignAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
 }

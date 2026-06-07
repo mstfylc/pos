@@ -5,6 +5,7 @@
 
 // ignore_for_file: unused_import
 
+import 'package:built_collection/built_collection.dart';
 import 'package:mansis_pos_api_client/model/discount_type.dart';
 import 'package:mansis_pos_api_client/model/discount_category.dart';
 import 'package:built_value/built_value.dart';
@@ -31,6 +32,10 @@ abstract class Discount implements Built<Discount, DiscountBuilder> {
     double get maxDiscountAmount;
 
     @nullable
+    @BuiltValueField(wireName: r'monthlyLimit')
+    double get monthlyLimit;
+
+    @nullable
     @BuiltValueField(wireName: r'expireDate')
     DateTime get expireDate;
 
@@ -42,8 +47,20 @@ abstract class Discount implements Built<Discount, DiscountBuilder> {
     DiscountCategory get discountCategory;
     // enum discountCategoryEnum {  All,  Branch,  Personnel,  Pos,  };
 
+    @BuiltValueField(wireName: r'sortOrder')
+    int get sortOrder;
+
     @BuiltValueField(wireName: r'active')
     bool get active;
+
+    @BuiltValueField(wireName: r'branchIds')
+    BuiltList<String> get branchIds;
+
+    @BuiltValueField(wireName: r'posIds')
+    BuiltList<String> get posIds;
+
+    @BuiltValueField(wireName: r'userIds')
+    BuiltList<String> get userIds;
 
     Discount._();
 
@@ -88,6 +105,12 @@ class _$DiscountSerializer implements StructuredSerializer<Discount> {
             ..add(r'maxDiscountAmount')
             ..add(serializers.serialize(object.maxDiscountAmount,
                 specifiedType: const FullType(double)));
+        if (object.monthlyLimit != null) {
+            result
+                ..add(r'monthlyLimit')
+                ..add(serializers.serialize(object.monthlyLimit,
+                    specifiedType: const FullType(double)));
+        }
         if (object.expireDate != null) {
             result
                 ..add(r'expireDate')
@@ -103,9 +126,25 @@ class _$DiscountSerializer implements StructuredSerializer<Discount> {
             ..add(serializers.serialize(object.discountCategory,
                 specifiedType: const FullType(DiscountCategory)));
         result
+            ..add(r'sortOrder')
+            ..add(serializers.serialize(object.sortOrder,
+                specifiedType: const FullType(int)));
+        result
             ..add(r'active')
             ..add(serializers.serialize(object.active,
                 specifiedType: const FullType(bool)));
+        result
+            ..add(r'branchIds')
+            ..add(serializers.serialize(object.branchIds,
+                specifiedType: const FullType(BuiltList, [FullType(String)])));
+        result
+            ..add(r'posIds')
+            ..add(serializers.serialize(object.posIds,
+                specifiedType: const FullType(BuiltList, [FullType(String)])));
+        result
+            ..add(r'userIds')
+            ..add(serializers.serialize(object.userIds,
+                specifiedType: const FullType(BuiltList, [FullType(String)])));
         return result;
     }
 
@@ -140,6 +179,10 @@ class _$DiscountSerializer implements StructuredSerializer<Discount> {
                     result.maxDiscountAmount = serializers.deserialize(value,
                         specifiedType: const FullType(double)) as double;
                     break;
+                case r'monthlyLimit':
+                    result.monthlyLimit = serializers.deserialize(value,
+                        specifiedType: const FullType(double)) as double;
+                    break;
                 case r'expireDate':
                     result.expireDate = serializers.deserialize(value,
                         specifiedType: const FullType(DateTime)) as DateTime;
@@ -152,9 +195,25 @@ class _$DiscountSerializer implements StructuredSerializer<Discount> {
                     result.discountCategory = serializers.deserialize(value,
                         specifiedType: const FullType(DiscountCategory)) as DiscountCategory;
                     break;
+                case r'sortOrder':
+                    result.sortOrder = serializers.deserialize(value,
+                        specifiedType: const FullType(int)) as int;
+                    break;
                 case r'active':
                     result.active = serializers.deserialize(value,
                         specifiedType: const FullType(bool)) as bool;
+                    break;
+                case r'branchIds':
+                    result.branchIds.replace(serializers.deserialize(value,
+                        specifiedType: const FullType(BuiltList, [FullType(String)])) as BuiltList<String>);
+                    break;
+                case r'posIds':
+                    result.posIds.replace(serializers.deserialize(value,
+                        specifiedType: const FullType(BuiltList, [FullType(String)])) as BuiltList<String>);
+                    break;
+                case r'userIds':
+                    result.userIds.replace(serializers.deserialize(value,
+                        specifiedType: const FullType(BuiltList, [FullType(String)])) as BuiltList<String>);
                     break;
             }
         }

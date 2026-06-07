@@ -401,6 +401,14 @@ paths:
         '201': { description: Discount created, content: { application/json: { schema: { $ref: '#/components/schemas/Discount' } } } }
         default: { $ref: '#/components/responses/Problem' }
   /api/v1/admin/discounts/{id}:
+    get:
+      tags: [Admin]
+      operationId: getAdminDiscount
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Discount detail, content: { application/json: { schema: { $ref: '#/components/schemas/Discount' } } } }
+        default: { $ref: '#/components/responses/Problem' }
     put:
       tags: [Admin]
       operationId: updateAdminDiscount
@@ -417,6 +425,201 @@ paths:
       parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' }, { $ref: '#/components/parameters/UserId' } ]
       responses:
         '204': { description: Discount deactivated }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/users:
+    get:
+      tags: [Admin]
+      operationId: listAdminUsers
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: User list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/User' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminUser
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/UserWrite' } } } }
+      responses:
+        '201': { description: User created, content: { application/json: { schema: { $ref: '#/components/schemas/User' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/users/{id}:
+    get:
+      tags: [Admin]
+      operationId: getAdminUser
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: User detail, content: { application/json: { schema: { $ref: '#/components/schemas/User' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    put:
+      tags: [Admin]
+      operationId: updateAdminUser
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/UserWrite' } } } }
+      responses:
+        '200': { description: User updated, content: { application/json: { schema: { $ref: '#/components/schemas/User' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminUser
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' }, { $ref: '#/components/parameters/UserId' } ]
+      responses:
+        '204': { description: User deactivated }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/roles:
+    get:
+      tags: [Admin]
+      operationId: listAdminRoles
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Role list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Role' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminRole
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/RoleWrite' } } } }
+      responses:
+        '201': { description: Role created, content: { application/json: { schema: { $ref: '#/components/schemas/Role' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/roles/{id}:
+    get:
+      tags: [Admin]
+      operationId: getAdminRole
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Role detail, content: { application/json: { schema: { $ref: '#/components/schemas/Role' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    put:
+      tags: [Admin]
+      operationId: updateAdminRole
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/RoleWrite' } } } }
+      responses:
+        '200': { description: Role updated, content: { application/json: { schema: { $ref: '#/components/schemas/Role' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminRole
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' }, { $ref: '#/components/parameters/UserId' } ]
+      responses:
+        '204': { description: Role deactivated }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/roles/{id}/permissions:
+    put:
+      tags: [Admin]
+      operationId: updateAdminRolePermissions
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/RolePermissionWrite' } } } }
+      responses:
+        '200': { description: Role permissions updated, content: { application/json: { schema: { $ref: '#/components/schemas/Role' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/permissions:
+    get:
+      tags: [Admin]
+      operationId: listAdminPermissions
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: Permission list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Permission' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/assignments:
+    get:
+      tags: [Admin]
+      operationId: listAdminAssignments
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - name: userId
+          in: query
+          required: false
+          schema: { type: string, format: uuid, nullable: true }
+      responses:
+        '200': { description: Assignment list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Assignment' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminAssignment
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/AssignmentWrite' } } } }
+      responses:
+        '201': { description: Assignment created, content: { application/json: { schema: { $ref: '#/components/schemas/Assignment' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/assignments/{id}:
+    get:
+      tags: [Admin]
+      operationId: getAdminAssignment
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Assignment detail, content: { application/json: { schema: { $ref: '#/components/schemas/Assignment' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    put:
+      tags: [Admin]
+      operationId: updateAdminAssignment
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/AssignmentWrite' } } } }
+      responses:
+        '200': { description: Assignment updated, content: { application/json: { schema: { $ref: '#/components/schemas/Assignment' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminAssignment
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '204': { description: Assignment deleted }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/campaigns:
+    get:
+      tags: [Admin]
+      operationId: listAdminCampaigns
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Campaign list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Campaign' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminCampaign
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CampaignWrite' } } } }
+      responses:
+        '201': { description: Campaign created, content: { application/json: { schema: { $ref: '#/components/schemas/Campaign' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/campaigns/{id}:
+    get:
+      tags: [Admin]
+      operationId: getAdminCampaign
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Campaign detail, content: { application/json: { schema: { $ref: '#/components/schemas/Campaign' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    put:
+      tags: [Admin]
+      operationId: updateAdminCampaign
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CampaignWrite' } } } }
+      responses:
+        '200': { description: Campaign updated, content: { application/json: { schema: { $ref: '#/components/schemas/Campaign' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminCampaign
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '204': { description: Campaign deactivated }
         default: { $ref: '#/components/responses/Problem' }
   /api/v1/app/orders:
     get:
@@ -879,30 +1082,166 @@ components:
         storeId: { type: string, format: uuid }
     Discount:
       type: object
-      required: [id, companyId, amount, maxDiscountAmount, discountType, discountCategory, active]
+      required: [id, companyId, amount, maxDiscountAmount, discountType, discountCategory, sortOrder, active, branchIds, posIds, userIds]
       properties:
         id: { type: string, format: uuid }
         companyId: { type: string, format: uuid }
         description: { type: string, nullable: true }
         amount: { type: string, format: decimal }
         maxDiscountAmount: { type: string, format: decimal }
+        monthlyLimit: { type: string, format: decimal, nullable: true }
         expireDate: { type: string, format: date-time, nullable: true }
         discountType: { $ref: '#/components/schemas/DiscountType' }
         discountCategory: { $ref: '#/components/schemas/DiscountCategory' }
+        sortOrder: { type: integer }
         active: { type: boolean }
+        branchIds: { type: array, items: { type: string, format: uuid } }
+        posIds: { type: array, items: { type: string, format: uuid } }
+        userIds: { type: array, items: { type: string, format: uuid } }
     DiscountWrite:
       type: object
-      required: [companyId, userId, amount, maxDiscountAmount, discountType, discountCategory, sortOrder]
+      required: [companyId, userId, amount, maxDiscountAmount, discountType, discountCategory, sortOrder, branchIds, posIds, userIds]
       properties:
         companyId: { type: string, format: uuid }
         userId: { type: string, format: uuid }
         description: { type: string, nullable: true }
         amount: { type: string, format: decimal }
         maxDiscountAmount: { type: string, format: decimal }
+        monthlyLimit: { type: string, format: decimal, nullable: true }
         expireDate: { type: string, format: date-time, nullable: true }
         discountType: { $ref: '#/components/schemas/DiscountType' }
         discountCategory: { $ref: '#/components/schemas/DiscountCategory' }
         sortOrder: { type: integer }
+        branchIds: { type: array, items: { type: string, format: uuid } }
+        posIds: { type: array, items: { type: string, format: uuid } }
+        userIds: { type: array, items: { type: string, format: uuid } }
+    User:
+      type: object
+      required: [id, companyId, firstName, lastName, username, roleId, mustChangePassword, active, branchIds, posIds, storeIds]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        firstName: { type: string }
+        lastName: { type: string }
+        username: { type: string }
+        phone: { type: string, nullable: true }
+        mail: { type: string, nullable: true }
+        roleId: { type: string, format: uuid }
+        cardId: { type: string, format: uuid, nullable: true }
+        pin: { type: string, nullable: true }
+        mustChangePassword: { type: boolean }
+        active: { type: boolean }
+        branchIds: { type: array, items: { type: string, format: uuid } }
+        posIds: { type: array, items: { type: string, format: uuid } }
+        storeIds: { type: array, items: { type: string, format: uuid } }
+    UserWrite:
+      type: object
+      required: [companyId, userId, firstName, lastName, username, roleId, mustChangePassword, branchIds, posIds, storeIds]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        firstName: { type: string }
+        lastName: { type: string }
+        username: { type: string }
+        phone: { type: string, nullable: true }
+        mail: { type: string, nullable: true }
+        roleId: { type: string, format: uuid }
+        cardId: { type: string, format: uuid, nullable: true }
+        pin: { type: string, nullable: true }
+        password: { type: string, nullable: true, minLength: 8 }
+        mustChangePassword: { type: boolean }
+        branchIds: { type: array, items: { type: string, format: uuid } }
+        posIds: { type: array, items: { type: string, format: uuid } }
+        storeIds: { type: array, items: { type: string, format: uuid } }
+    Role:
+      type: object
+      required: [id, companyId, name, active, permissionIds]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        name: { type: string }
+        active: { type: boolean }
+        permissionIds: { type: array, items: { type: string, format: uuid } }
+    RoleWrite:
+      type: object
+      required: [companyId, userId, name]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+    Permission:
+      type: object
+      required: [id, name, permissionType]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        displayName: { type: string, nullable: true }
+        permissionType: { $ref: '#/components/schemas/PermissionType' }
+    RolePermissionWrite:
+      type: object
+      required: [companyId, userId, permissionIds]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        permissionIds: { type: array, items: { type: string, format: uuid } }
+    Assignment:
+      type: object
+      required: [id, userId, companyId, assignmentTableType, records]
+      properties:
+        id: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        assignmentTableType: { $ref: '#/components/schemas/AssignmentTableType' }
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssignmentRecord'
+    AssignmentRecord:
+      type: object
+      required: [recordId, recordName]
+      properties:
+        recordId: { type: string, format: uuid }
+        recordName: { type: string }
+    AssignmentWrite:
+      type: object
+      required: [companyId, userId, assignmentTableType, recordIds]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        assignmentTableType: { $ref: '#/components/schemas/AssignmentTableType' }
+        recordIds: { type: array, items: { type: string, format: uuid } }
+    Campaign:
+      type: object
+      required: [id, companyId, name, campaignType, ruleJson, priority, active]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        name: { type: string }
+        description: { type: string, nullable: true }
+        campaignType: { $ref: '#/components/schemas/CampaignType' }
+        ruleJson: { type: string }
+        priority: { type: integer }
+        maxTotalDiscount: { type: string, format: decimal, nullable: true }
+        targetTierId: { type: string, format: uuid, nullable: true }
+        startsAt: { type: string, format: date-time, nullable: true }
+        endsAt: { type: string, format: date-time, nullable: true }
+        active: { type: boolean }
+    CampaignWrite:
+      type: object
+      required: [companyId, userId, name, campaignType, ruleJson, priority, active]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+        description: { type: string, nullable: true }
+        campaignType: { $ref: '#/components/schemas/CampaignType' }
+        ruleJson: { type: string }
+        priority: { type: integer }
+        maxTotalDiscount: { type: string, format: decimal, nullable: true }
+        targetTierId: { type: string, format: uuid, nullable: true }
+        startsAt: { type: string, format: date-time, nullable: true }
+        endsAt: { type: string, format: date-time, nullable: true }
+        active: { type: boolean }
     CreateOrderRequest:
       type: object
       required: [companyId, posId, userId, shippingType, orderTime, lines, payments]
@@ -1023,6 +1362,15 @@ components:
     DiscountCategory:
       type: string
       enum: [All, Branch, Personnel, Pos]
+    AssignmentTableType:
+      type: string
+      enum: [Pos, Branch, Store]
+    PermissionType:
+      type: string
+      enum: [Undefined]
+    CampaignType:
+      type: string
+      enum: [ExtraPoints, DiscountAmount, Stamp]
     OrderState:
       type: string
       enum: [Received, Preparing, Completed, Cancelled, Deleted, Transferring]

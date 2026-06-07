@@ -5,6 +5,7 @@
 
 // ignore_for_file: unused_import
 
+import 'package:built_collection/built_collection.dart';
 import 'package:mansis_pos_api_client/model/discount_type.dart';
 import 'package:mansis_pos_api_client/model/discount_category.dart';
 import 'package:built_value/built_value.dart';
@@ -31,6 +32,10 @@ abstract class DiscountWrite implements Built<DiscountWrite, DiscountWriteBuilde
     double get maxDiscountAmount;
 
     @nullable
+    @BuiltValueField(wireName: r'monthlyLimit')
+    double get monthlyLimit;
+
+    @nullable
     @BuiltValueField(wireName: r'expireDate')
     DateTime get expireDate;
 
@@ -44,6 +49,15 @@ abstract class DiscountWrite implements Built<DiscountWrite, DiscountWriteBuilde
 
     @BuiltValueField(wireName: r'sortOrder')
     int get sortOrder;
+
+    @BuiltValueField(wireName: r'branchIds')
+    BuiltList<String> get branchIds;
+
+    @BuiltValueField(wireName: r'posIds')
+    BuiltList<String> get posIds;
+
+    @BuiltValueField(wireName: r'userIds')
+    BuiltList<String> get userIds;
 
     DiscountWrite._();
 
@@ -88,6 +102,12 @@ class _$DiscountWriteSerializer implements StructuredSerializer<DiscountWrite> {
             ..add(r'maxDiscountAmount')
             ..add(serializers.serialize(object.maxDiscountAmount,
                 specifiedType: const FullType(double)));
+        if (object.monthlyLimit != null) {
+            result
+                ..add(r'monthlyLimit')
+                ..add(serializers.serialize(object.monthlyLimit,
+                    specifiedType: const FullType(double)));
+        }
         if (object.expireDate != null) {
             result
                 ..add(r'expireDate')
@@ -106,6 +126,18 @@ class _$DiscountWriteSerializer implements StructuredSerializer<DiscountWrite> {
             ..add(r'sortOrder')
             ..add(serializers.serialize(object.sortOrder,
                 specifiedType: const FullType(int)));
+        result
+            ..add(r'branchIds')
+            ..add(serializers.serialize(object.branchIds,
+                specifiedType: const FullType(BuiltList, [FullType(String)])));
+        result
+            ..add(r'posIds')
+            ..add(serializers.serialize(object.posIds,
+                specifiedType: const FullType(BuiltList, [FullType(String)])));
+        result
+            ..add(r'userIds')
+            ..add(serializers.serialize(object.userIds,
+                specifiedType: const FullType(BuiltList, [FullType(String)])));
         return result;
     }
 
@@ -140,6 +172,10 @@ class _$DiscountWriteSerializer implements StructuredSerializer<DiscountWrite> {
                     result.maxDiscountAmount = serializers.deserialize(value,
                         specifiedType: const FullType(double)) as double;
                     break;
+                case r'monthlyLimit':
+                    result.monthlyLimit = serializers.deserialize(value,
+                        specifiedType: const FullType(double)) as double;
+                    break;
                 case r'expireDate':
                     result.expireDate = serializers.deserialize(value,
                         specifiedType: const FullType(DateTime)) as DateTime;
@@ -155,6 +191,18 @@ class _$DiscountWriteSerializer implements StructuredSerializer<DiscountWrite> {
                 case r'sortOrder':
                     result.sortOrder = serializers.deserialize(value,
                         specifiedType: const FullType(int)) as int;
+                    break;
+                case r'branchIds':
+                    result.branchIds.replace(serializers.deserialize(value,
+                        specifiedType: const FullType(BuiltList, [FullType(String)])) as BuiltList<String>);
+                    break;
+                case r'posIds':
+                    result.posIds.replace(serializers.deserialize(value,
+                        specifiedType: const FullType(BuiltList, [FullType(String)])) as BuiltList<String>);
+                    break;
+                case r'userIds':
+                    result.userIds.replace(serializers.deserialize(value,
+                        specifiedType: const FullType(BuiltList, [FullType(String)])) as BuiltList<String>);
                     break;
             }
         }

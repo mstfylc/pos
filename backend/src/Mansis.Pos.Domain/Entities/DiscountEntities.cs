@@ -8,6 +8,7 @@ public sealed class Discount : AuditableEntity, ICompanyScoped
     public string? Description { get; set; }
     public decimal Amount { get; set; }
     public decimal MaxDiscountAmount { get; set; }
+    public decimal? MonthlyLimit { get; set; }
     public DateTimeOffset? ExpireDate { get; set; }
     public DiscountType DiscountType { get; set; }
     public DiscountCategory DiscountCategory { get; set; }
