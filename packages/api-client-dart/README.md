@@ -149,6 +149,7 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**requestOtp**](doc\AuthApi.md#requestotp) | **POST** /api/v1/auth/otp/request | 
 *AuthApi* | [**verifyOtp**](doc\AuthApi.md#verifyotp) | **POST** /api/v1/auth/otp/verify | 
 *LoyaltyApi* | [**getLoyaltyAccount**](doc\LoyaltyApi.md#getloyaltyaccount) | **GET** /api/v1/loyalty/accounts/{customerId} | 
+*ReportsApi* | [**listEntryProductDeliveries**](doc\ReportsApi.md#listentryproductdeliveries) | **GET** /api/v1/reports/entry-products | 
 *StockApi* | [**cancelStockTransfer**](doc\StockApi.md#cancelstocktransfer) | **POST** /api/v1/stock/transfers/{id}/cancel | 
 *StockApi* | [**confirmStockTransfer**](doc\StockApi.md#confirmstocktransfer) | **POST** /api/v1/stock/transfers/{id}/confirm | 
 *StockApi* | [**createStockDestroy**](doc\StockApi.md#createstockdestroy) | **POST** /api/v1/stock/destroy | 
@@ -190,6 +191,8 @@ Class | Method | HTTP request | Description
  - [EarnRule](doc\EarnRule.md)
  - [EarnRuleScope](doc\EarnRuleScope.md)
  - [EarnRuleWrite](doc\EarnRuleWrite.md)
+ - [EntryProductDeliveryReportRow](doc\EntryProductDeliveryReportRow.md)
+ - [EntryTrackingMode](doc\EntryTrackingMode.md)
  - [IdentifiedCustomer](doc\IdentifiedCustomer.md)
  - [IdentifyCustomerRequest](doc\IdentifyCustomerRequest.md)
  - [IssueCustomerCardTokenRequest](doc\IssueCustomerCardTokenRequest.md)

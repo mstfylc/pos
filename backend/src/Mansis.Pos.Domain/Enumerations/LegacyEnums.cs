@@ -27,3 +27,4 @@ public enum RewardRedemptionState { Requested, Approved, Cancelled, Completed }
 public enum EarnRuleScope { All, Branch, Category }
 public enum RewardType { DiscountAmount, FreeProduct, Custom }
 public enum CampaignType { ExtraPoints, DiscountAmount, Stamp }
+public enum EntryTrackingMode { Manual, Auto }

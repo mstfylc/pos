@@ -38,7 +38,7 @@ public sealed class PosServiceTests
                 Guid.NewGuid(),
                 new Dictionary<Guid, ProductStockSnapshot>
                 {
-                    [ProductId] = new(ProductId, Guid.NewGuid(), true, 10)
+                    [ProductId] = new(ProductId, Guid.NewGuid(), true, false, 10)
                 },
                 new Dictionary<Guid, DiscountSnapshot>(),
                 new WalletAccount { CompanyId = CompanyId, CustomerId = CustomerId, Balance = 0m },

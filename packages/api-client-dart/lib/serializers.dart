@@ -41,6 +41,8 @@ import 'package:mansis_pos_api_client/model/discount_write.dart';
 import 'package:mansis_pos_api_client/model/earn_rule.dart';
 import 'package:mansis_pos_api_client/model/earn_rule_scope.dart';
 import 'package:mansis_pos_api_client/model/earn_rule_write.dart';
+import 'package:mansis_pos_api_client/model/entry_product_delivery_report_row.dart';
+import 'package:mansis_pos_api_client/model/entry_tracking_mode.dart';
 import 'package:mansis_pos_api_client/model/identified_customer.dart';
 import 'package:mansis_pos_api_client/model/identify_customer_request.dart';
 import 'package:mansis_pos_api_client/model/issue_customer_card_token_request.dart';
@@ -137,6 +139,8 @@ part 'serializers.g.dart';
   EarnRule,
   EarnRuleScope,
   EarnRuleWrite,
+  EntryProductDeliveryReportRow,
+  EntryTrackingMode,
   IdentifiedCustomer,
   IdentifyCustomerRequest,
   IssueCustomerCardTokenRequest,
@@ -298,6 +302,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(Pos)]),
         () => ListBuilder<Pos>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(EntryProductDeliveryReportRow)]),
+        () => ListBuilder<EntryProductDeliveryReportRow>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(StockMovement)]),

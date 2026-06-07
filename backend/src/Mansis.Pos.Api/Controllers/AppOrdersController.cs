@@ -38,7 +38,8 @@ public sealed class AppOrdersController(
                     line.ProductId,
                     line.Quantity,
                     line.UnitPrice,
-                    line.TaxAmount)).ToArray(),
+                    line.TaxAmount,
+                    line.IsEntry)).ToArray(),
                 request.Payments.Select(payment => new CreateOrderPayment(
                     payment.PaymentType,
                     payment.Amount,
@@ -121,7 +122,7 @@ public sealed record CreateAppOrderRequest(
     IReadOnlyList<CreateAppOrderPaymentRequest> Payments,
     IReadOnlyList<CreateAppOrderDiscountRequest> Discounts);
 
-public sealed record CreateAppOrderLineRequest(Guid ProductId, int Quantity, decimal UnitPrice, decimal TaxAmount = 0m);
+public sealed record CreateAppOrderLineRequest(Guid ProductId, int Quantity, decimal UnitPrice, decimal TaxAmount = 0m, bool IsEntry = false);
 
 public sealed record CreateAppOrderPaymentRequest(
     PaymentType PaymentType,

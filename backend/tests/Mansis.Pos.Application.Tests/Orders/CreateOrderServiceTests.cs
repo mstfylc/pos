@@ -339,6 +339,45 @@ public sealed class CreateOrderServiceTests
     }
 
     [Fact]
+    public async Task CreateAsync_WithEntryProductLine_ChargesZeroAndStillWritesStockMovement()
+    {
+        var store = FakeOrderCreationStore.Ready(entryProduct: true);
+        var service = CreateService(store);
+        var request = ValidRequest() with
+        {
+            Lines = [new CreateOrderLine(ProductId, 2, 10m, IsEntry: true)],
+            Payments = [new CreateOrderPayment(PaymentType.Cash, 0m)]
+        };
+
+        var result = await service.CreateAsync(request);
+
+        Assert.True(result.IsSuccess);
+        Assert.Equal(0m, store.SavedGraph!.Order.Total);
+        Assert.True(store.SavedGraph.OrderProducts[0].IsEntry);
+        Assert.Equal(0m, store.SavedGraph.OrderProducts[0].Total);
+        Assert.Single(store.SavedGraph.StockMovements);
+        Assert.Equal(8, store.SavedGraph.StoreProductsToUpdate[0].Quantity);
+    }
+
+    [Fact]
+    public async Task CreateAsync_WithNonEntryProductMarkedAsEntry_FailsWithoutPersisting()
+    {
+        var store = FakeOrderCreationStore.Ready(entryProduct: false);
+        var service = CreateService(store);
+        var request = ValidRequest() with
+        {
+            Lines = [new CreateOrderLine(ProductId, 1, 10m, IsEntry: true)],
+            Payments = [new CreateOrderPayment(PaymentType.Cash, 0m)]
+        };
+
+        var result = await service.CreateAsync(request);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal("Only entry products can be marked as entry.", result.Error);
+        Assert.Null(store.SavedGraph);
+    }
+
+    [Fact]
     public async Task CreateAsync_WithInsufficientWalletBalance_FailsWithoutPersisting()
     {
         var store = FakeOrderCreationStore.Ready(walletBalance: 5m);
@@ -382,7 +421,8 @@ public sealed class CreateOrderServiceTests
         Guid? loyaltyTierId,
         int loyaltyLifetimePoints,
         IReadOnlyList<Campaign> campaigns,
-        IReadOnlyDictionary<Guid, DiscountSnapshot> discounts)
+        IReadOnlyDictionary<Guid, DiscountSnapshot> discounts,
+        bool entryProduct)
         : IOrderCreationStore
     {
         public OrderCreationGraph? SavedGraph { get; private set; }
@@ -396,7 +436,8 @@ public sealed class CreateOrderServiceTests
             Guid? loyaltyTierId = null,
             int loyaltyLifetimePoints = 0,
             IReadOnlyList<Campaign>? campaigns = null,
-            IReadOnlyList<DiscountSnapshot>? discounts = null)
+            IReadOnlyList<DiscountSnapshot>? discounts = null,
+            bool entryProduct = false)
         {
             earnRules ??=
             [
@@ -420,7 +461,8 @@ public sealed class CreateOrderServiceTests
                 loyaltyTierId,
                 loyaltyLifetimePoints,
                 campaigns ?? [],
-                (discounts ?? []).ToDictionary(discount => discount.DiscountId));
+                (discounts ?? []).ToDictionary(discount => discount.DiscountId),
+                entryProduct);
         }
 
         public Task<Order?> FindByIdempotencyKeyAsync(
@@ -444,7 +486,7 @@ public sealed class CreateOrderServiceTests
                 Guid.NewGuid(),
                 new Dictionary<Guid, ProductStockSnapshot>
                 {
-                    [ProductId] = new ProductStockSnapshot(ProductId, Guid.NewGuid(), Stocktaking: true, stockQuantity)
+                    [ProductId] = new ProductStockSnapshot(ProductId, Guid.NewGuid(), Stocktaking: true, entryProduct, stockQuantity)
                 },
                 discounts,
                 new WalletAccount

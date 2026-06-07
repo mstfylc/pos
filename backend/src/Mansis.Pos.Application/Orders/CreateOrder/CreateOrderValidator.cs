@@ -21,7 +21,7 @@ public sealed class CreateOrderValidator : AbstractValidator<CreateOrderRequest>
         RuleFor(request => request.Payments).NotEmpty();
         RuleForEach(request => request.Payments).ChildRules(payment =>
         {
-            payment.RuleFor(x => x.Amount).GreaterThan(0);
+            payment.RuleFor(x => x.Amount).GreaterThanOrEqualTo(0);
             payment.RuleFor(x => x.Currency).NotEmpty();
         });
         RuleFor(request => request.Discounts).NotNull();

@@ -168,7 +168,7 @@ internal sealed class EfPosStore(PosDbContext dbContext) : IPosStore
         var products = await dbContext.Products
             .AsNoTracking()
             .Where(product => product.CompanyId == companyId && productIds.Contains(product.Id))
-            .Select(product => new { product.Id, product.CategoryId, product.Stocktaking })
+            .Select(product => new { product.Id, product.CategoryId, product.Stocktaking, product.EntryProduct })
             .ToListAsync(cancellationToken);
         var storeProducts = await dbContext.StoreProducts
             .AsNoTracking()
@@ -180,6 +180,7 @@ internal sealed class EfPosStore(PosDbContext dbContext) : IPosStore
                 product.Id,
                 product.CategoryId,
                 product.Stocktaking,
+                product.EntryProduct,
                 storeProducts.TryGetValue(product.Id, out var storeProduct) ? storeProduct.Quantity : 0));
 
         var walletAccount = await dbContext.WalletAccounts

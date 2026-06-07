@@ -28,7 +28,7 @@ public sealed class CreateOrderService(
 
         var productIds = request.Lines.Select(line => line.ProductId).Distinct().ToArray();
         var snapshot = await store.LoadSnapshotAsync(request.CompanyId, request.PosId, request.UserId, request.CustomerId, productIds, cancellationToken);
-        var grossTotal = request.Lines.Sum(line => line.UnitPrice * line.Quantity + line.TaxAmount);
+        var grossTotal = request.Lines.Sum(EffectiveLineTotal);
         var manualDiscountAmount = request.Discounts.Sum(discount => discount.Amount);
         var campaignEvaluation = campaignEvaluator.Evaluate(snapshot, grossTotal, DateTimeOffset.UtcNow);
         var totalDiscount = manualDiscountAmount + campaignEvaluation.DiscountAmount;
@@ -50,6 +50,11 @@ public sealed class CreateOrderService(
             if (!snapshot.Products.TryGetValue(line.ProductId, out var product))
             {
                 return Result<OrderResult>.Failure("Product not found.");
+            }
+
+            if (line.IsEntry && !product.EntryProduct)
+            {
+                return Result<OrderResult>.Failure("Only entry products can be marked as entry.");
             }
 
             if (!request.OfflineOrder && product.Stocktaking && product.Quantity < line.Quantity)
@@ -94,8 +99,8 @@ public sealed class CreateOrderService(
             OrderTime = request.OrderTime.ToUniversalTime(),
             IdempotencyKey = request.IdempotencyKey,
             OfflineOrder = request.OfflineOrder,
-            SubTotal = request.Lines.Sum(line => line.UnitPrice * line.Quantity),
-            TaxTotal = request.Lines.Sum(line => line.TaxAmount),
+            SubTotal = request.Lines.Sum(line => line.IsEntry ? 0m : line.UnitPrice * line.Quantity),
+            TaxTotal = request.Lines.Sum(line => line.IsEntry ? 0m : line.TaxAmount),
             TotalDiscount = totalDiscount,
             Total = total,
             PaymentSummary = ResolvePaymentSummary(request.Payments),
@@ -112,7 +117,8 @@ public sealed class CreateOrderService(
             OrderId = order.Id,
             ProductId = line.ProductId,
             Quantity = line.Quantity,
-            Total = line.UnitPrice * line.Quantity + line.TaxAmount
+            Total = EffectiveLineTotal(line),
+            IsEntry = line.IsEntry
         }).ToArray();
 
         var orderPayments = request.Payments.Select(payment => new OrderPayment
@@ -274,6 +280,11 @@ public sealed class CreateOrderService(
     private static OrderResult ToResult(Order order, bool existing)
     {
         return new OrderResult(order.Id, order.IdempotencyKey, order.Total, order.PaymentSummary, existing);
+    }
+
+    private static decimal EffectiveLineTotal(CreateOrderLine line)
+    {
+        return line.IsEntry ? 0m : line.UnitPrice * line.Quantity + line.TaxAmount;
     }
 
     private static PaymentSummary ResolvePaymentSummary(IReadOnlyList<CreateOrderPayment> payments)

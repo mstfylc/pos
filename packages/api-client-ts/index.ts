@@ -996,6 +996,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/reports/entry-products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listEntryProductDeliveries"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1586,6 +1602,8 @@ export interface components {
             quantity: number;
             /** Format: decimal */
             unitPrice: string;
+            /** @default false */
+            isEntry: boolean;
         };
         OrderPayment: {
             paymentType: components["schemas"]["PaymentType"];
@@ -1782,6 +1800,20 @@ export interface components {
             occurredAt: string;
             currentQuantity: number;
         };
+        EntryProductDeliveryReportRow: {
+            /** Format: date */
+            date: string;
+            /** Format: uuid */
+            branchId: string;
+            branchName: string;
+            /** Format: uuid */
+            posId: string;
+            posName: string;
+            /** Format: uuid */
+            productId: string;
+            productName: string;
+            quantity: number;
+        };
         StockAdjustmentRequest: {
             /** Format: uuid */
             companyId: string;
@@ -1923,6 +1955,8 @@ export interface components {
         RewardType: "DiscountAmount" | "FreeProduct" | "Custom";
         /** @enum {string} */
         EarnRuleScope: "All" | "Branch" | "Category";
+        /** @enum {string} */
+        EntryTrackingMode: "Manual" | "Auto";
         /** @enum {string} */
         ProductTransferState: "Requested" | "Confirmed" | "Received" | "Cancelled";
         /** @enum {string} */
@@ -4441,6 +4475,34 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["StoreProductTransfer"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listEntryProductDeliveries: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+                from: string;
+                to: string;
+                branchId?: string | null;
+                posId?: string | null;
+                productId?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Entry product delivery report */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EntryProductDeliveryReportRow"][];
                 };
             };
             default: components["responses"]["Problem"];

@@ -1130,6 +1130,42 @@ paths:
       responses:
         '200': { description: Transfer cancelled, content: { application/json: { schema: { $ref: '#/components/schemas/StoreProductTransfer' } } } }
         default: { $ref: '#/components/responses/Problem' }
+  /api/v1/reports/entry-products:
+    get:
+      tags: [Reports]
+      operationId: listEntryProductDeliveries
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - name: from
+          in: query
+          required: true
+          schema: { type: string, format: date-time }
+        - name: to
+          in: query
+          required: true
+          schema: { type: string, format: date-time }
+        - name: branchId
+          in: query
+          required: false
+          schema: { type: string, format: uuid, nullable: true }
+        - name: posId
+          in: query
+          required: false
+          schema: { type: string, format: uuid, nullable: true }
+        - name: productId
+          in: query
+          required: false
+          schema: { type: string, format: uuid, nullable: true }
+      responses:
+        '200':
+          description: Entry product delivery report
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/EntryProductDeliveryReportRow' }
+        default: { $ref: '#/components/responses/Problem' }
 components:
   securitySchemes:
     bearerAuth:
@@ -1717,6 +1753,7 @@ components:
         productId: { type: string, format: uuid }
         quantity: { type: integer, minimum: 1 }
         unitPrice: { type: string, format: decimal }
+        isEntry: { type: boolean, default: false }
     OrderPayment:
       type: object
       required: [paymentType, amount]
@@ -1909,6 +1946,18 @@ components:
         description: { type: string, nullable: true }
         occurredAt: { type: string, format: date-time }
         currentQuantity: { type: integer }
+    EntryProductDeliveryReportRow:
+      type: object
+      required: [date, branchId, branchName, posId, posName, productId, productName, quantity]
+      properties:
+        date: { type: string, format: date }
+        branchId: { type: string, format: uuid }
+        branchName: { type: string }
+        posId: { type: string, format: uuid }
+        posName: { type: string }
+        productId: { type: string, format: uuid }
+        productName: { type: string }
+        quantity: { type: integer }
     StockAdjustmentRequest:
       type: object
       required: [companyId, userId, storeId, productId, quantity]
@@ -2042,6 +2091,9 @@ components:
     EarnRuleScope:
       type: string
       enum: [All, Branch, Category]
+    EntryTrackingMode:
+      type: string
+      enum: [Manual, Auto]
     ProductTransferState:
       type: string
       enum: [Requested, Confirmed, Received, Cancelled]

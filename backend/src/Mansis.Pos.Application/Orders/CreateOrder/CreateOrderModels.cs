@@ -15,7 +15,7 @@ public sealed record CreateOrderRequest(
     IReadOnlyList<CreateOrderPayment> Payments,
     IReadOnlyList<CreateOrderDiscount> Discounts);
 
-public sealed record CreateOrderLine(Guid ProductId, int Quantity, decimal UnitPrice, decimal TaxAmount = 0m);
+public sealed record CreateOrderLine(Guid ProductId, int Quantity, decimal UnitPrice, decimal TaxAmount = 0m, bool IsEntry = false);
 
 public sealed record CreateOrderPayment(PaymentType PaymentType, decimal Amount, string Currency = "TRY", string? ExternalReference = null);
 

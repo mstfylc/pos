@@ -86,3 +86,7 @@
 - Yapilan: Sadakat admin CRUD, StampCard, stok in/out/imha/sayim ve transfer akisi eklendi.
 - Dosya/commit: backend + migration + OpenAPI/client + test dosyalari, commit bekliyor.
 - Takilan: yok.
+### [2026-06-07 20:05] ADIM Entry product seviye 1 - branch: main - build: YESIL
+- Yapilan: Entry order line, manual branch ayari, stoklu ucretsiz teslim ve rapor endpoint'i eklendi.
+- Dosya/commit: backend + migration + OpenAPI/client + test dosyalari, commit bekliyor.
+- Takilan: yok.

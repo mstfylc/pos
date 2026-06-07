@@ -16,6 +16,8 @@ public sealed class Branch : AuditableEntity, ICompanyScoped
     public string Name { get; set; } = string.Empty;
     public string? Address { get; set; }
     public string? Phone { get; set; }
+    // TODO: implement auto entry entitlement tracking in Level 2; Level 1 uses manual marking only.
+    public EntryTrackingMode EntryTrackingMode { get; set; } = EntryTrackingMode.Manual;
     public Guid CompanyId { get; set; }
     public Company? Company { get; set; }
 }

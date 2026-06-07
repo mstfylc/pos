@@ -20,7 +20,7 @@ public sealed record OrderCreationSnapshot(
     IReadOnlyList<LoyaltyTier> LoyaltyTiers,
     IReadOnlyList<Campaign> Campaigns);
 
-public sealed record ProductStockSnapshot(Guid ProductId, Guid CategoryId, bool Stocktaking, int Quantity);
+public sealed record ProductStockSnapshot(Guid ProductId, Guid CategoryId, bool Stocktaking, bool EntryProduct, int Quantity);
 
 public sealed record DiscountSnapshot(
     Guid DiscountId,

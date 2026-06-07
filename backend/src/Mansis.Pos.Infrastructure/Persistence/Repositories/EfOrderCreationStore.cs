@@ -31,7 +31,7 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
         var products = await dbContext.Products
             .AsNoTracking()
             .Where(product => product.CompanyId == companyId && productIds.Contains(product.Id))
-            .Select(product => new { product.Id, product.CategoryId, product.Stocktaking })
+            .Select(product => new { product.Id, product.CategoryId, product.Stocktaking, product.EntryProduct })
             .ToListAsync(cancellationToken);
 
         var storeProducts = await dbContext.StoreProducts
@@ -45,6 +45,7 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
                     product.Id,
                     product.CategoryId,
                     product.Stocktaking,
+                    product.EntryProduct,
                     storeProducts.TryGetValue(product.Id, out var storeProduct) ? storeProduct.Quantity : 0));
 
         var firstDayOfMonth = new DateTimeOffset(DateTimeOffset.UtcNow.Year, DateTimeOffset.UtcNow.Month, 1, 0, 0, 0, TimeSpan.Zero);

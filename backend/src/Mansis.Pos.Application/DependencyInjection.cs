@@ -7,6 +7,7 @@ using Mansis.Pos.Application.Orders.CancelOrder;
 using MediatR;
 using Mansis.Pos.Application.Orders.CreateOrder;
 using Mansis.Pos.Application.Pos;
+using Mansis.Pos.Application.Reports;
 using Mansis.Pos.Application.Stock;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,6 +29,7 @@ public static class DependencyInjection
         services.AddScoped<CancelOrderService>();
         services.AddScoped<CreateOrderService>();
         services.AddScoped<PosService>();
+        services.AddScoped<EntryProductReportService>();
         services.AddScoped<StockService>();
 
         return services;
