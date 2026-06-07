@@ -1,25 +1,27 @@
-# FAZ 2 PAKET RAPORU - 2026-06-07
+# FAZ 3 PAKET RAPORU - 2026-06-07
 
 ## Tamamlanan
 | Adim | Branch | Build | Commit |
 |------|--------|-------|--------|
-| 7 Order Create | feat/order-create-usecase | YESIL | 612cd47 |
-| 8 Order Cancel/Refund | feat/order-cancel-refund-usecase | YESIL | 46c1004 |
-| 9 Kritik Index Review | feat/model-index-review | YESIL | 701b32f |
+| 10 Order API | feat/api-order-endpoints | YESIL | 054cf1f |
+| 11 Core CRUD API | feat/api-core-crud | YESIL | 97929b6 |
+| 12 Auth API | feat/api-auth-endpoints | YESIL | 4050574 |
+| 13 Smoke | feat/api-smoke-verification | YESIL | yok |
 
 ## DUR LISTESI (karar bekleyen)
 | # | Konum (dosya) | Eski davranis | Sorulan karar |
 |---|---------------|---------------|---------------|
-| - | - | - | Bekleyen DUR yok. |
+| 1 | backend/src/Mansis.Pos.Infrastructure/Auth/HmacPasswordVerifier.cs | Legacy user password hash algoritmasi kesin degil. | HMACSHA512 salt+hash varsayimi onaylansin mi? |
 
 ## Davranis degisiklikleri (ledger reversal vb.)
 | # | Konum | Eski | Yeni (uygulanan) |
 |---|-------|------|------------------|
-| 1 | backend/src/Mansis.Pos.Application/Orders/CreateOrder | Order create use-case yoktu. | Idempotency key zorunlu, tekrar ayni sonucu doner ve order graph tek transaction'da yazilir. |
-| 2 | backend/src/Mansis.Pos.Domain/Entities/OrderEntities.cs | Payment ozeti yoktu. | Order.PaymentSummary turetilmis alan oldu; rapor kaynagi OrderPayment satirlari olarak kaldi. |
-| 3 | backend/src/Mansis.Pos.Application/Orders/CancelOrder | Iptal/iade reversal use-case yoktu. | Reason zorunlu, silme yok; payment, stock, wallet ve loyalty ters ledger satirlari uretilir. |
-| 4 | backend/src/Mansis.Pos.Infrastructure/Persistence/PosDbContext.cs | Kritik sorgular icin eksik indeksler vardi. | Order, katalog, musteri, discount usage ve link tablolarina PostgreSQL indeksleri eklendi. |
+| 1 | backend/src/Mansis.Pos.Api/Controllers/AppOrdersController.cs | Order use-case'leri HTTP'den cagrilmiyordu. | Create/cancel/refund endpointleri use-case servislerine baglandi; idempotency header/body desteklendi. |
+| 2 | backend/src/Mansis.Pos.Api/Controllers/AdminCoreController.cs | Core CRUD endpointleri repository'ye bagli degildi. | Admin product/category/customer/order/store/pos/discount endpointleri tenant filtreli EF store'a baglandi. |
+| 3 | backend/src/Mansis.Pos.Api/Controllers/AppCatalogController.cs | App katalog/order list okuma endpointleri yoktu. | App list endpointleri admin'den ayri tag ve route ile eklendi. |
+| 4 | backend/src/Mansis.Pos.Api/Controllers/AuthController.cs | Auth endpointleri yoktu. | Login, refresh rotation ve OTP iskeleti AllowAnonymous olarak eklendi. |
+| 5 | contracts/openapi.yaml | Kontrat Faz 2 endpointlerini kapsamiyordu. | OpenAPI admin/app/auth endpointleriyle senkronlandi ve TS/Dart client'lar uretildi. |
 
 ## Siradaki oneri
-- API endpoint/controller katmanini create/cancel use-case servislerine bagla.
-- UI tarafinda cancel/refund/stock-adjustment reason alani tamamlanmadan submit'i engelle.
+- PostgreSQL seed verisiyle gercek order create smoke testi ekle.
+- Legacy password hash algoritmasini eski backend'den kesinlestir.

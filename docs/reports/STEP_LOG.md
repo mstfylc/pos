@@ -26,3 +26,19 @@
 - Yapilan: Order, katalog, musteri, discount usage ve link tablolarina kritik PostgreSQL indeksleri eklendi.
 - Dosya/commit: 4 dosya, commit 701b32f
 - Takilan: yok
+### 2026-06-07 04:07 ADIM 10 - Order API - branch: feat/api-order-endpoints - build: YESIL
+- Yapilan: App order create/cancel/refund endpointleri use-case servislerine baglandi ve OpenAPI/client uretimi yenilendi.
+- Dosya/commit: 30 dosya, commit 054cf1f
+- Takilan: yok
+### 2026-06-07 04:14 ADIM 11 - Core CRUD API - branch: feat/api-core-crud - build: YESIL
+- Yapilan: Product, category, customer, order list, store, pos ve discount admin/app endpointleri repository servislerine baglandi.
+- Dosya/commit: 61 dosya, commit 97929b6
+- Takilan: yok
+### 2026-06-07 04:19 ADIM 12 - Auth API - branch: feat/api-auth-endpoints - build: YESIL
+- Yapilan: Login, refresh token rotation ve musteri OTP iskeleti AllowAnonymous auth endpointleriyle eklendi.
+- Dosya/commit: 37 dosya, commit 4050574
+- Takilan: legacy password hash algoritmasi dogrulanacak.
+### 2026-06-07 04:23 ADIM 13 - Smoke - branch: feat/api-smoke-verification - build: YESIL
+- Yapilan: API ayaga kalkti, OpenAPI 200 dondu, OTP 200 dondu, order create auth korumasina 401 ile ulasti.
+- Dosya/commit: 0 dosya, commit yok
+- Takilan: tam order create smoke icin PostgreSQL seed ve auth token gerekli.
