@@ -42,3 +42,7 @@
 - Yapilan: API ayaga kalkti, OpenAPI 200 dondu, OTP 200 dondu, order create auth korumasina 401 ile ulasti.
 - Dosya/commit: 0 dosya, commit yok
 - Takilan: tam order create smoke icin PostgreSQL seed ve auth token gerekli.
+### 2026-06-07 04:40 ADIM 14 - Faz 3 Kapanis - branch: feat/faz3-auth-seed-smoke-closeout - build: YESIL
+- Yapilan: Canli auth Argon2id'e alindi, superadmin seed/docker/smoke/README eklendi, legacy HMAC import-only yapildi.
+- Dosya/commit: 23 dosya, commit fec7b13
+- Takilan: Docker daemon kapali oldugu icin otomatik smoke bu ortamda kosamadi.
