@@ -9,7 +9,6 @@ public sealed class Order : AuditableEntity, ICompanyScoped
     public decimal TaxTotal { get; set; }
     public decimal? TotalDiscount { get; set; }
     public decimal Total { get; set; }
-    public PaymentType PaymentType { get; set; }
     public ShippingType ShippingType { get; set; }
     public OrderState OrderState { get; set; }
     public DateTimeOffset OrderTime { get; set; }
@@ -30,6 +29,22 @@ public sealed class Order : AuditableEntity, ICompanyScoped
     public Address? Address { get; set; }
     public List<OrderProduct> OrderProducts { get; set; } = [];
     public List<OrderDiscount> OrderDiscounts { get; set; } = [];
+    public List<OrderPayment> Payments { get; set; } = [];
+}
+
+public sealed class OrderPayment : Entity, ICompanyScoped, IAppendOnly
+{
+    public Guid OrderId { get; set; }
+    public Guid CompanyId { get; set; }
+    public PaymentType PaymentType { get; set; }
+    public decimal Amount { get; set; }
+    public string Currency { get; set; } = "TRY";
+    public OrderPaymentState State { get; set; }
+    public string? ExternalReference { get; set; }
+    public Guid? ReversalOfId { get; set; }
+    public DateTimeOffset PaidAt { get; set; }
+    public Order? Order { get; set; }
+    public OrderPayment? ReversalOf { get; set; }
 }
 
 public sealed class OrderProduct : Entity

@@ -19,3 +19,7 @@ public interface ICompanyScoped
 {
     Guid CompanyId { get; set; }
 }
+
+public interface IAppendOnly
+{
+}

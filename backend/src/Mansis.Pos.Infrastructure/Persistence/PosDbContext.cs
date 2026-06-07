@@ -21,6 +21,7 @@ public sealed class PosDbContext(
     public DbSet<BranchManager> BranchManagers => Set<BranchManager>();
     public DbSet<BranchUser> BranchUsers => Set<BranchUser>();
     public DbSet<Card> Cards => Set<Card>();
+    public DbSet<Campaign> Campaigns => Set<Campaign>();
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<CategoryColor> CategoryColors => Set<CategoryColor>();
     public DbSet<CategoryShape> CategoryShapes => Set<CategoryShape>();
@@ -38,11 +39,18 @@ public sealed class PosDbContext(
     public DbSet<DiscountPos> DiscountPoses => Set<DiscountPos>();
     public DbSet<DiscountUsageLog> DiscountUsageLogs => Set<DiscountUsageLog>();
     public DbSet<DiscountUser> DiscountUsers => Set<DiscountUser>();
+    public DbSet<DeviceToken> DeviceTokens => Set<DeviceToken>();
+    public DbSet<EarnRule> EarnRules => Set<EarnRule>();
     public DbSet<LoadBalanceRequest> LoadBalanceRequests => Set<LoadBalanceRequest>();
+    public DbSet<LoyaltyAccount> LoyaltyAccounts => Set<LoyaltyAccount>();
+    public DbSet<LoyaltyPointTransaction> LoyaltyPointTransactions => Set<LoyaltyPointTransaction>();
+    public DbSet<LoyaltyTier> LoyaltyTiers => Set<LoyaltyTier>();
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderDiscount> OrderDiscounts => Set<OrderDiscount>();
+    public DbSet<OrderPayment> OrderPayments => Set<OrderPayment>();
     public DbSet<OrderProduct> OrderProducts => Set<OrderProduct>();
     public DbSet<OrderSubProduct> OrderSubProducts => Set<OrderSubProduct>();
+    public DbSet<PasswordResetToken> PasswordResetTokens => Set<PasswordResetToken>();
     public DbSet<Permission> Permissions => Set<Permission>();
     public DbSet<Domain.Entities.Pos> PosDevices => Set<Domain.Entities.Pos>();
     public DbSet<PosActivityLog> PosActivityLogs => Set<PosActivityLog>();
@@ -52,12 +60,16 @@ public sealed class PosDbContext(
     public DbSet<ProductSubProduct> ProductSubProducts => Set<ProductSubProduct>();
     public DbSet<Purchase> Purchases => Set<Purchase>();
     public DbSet<PurchaseProduct> PurchaseProducts => Set<PurchaseProduct>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+    public DbSet<Reward> Rewards => Set<Reward>();
+    public DbSet<RewardRedemption> RewardRedemptions => Set<RewardRedemption>();
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
     public DbSet<Store> Stores => Set<Store>();
     public DbSet<StoreActivityLog> StoreActivityLogs => Set<StoreActivityLog>();
     public DbSet<StoreProduct> StoreProducts => Set<StoreProduct>();
     public DbSet<StoreProductMovement> StoreProductMovements => Set<StoreProductMovement>();
+    public DbSet<StockMovement> StockMovements => Set<StockMovement>();
     public DbSet<StoreProductTransfer> StoreProductTransfers => Set<StoreProductTransfer>();
     public DbSet<StoreProductTransferDetail> StoreProductTransferDetails => Set<StoreProductTransferDetail>();
     public DbSet<Supplier> Suppliers => Set<Supplier>();
@@ -72,6 +84,25 @@ public sealed class PosDbContext(
     public DbSet<Town> Towns => Set<Town>();
     public DbSet<User> Users => Set<User>();
     public DbSet<UserActivityLog> UserActivityLogs => Set<UserActivityLog>();
+    public DbSet<WalletAccount> WalletAccounts => Set<WalletAccount>();
+    public DbSet<WalletTransaction> WalletTransactions => Set<WalletTransaction>();
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder.Properties<Enum>().HaveConversion<string>();
+    }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        PreventAppendOnlyDeletes();
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+    public override int SaveChanges()
+    {
+        PreventAppendOnlyDeletes();
+        return base.SaveChanges();
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -103,10 +134,19 @@ public sealed class PosDbContext(
         {
             property.SetColumnName(ToSnakeCase(property.Name));
 
-            if (property.ClrType.IsEnum)
-            {
-                property.SetProviderClrType(typeof(string));
-            }
+        }
+    }
+
+    private void PreventAppendOnlyDeletes()
+    {
+        var deletedAppendOnlyEntries = ChangeTracker
+            .Entries()
+            .Where(entry => entry.State == EntityState.Deleted && entry.Entity is IAppendOnly)
+            .ToList();
+
+        if (deletedAppendOnlyEntries.Count > 0)
+        {
+            throw new InvalidOperationException("Append-only ledger rows cannot be deleted; write a reversal row instead.");
         }
     }
 
