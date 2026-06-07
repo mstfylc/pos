@@ -641,13 +641,14 @@ components:
         refreshToken: { type: string }
     AuthTokenResult:
       type: object
-      required: [userId, companyId, accessToken, refreshToken, expiresAt]
+      required: [userId, companyId, accessToken, refreshToken, expiresAt, mustChangePassword]
       properties:
         userId: { type: string, format: uuid }
         companyId: { type: string, format: uuid }
         accessToken: { type: string }
         refreshToken: { type: string }
         expiresAt: { type: string, format: date-time }
+        mustChangePassword: { type: boolean }
     OtpRequest:
       type: object
       required: [companyId, phone]

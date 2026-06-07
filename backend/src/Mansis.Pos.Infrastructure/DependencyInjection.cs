@@ -35,10 +35,12 @@ public static class DependencyInjection
         services.TryAddScoped<ITenantContext, EnvironmentTenantContext>();
         services.AddScoped<IUnitOfWork, EfUnitOfWork>();
         services.AddScoped<IAuthStore, EfAuthStore>();
-        services.AddScoped<IPasswordVerifier, HmacPasswordVerifier>();
+        services.AddScoped<IPasswordHasher, Argon2idPasswordHasher>();
+        services.AddScoped<IPasswordVerifier>(provider => provider.GetRequiredService<IPasswordHasher>());
         services.AddScoped<ICoreCrudStore, EfCoreCrudStore>();
         services.AddScoped<IOrderCancellationStore, EfOrderCancellationStore>();
         services.AddScoped<IOrderCreationStore, EfOrderCreationStore>();
+        services.AddHostedService<DbBootstrapHostedService>();
 
         return services;
     }

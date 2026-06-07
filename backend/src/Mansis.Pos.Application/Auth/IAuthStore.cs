@@ -17,4 +17,10 @@ public interface IPasswordVerifier
     bool Verify(string password, byte[] passwordHash, byte[] passwordSalt);
 }
 
+public interface IPasswordHasher : IPasswordVerifier
+{
+    PasswordHashResult Hash(string password);
+}
+
 public sealed record AuthTokenPair(string AccessToken, string RefreshToken, string RefreshTokenHash, DateTimeOffset ExpiresAt);
+public sealed record PasswordHashResult(byte[] PasswordHash, byte[] PasswordSalt);

@@ -12,6 +12,7 @@ public sealed class Customer : AuditableEntity, ICompanyScoped
     public string? Mail { get; set; }
     public byte[] PasswordHash { get; set; } = [];
     public byte[] PasswordSalt { get; set; } = [];
+    public bool MustChangePassword { get; set; }
     public decimal Balance { get; set; }
     public string? Photo { get; set; }
     public bool Registered { get; set; }

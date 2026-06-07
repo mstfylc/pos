@@ -518,6 +518,7 @@ export interface components {
             refreshToken: string;
             /** Format: date-time */
             expiresAt: string;
+            mustChangePassword: boolean;
         };
         OtpRequest: {
             /** Format: uuid */

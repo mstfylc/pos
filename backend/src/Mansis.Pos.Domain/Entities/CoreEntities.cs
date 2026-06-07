@@ -49,6 +49,7 @@ public sealed class User : AuditableEntity, ICompanyScoped
     public string? Mail { get; set; }
     public byte[] PasswordHash { get; set; } = [];
     public byte[] PasswordSalt { get; set; } = [];
+    public bool MustChangePassword { get; set; }
     public string? Pin { get; set; }
     public Guid CompanyId { get; set; }
     public Guid RoleId { get; set; }

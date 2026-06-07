@@ -27,6 +27,9 @@ abstract class AuthTokenResult implements Built<AuthTokenResult, AuthTokenResult
     @BuiltValueField(wireName: r'expiresAt')
     DateTime get expiresAt;
 
+    @BuiltValueField(wireName: r'mustChangePassword')
+    bool get mustChangePassword;
+
     AuthTokenResult._();
 
     static void _initializeBuilder(AuthTokenResultBuilder b) => b;
@@ -68,6 +71,10 @@ class _$AuthTokenResultSerializer implements StructuredSerializer<AuthTokenResul
             ..add(r'expiresAt')
             ..add(serializers.serialize(object.expiresAt,
                 specifiedType: const FullType(DateTime)));
+        result
+            ..add(r'mustChangePassword')
+            ..add(serializers.serialize(object.mustChangePassword,
+                specifiedType: const FullType(bool)));
         return result;
     }
 
@@ -101,6 +108,10 @@ class _$AuthTokenResultSerializer implements StructuredSerializer<AuthTokenResul
                 case r'expiresAt':
                     result.expiresAt = serializers.deserialize(value,
                         specifiedType: const FullType(DateTime)) as DateTime;
+                    break;
+                case r'mustChangePassword':
+                    result.mustChangePassword = serializers.deserialize(value,
+                        specifiedType: const FullType(bool)) as bool;
                     break;
             }
         }

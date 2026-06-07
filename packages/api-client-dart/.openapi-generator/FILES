@@ -99,10 +99,3 @@ lib/model/tax_type.dart
 lib/model/wallet_account.dart
 lib/serializers.dart
 pubspec.yaml
-test/auth_api_test.dart
-test/auth_token_result_test.dart
-test/login_request_test.dart
-test/otp_request_test.dart
-test/otp_result_test.dart
-test/otp_verify_request_test.dart
-test/refresh_token_request_test.dart

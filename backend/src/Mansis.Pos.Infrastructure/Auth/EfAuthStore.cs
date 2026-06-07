@@ -12,8 +12,8 @@ internal sealed class EfAuthStore(PosDbContext dbContext) : IAuthStore
     {
         return await dbContext.Users
             .AsNoTracking()
-            .Where(user => user.CompanyId == companyId && user.Username == username)
-            .Select(user => new AuthUserSnapshot(user.Id, user.CompanyId, user.Username, user.PasswordHash, user.PasswordSalt, user.Active))
+            .Where(user => user.CompanyId == companyId && (user.Username == username || user.Mail == username))
+            .Select(user => new AuthUserSnapshot(user.Id, user.CompanyId, user.Username, user.PasswordHash, user.PasswordSalt, user.Active, user.MustChangePassword))
             .FirstOrDefaultAsync(cancellationToken);
     }
 
@@ -31,7 +31,7 @@ internal sealed class EfAuthStore(PosDbContext dbContext) : IAuthStore
                 dbContext.Users.AsNoTracking(),
                 token => token.UserId,
                 user => user.Id,
-                (token, user) => new AuthUserSnapshot(user.Id, user.CompanyId, user.Username, user.PasswordHash, user.PasswordSalt, user.Active))
+                (token, user) => new AuthUserSnapshot(user.Id, user.CompanyId, user.Username, user.PasswordHash, user.PasswordSalt, user.Active, user.MustChangePassword))
             .FirstOrDefaultAsync(cancellationToken);
     }
 

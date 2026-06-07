@@ -19,7 +19,7 @@ public sealed class AuthService(
 
         var tokenPair = tokenIssuer.Issue(user.CompanyId, user.Id, user.Username);
         await store.SaveRefreshRotationAsync(user.CompanyId, user.Id, string.Empty, tokenPair.RefreshTokenHash, tokenPair.ExpiresAt, cancellationToken);
-        return Result<AuthTokenResult>.Success(new AuthTokenResult(user.Id, user.CompanyId, tokenPair.AccessToken, tokenPair.RefreshToken, tokenPair.ExpiresAt));
+        return Result<AuthTokenResult>.Success(new AuthTokenResult(user.Id, user.CompanyId, tokenPair.AccessToken, tokenPair.RefreshToken, tokenPair.ExpiresAt, user.MustChangePassword));
     }
 
     public async Task<Result<AuthTokenResult>> RefreshAsync(RefreshTokenRequest request, CancellationToken cancellationToken)
@@ -33,7 +33,7 @@ public sealed class AuthService(
 
         var tokenPair = tokenIssuer.Issue(user.CompanyId, user.Id, user.Username);
         await store.SaveRefreshRotationAsync(user.CompanyId, user.Id, oldHash, tokenPair.RefreshTokenHash, tokenPair.ExpiresAt, cancellationToken);
-        return Result<AuthTokenResult>.Success(new AuthTokenResult(user.Id, user.CompanyId, tokenPair.AccessToken, tokenPair.RefreshToken, tokenPair.ExpiresAt));
+        return Result<AuthTokenResult>.Success(new AuthTokenResult(user.Id, user.CompanyId, tokenPair.AccessToken, tokenPair.RefreshToken, tokenPair.ExpiresAt, user.MustChangePassword));
     }
 
     public Task<Result<OtpResult>> RequestOtpAsync(OtpRequest request, CancellationToken cancellationToken)

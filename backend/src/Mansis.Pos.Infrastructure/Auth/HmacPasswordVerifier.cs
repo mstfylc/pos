@@ -4,6 +4,7 @@ using Mansis.Pos.Application.Auth;
 
 namespace Mansis.Pos.Infrastructure.Auth;
 
+[Obsolete("legacy import only — not used in live auth")]
 internal sealed class HmacPasswordVerifier : IPasswordVerifier
 {
     private const int LegacyHashLength = 64;
