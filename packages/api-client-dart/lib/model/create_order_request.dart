@@ -8,6 +8,7 @@
 import 'package:mansis_pos_api_client/model/shipping_type.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:mansis_pos_api_client/model/order_line.dart';
+import 'package:mansis_pos_api_client/model/order_discount_write.dart';
 import 'package:mansis_pos_api_client/model/order_payment.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -40,15 +41,23 @@ abstract class CreateOrderRequest implements Built<CreateOrderRequest, CreateOrd
     @BuiltValueField(wireName: r'idempotencyKey')
     String get idempotencyKey;
 
+    @BuiltValueField(wireName: r'offlineOrder')
+    bool get offlineOrder;
+
     @BuiltValueField(wireName: r'lines')
     BuiltList<OrderLine> get lines;
 
     @BuiltValueField(wireName: r'payments')
     BuiltList<OrderPayment> get payments;
 
+    @nullable
+    @BuiltValueField(wireName: r'discounts')
+    BuiltList<OrderDiscountWrite> get discounts;
+
     CreateOrderRequest._();
 
-    static void _initializeBuilder(CreateOrderRequestBuilder b) => b;
+    static void _initializeBuilder(CreateOrderRequestBuilder b) => b
+        ..offlineOrder = false;
 
     factory CreateOrderRequest([void updates(CreateOrderRequestBuilder b)]) = _$CreateOrderRequest;
 
@@ -99,6 +108,12 @@ class _$CreateOrderRequestSerializer implements StructuredSerializer<CreateOrder
                 ..add(serializers.serialize(object.idempotencyKey,
                     specifiedType: const FullType(String)));
         }
+        if (object.offlineOrder != null) {
+            result
+                ..add(r'offlineOrder')
+                ..add(serializers.serialize(object.offlineOrder,
+                    specifiedType: const FullType(bool)));
+        }
         result
             ..add(r'lines')
             ..add(serializers.serialize(object.lines,
@@ -107,6 +122,12 @@ class _$CreateOrderRequestSerializer implements StructuredSerializer<CreateOrder
             ..add(r'payments')
             ..add(serializers.serialize(object.payments,
                 specifiedType: const FullType(BuiltList, [FullType(OrderPayment)])));
+        if (object.discounts != null) {
+            result
+                ..add(r'discounts')
+                ..add(serializers.serialize(object.discounts,
+                    specifiedType: const FullType(BuiltList, [FullType(OrderDiscountWrite)])));
+        }
         return result;
     }
 
@@ -149,6 +170,10 @@ class _$CreateOrderRequestSerializer implements StructuredSerializer<CreateOrder
                     result.idempotencyKey = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
+                case r'offlineOrder':
+                    result.offlineOrder = serializers.deserialize(value,
+                        specifiedType: const FullType(bool)) as bool;
+                    break;
                 case r'lines':
                     result.lines.replace(serializers.deserialize(value,
                         specifiedType: const FullType(BuiltList, [FullType(OrderLine)])) as BuiltList<OrderLine>);
@@ -156,6 +181,10 @@ class _$CreateOrderRequestSerializer implements StructuredSerializer<CreateOrder
                 case r'payments':
                     result.payments.replace(serializers.deserialize(value,
                         specifiedType: const FullType(BuiltList, [FullType(OrderPayment)])) as BuiltList<OrderPayment>);
+                    break;
+                case r'discounts':
+                    result.discounts.replace(serializers.deserialize(value,
+                        specifiedType: const FullType(BuiltList, [FullType(OrderDiscountWrite)])) as BuiltList<OrderDiscountWrite>);
                     break;
             }
         }

@@ -18,6 +18,7 @@ import 'package:mansis_pos_api_client/model/assignment_record.dart';
 import 'package:mansis_pos_api_client/model/assignment_table_type.dart';
 import 'package:mansis_pos_api_client/model/assignment_write.dart';
 import 'package:mansis_pos_api_client/model/auth_token_result.dart';
+import 'package:mansis_pos_api_client/model/available_reward.dart';
 import 'package:mansis_pos_api_client/model/campaign.dart';
 import 'package:mansis_pos_api_client/model/campaign_type.dart';
 import 'package:mansis_pos_api_client/model/campaign_write.dart';
@@ -27,14 +28,22 @@ import 'package:mansis_pos_api_client/model/category_write.dart';
 import 'package:mansis_pos_api_client/model/company.dart';
 import 'package:mansis_pos_api_client/model/create_order_request.dart';
 import 'package:mansis_pos_api_client/model/customer.dart';
+import 'package:mansis_pos_api_client/model/customer_card_token_response.dart';
 import 'package:mansis_pos_api_client/model/customer_write.dart';
 import 'package:mansis_pos_api_client/model/discount.dart';
 import 'package:mansis_pos_api_client/model/discount_category.dart';
 import 'package:mansis_pos_api_client/model/discount_type.dart';
 import 'package:mansis_pos_api_client/model/discount_write.dart';
+import 'package:mansis_pos_api_client/model/identified_customer.dart';
+import 'package:mansis_pos_api_client/model/identify_customer_request.dart';
+import 'package:mansis_pos_api_client/model/issue_customer_card_token_request.dart';
 import 'package:mansis_pos_api_client/model/login_request.dart';
 import 'package:mansis_pos_api_client/model/loyalty_account.dart';
+import 'package:mansis_pos_api_client/model/loyalty_preview_line.dart';
+import 'package:mansis_pos_api_client/model/loyalty_preview_request.dart';
+import 'package:mansis_pos_api_client/model/loyalty_preview_response.dart';
 import 'package:mansis_pos_api_client/model/order.dart';
+import 'package:mansis_pos_api_client/model/order_discount_write.dart';
 import 'package:mansis_pos_api_client/model/order_line.dart';
 import 'package:mansis_pos_api_client/model/order_list_item.dart';
 import 'package:mansis_pos_api_client/model/order_payment.dart';
@@ -49,6 +58,9 @@ import 'package:mansis_pos_api_client/model/permission.dart';
 import 'package:mansis_pos_api_client/model/permission_type.dart';
 import 'package:mansis_pos_api_client/model/pos.dart';
 import 'package:mansis_pos_api_client/model/pos_product.dart';
+import 'package:mansis_pos_api_client/model/pos_product_catalog_response.dart';
+import 'package:mansis_pos_api_client/model/pos_product_category.dart';
+import 'package:mansis_pos_api_client/model/pos_product_sale.dart';
 import 'package:mansis_pos_api_client/model/pos_product_write.dart';
 import 'package:mansis_pos_api_client/model/pos_write.dart';
 import 'package:mansis_pos_api_client/model/problem_details.dart';
@@ -57,6 +69,7 @@ import 'package:mansis_pos_api_client/model/product_unit_type.dart';
 import 'package:mansis_pos_api_client/model/product_write.dart';
 import 'package:mansis_pos_api_client/model/reason_request.dart';
 import 'package:mansis_pos_api_client/model/refresh_token_request.dart';
+import 'package:mansis_pos_api_client/model/reward_type.dart';
 import 'package:mansis_pos_api_client/model/role.dart';
 import 'package:mansis_pos_api_client/model/role_permission_write.dart';
 import 'package:mansis_pos_api_client/model/role_write.dart';
@@ -78,6 +91,7 @@ part 'serializers.g.dart';
   AssignmentTableType,
   AssignmentWrite,
   AuthTokenResult,
+  AvailableReward,
   Campaign,
   CampaignType,
   CampaignWrite,
@@ -87,14 +101,22 @@ part 'serializers.g.dart';
   Company,
   CreateOrderRequest,
   Customer,
+  CustomerCardTokenResponse,
   CustomerWrite,
   Discount,
   DiscountCategory,
   DiscountType,
   DiscountWrite,
+  IdentifiedCustomer,
+  IdentifyCustomerRequest,
+  IssueCustomerCardTokenRequest,
   LoginRequest,
   LoyaltyAccount,
+  LoyaltyPreviewLine,
+  LoyaltyPreviewRequest,
+  LoyaltyPreviewResponse,
   Order,
+  OrderDiscountWrite,
   OrderLine,
   OrderListItem,
   OrderPayment,
@@ -109,6 +131,9 @@ part 'serializers.g.dart';
   PermissionType,
   Pos,
   PosProduct,
+  PosProductCatalogResponse,
+  PosProductCategory,
+  PosProductSale,
   PosProductWrite,
   PosWrite,
   ProblemDetails,
@@ -117,6 +142,7 @@ part 'serializers.g.dart';
   ProductWrite,
   ReasonRequest,
   RefreshTokenRequest,
+  RewardType,
   Role,
   RolePermissionWrite,
   RoleWrite,

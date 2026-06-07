@@ -6,6 +6,7 @@ using Mansis.Pos.Application.Loyalty.RedeemReward;
 using Mansis.Pos.Application.Orders.CancelOrder;
 using MediatR;
 using Mansis.Pos.Application.Orders.CreateOrder;
+using Mansis.Pos.Application.Pos;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Mansis.Pos.Application;
@@ -25,6 +26,7 @@ public static class DependencyInjection
         services.AddScoped<RedeemRewardService>();
         services.AddScoped<CancelOrderService>();
         services.AddScoped<CreateOrderService>();
+        services.AddScoped<PosService>();
 
         return services;
     }

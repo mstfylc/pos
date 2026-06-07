@@ -1,41 +1,25 @@
-# SUNUCU HAZIRLIK RAPORU - 2026-06-07
+# POS BACKEND PAKET RAPORU - 2026-06-07
 
-## On Kontrol
-| Kontrol | Sonuc |
-|---------|-------|
-| OS | Ubuntu 24.04.4 LTS |
-| RAM | 3.7Gi toplam, 3.2Gi uygun |
-| Disk | 75G toplam, 67G uygun, %8 kullanim |
-| Docker | Eksikti; kuruldu |
-| Docker Compose | Eksikti; kuruldu |
-| UFW | Aktif; 22/80/443 disinda inbound kapali |
-| Fail2ban | Eksikti; kuruldu ve aktif |
-| Acik portlar | SSH ve local DNS listener disinda public servis yok |
-| Mevcut uygulama servisi | Calisan app/container gorulmedi |
+## Tamamlanan
+| Adim | Branch | Build | Commit |
+|------|--------|-------|--------|
+| Offline order + manuel indirim | main | YESIL | HEAD |
+| POS katalog + musteri tanima + loyalty preview | main | YESIL | HEAD |
+| OpenAPI + TS/Dart client + test | main | YESIL | HEAD |
 
-## Yapilan Hazirlik
-| Adim | Durum |
-|------|-------|
-| Docker Engine | Kuruldu ve servis aktif |
-| Docker Compose plugin | Kuruldu |
-| PostgreSQL 16 zemini | docker-compose.prod ile calismaya hazir; deploy henuz yapilmadi |
-| UFW firewall | 22/80/443 allow, default incoming deny |
-| Fail2ban | Aktif |
-| SSH hardening | root key-only, password ve keyboard-interactive login kapali |
-| Production env | Yeni guclu secret'larla sunucuda olusturuldu; repoya yazilmadi |
+## DUR LISTESI (karar bekleyen)
+| # | Konum (dosya) | Eski davranis | Sorulan karar |
+|---|---------------|---------------|---------------|
+| - | - | - | Yok |
 
-## Production Env
-| Konum | Durum |
-|-------|-------|
-| /opt/uyanik/.env | Olusturuldu, chmod 600, root:root |
-| Secret degerleri | Sohbete, repoya, commit mesajina veya koda yazilmadi |
+## Davranis degisiklikleri
+| # | Konum | Eski | Yeni (uygulanan) |
+|---|-------|------|------------------|
+| 1 | app/order create | Online stok kontrolu zorunluydu | OfflineOrder=true ise idempotency ile kayit alinir ve stok yetersizligi senkron sonrasi ele alinacak sekilde atlanir |
+| 2 | app/order create | Siparis aninda manuel indirim kaydi yoktu | DiscountUsageLog ve OrderDiscount satirlari scope/aylik limit kontroluyle yazilir |
+| 3 | app/pos/{posId}/products | POS ekranina ozel katalog yoktu | POS bazli fiyat override, StoreProduct stok ve kategori renk/sekil gruplari doner |
+| 4 | app/customers/identify | POS musteri tanima endpoint'i yoktu | Sureli QR token veya kart no hash eslesmesiyle bakiye/puan/tier doner |
+| 5 | app/loyalty/preview | Siparis olusturmadan sadakat onizleme yoktu | Sepete gore kazanilacak puan, kampanya etkisi ve kullanilabilir oduller hesaplanir |
 
-## Deploy Durumu
-| Kalem | Durum |
-|-------|-------|
-| Gercek uygulama deploy'u | YAPILMADI |
-| docker-compose.prod calistirma | BEKLIYOR |
-| Deploy'a hazir mi | Evet; onay bekliyor |
-
-## Sonraki Onay
-- Onay verilirse production deploy icin repo sunucuya alinip docker-compose.prod ile uygulama baslatilacak.
+## Siradaki oneri
+- Vardiya/gun sonu modulu ayrica tasarlanacak; bu pakette sadece TODO notu birakildi.

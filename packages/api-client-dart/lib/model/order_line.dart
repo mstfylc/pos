@@ -18,6 +18,9 @@ abstract class OrderLine implements Built<OrderLine, OrderLineBuilder> {
     @BuiltValueField(wireName: r'quantity')
     int get quantity;
 
+    @BuiltValueField(wireName: r'unitPrice')
+    double get unitPrice;
+
     OrderLine._();
 
     static void _initializeBuilder(OrderLineBuilder b) => b;
@@ -47,6 +50,10 @@ class _$OrderLineSerializer implements StructuredSerializer<OrderLine> {
             ..add(r'quantity')
             ..add(serializers.serialize(object.quantity,
                 specifiedType: const FullType(int)));
+        result
+            ..add(r'unitPrice')
+            ..add(serializers.serialize(object.unitPrice,
+                specifiedType: const FullType(double)));
         return result;
     }
 
@@ -68,6 +75,10 @@ class _$OrderLineSerializer implements StructuredSerializer<OrderLine> {
                 case r'quantity':
                     result.quantity = serializers.deserialize(value,
                         specifiedType: const FullType(int)) as int;
+                    break;
+                case r'unitPrice':
+                    result.unitPrice = serializers.deserialize(value,
+                        specifiedType: const FullType(double)) as double;
                     break;
             }
         }

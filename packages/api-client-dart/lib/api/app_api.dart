@@ -14,10 +14,17 @@ import 'package:mansis_pos_api_client/model/cancel_order_response.dart';
 import 'package:mansis_pos_api_client/model/category.dart';
 import 'package:mansis_pos_api_client/model/create_order_request.dart';
 import 'package:mansis_pos_api_client/model/customer.dart';
+import 'package:mansis_pos_api_client/model/customer_card_token_response.dart';
 import 'package:mansis_pos_api_client/model/discount.dart';
+import 'package:mansis_pos_api_client/model/identified_customer.dart';
+import 'package:mansis_pos_api_client/model/identify_customer_request.dart';
+import 'package:mansis_pos_api_client/model/issue_customer_card_token_request.dart';
+import 'package:mansis_pos_api_client/model/loyalty_preview_request.dart';
+import 'package:mansis_pos_api_client/model/loyalty_preview_response.dart';
 import 'package:mansis_pos_api_client/model/order_list_item.dart';
 import 'package:mansis_pos_api_client/model/order_response.dart';
 import 'package:mansis_pos_api_client/model/pos.dart';
+import 'package:mansis_pos_api_client/model/pos_product_catalog_response.dart';
 import 'package:mansis_pos_api_client/model/problem_details.dart';
 import 'package:mansis_pos_api_client/model/product.dart';
 import 'package:mansis_pos_api_client/model/reason_request.dart';
@@ -210,6 +217,197 @@ class AppApi {
     ) as WalletAccount;
 
     return Response<WalletAccount>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<PosProductCatalogResponse>> getAppPosProducts(
+    String posId,
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/app/pos/{posId}/products'.replaceAll('{' r'posId' '}', posId.toString()),
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(PosProductCatalogResponse);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as PosProductCatalogResponse;
+
+    return Response<PosProductCatalogResponse>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<IdentifiedCustomer>> identifyAppCustomer(
+    IdentifyCustomerRequest identifyCustomerRequest, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/app/customers/identify',
+      method: 'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(IdentifyCustomerRequest);
+    _bodyData = _serializers.serialize(identifyCustomerRequest, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(IdentifiedCustomer);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as IdentifiedCustomer;
+
+    return Response<IdentifiedCustomer>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<CustomerCardTokenResponse>> issueAppCustomerCardToken(
+    String customerId,
+    IssueCustomerCardTokenRequest issueCustomerCardTokenRequest, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/app/customers/{customerId}/card-token'.replaceAll('{' r'customerId' '}', customerId.toString()),
+      method: 'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(IssueCustomerCardTokenRequest);
+    _bodyData = _serializers.serialize(issueCustomerCardTokenRequest, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(CustomerCardTokenResponse);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as CustomerCardTokenResponse;
+
+    return Response<CustomerCardTokenResponse>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -651,6 +849,69 @@ class AppApi {
     ) as BuiltList<Store>;
 
     return Response<BuiltList<Store>>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<LoyaltyPreviewResponse>> previewAppLoyalty(
+    LoyaltyPreviewRequest loyaltyPreviewRequest, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/app/loyalty/preview',
+      method: 'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(LoyaltyPreviewRequest);
+    _bodyData = _serializers.serialize(loyaltyPreviewRequest, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(LoyaltyPreviewResponse);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as LoyaltyPreviewResponse;
+
+    return Response<LoyaltyPreviewResponse>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

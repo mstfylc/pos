@@ -27,11 +27,18 @@ public sealed class CreateOrderService(
         }
 
         var productIds = request.Lines.Select(line => line.ProductId).Distinct().ToArray();
-        var snapshot = await store.LoadSnapshotAsync(request.CompanyId, request.PosId, request.CustomerId, productIds, cancellationToken);
+        var snapshot = await store.LoadSnapshotAsync(request.CompanyId, request.PosId, request.UserId, request.CustomerId, productIds, cancellationToken);
         var grossTotal = request.Lines.Sum(line => line.UnitPrice * line.Quantity + line.TaxAmount);
+        var manualDiscountAmount = request.Discounts.Sum(discount => discount.Amount);
         var campaignEvaluation = campaignEvaluator.Evaluate(snapshot, grossTotal, DateTimeOffset.UtcNow);
-        var total = grossTotal - campaignEvaluation.DiscountAmount;
+        var totalDiscount = manualDiscountAmount + campaignEvaluation.DiscountAmount;
+        var total = grossTotal - totalDiscount;
         var paymentTotal = request.Payments.Sum(payment => payment.Amount);
+
+        if (total < 0)
+        {
+            return Result<OrderResult>.Failure("Discount total cannot exceed order total.");
+        }
 
         if (paymentTotal != total)
         {
@@ -45,9 +52,27 @@ public sealed class CreateOrderService(
                 return Result<OrderResult>.Failure("Product not found.");
             }
 
-            if (product.Stocktaking && product.Quantity < line.Quantity)
+            if (!request.OfflineOrder && product.Stocktaking && product.Quantity < line.Quantity)
             {
                 return Result<OrderResult>.Failure("Insufficient stock.");
+            }
+        }
+
+        foreach (var discountRequest in request.Discounts)
+        {
+            if (!snapshot.Discounts.TryGetValue(discountRequest.DiscountId, out var discount))
+            {
+                return Result<OrderResult>.Failure("Discount not found.");
+            }
+
+            if (!discount.AppliesToAll && !discount.AppliesToBranch && !discount.AppliesToPos && !discount.AppliesToUser)
+            {
+                return Result<OrderResult>.Failure("Discount is not applicable for this order.");
+            }
+
+            if (!request.OfflineOrder && discount.UsedThisMonth + discountRequest.Amount > discount.MaxDiscountAmount)
+            {
+                return Result<OrderResult>.Failure("Discount monthly limit exceeded.");
             }
         }
 
@@ -68,9 +93,10 @@ public sealed class CreateOrderService(
             OrderState = OrderState.Received,
             OrderTime = request.OrderTime.ToUniversalTime(),
             IdempotencyKey = request.IdempotencyKey,
+            OfflineOrder = request.OfflineOrder,
             SubTotal = request.Lines.Sum(line => line.UnitPrice * line.Quantity),
             TaxTotal = request.Lines.Sum(line => line.TaxAmount),
-            TotalDiscount = campaignEvaluation.DiscountAmount,
+            TotalDiscount = totalDiscount,
             Total = total,
             PaymentSummary = ResolvePaymentSummary(request.Payments),
             CreatedAt = now,
@@ -100,6 +126,26 @@ public sealed class CreateOrderService(
             ExternalReference = payment.ExternalReference,
             State = OrderPaymentState.Captured,
             PaidAt = now
+        }).ToArray();
+
+        var orderDiscounts = request.Discounts.Select(discount => new OrderDiscount
+        {
+            Id = Guid.NewGuid(),
+            OrderId = order.Id,
+            DiscountId = discount.DiscountId,
+            UserId = discount.UserId,
+            Amount = discount.Amount
+        }).ToArray();
+
+        var discountUsageLogs = request.Discounts.Select(discount => new DiscountUsageLog
+        {
+            Id = Guid.NewGuid(),
+            CompanyId = request.CompanyId,
+            OrderId = order.Id,
+            DiscountId = discount.DiscountId,
+            UserId = discount.UserId,
+            Amount = discount.Amount,
+            OrderTime = request.OrderTime.ToUniversalTime()
         }).ToArray();
 
         var stockMovements = new List<StockMovement>();
@@ -212,6 +258,8 @@ public sealed class CreateOrderService(
                 order,
                 orderProducts,
                 orderPayments,
+                orderDiscounts,
+                discountUsageLogs,
                 stockMovements,
                 walletTransactions,
                 loyaltyTransactions,

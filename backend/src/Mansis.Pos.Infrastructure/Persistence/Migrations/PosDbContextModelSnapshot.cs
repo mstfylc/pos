@@ -889,6 +889,44 @@ namespace Mansis.Pos.Infrastructure.Persistence.Migrations
                     b.ToTable("customer_balance_movements", "pos");
                 });
 
+            modelBuilder.Entity("Mansis.Pos.Domain.Entities.CustomerCardToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("company_id");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("customer_id");
+
+                    b.Property<DateTimeOffset>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("expires_at");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("state");
+
+                    b.Property<string>("TokenHash")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("token_hash");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("CompanyId", "TokenHash");
+
+                    b.ToTable("customer_card_tokens", "pos");
+                });
+
             modelBuilder.Entity("Mansis.Pos.Domain.Entities.CustomerFavoriteProduct", b =>
                 {
                     b.Property<Guid>("Id")
@@ -3580,6 +3618,17 @@ namespace Mansis.Pos.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Mansis.Pos.Domain.Entities.CustomerCardToken", b =>
+                {
+                    b.HasOne("Mansis.Pos.Domain.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
                 });

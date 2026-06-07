@@ -12,6 +12,9 @@ Method | HTTP request | Description
 [**cancelAppOrder**](AppApi.md#cancelapporder) | **POST** /api/v1/app/orders/{orderId}/cancel | 
 [**createAppOrder**](AppApi.md#createapporder) | **POST** /api/v1/app/orders | 
 [**getAppCustomerWallet**](AppApi.md#getappcustomerwallet) | **GET** /api/v1/app/customers/{customerId}/wallet | 
+[**getAppPosProducts**](AppApi.md#getappposproducts) | **GET** /api/v1/app/pos/{posId}/products | 
+[**identifyAppCustomer**](AppApi.md#identifyappcustomer) | **POST** /api/v1/app/customers/identify | 
+[**issueAppCustomerCardToken**](AppApi.md#issueappcustomercardtoken) | **POST** /api/v1/app/customers/{customerId}/card-token | 
 [**listAppCategories**](AppApi.md#listappcategories) | **GET** /api/v1/app/categories | 
 [**listAppCustomers**](AppApi.md#listappcustomers) | **GET** /api/v1/app/customers | 
 [**listAppDiscounts**](AppApi.md#listappdiscounts) | **GET** /api/v1/app/discounts | 
@@ -19,6 +22,7 @@ Method | HTTP request | Description
 [**listAppPos**](AppApi.md#listapppos) | **GET** /api/v1/app/pos | 
 [**listAppProducts**](AppApi.md#listappproducts) | **GET** /api/v1/app/products | 
 [**listAppStores**](AppApi.md#listappstores) | **GET** /api/v1/app/stores | 
+[**previewAppLoyalty**](AppApi.md#previewapployalty) | **POST** /api/v1/app/loyalty/preview | 
 [**refundAppOrder**](AppApi.md#refundapporder) | **POST** /api/v1/app/orders/{orderId}/refund | 
 
 
@@ -154,6 +158,142 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getAppPosProducts**
+> PosProductCatalogResponse getAppPosProducts(posId, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+// TODO Configure HTTP basic authorization: bearerAuth
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
+
+var api_instance = new AppApi();
+var posId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.getAppPosProducts(posId, companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AppApi->getAppPosProducts: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **posId** | **String**|  | 
+ **companyId** | **String**|  | 
+
+### Return type
+
+[**PosProductCatalogResponse**](PosProductCatalogResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **identifyAppCustomer**
+> IdentifiedCustomer identifyAppCustomer(identifyCustomerRequest)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+// TODO Configure HTTP basic authorization: bearerAuth
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
+
+var api_instance = new AppApi();
+var identifyCustomerRequest = new IdentifyCustomerRequest(); // IdentifyCustomerRequest | 
+
+try {
+    var result = api_instance.identifyAppCustomer(identifyCustomerRequest);
+    print(result);
+} catch (e) {
+    print('Exception when calling AppApi->identifyAppCustomer: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **identifyCustomerRequest** | [**IdentifyCustomerRequest**](IdentifyCustomerRequest.md)|  | 
+
+### Return type
+
+[**IdentifiedCustomer**](IdentifiedCustomer.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **issueAppCustomerCardToken**
+> CustomerCardTokenResponse issueAppCustomerCardToken(customerId, issueCustomerCardTokenRequest)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+// TODO Configure HTTP basic authorization: bearerAuth
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
+
+var api_instance = new AppApi();
+var customerId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var issueCustomerCardTokenRequest = new IssueCustomerCardTokenRequest(); // IssueCustomerCardTokenRequest | 
+
+try {
+    var result = api_instance.issueAppCustomerCardToken(customerId, issueCustomerCardTokenRequest);
+    print(result);
+} catch (e) {
+    print('Exception when calling AppApi->issueAppCustomerCardToken: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **customerId** | **String**|  | 
+ **issueCustomerCardTokenRequest** | [**IssueCustomerCardTokenRequest**](IssueCustomerCardTokenRequest.md)|  | 
+
+### Return type
+
+[**CustomerCardTokenResponse**](CustomerCardTokenResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -462,6 +602,50 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **previewAppLoyalty**
+> LoyaltyPreviewResponse previewAppLoyalty(loyaltyPreviewRequest)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+// TODO Configure HTTP basic authorization: bearerAuth
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
+
+var api_instance = new AppApi();
+var loyaltyPreviewRequest = new LoyaltyPreviewRequest(); // LoyaltyPreviewRequest | 
+
+try {
+    var result = api_instance.previewAppLoyalty(loyaltyPreviewRequest);
+    print(result);
+} catch (e) {
+    print('Exception when calling AppApi->previewAppLoyalty: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **loyaltyPreviewRequest** | [**LoyaltyPreviewRequest**](LoyaltyPreviewRequest.md)|  | 
+
+### Return type
+
+[**LoyaltyPreviewResponse**](LoyaltyPreviewResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -702,6 +702,20 @@ paths:
       responses:
         '200': { description: POS list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Pos' } } } } }
         default: { $ref: '#/components/responses/Problem' }
+  /api/v1/app/pos/{posId}/products:
+    get:
+      tags: [App]
+      operationId: getAppPosProducts
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: posId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - $ref: '#/components/parameters/CompanyId'
+      responses:
+        '200': { description: POS grouped product catalog, content: { application/json: { schema: { $ref: '#/components/schemas/PosProductCatalogResponse' } } } }
+        default: { $ref: '#/components/responses/Problem' }
   /api/v1/app/discounts:
     get:
       tags: [App]
@@ -771,6 +785,50 @@ paths:
                 $ref: '#/components/schemas/WalletAccount'
         default:
           $ref: '#/components/responses/Problem'
+  /api/v1/app/customers/{customerId}/card-token:
+    post:
+      tags: [App]
+      operationId: issueAppCustomerCardToken
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/CustomerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueCustomerCardTokenRequest'
+      responses:
+        '200': { description: Short-lived customer QR/card token, content: { application/json: { schema: { $ref: '#/components/schemas/CustomerCardTokenResponse' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/app/customers/identify:
+    post:
+      tags: [App]
+      operationId: identifyAppCustomer
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentifyCustomerRequest'
+      responses:
+        '200': { description: Identified customer wallet and loyalty summary, content: { application/json: { schema: { $ref: '#/components/schemas/IdentifiedCustomer' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/app/loyalty/preview:
+    post:
+      tags: [App]
+      operationId: previewAppLoyalty
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoyaltyPreviewRequest'
+      responses:
+        '200': { description: Loyalty earn and reward preview for cart, content: { application/json: { schema: { $ref: '#/components/schemas/LoyaltyPreviewResponse' } } } }
+        default: { $ref: '#/components/responses/Problem' }
   /api/v1/loyalty/accounts/{customerId}:
     get:
       tags: [Loyalty]
@@ -1254,6 +1312,7 @@ components:
           $ref: '#/components/schemas/ShippingType'
         orderTime: { type: string, format: date-time }
         idempotencyKey: { type: string, minLength: 8, nullable: true }
+        offlineOrder: { type: boolean, default: false }
         lines:
           type: array
           items:
@@ -1262,6 +1321,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderPayment'
+        discounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDiscountWrite'
     Order:
       type: object
       required: [id, companyId, total, state, orderTime, payments]
@@ -1278,10 +1341,11 @@ components:
             $ref: '#/components/schemas/OrderPayment'
     OrderLine:
       type: object
-      required: [productId, quantity]
+      required: [productId, quantity, unitPrice]
       properties:
         productId: { type: string, format: uuid }
         quantity: { type: integer, minimum: 1 }
+        unitPrice: { type: string, format: decimal }
     OrderPayment:
       type: object
       required: [paymentType, amount]
@@ -1291,6 +1355,128 @@ components:
         amount: { type: string, format: decimal }
         currency: { type: string, default: TRY }
         externalReference: { type: string, nullable: true }
+    OrderDiscountWrite:
+      type: object
+      required: [discountId, userId, amount]
+      properties:
+        discountId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        amount: { type: string, format: decimal }
+    PosProductCatalogResponse:
+      type: object
+      required: [categories]
+      properties:
+        categories:
+          type: array
+          items: { $ref: '#/components/schemas/PosProductCategory' }
+    PosProductCategory:
+      type: object
+      required: [categoryId, name, sortOrder, products]
+      properties:
+        categoryId: { type: string, format: uuid }
+        name: { type: string }
+        sortOrder: { type: integer }
+        colorName: { type: string, nullable: true }
+        colorContent: { type: string, nullable: true }
+        shapeName: { type: string, nullable: true }
+        shapeContent: { type: string, nullable: true }
+        products:
+          type: array
+          items: { $ref: '#/components/schemas/PosProductSale' }
+    PosProductSale:
+      type: object
+      required: [productId, posProductId, name, categoryId, productUnitType, taxType, stocktaking, favoriteProduct, sortOrder, stockQuantity]
+      properties:
+        productId: { type: string, format: uuid }
+        posProductId: { type: string, format: uuid }
+        name: { type: string }
+        categoryId: { type: string, format: uuid }
+        baseSalePrice: { type: string, format: decimal, nullable: true }
+        salePrice: { type: string, format: decimal, nullable: true }
+        purchasePrice: { type: string, format: decimal, nullable: true }
+        barcode: { type: string, nullable: true }
+        stockCode: { type: string, nullable: true }
+        image: { type: string, nullable: true }
+        productUnitType: { $ref: '#/components/schemas/ProductUnitType' }
+        taxType: { $ref: '#/components/schemas/TaxType' }
+        stocktaking: { type: boolean }
+        favoriteProduct: { type: boolean }
+        sortOrder: { type: integer }
+        stockQuantity: { type: integer }
+    IssueCustomerCardTokenRequest:
+      type: object
+      required: [companyId]
+      properties:
+        companyId: { type: string, format: uuid }
+        expiresInSeconds: { type: integer, default: 300, minimum: 30, maximum: 3600 }
+    CustomerCardTokenResponse:
+      type: object
+      required: [customerId, token, expiresAt]
+      properties:
+        customerId: { type: string, format: uuid }
+        token: { type: string }
+        expiresAt: { type: string, format: date-time }
+    IdentifyCustomerRequest:
+      type: object
+      required: [companyId]
+      properties:
+        companyId: { type: string, format: uuid }
+        token: { type: string, nullable: true }
+        cardNumber: { type: string, nullable: true }
+    IdentifiedCustomer:
+      type: object
+      required: [customerId, name, surname, walletBalance, pointBalance, lifetimePoints]
+      properties:
+        customerId: { type: string, format: uuid }
+        name: { type: string }
+        surname: { type: string }
+        phone: { type: string, nullable: true }
+        mail: { type: string, nullable: true }
+        walletBalance: { type: string, format: decimal }
+        pointBalance: { type: integer }
+        lifetimePoints: { type: integer }
+        tierId: { type: string, format: uuid, nullable: true }
+        tierName: { type: string, nullable: true }
+    LoyaltyPreviewRequest:
+      type: object
+      required: [companyId, posId, customerId, lines]
+      properties:
+        companyId: { type: string, format: uuid }
+        posId: { type: string, format: uuid }
+        customerId: { type: string, format: uuid }
+        lines:
+          type: array
+          items: { $ref: '#/components/schemas/LoyaltyPreviewLine' }
+    LoyaltyPreviewLine:
+      type: object
+      required: [productId, quantity, unitPrice]
+      properties:
+        productId: { type: string, format: uuid }
+        quantity: { type: integer, minimum: 1 }
+        unitPrice: { type: string, format: decimal }
+        taxAmount: { type: string, format: decimal, default: 0 }
+    LoyaltyPreviewResponse:
+      type: object
+      required: [grossTotal, campaignDiscount, finalTotal, earnPoints, campaignExtraPoints, appliedCampaigns, availableRewards]
+      properties:
+        grossTotal: { type: string, format: decimal }
+        campaignDiscount: { type: string, format: decimal }
+        finalTotal: { type: string, format: decimal }
+        earnPoints: { type: integer }
+        earnExpiresAt: { type: string, format: date-time, nullable: true }
+        campaignExtraPoints: { type: integer }
+        appliedCampaigns: { type: array, items: { type: string } }
+        availableRewards: { type: array, items: { $ref: '#/components/schemas/AvailableReward' } }
+    AvailableReward:
+      type: object
+      required: [rewardId, name, requiredPoints, rewardType]
+      properties:
+        rewardId: { type: string, format: uuid }
+        name: { type: string }
+        requiredPoints: { type: integer }
+        rewardType: { $ref: '#/components/schemas/RewardType' }
+        discountAmount: { type: string, format: decimal, nullable: true }
+        productId: { type: string, format: uuid, nullable: true }
     OrderResponse:
       type: object
       required: [orderId, idempotencyKey, total, paymentSummary, existing]
@@ -1371,6 +1557,9 @@ components:
     CampaignType:
       type: string
       enum: [ExtraPoints, DiscountAmount, Stamp]
+    RewardType:
+      type: string
+      enum: [DiscountAmount, FreeProduct, Custom]
     OrderState:
       type: string
       enum: [Received, Preparing, Completed, Cancelled, Deleted, Transferring]

@@ -112,6 +112,9 @@ Class | Method | HTTP request | Description
 *AppApi* | [**cancelAppOrder**](doc\AppApi.md#cancelapporder) | **POST** /api/v1/app/orders/{orderId}/cancel | 
 *AppApi* | [**createAppOrder**](doc\AppApi.md#createapporder) | **POST** /api/v1/app/orders | 
 *AppApi* | [**getAppCustomerWallet**](doc\AppApi.md#getappcustomerwallet) | **GET** /api/v1/app/customers/{customerId}/wallet | 
+*AppApi* | [**getAppPosProducts**](doc\AppApi.md#getappposproducts) | **GET** /api/v1/app/pos/{posId}/products | 
+*AppApi* | [**identifyAppCustomer**](doc\AppApi.md#identifyappcustomer) | **POST** /api/v1/app/customers/identify | 
+*AppApi* | [**issueAppCustomerCardToken**](doc\AppApi.md#issueappcustomercardtoken) | **POST** /api/v1/app/customers/{customerId}/card-token | 
 *AppApi* | [**listAppCategories**](doc\AppApi.md#listappcategories) | **GET** /api/v1/app/categories | 
 *AppApi* | [**listAppCustomers**](doc\AppApi.md#listappcustomers) | **GET** /api/v1/app/customers | 
 *AppApi* | [**listAppDiscounts**](doc\AppApi.md#listappdiscounts) | **GET** /api/v1/app/discounts | 
@@ -119,6 +122,7 @@ Class | Method | HTTP request | Description
 *AppApi* | [**listAppPos**](doc\AppApi.md#listapppos) | **GET** /api/v1/app/pos | 
 *AppApi* | [**listAppProducts**](doc\AppApi.md#listappproducts) | **GET** /api/v1/app/products | 
 *AppApi* | [**listAppStores**](doc\AppApi.md#listappstores) | **GET** /api/v1/app/stores | 
+*AppApi* | [**previewAppLoyalty**](doc\AppApi.md#previewapployalty) | **POST** /api/v1/app/loyalty/preview | 
 *AppApi* | [**refundAppOrder**](doc\AppApi.md#refundapporder) | **POST** /api/v1/app/orders/{orderId}/refund | 
 *AuthApi* | [**login**](doc\AuthApi.md#login) | **POST** /api/v1/auth/login | 
 *AuthApi* | [**refresh**](doc\AuthApi.md#refresh) | **POST** /api/v1/auth/refresh | 
@@ -135,6 +139,7 @@ Class | Method | HTTP request | Description
  - [AssignmentTableType](doc\AssignmentTableType.md)
  - [AssignmentWrite](doc\AssignmentWrite.md)
  - [AuthTokenResult](doc\AuthTokenResult.md)
+ - [AvailableReward](doc\AvailableReward.md)
  - [Campaign](doc\Campaign.md)
  - [CampaignType](doc\CampaignType.md)
  - [CampaignWrite](doc\CampaignWrite.md)
@@ -144,14 +149,22 @@ Class | Method | HTTP request | Description
  - [Company](doc\Company.md)
  - [CreateOrderRequest](doc\CreateOrderRequest.md)
  - [Customer](doc\Customer.md)
+ - [CustomerCardTokenResponse](doc\CustomerCardTokenResponse.md)
  - [CustomerWrite](doc\CustomerWrite.md)
  - [Discount](doc\Discount.md)
  - [DiscountCategory](doc\DiscountCategory.md)
  - [DiscountType](doc\DiscountType.md)
  - [DiscountWrite](doc\DiscountWrite.md)
+ - [IdentifiedCustomer](doc\IdentifiedCustomer.md)
+ - [IdentifyCustomerRequest](doc\IdentifyCustomerRequest.md)
+ - [IssueCustomerCardTokenRequest](doc\IssueCustomerCardTokenRequest.md)
  - [LoginRequest](doc\LoginRequest.md)
  - [LoyaltyAccount](doc\LoyaltyAccount.md)
+ - [LoyaltyPreviewLine](doc\LoyaltyPreviewLine.md)
+ - [LoyaltyPreviewRequest](doc\LoyaltyPreviewRequest.md)
+ - [LoyaltyPreviewResponse](doc\LoyaltyPreviewResponse.md)
  - [Order](doc\Order.md)
+ - [OrderDiscountWrite](doc\OrderDiscountWrite.md)
  - [OrderLine](doc\OrderLine.md)
  - [OrderListItem](doc\OrderListItem.md)
  - [OrderPayment](doc\OrderPayment.md)
@@ -166,6 +179,9 @@ Class | Method | HTTP request | Description
  - [PermissionType](doc\PermissionType.md)
  - [Pos](doc\Pos.md)
  - [PosProduct](doc\PosProduct.md)
+ - [PosProductCatalogResponse](doc\PosProductCatalogResponse.md)
+ - [PosProductCategory](doc\PosProductCategory.md)
+ - [PosProductSale](doc\PosProductSale.md)
  - [PosProductWrite](doc\PosProductWrite.md)
  - [PosWrite](doc\PosWrite.md)
  - [ProblemDetails](doc\ProblemDetails.md)
@@ -174,6 +190,7 @@ Class | Method | HTTP request | Description
  - [ProductWrite](doc\ProductWrite.md)
  - [ReasonRequest](doc\ReasonRequest.md)
  - [RefreshTokenRequest](doc\RefreshTokenRequest.md)
+ - [RewardType](doc\RewardType.md)
  - [Role](doc\Role.md)
  - [RolePermissionWrite](doc\RolePermissionWrite.md)
  - [RoleWrite](doc\RoleWrite.md)

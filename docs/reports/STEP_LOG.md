@@ -78,3 +78,7 @@
 - Yapilan: Ayni tip kampanyada highest priority tek secim, farkli tip birlikte uygulama ve max_total_discount cap kuralina gecildi.
 - Dosya/commit: 8 dosya, commit bef13af
 - Takilan: yok
+### [2026-06-07 16:25] ADIM POS backend eksikleri - branch: main - build: YESIL
+- Yapilan: Offline order, manuel indirim, POS katalog, musteri QR/kart tanima ve loyalty preview API'leri eklendi.
+- Dosya/commit: POS backend + OpenAPI/client + test dosyalari, commit bekliyor.
+- Takilan: yok.

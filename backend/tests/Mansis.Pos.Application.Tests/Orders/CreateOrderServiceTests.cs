@@ -14,6 +14,7 @@ public sealed class CreateOrderServiceTests
     private static readonly Guid CustomerId = Guid.Parse("44444444-4444-4444-4444-444444444444");
     private static readonly Guid ProductId = Guid.Parse("55555555-5555-5555-5555-555555555555");
     private static readonly Guid StoreId = Guid.Parse("66666666-6666-6666-6666-666666666666");
+    private static readonly Guid DiscountId = Guid.Parse("77777777-7777-7777-7777-777777777777");
 
     [Fact]
     public async Task CreateAsync_WithValidOrder_PersistsFullLedgerGraph()
@@ -139,8 +140,10 @@ public sealed class CreateOrderServiceTests
             ShippingType.Self,
             DateTimeOffset.UtcNow,
             "idem-campaign",
+            false,
             [new CreateOrderLine(ProductId, 2, 10m)],
-            [new CreateOrderPayment(PaymentType.Cash, 15m)]);
+            [new CreateOrderPayment(PaymentType.Cash, 15m)],
+            []);
 
         var result = await service.CreateAsync(request);
 
@@ -209,8 +212,10 @@ public sealed class CreateOrderServiceTests
             ShippingType.Self,
             DateTimeOffset.UtcNow,
             "idem-campaign-conflict",
+            false,
             [new CreateOrderLine(ProductId, 2, 10m)],
-            [new CreateOrderPayment(PaymentType.Cash, 13m)]);
+            [new CreateOrderPayment(PaymentType.Cash, 13m)],
+            []);
 
         var result = await service.CreateAsync(request);
 
@@ -260,6 +265,80 @@ public sealed class CreateOrderServiceTests
     }
 
     [Fact]
+    public async Task CreateAsync_WithOfflineOrder_SkipsStockQuantityCheck()
+    {
+        var store = FakeOrderCreationStore.Ready(stockQuantity: 1);
+        var service = CreateService(store);
+        var request = ValidRequest() with { OfflineOrder = true };
+
+        var result = await service.CreateAsync(request);
+
+        Assert.True(result.IsSuccess);
+        Assert.True(store.SavedGraph!.Order.OfflineOrder);
+    }
+
+    [Fact]
+    public async Task CreateAsync_WithManualDiscount_PersistsDiscountRows()
+    {
+        var store = FakeOrderCreationStore.Ready(
+            discounts:
+            [
+                new DiscountSnapshot(
+                    DiscountId,
+                    MaxDiscountAmount: 100m,
+                    UsedThisMonth: 0m,
+                    AppliesToAll: true,
+                    AppliesToBranch: false,
+                    AppliesToPos: false,
+                    AppliesToUser: false)
+            ]);
+        var service = CreateService(store);
+        var request = ValidRequest() with
+        {
+            Discounts = [new CreateOrderDiscount(DiscountId, UserId, 5m)],
+            Payments = [new CreateOrderPayment(PaymentType.Cash, 15m)]
+        };
+
+        var result = await service.CreateAsync(request);
+
+        Assert.True(result.IsSuccess);
+        Assert.Equal(15m, store.SavedGraph!.Order.Total);
+        Assert.Equal(5m, store.SavedGraph.Order.TotalDiscount);
+        Assert.Single(store.SavedGraph.OrderDiscounts);
+        Assert.Single(store.SavedGraph.DiscountUsageLogs);
+        Assert.Equal(DiscountId, store.SavedGraph.DiscountUsageLogs[0].DiscountId);
+    }
+
+    [Fact]
+    public async Task CreateAsync_WithManualDiscountOverMonthlyLimit_FailsWithoutPersisting()
+    {
+        var store = FakeOrderCreationStore.Ready(
+            discounts:
+            [
+                new DiscountSnapshot(
+                    DiscountId,
+                    MaxDiscountAmount: 10m,
+                    UsedThisMonth: 9m,
+                    AppliesToAll: true,
+                    AppliesToBranch: false,
+                    AppliesToPos: false,
+                    AppliesToUser: false)
+            ]);
+        var service = CreateService(store);
+        var request = ValidRequest() with
+        {
+            Discounts = [new CreateOrderDiscount(DiscountId, UserId, 5m)],
+            Payments = [new CreateOrderPayment(PaymentType.Cash, 15m)]
+        };
+
+        var result = await service.CreateAsync(request);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal("Discount monthly limit exceeded.", result.Error);
+        Assert.Null(store.SavedGraph);
+    }
+
+    [Fact]
     public async Task CreateAsync_WithInsufficientWalletBalance_FailsWithoutPersisting()
     {
         var store = FakeOrderCreationStore.Ready(walletBalance: 5m);
@@ -288,8 +367,10 @@ public sealed class CreateOrderServiceTests
             ShippingType.Self,
             DateTimeOffset.UtcNow,
             "idem-001",
+            false,
             [new CreateOrderLine(ProductId, 2, 10m)],
-            [new CreateOrderPayment(PaymentType.Cash, 20m)]);
+            [new CreateOrderPayment(PaymentType.Cash, 20m)],
+            []);
     }
 
     private sealed class FakeOrderCreationStore(
@@ -300,7 +381,8 @@ public sealed class CreateOrderServiceTests
         IReadOnlyList<LoyaltyTier> loyaltyTiers,
         Guid? loyaltyTierId,
         int loyaltyLifetimePoints,
-        IReadOnlyList<Campaign> campaigns)
+        IReadOnlyList<Campaign> campaigns,
+        IReadOnlyDictionary<Guid, DiscountSnapshot> discounts)
         : IOrderCreationStore
     {
         public OrderCreationGraph? SavedGraph { get; private set; }
@@ -313,7 +395,8 @@ public sealed class CreateOrderServiceTests
             IReadOnlyList<LoyaltyTier>? loyaltyTiers = null,
             Guid? loyaltyTierId = null,
             int loyaltyLifetimePoints = 0,
-            IReadOnlyList<Campaign>? campaigns = null)
+            IReadOnlyList<Campaign>? campaigns = null,
+            IReadOnlyList<DiscountSnapshot>? discounts = null)
         {
             earnRules ??=
             [
@@ -336,7 +419,8 @@ public sealed class CreateOrderServiceTests
                 loyaltyTiers ?? [],
                 loyaltyTierId,
                 loyaltyLifetimePoints,
-                campaigns ?? []);
+                campaigns ?? [],
+                (discounts ?? []).ToDictionary(discount => discount.DiscountId));
         }
 
         public Task<Order?> FindByIdempotencyKeyAsync(
@@ -350,6 +434,7 @@ public sealed class CreateOrderServiceTests
         public Task<OrderCreationSnapshot> LoadSnapshotAsync(
             Guid companyId,
             Guid posId,
+            Guid userId,
             Guid? customerId,
             IReadOnlyCollection<Guid> productIds,
             CancellationToken cancellationToken)
@@ -361,6 +446,7 @@ public sealed class CreateOrderServiceTests
                 {
                     [ProductId] = new ProductStockSnapshot(ProductId, Guid.NewGuid(), Stocktaking: true, stockQuantity)
                 },
+                discounts,
                 new WalletAccount
                 {
                     Id = Guid.NewGuid(),

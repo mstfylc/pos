@@ -104,3 +104,9 @@
 | POS satis cekirdegi | Basit online satis + coklu odeme + idempotency + stok/wallet/loyalty ledger calisir. |
 | Tasarim icin kritik eksikler | Offline bayragi, manuel indirim/kupon, alt urun, POS fiyat/stok listesi, musteri QR/kart endpointleri, loyalty preview, vardiya/Z raporu. |
 | Vardiya/gun sonu | Backend ve legacy referansta gercek vardiya/Z raporu modulu bulunmadi. |
+
+## TODO
+
+| Konu | Not |
+|---|---|
+| Vardiya/gun sonu | Kapsam disi birakildi; ileride kasa acma-kapama, vardiya sayimi, X/Z raporu ve nakit farki icin ayri backend modul gerekecek. |

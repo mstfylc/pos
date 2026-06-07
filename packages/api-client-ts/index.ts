@@ -580,6 +580,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/app/pos/{posId}/products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAppPosProducts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/app/discounts": {
         parameters: {
             query?: never;
@@ -638,6 +654,54 @@ export interface paths {
         get: operations["getAppCustomerWallet"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/app/customers/{customerId}/card-token": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["issueAppCustomerCardToken"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/app/customers/identify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["identifyAppCustomer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/app/loyalty/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["previewAppLoyalty"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1114,8 +1178,11 @@ export interface components {
             /** Format: date-time */
             orderTime: string;
             idempotencyKey?: string | null;
+            /** @default false */
+            offlineOrder: boolean;
             lines: components["schemas"]["OrderLine"][];
             payments: components["schemas"]["OrderPayment"][];
+            discounts?: components["schemas"]["OrderDiscountWrite"][];
         };
         Order: {
             /** Format: uuid */
@@ -1133,6 +1200,8 @@ export interface components {
             /** Format: uuid */
             productId: string;
             quantity: number;
+            /** Format: decimal */
+            unitPrice: string;
         };
         OrderPayment: {
             paymentType: components["schemas"]["PaymentType"];
@@ -1141,6 +1210,132 @@ export interface components {
             /** @default TRY */
             currency: string;
             externalReference?: string | null;
+        };
+        OrderDiscountWrite: {
+            /** Format: uuid */
+            discountId: string;
+            /** Format: uuid */
+            userId: string;
+            /** Format: decimal */
+            amount: string;
+        };
+        PosProductCatalogResponse: {
+            categories: components["schemas"]["PosProductCategory"][];
+        };
+        PosProductCategory: {
+            /** Format: uuid */
+            categoryId: string;
+            name: string;
+            sortOrder: number;
+            colorName?: string | null;
+            colorContent?: string | null;
+            shapeName?: string | null;
+            shapeContent?: string | null;
+            products: components["schemas"]["PosProductSale"][];
+        };
+        PosProductSale: {
+            /** Format: uuid */
+            productId: string;
+            /** Format: uuid */
+            posProductId: string;
+            name: string;
+            /** Format: uuid */
+            categoryId: string;
+            /** Format: decimal */
+            baseSalePrice?: string | null;
+            /** Format: decimal */
+            salePrice?: string | null;
+            /** Format: decimal */
+            purchasePrice?: string | null;
+            barcode?: string | null;
+            stockCode?: string | null;
+            image?: string | null;
+            productUnitType: components["schemas"]["ProductUnitType"];
+            taxType: components["schemas"]["TaxType"];
+            stocktaking: boolean;
+            favoriteProduct: boolean;
+            sortOrder: number;
+            stockQuantity: number;
+        };
+        IssueCustomerCardTokenRequest: {
+            /** Format: uuid */
+            companyId: string;
+            /** @default 300 */
+            expiresInSeconds: number;
+        };
+        CustomerCardTokenResponse: {
+            /** Format: uuid */
+            customerId: string;
+            token: string;
+            /** Format: date-time */
+            expiresAt: string;
+        };
+        IdentifyCustomerRequest: {
+            /** Format: uuid */
+            companyId: string;
+            token?: string | null;
+            cardNumber?: string | null;
+        };
+        IdentifiedCustomer: {
+            /** Format: uuid */
+            customerId: string;
+            name: string;
+            surname: string;
+            phone?: string | null;
+            mail?: string | null;
+            /** Format: decimal */
+            walletBalance: string;
+            pointBalance: number;
+            lifetimePoints: number;
+            /** Format: uuid */
+            tierId?: string | null;
+            tierName?: string | null;
+        };
+        LoyaltyPreviewRequest: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            posId: string;
+            /** Format: uuid */
+            customerId: string;
+            lines: components["schemas"]["LoyaltyPreviewLine"][];
+        };
+        LoyaltyPreviewLine: {
+            /** Format: uuid */
+            productId: string;
+            quantity: number;
+            /** Format: decimal */
+            unitPrice: string;
+            /**
+             * Format: decimal
+             * @default 0
+             */
+            taxAmount: string;
+        };
+        LoyaltyPreviewResponse: {
+            /** Format: decimal */
+            grossTotal: string;
+            /** Format: decimal */
+            campaignDiscount: string;
+            /** Format: decimal */
+            finalTotal: string;
+            earnPoints: number;
+            /** Format: date-time */
+            earnExpiresAt?: string | null;
+            campaignExtraPoints: number;
+            appliedCampaigns: string[];
+            availableRewards: components["schemas"]["AvailableReward"][];
+        };
+        AvailableReward: {
+            /** Format: uuid */
+            rewardId: string;
+            name: string;
+            requiredPoints: number;
+            rewardType: components["schemas"]["RewardType"];
+            /** Format: decimal */
+            discountAmount?: string | null;
+            /** Format: uuid */
+            productId?: string | null;
         };
         OrderResponse: {
             /** Format: uuid */
@@ -1213,6 +1408,8 @@ export interface components {
         PermissionType: "Undefined";
         /** @enum {string} */
         CampaignType: "ExtraPoints" | "DiscountAmount" | "Stamp";
+        /** @enum {string} */
+        RewardType: "DiscountAmount" | "FreeProduct" | "Custom";
         /** @enum {string} */
         OrderState: "Received" | "Preparing" | "Completed" | "Cancelled" | "Deleted" | "Transferring";
         /** @enum {string} */
@@ -2779,6 +2976,31 @@ export interface operations {
             default: components["responses"]["Problem"];
         };
     };
+    getAppPosProducts: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                posId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description POS grouped product catalog */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PosProductCatalogResponse"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
     listAppDiscounts: {
         parameters: {
             query: {
@@ -2874,6 +3096,83 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["WalletAccount"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    issueAppCustomerCardToken: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                customerId: components["parameters"]["CustomerId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["IssueCustomerCardTokenRequest"];
+            };
+        };
+        responses: {
+            /** @description Short-lived customer QR/card token */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerCardTokenResponse"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    identifyAppCustomer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["IdentifyCustomerRequest"];
+            };
+        };
+        responses: {
+            /** @description Identified customer wallet and loyalty summary */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IdentifiedCustomer"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    previewAppLoyalty: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoyaltyPreviewRequest"];
+            };
+        };
+        responses: {
+            /** @description Loyalty earn and reward preview for cart */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoyaltyPreviewResponse"];
                 };
             };
             default: components["responses"]["Problem"];

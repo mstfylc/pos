@@ -3,6 +3,7 @@ using Mansis.Pos.Application.Abstractions.Tenancy;
 using Mansis.Pos.Application.Auth;
 using Mansis.Pos.Application.Core;
 using Mansis.Pos.Application.Loyalty.RedeemReward;
+using Mansis.Pos.Application.Pos;
 using Mansis.Pos.Infrastructure.Auth;
 using Mansis.Pos.Application.Orders.CancelOrder;
 using Mansis.Pos.Application.Orders.CreateOrder;
@@ -42,6 +43,7 @@ public static class DependencyInjection
         services.AddScoped<IRewardRedemptionStore, EfRewardRedemptionStore>();
         services.AddScoped<IOrderCancellationStore, EfOrderCancellationStore>();
         services.AddScoped<IOrderCreationStore, EfOrderCreationStore>();
+        services.AddScoped<IPosStore, EfPosStore>();
         services.AddHostedService<DbBootstrapHostedService>();
 
         return services;

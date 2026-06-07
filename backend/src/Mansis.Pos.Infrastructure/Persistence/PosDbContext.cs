@@ -32,6 +32,7 @@ public sealed class PosDbContext(
     public DbSet<ConfigParam> ConfigParams => Set<ConfigParam>();
     public DbSet<Customer> Customers => Set<Customer>();
     public DbSet<CustomerAddress> CustomerAddresses => Set<CustomerAddress>();
+    public DbSet<CustomerCardToken> CustomerCardTokens => Set<CustomerCardToken>();
     public DbSet<CustomerBalanceMovement> CustomerBalanceMovements => Set<CustomerBalanceMovement>();
     public DbSet<CustomerFavoriteProduct> CustomerFavoriteProducts => Set<CustomerFavoriteProduct>();
     public DbSet<Discount> Discounts => Set<Discount>();
@@ -168,6 +169,9 @@ public sealed class PosDbContext(
 
         modelBuilder.Entity<Customer>()
             .HasIndex(customer => new { customer.CompanyId, customer.Mail });
+
+        modelBuilder.Entity<CustomerCardToken>()
+            .HasIndex(token => new { token.CompanyId, token.TokenHash });
 
         modelBuilder.Entity<DiscountUsageLog>()
             .HasIndex(usage => new { usage.CompanyId, usage.DiscountId, usage.OrderTime });

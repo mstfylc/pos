@@ -1,5 +1,6 @@
 using Mansis.Pos.Application.Orders.CreateOrder;
 using Mansis.Pos.Domain.Entities;
+using Mansis.Pos.Domain.Enumerations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mansis.Pos.Infrastructure.Persistence.Repositories;
@@ -18,6 +19,7 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
     public async Task<OrderCreationSnapshot> LoadSnapshotAsync(
         Guid companyId,
         Guid posId,
+        Guid userId,
         Guid? customerId,
         IReadOnlyCollection<Guid> productIds,
         CancellationToken cancellationToken)
@@ -44,6 +46,38 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
                     product.CategoryId,
                     product.Stocktaking,
                     storeProducts.TryGetValue(product.Id, out var storeProduct) ? storeProduct.Quantity : 0));
+
+        var firstDayOfMonth = new DateTimeOffset(DateTimeOffset.UtcNow.Year, DateTimeOffset.UtcNow.Month, 1, 0, 0, 0, TimeSpan.Zero);
+        var discounts = await dbContext.Discounts
+            .AsNoTracking()
+            .Where(discount => discount.CompanyId == companyId && discount.Active)
+            .Select(discount => new
+            {
+                discount.Id,
+                discount.DiscountCategory,
+                discount.MaxDiscountAmount,
+                UsedThisMonth = dbContext.DiscountUsageLogs
+                    .Where(log => log.CompanyId == companyId && log.DiscountId == discount.Id && log.OrderTime >= firstDayOfMonth)
+                    .Sum(log => (decimal?)log.Amount) ?? 0m,
+                AppliesToAll = discount.DiscountCategory == DiscountCategory.All,
+                AppliesToBranch = discount.DiscountCategory == DiscountCategory.Branch
+                    && dbContext.DiscountBranches.Any(scope => scope.DiscountId == discount.Id && scope.BranchId == pos.BranchId),
+                AppliesToPos = discount.DiscountCategory == DiscountCategory.Pos
+                    && dbContext.DiscountPoses.Any(scope => scope.DiscountId == discount.Id && scope.PosId == posId),
+                AppliesToUser = discount.DiscountCategory == DiscountCategory.Personnel
+                    && dbContext.DiscountUsers.Any(scope => scope.DiscountId == discount.Id && scope.UserId == userId)
+            })
+            .ToDictionaryAsync(
+                discount => discount.Id,
+                discount => new DiscountSnapshot(
+                    discount.Id,
+                    discount.MaxDiscountAmount,
+                    discount.UsedThisMonth,
+                    discount.AppliesToAll,
+                    discount.AppliesToBranch,
+                    discount.AppliesToPos,
+                    discount.AppliesToUser),
+                cancellationToken);
 
         WalletAccount? walletAccount = null;
         LoyaltyAccount? loyaltyAccount = null;
@@ -78,7 +112,7 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
                 .ToListAsync(cancellationToken);
         }
 
-        return new OrderCreationSnapshot(pos.StoreId, pos.BranchId, productSnapshots, walletAccount, loyaltyAccount, earnRules, loyaltyTiers, campaigns);
+        return new OrderCreationSnapshot(pos.StoreId, pos.BranchId, productSnapshots, discounts, walletAccount, loyaltyAccount, earnRules, loyaltyTiers, campaigns);
     }
 
     public async Task AddOrderGraphAsync(OrderCreationGraph graph, CancellationToken cancellationToken)
@@ -88,6 +122,8 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
         dbContext.Orders.Add(graph.Order);
         dbContext.OrderProducts.AddRange(graph.OrderProducts);
         dbContext.OrderPayments.AddRange(graph.OrderPayments);
+        dbContext.OrderDiscounts.AddRange(graph.OrderDiscounts);
+        dbContext.DiscountUsageLogs.AddRange(graph.DiscountUsageLogs);
         dbContext.StockMovements.AddRange(graph.StockMovements);
         dbContext.WalletTransactions.AddRange(graph.WalletTransactions);
         dbContext.LoyaltyPointTransactions.AddRange(graph.LoyaltyPointTransactions);

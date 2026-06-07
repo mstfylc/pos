@@ -33,6 +33,7 @@ public sealed class AppOrdersController(
                 request.ShippingType,
                 request.OrderTime,
                 resolvedIdempotencyKey ?? string.Empty,
+                request.OfflineOrder,
                 request.Lines.Select(line => new CreateOrderLine(
                     line.ProductId,
                     line.Quantity,
@@ -42,7 +43,11 @@ public sealed class AppOrdersController(
                     payment.PaymentType,
                     payment.Amount,
                     payment.Currency,
-                    payment.ExternalReference)).ToArray()),
+                    payment.ExternalReference)).ToArray(),
+                (request.Discounts ?? []).Select(discount => new CreateOrderDiscount(
+                    discount.DiscountId,
+                    discount.UserId,
+                    discount.Amount)).ToArray()),
             cancellationToken);
 
         if (!result.IsSuccess || result.Value is null)
@@ -111,8 +116,10 @@ public sealed record CreateAppOrderRequest(
     ShippingType ShippingType,
     DateTimeOffset OrderTime,
     string? IdempotencyKey,
+    bool OfflineOrder,
     IReadOnlyList<CreateAppOrderLineRequest> Lines,
-    IReadOnlyList<CreateAppOrderPaymentRequest> Payments);
+    IReadOnlyList<CreateAppOrderPaymentRequest> Payments,
+    IReadOnlyList<CreateAppOrderDiscountRequest> Discounts);
 
 public sealed record CreateAppOrderLineRequest(Guid ProductId, int Quantity, decimal UnitPrice, decimal TaxAmount = 0m);
 
@@ -121,6 +128,8 @@ public sealed record CreateAppOrderPaymentRequest(
     decimal Amount,
     string Currency = "TRY",
     string? ExternalReference = null);
+
+public sealed record CreateAppOrderDiscountRequest(Guid DiscountId, Guid UserId, decimal Amount);
 
 public sealed record ReasonRequest(Guid CompanyId, Guid UserId, string Reason);
 
