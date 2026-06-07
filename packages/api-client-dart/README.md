@@ -95,12 +95,17 @@ Class | Method | HTTP request | Description
 *AppApi* | [**listAppProducts**](doc\AppApi.md#listappproducts) | **GET** /api/v1/app/products | 
 *AppApi* | [**listAppStores**](doc\AppApi.md#listappstores) | **GET** /api/v1/app/stores | 
 *AppApi* | [**refundAppOrder**](doc\AppApi.md#refundapporder) | **POST** /api/v1/app/orders/{orderId}/refund | 
+*AuthApi* | [**login**](doc\AuthApi.md#login) | **POST** /api/v1/auth/login | 
+*AuthApi* | [**refresh**](doc\AuthApi.md#refresh) | **POST** /api/v1/auth/refresh | 
+*AuthApi* | [**requestOtp**](doc\AuthApi.md#requestotp) | **POST** /api/v1/auth/otp/request | 
+*AuthApi* | [**verifyOtp**](doc\AuthApi.md#verifyotp) | **POST** /api/v1/auth/otp/verify | 
 *LoyaltyApi* | [**getLoyaltyAccount**](doc\LoyaltyApi.md#getloyaltyaccount) | **GET** /api/v1/loyalty/accounts/{customerId} | 
 *StockApi* | [**listStockMovements**](doc\StockApi.md#liststockmovements) | **GET** /api/v1/stock/movements | 
 
 
 ## Documentation For Models
 
+ - [AuthTokenResult](doc\AuthTokenResult.md)
  - [CancelOrderResponse](doc\CancelOrderResponse.md)
  - [Category](doc\Category.md)
  - [CategoryWrite](doc\CategoryWrite.md)
@@ -112,6 +117,7 @@ Class | Method | HTTP request | Description
  - [DiscountCategory](doc\DiscountCategory.md)
  - [DiscountType](doc\DiscountType.md)
  - [DiscountWrite](doc\DiscountWrite.md)
+ - [LoginRequest](doc\LoginRequest.md)
  - [LoyaltyAccount](doc\LoyaltyAccount.md)
  - [Order](doc\Order.md)
  - [OrderLine](doc\OrderLine.md)
@@ -119,6 +125,9 @@ Class | Method | HTTP request | Description
  - [OrderPayment](doc\OrderPayment.md)
  - [OrderResponse](doc\OrderResponse.md)
  - [OrderState](doc\OrderState.md)
+ - [OtpRequest](doc\OtpRequest.md)
+ - [OtpResult](doc\OtpResult.md)
+ - [OtpVerifyRequest](doc\OtpVerifyRequest.md)
  - [PaymentSummary](doc\PaymentSummary.md)
  - [PaymentType](doc\PaymentType.md)
  - [Pos](doc\Pos.md)
@@ -128,6 +137,7 @@ Class | Method | HTTP request | Description
  - [ProductUnitType](doc\ProductUnitType.md)
  - [ProductWrite](doc\ProductWrite.md)
  - [ReasonRequest](doc\ReasonRequest.md)
+ - [RefreshTokenRequest](doc\RefreshTokenRequest.md)
  - [ShippingType](doc\ShippingType.md)
  - [StockMovement](doc\StockMovement.md)
  - [Store](doc\Store.md)

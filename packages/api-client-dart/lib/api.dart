@@ -15,6 +15,7 @@ import 'package:mansis_pos_api_client/auth/basic_auth.dart';
 import 'package:mansis_pos_api_client/auth/oauth.dart';
 import 'package:mansis_pos_api_client/api/admin_api.dart';
 import 'package:mansis_pos_api_client/api/app_api.dart';
+import 'package:mansis_pos_api_client/api/auth_api.dart';
 import 'package:mansis_pos_api_client/api/loyalty_api.dart';
 import 'package:mansis_pos_api_client/api/stock_api.dart';
 
@@ -80,6 +81,15 @@ class MansisPosApiClient {
     */
     AppApi getAppApi() {
     return AppApi(dio, serializers);
+    }
+
+
+    /**
+    * Get AuthApi instance, base route and serializer can be overridden by a given but be careful,
+    * by doing that all interceptors will not be executed
+    */
+    AuthApi getAuthApi() {
+    return AuthApi(dio, serializers);
     }
 
 

@@ -1,9 +1,11 @@
 using System.Text;
 using Mansis.Pos.Api;
+using Mansis.Pos.Api.Auth;
 using Mansis.Pos.Api.Realtime;
 using Mansis.Pos.Api.Tenancy;
 using Mansis.Pos.Application;
 using Mansis.Pos.Application.Abstractions.Tenancy;
+using Mansis.Pos.Application.Auth;
 using Mansis.Pos.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -28,6 +30,7 @@ builder.Services.AddSignalR();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<ITenantContext, HttpTenantContext>();
+builder.Services.AddScoped<IAuthTokenIssuer, JwtAuthTokenIssuer>();
 
 builder.Services.AddCors(options =>
 {

@@ -1,4 +1,5 @@
 using FluentValidation;
+using Mansis.Pos.Application.Auth;
 using Mansis.Pos.Application.Core;
 using Mansis.Pos.Application.Orders.CancelOrder;
 using MediatR;
@@ -15,6 +16,7 @@ public static class DependencyInjection
             configuration.RegisterServicesFromAssembly(ApplicationAssembly.Assembly));
 
         services.AddValidatorsFromAssembly(ApplicationAssembly.Assembly);
+        services.AddScoped<AuthService>();
         services.AddScoped<CoreCrudService>();
         services.AddScoped<CancelOrderService>();
         services.AddScoped<CreateOrderService>();

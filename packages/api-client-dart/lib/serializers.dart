@@ -13,6 +13,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/json_object.dart';
 import 'package:built_value/standard_json_plugin.dart';
 
+import 'package:mansis_pos_api_client/model/auth_token_result.dart';
 import 'package:mansis_pos_api_client/model/cancel_order_response.dart';
 import 'package:mansis_pos_api_client/model/category.dart';
 import 'package:mansis_pos_api_client/model/category_write.dart';
@@ -24,6 +25,7 @@ import 'package:mansis_pos_api_client/model/discount.dart';
 import 'package:mansis_pos_api_client/model/discount_category.dart';
 import 'package:mansis_pos_api_client/model/discount_type.dart';
 import 'package:mansis_pos_api_client/model/discount_write.dart';
+import 'package:mansis_pos_api_client/model/login_request.dart';
 import 'package:mansis_pos_api_client/model/loyalty_account.dart';
 import 'package:mansis_pos_api_client/model/order.dart';
 import 'package:mansis_pos_api_client/model/order_line.dart';
@@ -31,6 +33,9 @@ import 'package:mansis_pos_api_client/model/order_list_item.dart';
 import 'package:mansis_pos_api_client/model/order_payment.dart';
 import 'package:mansis_pos_api_client/model/order_response.dart';
 import 'package:mansis_pos_api_client/model/order_state.dart';
+import 'package:mansis_pos_api_client/model/otp_request.dart';
+import 'package:mansis_pos_api_client/model/otp_result.dart';
+import 'package:mansis_pos_api_client/model/otp_verify_request.dart';
 import 'package:mansis_pos_api_client/model/payment_summary.dart';
 import 'package:mansis_pos_api_client/model/payment_type.dart';
 import 'package:mansis_pos_api_client/model/pos.dart';
@@ -40,6 +45,7 @@ import 'package:mansis_pos_api_client/model/product.dart';
 import 'package:mansis_pos_api_client/model/product_unit_type.dart';
 import 'package:mansis_pos_api_client/model/product_write.dart';
 import 'package:mansis_pos_api_client/model/reason_request.dart';
+import 'package:mansis_pos_api_client/model/refresh_token_request.dart';
 import 'package:mansis_pos_api_client/model/shipping_type.dart';
 import 'package:mansis_pos_api_client/model/stock_movement.dart';
 import 'package:mansis_pos_api_client/model/store.dart';
@@ -51,6 +57,7 @@ import 'package:mansis_pos_api_client/model/wallet_account.dart';
 part 'serializers.g.dart';
 
 @SerializersFor(const [
+  AuthTokenResult,
   CancelOrderResponse,
   Category,
   CategoryWrite,
@@ -62,6 +69,7 @@ part 'serializers.g.dart';
   DiscountCategory,
   DiscountType,
   DiscountWrite,
+  LoginRequest,
   LoyaltyAccount,
   Order,
   OrderLine,
@@ -69,6 +77,9 @@ part 'serializers.g.dart';
   OrderPayment,
   OrderResponse,
   OrderState,
+  OtpRequest,
+  OtpResult,
+  OtpVerifyRequest,
   PaymentSummary,
   PaymentType,
   Pos,
@@ -78,6 +89,7 @@ part 'serializers.g.dart';
   ProductUnitType,
   ProductWrite,
   ReasonRequest,
+  RefreshTokenRequest,
   ShippingType,
   StockMovement,
   Store,

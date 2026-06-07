@@ -3,6 +3,8 @@ README.md
 analysis_options.yaml
 doc/AdminApi.md
 doc/AppApi.md
+doc/AuthApi.md
+doc/AuthTokenResult.md
 doc/CancelOrderResponse.md
 doc/Category.md
 doc/CategoryWrite.md
@@ -14,6 +16,7 @@ doc/Discount.md
 doc/DiscountCategory.md
 doc/DiscountType.md
 doc/DiscountWrite.md
+doc/LoginRequest.md
 doc/LoyaltyAccount.md
 doc/LoyaltyApi.md
 doc/Order.md
@@ -22,6 +25,9 @@ doc/OrderListItem.md
 doc/OrderPayment.md
 doc/OrderResponse.md
 doc/OrderState.md
+doc/OtpRequest.md
+doc/OtpResult.md
+doc/OtpVerifyRequest.md
 doc/PaymentSummary.md
 doc/PaymentType.md
 doc/Pos.md
@@ -31,6 +37,7 @@ doc/Product.md
 doc/ProductUnitType.md
 doc/ProductWrite.md
 doc/ReasonRequest.md
+doc/RefreshTokenRequest.md
 doc/ShippingType.md
 doc/StockApi.md
 doc/StockMovement.md
@@ -42,6 +49,7 @@ doc/WalletAccount.md
 lib/api.dart
 lib/api/admin_api.dart
 lib/api/app_api.dart
+lib/api/auth_api.dart
 lib/api/loyalty_api.dart
 lib/api/stock_api.dart
 lib/api_util.dart
@@ -49,6 +57,7 @@ lib/auth/api_key_auth.dart
 lib/auth/auth.dart
 lib/auth/basic_auth.dart
 lib/auth/oauth.dart
+lib/model/auth_token_result.dart
 lib/model/cancel_order_response.dart
 lib/model/category.dart
 lib/model/category_write.dart
@@ -60,6 +69,7 @@ lib/model/discount.dart
 lib/model/discount_category.dart
 lib/model/discount_type.dart
 lib/model/discount_write.dart
+lib/model/login_request.dart
 lib/model/loyalty_account.dart
 lib/model/order.dart
 lib/model/order_line.dart
@@ -67,6 +77,9 @@ lib/model/order_list_item.dart
 lib/model/order_payment.dart
 lib/model/order_response.dart
 lib/model/order_state.dart
+lib/model/otp_request.dart
+lib/model/otp_result.dart
+lib/model/otp_verify_request.dart
 lib/model/payment_summary.dart
 lib/model/payment_type.dart
 lib/model/pos.dart
@@ -76,6 +89,7 @@ lib/model/product.dart
 lib/model/product_unit_type.dart
 lib/model/product_write.dart
 lib/model/reason_request.dart
+lib/model/refresh_token_request.dart
 lib/model/shipping_type.dart
 lib/model/stock_movement.dart
 lib/model/store.dart
@@ -85,17 +99,10 @@ lib/model/tax_type.dart
 lib/model/wallet_account.dart
 lib/serializers.dart
 pubspec.yaml
-test/category_test.dart
-test/category_write_test.dart
-test/customer_test.dart
-test/customer_write_test.dart
-test/discount_category_test.dart
-test/discount_test.dart
-test/discount_type_test.dart
-test/discount_write_test.dart
-test/order_list_item_test.dart
-test/pos_test.dart
-test/pos_write_test.dart
-test/product_write_test.dart
-test/store_test.dart
-test/store_write_test.dart
+test/auth_api_test.dart
+test/auth_token_result_test.dart
+test/login_request_test.dart
+test/otp_request_test.dart
+test/otp_result_test.dart
+test/otp_verify_request_test.dart
+test/refresh_token_request_test.dart

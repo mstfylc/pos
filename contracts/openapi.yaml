@@ -9,11 +9,92 @@ servers:
   - url: http://localhost:5000
     description: Local development
 tags:
+  - name: Auth
   - name: Admin
   - name: App
   - name: Loyalty
   - name: Stock
 paths:
+  /api/v1/auth/login:
+    post:
+      tags: [Auth]
+      operationId: login
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Access and refresh token pair
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthTokenResult'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/auth/refresh:
+    post:
+      tags: [Auth]
+      operationId: refresh
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: Rotated access and refresh token pair
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthTokenResult'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/auth/otp/request:
+    post:
+      tags: [Auth]
+      operationId: requestOtp
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OtpRequest'
+      responses:
+        '200':
+          description: OTP request accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OtpResult'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/auth/otp/verify:
+    post:
+      tags: [Auth]
+      operationId: verifyOtp
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OtpVerifyRequest'
+      responses:
+        '200':
+          description: OTP verification accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OtpResult'
+        default:
+          $ref: '#/components/responses/Problem'
   /api/v1/admin/companies:
     get:
       tags: [Admin]
@@ -545,6 +626,46 @@ components:
         detail: { type: string, nullable: true }
         instance: { type: string, nullable: true }
       additionalProperties: true
+    LoginRequest:
+      type: object
+      required: [companyId, username, password]
+      properties:
+        companyId: { type: string, format: uuid }
+        username: { type: string }
+        password: { type: string, format: password }
+    RefreshTokenRequest:
+      type: object
+      required: [companyId, refreshToken]
+      properties:
+        companyId: { type: string, format: uuid }
+        refreshToken: { type: string }
+    AuthTokenResult:
+      type: object
+      required: [userId, companyId, accessToken, refreshToken, expiresAt]
+      properties:
+        userId: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        accessToken: { type: string }
+        refreshToken: { type: string }
+        expiresAt: { type: string, format: date-time }
+    OtpRequest:
+      type: object
+      required: [companyId, phone]
+      properties:
+        companyId: { type: string, format: uuid }
+        phone: { type: string }
+    OtpVerifyRequest:
+      type: object
+      required: [companyId, phone, code]
+      properties:
+        companyId: { type: string, format: uuid }
+        phone: { type: string }
+        code: { type: string }
+    OtpResult:
+      type: object
+      required: [state]
+      properties:
+        state: { type: string }
     Company:
       type: object
       required: [id, name, active]
