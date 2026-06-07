@@ -634,6 +634,198 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         return true;
     }
 
+    public async Task<IReadOnlyList<EarnRuleDto>> ListEarnRulesAsync(Guid companyId, CancellationToken cancellationToken)
+    {
+        return await dbContext.EarnRules
+            .AsNoTracking()
+            .Where(rule => rule.CompanyId == companyId)
+            .OrderBy(rule => rule.Name)
+            .Select(rule => ToDto(rule))
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<EarnRuleDto?> GetEarnRuleAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var rule = await dbContext.EarnRules.AsNoTracking().FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        return rule is null ? null : ToDto(rule);
+    }
+
+    public async Task<EarnRuleDto?> CreateEarnRuleAsync(EarnRuleWriteDto request, CancellationToken cancellationToken)
+    {
+        if (!await EarnRuleScopeIsValidAsync(request, cancellationToken)) return null;
+
+        var rule = new EarnRule { Id = Guid.NewGuid(), CompanyId = request.CompanyId };
+        ApplyEarnRuleWrite(rule, request);
+        dbContext.EarnRules.Add(rule);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(rule);
+    }
+
+    public async Task<EarnRuleDto?> UpdateEarnRuleAsync(Guid id, EarnRuleWriteDto request, CancellationToken cancellationToken)
+    {
+        if (!await EarnRuleScopeIsValidAsync(request, cancellationToken)) return null;
+
+        var rule = await dbContext.EarnRules.FirstOrDefaultAsync(item => item.CompanyId == request.CompanyId && item.Id == id, cancellationToken);
+        if (rule is null) return null;
+
+        ApplyEarnRuleWrite(rule, request);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(rule);
+    }
+
+    public async Task<bool> DeleteEarnRuleAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var rule = await dbContext.EarnRules.FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        if (rule is null) return false;
+
+        rule.Active = false;
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return true;
+    }
+
+    public async Task<IReadOnlyList<LoyaltyTierDto>> ListLoyaltyTiersAsync(Guid companyId, CancellationToken cancellationToken)
+    {
+        return await dbContext.LoyaltyTiers
+            .AsNoTracking()
+            .Where(tier => tier.CompanyId == companyId)
+            .OrderBy(tier => tier.MinimumPoints)
+            .Select(tier => ToDto(tier))
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<LoyaltyTierDto?> GetLoyaltyTierAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var tier = await dbContext.LoyaltyTiers.AsNoTracking().FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        return tier is null ? null : ToDto(tier);
+    }
+
+    public async Task<LoyaltyTierDto?> CreateLoyaltyTierAsync(LoyaltyTierWriteDto request, CancellationToken cancellationToken)
+    {
+        var tier = new LoyaltyTier { Id = Guid.NewGuid(), CompanyId = request.CompanyId };
+        ApplyLoyaltyTierWrite(tier, request);
+        dbContext.LoyaltyTiers.Add(tier);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(tier);
+    }
+
+    public async Task<LoyaltyTierDto?> UpdateLoyaltyTierAsync(Guid id, LoyaltyTierWriteDto request, CancellationToken cancellationToken)
+    {
+        var tier = await dbContext.LoyaltyTiers.FirstOrDefaultAsync(item => item.CompanyId == request.CompanyId && item.Id == id, cancellationToken);
+        if (tier is null) return null;
+
+        ApplyLoyaltyTierWrite(tier, request);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(tier);
+    }
+
+    public async Task<bool> DeleteLoyaltyTierAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var tier = await dbContext.LoyaltyTiers.FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        if (tier is null) return false;
+
+        tier.Active = false;
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return true;
+    }
+
+    public async Task<IReadOnlyList<RewardDto>> ListRewardsAsync(Guid companyId, CancellationToken cancellationToken)
+    {
+        return await dbContext.Rewards
+            .AsNoTracking()
+            .Where(reward => reward.CompanyId == companyId)
+            .OrderBy(reward => reward.Name)
+            .Select(reward => ToDto(reward))
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<RewardDto?> GetRewardAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var reward = await dbContext.Rewards.AsNoTracking().FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        return reward is null ? null : ToDto(reward);
+    }
+
+    public async Task<RewardDto?> CreateRewardAsync(RewardWriteDto request, CancellationToken cancellationToken)
+    {
+        if (!await RewardScopeIsValidAsync(request, cancellationToken)) return null;
+
+        var reward = new Reward { Id = Guid.NewGuid(), CompanyId = request.CompanyId };
+        ApplyRewardWrite(reward, request);
+        dbContext.Rewards.Add(reward);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(reward);
+    }
+
+    public async Task<RewardDto?> UpdateRewardAsync(Guid id, RewardWriteDto request, CancellationToken cancellationToken)
+    {
+        if (!await RewardScopeIsValidAsync(request, cancellationToken)) return null;
+
+        var reward = await dbContext.Rewards.FirstOrDefaultAsync(item => item.CompanyId == request.CompanyId && item.Id == id, cancellationToken);
+        if (reward is null) return null;
+
+        ApplyRewardWrite(reward, request);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(reward);
+    }
+
+    public async Task<bool> DeleteRewardAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var reward = await dbContext.Rewards.FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        if (reward is null) return false;
+
+        reward.Active = false;
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return true;
+    }
+
+    public async Task<IReadOnlyList<StampCardDto>> ListStampCardsAsync(Guid companyId, CancellationToken cancellationToken)
+    {
+        return await dbContext.StampCards
+            .AsNoTracking()
+            .Where(stampCard => stampCard.CompanyId == companyId)
+            .OrderBy(stampCard => stampCard.Name)
+            .Select(stampCard => ToDto(stampCard))
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<StampCardDto?> GetStampCardAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var stampCard = await dbContext.StampCards.AsNoTracking().FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        return stampCard is null ? null : ToDto(stampCard);
+    }
+
+    public async Task<StampCardDto?> CreateStampCardAsync(StampCardWriteDto request, CancellationToken cancellationToken)
+    {
+        if (!await StampCardScopeIsValidAsync(request, cancellationToken)) return null;
+
+        var stampCard = new StampCard { Id = Guid.NewGuid(), CompanyId = request.CompanyId };
+        ApplyStampCardWrite(stampCard, request);
+        dbContext.StampCards.Add(stampCard);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(stampCard);
+    }
+
+    public async Task<StampCardDto?> UpdateStampCardAsync(Guid id, StampCardWriteDto request, CancellationToken cancellationToken)
+    {
+        if (!await StampCardScopeIsValidAsync(request, cancellationToken)) return null;
+
+        var stampCard = await dbContext.StampCards.FirstOrDefaultAsync(item => item.CompanyId == request.CompanyId && item.Id == id, cancellationToken);
+        if (stampCard is null) return null;
+
+        ApplyStampCardWrite(stampCard, request);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(stampCard);
+    }
+
+    public async Task<bool> DeleteStampCardAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var stampCard = await dbContext.StampCards.FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        if (stampCard is null) return false;
+
+        stampCard.Active = false;
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return true;
+    }
+
     private async Task<bool> DeactivateAsync<TEntity>(DbSet<TEntity> set, Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken)
         where TEntity : AuditableEntity, ICompanyScoped
     {
@@ -914,6 +1106,75 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         campaign.Active = request.Active;
     }
 
+    private async Task<bool> EarnRuleScopeIsValidAsync(EarnRuleWriteDto request, CancellationToken cancellationToken)
+    {
+        return request.Scope switch
+        {
+            EarnRuleScope.All => true,
+            EarnRuleScope.Branch => request.BranchId.HasValue
+                && await dbContext.Branches.AnyAsync(branch => branch.CompanyId == request.CompanyId && branch.Id == request.BranchId.Value, cancellationToken),
+            EarnRuleScope.Category => request.CategoryId.HasValue
+                && await dbContext.Categories.AnyAsync(category => category.CompanyId == request.CompanyId && category.Id == request.CategoryId.Value, cancellationToken),
+            _ => false
+        };
+    }
+
+    private static void ApplyEarnRuleWrite(EarnRule rule, EarnRuleWriteDto request)
+    {
+        rule.Name = request.Name;
+        rule.AmountPerPoint = 1m / request.PointsPerCurrency;
+        rule.MinimumOrderTotal = request.MinOrder;
+        rule.ExpiryDays = request.ExpiryDays;
+        rule.Scope = request.Scope;
+        rule.BranchId = request.Scope == EarnRuleScope.Branch ? request.BranchId : null;
+        rule.CategoryId = request.Scope == EarnRuleScope.Category ? request.CategoryId : null;
+        rule.StartsAt = request.StartsAt;
+        rule.EndsAt = request.EndsAt;
+        rule.Active = request.Active;
+    }
+
+    private static void ApplyLoyaltyTierWrite(LoyaltyTier tier, LoyaltyTierWriteDto request)
+    {
+        tier.Name = request.Name;
+        tier.MinimumPoints = request.MinPoints;
+        tier.EarnMultiplier = request.PointMultiplier;
+        tier.Benefits = request.Benefits;
+        tier.Active = request.Active;
+    }
+
+    private async Task<bool> RewardScopeIsValidAsync(RewardWriteDto request, CancellationToken cancellationToken)
+    {
+        if (!request.ProductId.HasValue) return true;
+        return await dbContext.Products.AnyAsync(product => product.CompanyId == request.CompanyId && product.Id == request.ProductId.Value, cancellationToken);
+    }
+
+    private static void ApplyRewardWrite(Reward reward, RewardWriteDto request)
+    {
+        reward.Name = request.Name;
+        reward.RequiredPoints = request.PointCost;
+        reward.RewardType = request.RewardType;
+        reward.DiscountAmount = request.DiscountAmount;
+        reward.Image = request.Image;
+        reward.ProductId = request.ProductId;
+        reward.Active = request.Active;
+    }
+
+    private async Task<bool> StampCardScopeIsValidAsync(StampCardWriteDto request, CancellationToken cancellationToken)
+    {
+        if (!request.RewardId.HasValue) return true;
+        return await dbContext.Rewards.AnyAsync(reward => reward.CompanyId == request.CompanyId && reward.Id == request.RewardId.Value, cancellationToken);
+    }
+
+    private static void ApplyStampCardWrite(StampCard stampCard, StampCardWriteDto request)
+    {
+        stampCard.Name = request.Name;
+        stampCard.RequiredStamps = request.RequiredStamps;
+        stampCard.RewardId = request.RewardId;
+        stampCard.StartsAt = request.StartsAt;
+        stampCard.EndsAt = request.EndsAt;
+        stampCard.Active = request.Active;
+    }
+
     private static async Task<bool> CompanyIdsExistAsync<TEntity>(DbSet<TEntity> set, Guid companyId, IReadOnlyList<Guid> ids, CancellationToken cancellationToken)
         where TEntity : class, ICompanyScoped
     {
@@ -999,4 +1260,48 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         campaign.StartsAt,
         campaign.EndsAt,
         campaign.Active);
+
+    private static EarnRuleDto ToDto(EarnRule rule) => new(
+        rule.Id,
+        rule.CompanyId,
+        rule.Name,
+        rule.AmountPerPoint > 0m ? 1m / rule.AmountPerPoint : 0m,
+        rule.MinimumOrderTotal,
+        rule.ExpiryDays,
+        rule.Scope,
+        rule.BranchId,
+        rule.CategoryId,
+        rule.StartsAt,
+        rule.EndsAt,
+        rule.Active);
+
+    private static LoyaltyTierDto ToDto(LoyaltyTier tier) => new(
+        tier.Id,
+        tier.CompanyId,
+        tier.Name,
+        tier.MinimumPoints,
+        tier.EarnMultiplier,
+        tier.Benefits,
+        tier.Active);
+
+    private static RewardDto ToDto(Reward reward) => new(
+        reward.Id,
+        reward.CompanyId,
+        reward.Name,
+        reward.RequiredPoints,
+        reward.RewardType,
+        reward.DiscountAmount,
+        reward.Image,
+        reward.ProductId,
+        reward.Active);
+
+    private static StampCardDto ToDto(StampCard stampCard) => new(
+        stampCard.Id,
+        stampCard.CompanyId,
+        stampCard.Name,
+        stampCard.RequiredStamps,
+        stampCard.RewardId,
+        stampCard.StartsAt,
+        stampCard.EndsAt,
+        stampCard.Active);
 }

@@ -62,4 +62,28 @@ public interface ICoreCrudStore
     Task<CampaignDto?> CreateCampaignAsync(CampaignWriteDto request, CancellationToken cancellationToken);
     Task<CampaignDto?> UpdateCampaignAsync(Guid id, CampaignWriteDto request, CancellationToken cancellationToken);
     Task<bool> DeleteCampaignAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+
+    Task<IReadOnlyList<EarnRuleDto>> ListEarnRulesAsync(Guid companyId, CancellationToken cancellationToken);
+    Task<EarnRuleDto?> GetEarnRuleAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+    Task<EarnRuleDto?> CreateEarnRuleAsync(EarnRuleWriteDto request, CancellationToken cancellationToken);
+    Task<EarnRuleDto?> UpdateEarnRuleAsync(Guid id, EarnRuleWriteDto request, CancellationToken cancellationToken);
+    Task<bool> DeleteEarnRuleAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+
+    Task<IReadOnlyList<LoyaltyTierDto>> ListLoyaltyTiersAsync(Guid companyId, CancellationToken cancellationToken);
+    Task<LoyaltyTierDto?> GetLoyaltyTierAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+    Task<LoyaltyTierDto?> CreateLoyaltyTierAsync(LoyaltyTierWriteDto request, CancellationToken cancellationToken);
+    Task<LoyaltyTierDto?> UpdateLoyaltyTierAsync(Guid id, LoyaltyTierWriteDto request, CancellationToken cancellationToken);
+    Task<bool> DeleteLoyaltyTierAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+
+    Task<IReadOnlyList<RewardDto>> ListRewardsAsync(Guid companyId, CancellationToken cancellationToken);
+    Task<RewardDto?> GetRewardAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+    Task<RewardDto?> CreateRewardAsync(RewardWriteDto request, CancellationToken cancellationToken);
+    Task<RewardDto?> UpdateRewardAsync(Guid id, RewardWriteDto request, CancellationToken cancellationToken);
+    Task<bool> DeleteRewardAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+
+    Task<IReadOnlyList<StampCardDto>> ListStampCardsAsync(Guid companyId, CancellationToken cancellationToken);
+    Task<StampCardDto?> GetStampCardAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
+    Task<StampCardDto?> CreateStampCardAsync(StampCardWriteDto request, CancellationToken cancellationToken);
+    Task<StampCardDto?> UpdateStampCardAsync(Guid id, StampCardWriteDto request, CancellationToken cancellationToken);
+    Task<bool> DeleteStampCardAsync(Guid companyId, Guid id, CancellationToken cancellationToken);
 }

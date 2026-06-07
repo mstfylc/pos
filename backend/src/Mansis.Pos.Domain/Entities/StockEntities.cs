@@ -39,6 +39,9 @@ public sealed class StoreProductTransfer : Entity, ICompanyScoped
     public DateTimeOffset? ConfirmedTime { get; set; }
     public Guid? ReceivedById { get; set; }
     public DateTimeOffset? ReceivedTime { get; set; }
+    public Guid? CancelledById { get; set; }
+    public DateTimeOffset? CancelledTime { get; set; }
+    public string? CancelReason { get; set; }
     public bool? TransferDone { get; set; }
     public Guid CompanyId { get; set; }
     public Store? SourceStore { get; set; }
@@ -46,6 +49,7 @@ public sealed class StoreProductTransfer : Entity, ICompanyScoped
     public User? RequestedBy { get; set; }
     public User? ConfirmedBy { get; set; }
     public User? ReceivedBy { get; set; }
+    public User? CancelledBy { get; set; }
     public Company? Company { get; set; }
     public List<StoreProductTransferDetail> Details { get; set; } = [];
 }

@@ -1409,6 +1409,10 @@ namespace Mansis.Pos.Infrastructure.Persistence.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("active");
 
+                    b.Property<string>("Benefits")
+                        .HasColumnType("text")
+                        .HasColumnName("benefits");
+
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid")
                         .HasColumnName("company_id");
@@ -2280,6 +2284,10 @@ namespace Mansis.Pos.Infrastructure.Persistence.Migrations
                         .HasColumnType("numeric")
                         .HasColumnName("discount_amount");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("text")
+                        .HasColumnName("image");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
@@ -2437,6 +2445,51 @@ namespace Mansis.Pos.Infrastructure.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("role_permissions", "pos");
+                });
+
+            modelBuilder.Entity("Mansis.Pos.Domain.Entities.StampCard", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean")
+                        .HasColumnName("active");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("company_id");
+
+                    b.Property<DateTimeOffset?>("EndsAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("ends_at");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<int>("RequiredStamps")
+                        .HasColumnType("integer")
+                        .HasColumnName("required_stamps");
+
+                    b.Property<Guid?>("RewardId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("reward_id");
+
+                    b.Property<DateTimeOffset?>("StartsAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("starts_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RewardId");
+
+                    b.HasIndex("CompanyId", "Active");
+
+                    b.ToTable("stamp_cards", "pos");
                 });
 
             modelBuilder.Entity("Mansis.Pos.Domain.Entities.StockMovement", b =>
@@ -2683,6 +2736,18 @@ namespace Mansis.Pos.Infrastructure.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("CancelReason")
+                        .HasColumnType("text")
+                        .HasColumnName("cancel_reason");
+
+                    b.Property<Guid?>("CancelledById")
+                        .HasColumnType("uuid")
+                        .HasColumnName("cancelled_by_id");
+
+                    b.Property<DateTimeOffset?>("CancelledTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("cancelled_time");
+
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid")
                         .HasColumnName("company_id");
@@ -2729,6 +2794,8 @@ namespace Mansis.Pos.Infrastructure.Persistence.Migrations
                         .HasColumnName("transfer_state");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CancelledById");
 
                     b.HasIndex("CompanyId");
 
@@ -4259,6 +4326,15 @@ namespace Mansis.Pos.Infrastructure.Persistence.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("Mansis.Pos.Domain.Entities.StampCard", b =>
+                {
+                    b.HasOne("Mansis.Pos.Domain.Entities.Reward", "Reward")
+                        .WithMany()
+                        .HasForeignKey("RewardId");
+
+                    b.Navigation("Reward");
+                });
+
             modelBuilder.Entity("Mansis.Pos.Domain.Entities.StockMovement", b =>
                 {
                     b.HasOne("Mansis.Pos.Domain.Entities.Product", "Product")
@@ -4352,6 +4428,10 @@ namespace Mansis.Pos.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Mansis.Pos.Domain.Entities.StoreProductTransfer", b =>
                 {
+                    b.HasOne("Mansis.Pos.Domain.Entities.User", "CancelledBy")
+                        .WithMany()
+                        .HasForeignKey("CancelledById");
+
                     b.HasOne("Mansis.Pos.Domain.Entities.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
@@ -4383,6 +4463,8 @@ namespace Mansis.Pos.Infrastructure.Persistence.Migrations
                         .HasForeignKey("TargetStoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CancelledBy");
 
                     b.Navigation("Company");
 

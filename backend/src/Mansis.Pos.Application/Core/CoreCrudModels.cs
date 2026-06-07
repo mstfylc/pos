@@ -173,3 +173,91 @@ public sealed record CampaignWriteDto(
     DateTimeOffset? StartsAt,
     DateTimeOffset? EndsAt,
     bool Active);
+
+public sealed record EarnRuleDto(
+    Guid Id,
+    Guid CompanyId,
+    string Name,
+    decimal PointsPerCurrency,
+    decimal MinOrder,
+    int? ExpiryDays,
+    EarnRuleScope Scope,
+    Guid? BranchId,
+    Guid? CategoryId,
+    DateTimeOffset? StartsAt,
+    DateTimeOffset? EndsAt,
+    bool Active);
+
+public sealed record EarnRuleWriteDto(
+    Guid CompanyId,
+    Guid UserId,
+    string Name,
+    decimal PointsPerCurrency,
+    decimal MinOrder,
+    int? ExpiryDays,
+    EarnRuleScope Scope,
+    Guid? BranchId,
+    Guid? CategoryId,
+    DateTimeOffset? StartsAt,
+    DateTimeOffset? EndsAt,
+    bool Active);
+
+public sealed record LoyaltyTierDto(
+    Guid Id,
+    Guid CompanyId,
+    string Name,
+    int MinPoints,
+    decimal PointMultiplier,
+    string? Benefits,
+    bool Active);
+
+public sealed record LoyaltyTierWriteDto(
+    Guid CompanyId,
+    Guid UserId,
+    string Name,
+    int MinPoints,
+    decimal PointMultiplier,
+    string? Benefits,
+    bool Active);
+
+public sealed record RewardDto(
+    Guid Id,
+    Guid CompanyId,
+    string Name,
+    int PointCost,
+    RewardType RewardType,
+    decimal? DiscountAmount,
+    string? Image,
+    Guid? ProductId,
+    bool Active);
+
+public sealed record RewardWriteDto(
+    Guid CompanyId,
+    Guid UserId,
+    string Name,
+    int PointCost,
+    RewardType RewardType,
+    decimal? DiscountAmount,
+    string? Image,
+    Guid? ProductId,
+    bool Active);
+
+public sealed record StampCardDto(
+    Guid Id,
+    Guid CompanyId,
+    string Name,
+    int RequiredStamps,
+    Guid? RewardId,
+    DateTimeOffset? StartsAt,
+    DateTimeOffset? EndsAt,
+    bool Active);
+
+public sealed record StampCardWriteDto(
+    Guid CompanyId,
+    Guid UserId,
+    string Name,
+    int RequiredStamps,
+    Guid? RewardId,
+    DateTimeOffset? StartsAt,
+    DateTimeOffset? EndsAt,
+    bool Active);

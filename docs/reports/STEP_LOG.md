@@ -82,3 +82,7 @@
 - Yapilan: Offline order, manuel indirim, POS katalog, musteri QR/kart tanima ve loyalty preview API'leri eklendi.
 - Dosya/commit: POS backend + OpenAPI/client + test dosyalari, commit bekliyor.
 - Takilan: yok.
+### [2026-06-07 19:45] ADIM Grup 2 CRUD + stok ledger - branch: main - build: YESIL
+- Yapilan: Sadakat admin CRUD, StampCard, stok in/out/imha/sayim ve transfer akisi eklendi.
+- Dosya/commit: backend + migration + OpenAPI/client + test dosyalari, commit bekliyor.
+- Takilan: yok.

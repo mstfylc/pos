@@ -9,6 +9,7 @@ public sealed class LoyaltyTier : Entity, ICompanyScoped
     public string Name { get; set; } = string.Empty;
     public int MinimumPoints { get; set; }
     public decimal EarnMultiplier { get; set; } = 1m;
+    public string? Benefits { get; set; }
     public bool Active { get; set; } = true;
 }
 
@@ -37,8 +38,21 @@ public sealed class Reward : Entity, ICompanyScoped
     public RewardType RewardType { get; set; } = RewardType.DiscountAmount;
     public decimal? DiscountAmount { get; set; }
     public Guid? ProductId { get; set; }
+    public string? Image { get; set; }
     public bool Active { get; set; } = true;
     public Product? Product { get; set; }
+}
+
+public sealed class StampCard : Entity, ICompanyScoped
+{
+    public Guid CompanyId { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public int RequiredStamps { get; set; }
+    public Guid? RewardId { get; set; }
+    public DateTimeOffset? StartsAt { get; set; }
+    public DateTimeOffset? EndsAt { get; set; }
+    public bool Active { get; set; } = true;
+    public Reward? Reward { get; set; }
 }
 
 public sealed class RewardRedemption : Entity, ICompanyScoped, IAppendOnly

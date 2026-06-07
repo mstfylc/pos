@@ -61,4 +61,28 @@ public sealed class CoreCrudService(ICoreCrudStore store)
     public Task<CampaignDto?> CreateCampaignAsync(CampaignWriteDto request, CancellationToken cancellationToken) => store.CreateCampaignAsync(request, cancellationToken);
     public Task<CampaignDto?> UpdateCampaignAsync(Guid id, CampaignWriteDto request, CancellationToken cancellationToken) => store.UpdateCampaignAsync(id, request, cancellationToken);
     public Task<bool> DeleteCampaignAsync(Guid companyId, Guid id, CancellationToken cancellationToken) => store.DeleteCampaignAsync(companyId, id, cancellationToken);
+
+    public Task<IReadOnlyList<EarnRuleDto>> ListEarnRulesAsync(Guid companyId, CancellationToken cancellationToken) => store.ListEarnRulesAsync(companyId, cancellationToken);
+    public Task<EarnRuleDto?> GetEarnRuleAsync(Guid companyId, Guid id, CancellationToken cancellationToken) => store.GetEarnRuleAsync(companyId, id, cancellationToken);
+    public Task<EarnRuleDto?> CreateEarnRuleAsync(EarnRuleWriteDto request, CancellationToken cancellationToken) => store.CreateEarnRuleAsync(request, cancellationToken);
+    public Task<EarnRuleDto?> UpdateEarnRuleAsync(Guid id, EarnRuleWriteDto request, CancellationToken cancellationToken) => store.UpdateEarnRuleAsync(id, request, cancellationToken);
+    public Task<bool> DeleteEarnRuleAsync(Guid companyId, Guid id, CancellationToken cancellationToken) => store.DeleteEarnRuleAsync(companyId, id, cancellationToken);
+
+    public Task<IReadOnlyList<LoyaltyTierDto>> ListLoyaltyTiersAsync(Guid companyId, CancellationToken cancellationToken) => store.ListLoyaltyTiersAsync(companyId, cancellationToken);
+    public Task<LoyaltyTierDto?> GetLoyaltyTierAsync(Guid companyId, Guid id, CancellationToken cancellationToken) => store.GetLoyaltyTierAsync(companyId, id, cancellationToken);
+    public Task<LoyaltyTierDto?> CreateLoyaltyTierAsync(LoyaltyTierWriteDto request, CancellationToken cancellationToken) => store.CreateLoyaltyTierAsync(request, cancellationToken);
+    public Task<LoyaltyTierDto?> UpdateLoyaltyTierAsync(Guid id, LoyaltyTierWriteDto request, CancellationToken cancellationToken) => store.UpdateLoyaltyTierAsync(id, request, cancellationToken);
+    public Task<bool> DeleteLoyaltyTierAsync(Guid companyId, Guid id, CancellationToken cancellationToken) => store.DeleteLoyaltyTierAsync(companyId, id, cancellationToken);
+
+    public Task<IReadOnlyList<RewardDto>> ListRewardsAsync(Guid companyId, CancellationToken cancellationToken) => store.ListRewardsAsync(companyId, cancellationToken);
+    public Task<RewardDto?> GetRewardAsync(Guid companyId, Guid id, CancellationToken cancellationToken) => store.GetRewardAsync(companyId, id, cancellationToken);
+    public Task<RewardDto?> CreateRewardAsync(RewardWriteDto request, CancellationToken cancellationToken) => store.CreateRewardAsync(request, cancellationToken);
+    public Task<RewardDto?> UpdateRewardAsync(Guid id, RewardWriteDto request, CancellationToken cancellationToken) => store.UpdateRewardAsync(id, request, cancellationToken);
+    public Task<bool> DeleteRewardAsync(Guid companyId, Guid id, CancellationToken cancellationToken) => store.DeleteRewardAsync(companyId, id, cancellationToken);
+
+    public Task<IReadOnlyList<StampCardDto>> ListStampCardsAsync(Guid companyId, CancellationToken cancellationToken) => store.ListStampCardsAsync(companyId, cancellationToken);
+    public Task<StampCardDto?> GetStampCardAsync(Guid companyId, Guid id, CancellationToken cancellationToken) => store.GetStampCardAsync(companyId, id, cancellationToken);
+    public Task<StampCardDto?> CreateStampCardAsync(StampCardWriteDto request, CancellationToken cancellationToken) => store.CreateStampCardAsync(request, cancellationToken);
+    public Task<StampCardDto?> UpdateStampCardAsync(Guid id, StampCardWriteDto request, CancellationToken cancellationToken) => store.UpdateStampCardAsync(id, request, cancellationToken);
+    public Task<bool> DeleteStampCardAsync(Guid companyId, Guid id, CancellationToken cancellationToken) => store.DeleteStampCardAsync(companyId, id, cancellationToken);
 }

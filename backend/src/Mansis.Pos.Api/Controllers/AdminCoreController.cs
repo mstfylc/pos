@@ -16,7 +16,11 @@ public sealed class AdminCoreController(
     IValidator<RolePermissionWriteDto> rolePermissionWriteValidator,
     IValidator<AssignmentWriteDto> assignmentWriteValidator,
     IValidator<DiscountWriteDto> discountWriteValidator,
-    IValidator<CampaignWriteDto> campaignWriteValidator) : ControllerBase
+    IValidator<CampaignWriteDto> campaignWriteValidator,
+    IValidator<EarnRuleWriteDto> earnRuleWriteValidator,
+    IValidator<LoyaltyTierWriteDto> loyaltyTierWriteValidator,
+    IValidator<RewardWriteDto> rewardWriteValidator,
+    IValidator<StampCardWriteDto> stampCardWriteValidator) : ControllerBase
 {
     [HttpGet("products")]
     public Task<IReadOnlyList<ProductDto>> ListProductsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
@@ -299,6 +303,126 @@ public sealed class AdminCoreController(
     [HttpDelete("campaigns/{id:guid}")]
     public async Task<IActionResult> DeleteCampaignAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
         BoolResult(await coreCrudService.DeleteCampaignAsync(companyId, id, cancellationToken));
+
+    [HttpGet("earn-rules")]
+    public Task<IReadOnlyList<EarnRuleDto>> ListEarnRulesAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        coreCrudService.ListEarnRulesAsync(companyId, cancellationToken);
+
+    [HttpGet("earn-rules/{id:guid}")]
+    public async Task<ActionResult<EarnRuleDto>> GetEarnRuleAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        NullableResult(await coreCrudService.GetEarnRuleAsync(companyId, id, cancellationToken));
+
+    [HttpPost("earn-rules")]
+    public async Task<ActionResult<EarnRuleDto>> CreateEarnRuleAsync([FromBody] EarnRuleWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await earnRuleWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return CreatedResult(await coreCrudService.CreateEarnRuleAsync(request, cancellationToken));
+    }
+
+    [HttpPut("earn-rules/{id:guid}")]
+    public async Task<ActionResult<EarnRuleDto>> UpdateEarnRuleAsync(Guid id, [FromBody] EarnRuleWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await earnRuleWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return NullableResult(await coreCrudService.UpdateEarnRuleAsync(id, request, cancellationToken));
+    }
+
+    [HttpDelete("earn-rules/{id:guid}")]
+    public async Task<IActionResult> DeleteEarnRuleAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        BoolResult(await coreCrudService.DeleteEarnRuleAsync(companyId, id, cancellationToken));
+
+    [HttpGet("loyalty-tiers")]
+    public Task<IReadOnlyList<LoyaltyTierDto>> ListLoyaltyTiersAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        coreCrudService.ListLoyaltyTiersAsync(companyId, cancellationToken);
+
+    [HttpGet("loyalty-tiers/{id:guid}")]
+    public async Task<ActionResult<LoyaltyTierDto>> GetLoyaltyTierAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        NullableResult(await coreCrudService.GetLoyaltyTierAsync(companyId, id, cancellationToken));
+
+    [HttpPost("loyalty-tiers")]
+    public async Task<ActionResult<LoyaltyTierDto>> CreateLoyaltyTierAsync([FromBody] LoyaltyTierWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await loyaltyTierWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return CreatedResult(await coreCrudService.CreateLoyaltyTierAsync(request, cancellationToken));
+    }
+
+    [HttpPut("loyalty-tiers/{id:guid}")]
+    public async Task<ActionResult<LoyaltyTierDto>> UpdateLoyaltyTierAsync(Guid id, [FromBody] LoyaltyTierWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await loyaltyTierWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return NullableResult(await coreCrudService.UpdateLoyaltyTierAsync(id, request, cancellationToken));
+    }
+
+    [HttpDelete("loyalty-tiers/{id:guid}")]
+    public async Task<IActionResult> DeleteLoyaltyTierAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        BoolResult(await coreCrudService.DeleteLoyaltyTierAsync(companyId, id, cancellationToken));
+
+    [HttpGet("rewards")]
+    public Task<IReadOnlyList<RewardDto>> ListRewardsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        coreCrudService.ListRewardsAsync(companyId, cancellationToken);
+
+    [HttpGet("rewards/{id:guid}")]
+    public async Task<ActionResult<RewardDto>> GetRewardAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        NullableResult(await coreCrudService.GetRewardAsync(companyId, id, cancellationToken));
+
+    [HttpPost("rewards")]
+    public async Task<ActionResult<RewardDto>> CreateRewardAsync([FromBody] RewardWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await rewardWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return CreatedResult(await coreCrudService.CreateRewardAsync(request, cancellationToken));
+    }
+
+    [HttpPut("rewards/{id:guid}")]
+    public async Task<ActionResult<RewardDto>> UpdateRewardAsync(Guid id, [FromBody] RewardWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await rewardWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return NullableResult(await coreCrudService.UpdateRewardAsync(id, request, cancellationToken));
+    }
+
+    [HttpDelete("rewards/{id:guid}")]
+    public async Task<IActionResult> DeleteRewardAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        BoolResult(await coreCrudService.DeleteRewardAsync(companyId, id, cancellationToken));
+
+    [HttpGet("stamp-cards")]
+    public Task<IReadOnlyList<StampCardDto>> ListStampCardsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        coreCrudService.ListStampCardsAsync(companyId, cancellationToken);
+
+    [HttpGet("stamp-cards/{id:guid}")]
+    public async Task<ActionResult<StampCardDto>> GetStampCardAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        NullableResult(await coreCrudService.GetStampCardAsync(companyId, id, cancellationToken));
+
+    [HttpPost("stamp-cards")]
+    public async Task<ActionResult<StampCardDto>> CreateStampCardAsync([FromBody] StampCardWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await stampCardWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return CreatedResult(await coreCrudService.CreateStampCardAsync(request, cancellationToken));
+    }
+
+    [HttpPut("stamp-cards/{id:guid}")]
+    public async Task<ActionResult<StampCardDto>> UpdateStampCardAsync(Guid id, [FromBody] StampCardWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await stampCardWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return NullableResult(await coreCrudService.UpdateStampCardAsync(id, request, cancellationToken));
+    }
+
+    [HttpDelete("stamp-cards/{id:guid}")]
+    public async Task<IActionResult> DeleteStampCardAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        BoolResult(await coreCrudService.DeleteStampCardAsync(companyId, id, cancellationToken));
 
     private ActionResult<T> CreatedResult<T>(T? value) => value is null ? BadRequest() : StatusCode(StatusCodes.Status201Created, value);
     private ActionResult<T> NullableResult<T>(T? value) => value is null ? NotFound() : Ok(value);

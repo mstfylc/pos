@@ -63,10 +63,14 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**createAdminCategory**](doc\AdminApi.md#createadmincategory) | **POST** /api/v1/admin/categories | 
 *AdminApi* | [**createAdminCustomer**](doc\AdminApi.md#createadmincustomer) | **POST** /api/v1/admin/customers | 
 *AdminApi* | [**createAdminDiscount**](doc\AdminApi.md#createadmindiscount) | **POST** /api/v1/admin/discounts | 
+*AdminApi* | [**createAdminEarnRule**](doc\AdminApi.md#createadminearnrule) | **POST** /api/v1/admin/earn-rules | 
+*AdminApi* | [**createAdminLoyaltyTier**](doc\AdminApi.md#createadminloyaltytier) | **POST** /api/v1/admin/loyalty-tiers | 
 *AdminApi* | [**createAdminPos**](doc\AdminApi.md#createadminpos) | **POST** /api/v1/admin/pos | 
 *AdminApi* | [**createAdminPosProduct**](doc\AdminApi.md#createadminposproduct) | **POST** /api/v1/admin/pos-products | 
 *AdminApi* | [**createAdminProduct**](doc\AdminApi.md#createadminproduct) | **POST** /api/v1/admin/products | 
+*AdminApi* | [**createAdminReward**](doc\AdminApi.md#createadminreward) | **POST** /api/v1/admin/rewards | 
 *AdminApi* | [**createAdminRole**](doc\AdminApi.md#createadminrole) | **POST** /api/v1/admin/roles | 
+*AdminApi* | [**createAdminStampCard**](doc\AdminApi.md#createadminstampcard) | **POST** /api/v1/admin/stamp-cards | 
 *AdminApi* | [**createAdminStore**](doc\AdminApi.md#createadminstore) | **POST** /api/v1/admin/stores | 
 *AdminApi* | [**createAdminUser**](doc\AdminApi.md#createadminuser) | **POST** /api/v1/admin/users | 
 *AdminApi* | [**deleteAdminAssignment**](doc\AdminApi.md#deleteadminassignment) | **DELETE** /api/v1/admin/assignments/{id} | 
@@ -74,15 +78,23 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**deleteAdminCategory**](doc\AdminApi.md#deleteadmincategory) | **DELETE** /api/v1/admin/categories/{id} | 
 *AdminApi* | [**deleteAdminCustomer**](doc\AdminApi.md#deleteadmincustomer) | **DELETE** /api/v1/admin/customers/{id} | 
 *AdminApi* | [**deleteAdminDiscount**](doc\AdminApi.md#deleteadmindiscount) | **DELETE** /api/v1/admin/discounts/{id} | 
+*AdminApi* | [**deleteAdminEarnRule**](doc\AdminApi.md#deleteadminearnrule) | **DELETE** /api/v1/admin/earn-rules/{id} | 
+*AdminApi* | [**deleteAdminLoyaltyTier**](doc\AdminApi.md#deleteadminloyaltytier) | **DELETE** /api/v1/admin/loyalty-tiers/{id} | 
 *AdminApi* | [**deleteAdminPos**](doc\AdminApi.md#deleteadminpos) | **DELETE** /api/v1/admin/pos/{id} | 
 *AdminApi* | [**deleteAdminProduct**](doc\AdminApi.md#deleteadminproduct) | **DELETE** /api/v1/admin/products/{id} | 
+*AdminApi* | [**deleteAdminReward**](doc\AdminApi.md#deleteadminreward) | **DELETE** /api/v1/admin/rewards/{id} | 
 *AdminApi* | [**deleteAdminRole**](doc\AdminApi.md#deleteadminrole) | **DELETE** /api/v1/admin/roles/{id} | 
+*AdminApi* | [**deleteAdminStampCard**](doc\AdminApi.md#deleteadminstampcard) | **DELETE** /api/v1/admin/stamp-cards/{id} | 
 *AdminApi* | [**deleteAdminStore**](doc\AdminApi.md#deleteadminstore) | **DELETE** /api/v1/admin/stores/{id} | 
 *AdminApi* | [**deleteAdminUser**](doc\AdminApi.md#deleteadminuser) | **DELETE** /api/v1/admin/users/{id} | 
 *AdminApi* | [**getAdminAssignment**](doc\AdminApi.md#getadminassignment) | **GET** /api/v1/admin/assignments/{id} | 
 *AdminApi* | [**getAdminCampaign**](doc\AdminApi.md#getadmincampaign) | **GET** /api/v1/admin/campaigns/{id} | 
 *AdminApi* | [**getAdminDiscount**](doc\AdminApi.md#getadmindiscount) | **GET** /api/v1/admin/discounts/{id} | 
+*AdminApi* | [**getAdminEarnRule**](doc\AdminApi.md#getadminearnrule) | **GET** /api/v1/admin/earn-rules/{id} | 
+*AdminApi* | [**getAdminLoyaltyTier**](doc\AdminApi.md#getadminloyaltytier) | **GET** /api/v1/admin/loyalty-tiers/{id} | 
+*AdminApi* | [**getAdminReward**](doc\AdminApi.md#getadminreward) | **GET** /api/v1/admin/rewards/{id} | 
 *AdminApi* | [**getAdminRole**](doc\AdminApi.md#getadminrole) | **GET** /api/v1/admin/roles/{id} | 
+*AdminApi* | [**getAdminStampCard**](doc\AdminApi.md#getadminstampcard) | **GET** /api/v1/admin/stamp-cards/{id} | 
 *AdminApi* | [**getAdminUser**](doc\AdminApi.md#getadminuser) | **GET** /api/v1/admin/users/{id} | 
 *AdminApi* | [**listAdminAssignments**](doc\AdminApi.md#listadminassignments) | **GET** /api/v1/admin/assignments | 
 *AdminApi* | [**listAdminCampaigns**](doc\AdminApi.md#listadmincampaigns) | **GET** /api/v1/admin/campaigns | 
@@ -90,11 +102,15 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**listAdminCompanies**](doc\AdminApi.md#listadmincompanies) | **GET** /api/v1/admin/companies | 
 *AdminApi* | [**listAdminCustomers**](doc\AdminApi.md#listadmincustomers) | **GET** /api/v1/admin/customers | 
 *AdminApi* | [**listAdminDiscounts**](doc\AdminApi.md#listadmindiscounts) | **GET** /api/v1/admin/discounts | 
+*AdminApi* | [**listAdminEarnRules**](doc\AdminApi.md#listadminearnrules) | **GET** /api/v1/admin/earn-rules | 
+*AdminApi* | [**listAdminLoyaltyTiers**](doc\AdminApi.md#listadminloyaltytiers) | **GET** /api/v1/admin/loyalty-tiers | 
 *AdminApi* | [**listAdminOrders**](doc\AdminApi.md#listadminorders) | **GET** /api/v1/admin/orders | 
 *AdminApi* | [**listAdminPermissions**](doc\AdminApi.md#listadminpermissions) | **GET** /api/v1/admin/permissions | 
 *AdminApi* | [**listAdminPos**](doc\AdminApi.md#listadminpos) | **GET** /api/v1/admin/pos | 
 *AdminApi* | [**listAdminProducts**](doc\AdminApi.md#listadminproducts) | **GET** /api/v1/admin/products | 
+*AdminApi* | [**listAdminRewards**](doc\AdminApi.md#listadminrewards) | **GET** /api/v1/admin/rewards | 
 *AdminApi* | [**listAdminRoles**](doc\AdminApi.md#listadminroles) | **GET** /api/v1/admin/roles | 
+*AdminApi* | [**listAdminStampCards**](doc\AdminApi.md#listadminstampcards) | **GET** /api/v1/admin/stamp-cards | 
 *AdminApi* | [**listAdminStores**](doc\AdminApi.md#listadminstores) | **GET** /api/v1/admin/stores | 
 *AdminApi* | [**listAdminUsers**](doc\AdminApi.md#listadminusers) | **GET** /api/v1/admin/users | 
 *AdminApi* | [**updateAdminAssignment**](doc\AdminApi.md#updateadminassignment) | **PUT** /api/v1/admin/assignments/{id} | 
@@ -102,11 +118,15 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**updateAdminCategory**](doc\AdminApi.md#updateadmincategory) | **PUT** /api/v1/admin/categories/{id} | 
 *AdminApi* | [**updateAdminCustomer**](doc\AdminApi.md#updateadmincustomer) | **PUT** /api/v1/admin/customers/{id} | 
 *AdminApi* | [**updateAdminDiscount**](doc\AdminApi.md#updateadmindiscount) | **PUT** /api/v1/admin/discounts/{id} | 
+*AdminApi* | [**updateAdminEarnRule**](doc\AdminApi.md#updateadminearnrule) | **PUT** /api/v1/admin/earn-rules/{id} | 
+*AdminApi* | [**updateAdminLoyaltyTier**](doc\AdminApi.md#updateadminloyaltytier) | **PUT** /api/v1/admin/loyalty-tiers/{id} | 
 *AdminApi* | [**updateAdminPos**](doc\AdminApi.md#updateadminpos) | **PUT** /api/v1/admin/pos/{id} | 
 *AdminApi* | [**updateAdminPosProduct**](doc\AdminApi.md#updateadminposproduct) | **PUT** /api/v1/admin/pos-products/{id} | 
 *AdminApi* | [**updateAdminProduct**](doc\AdminApi.md#updateadminproduct) | **PUT** /api/v1/admin/products/{id} | 
+*AdminApi* | [**updateAdminReward**](doc\AdminApi.md#updateadminreward) | **PUT** /api/v1/admin/rewards/{id} | 
 *AdminApi* | [**updateAdminRole**](doc\AdminApi.md#updateadminrole) | **PUT** /api/v1/admin/roles/{id} | 
 *AdminApi* | [**updateAdminRolePermissions**](doc\AdminApi.md#updateadminrolepermissions) | **PUT** /api/v1/admin/roles/{id}/permissions | 
+*AdminApi* | [**updateAdminStampCard**](doc\AdminApi.md#updateadminstampcard) | **PUT** /api/v1/admin/stamp-cards/{id} | 
 *AdminApi* | [**updateAdminStore**](doc\AdminApi.md#updateadminstore) | **PUT** /api/v1/admin/stores/{id} | 
 *AdminApi* | [**updateAdminUser**](doc\AdminApi.md#updateadminuser) | **PUT** /api/v1/admin/users/{id} | 
 *AppApi* | [**cancelAppOrder**](doc\AppApi.md#cancelapporder) | **POST** /api/v1/app/orders/{orderId}/cancel | 
@@ -129,7 +149,15 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**requestOtp**](doc\AuthApi.md#requestotp) | **POST** /api/v1/auth/otp/request | 
 *AuthApi* | [**verifyOtp**](doc\AuthApi.md#verifyotp) | **POST** /api/v1/auth/otp/verify | 
 *LoyaltyApi* | [**getLoyaltyAccount**](doc\LoyaltyApi.md#getloyaltyaccount) | **GET** /api/v1/loyalty/accounts/{customerId} | 
+*StockApi* | [**cancelStockTransfer**](doc\StockApi.md#cancelstocktransfer) | **POST** /api/v1/stock/transfers/{id}/cancel | 
+*StockApi* | [**confirmStockTransfer**](doc\StockApi.md#confirmstocktransfer) | **POST** /api/v1/stock/transfers/{id}/confirm | 
+*StockApi* | [**createStockDestroy**](doc\StockApi.md#createstockdestroy) | **POST** /api/v1/stock/destroy | 
+*StockApi* | [**createStockIn**](doc\StockApi.md#createstockin) | **POST** /api/v1/stock/stock-in | 
+*StockApi* | [**createStockOut**](doc\StockApi.md#createstockout) | **POST** /api/v1/stock/stock-out | 
+*StockApi* | [**createStockTransfer**](doc\StockApi.md#createstocktransfer) | **POST** /api/v1/stock/transfers | 
+*StockApi* | [**finalizeStockCount**](doc\StockApi.md#finalizestockcount) | **POST** /api/v1/stock/count | 
 *StockApi* | [**listStockMovements**](doc\StockApi.md#liststockmovements) | **GET** /api/v1/stock/movements | 
+*StockApi* | [**receiveStockTransfer**](doc\StockApi.md#receivestocktransfer) | **POST** /api/v1/stock/transfers/{id}/receive | 
 
 
 ## Documentation For Models
@@ -144,25 +172,36 @@ Class | Method | HTTP request | Description
  - [CampaignType](doc\CampaignType.md)
  - [CampaignWrite](doc\CampaignWrite.md)
  - [CancelOrderResponse](doc\CancelOrderResponse.md)
+ - [CancelTransferRequest](doc\CancelTransferRequest.md)
  - [Category](doc\Category.md)
  - [CategoryWrite](doc\CategoryWrite.md)
  - [Company](doc\Company.md)
+ - [ConfirmTransferRequest](doc\ConfirmTransferRequest.md)
  - [CreateOrderRequest](doc\CreateOrderRequest.md)
+ - [CreateTransferRequest](doc\CreateTransferRequest.md)
  - [Customer](doc\Customer.md)
  - [CustomerCardTokenResponse](doc\CustomerCardTokenResponse.md)
  - [CustomerWrite](doc\CustomerWrite.md)
+ - [DestroyStockRequest](doc\DestroyStockRequest.md)
  - [Discount](doc\Discount.md)
  - [DiscountCategory](doc\DiscountCategory.md)
  - [DiscountType](doc\DiscountType.md)
  - [DiscountWrite](doc\DiscountWrite.md)
+ - [EarnRule](doc\EarnRule.md)
+ - [EarnRuleScope](doc\EarnRuleScope.md)
+ - [EarnRuleWrite](doc\EarnRuleWrite.md)
  - [IdentifiedCustomer](doc\IdentifiedCustomer.md)
  - [IdentifyCustomerRequest](doc\IdentifyCustomerRequest.md)
  - [IssueCustomerCardTokenRequest](doc\IssueCustomerCardTokenRequest.md)
+ - [LedgerDirection](doc\LedgerDirection.md)
+ - [LedgerEntryState](doc\LedgerEntryState.md)
  - [LoginRequest](doc\LoginRequest.md)
  - [LoyaltyAccount](doc\LoyaltyAccount.md)
  - [LoyaltyPreviewLine](doc\LoyaltyPreviewLine.md)
  - [LoyaltyPreviewRequest](doc\LoyaltyPreviewRequest.md)
  - [LoyaltyPreviewResponse](doc\LoyaltyPreviewResponse.md)
+ - [LoyaltyTier](doc\LoyaltyTier.md)
+ - [LoyaltyTierWrite](doc\LoyaltyTierWrite.md)
  - [Order](doc\Order.md)
  - [OrderDiscountWrite](doc\OrderDiscountWrite.md)
  - [OrderLine](doc\OrderLine.md)
@@ -186,20 +225,32 @@ Class | Method | HTTP request | Description
  - [PosWrite](doc\PosWrite.md)
  - [ProblemDetails](doc\ProblemDetails.md)
  - [Product](doc\Product.md)
+ - [ProductTransferState](doc\ProductTransferState.md)
  - [ProductUnitType](doc\ProductUnitType.md)
  - [ProductWrite](doc\ProductWrite.md)
  - [ReasonRequest](doc\ReasonRequest.md)
+ - [ReceiveTransferLine](doc\ReceiveTransferLine.md)
+ - [ReceiveTransferRequest](doc\ReceiveTransferRequest.md)
  - [RefreshTokenRequest](doc\RefreshTokenRequest.md)
+ - [Reward](doc\Reward.md)
  - [RewardType](doc\RewardType.md)
+ - [RewardWrite](doc\RewardWrite.md)
  - [Role](doc\Role.md)
  - [RolePermissionWrite](doc\RolePermissionWrite.md)
  - [RoleWrite](doc\RoleWrite.md)
  - [ShippingType](doc\ShippingType.md)
+ - [StampCard](doc\StampCard.md)
+ - [StampCardWrite](doc\StampCardWrite.md)
+ - [StockAdjustmentRequest](doc\StockAdjustmentRequest.md)
+ - [StockCountRequest](doc\StockCountRequest.md)
  - [StockMovement](doc\StockMovement.md)
  - [Store](doc\Store.md)
  - [StoreProductMovementType](doc\StoreProductMovementType.md)
+ - [StoreProductTransfer](doc\StoreProductTransfer.md)
+ - [StoreProductTransferLine](doc\StoreProductTransferLine.md)
  - [StoreWrite](doc\StoreWrite.md)
  - [TaxType](doc\TaxType.md)
+ - [TransferLineWrite](doc\TransferLineWrite.md)
  - [User](doc\User.md)
  - [UserWrite](doc\UserWrite.md)
  - [WalletAccount](doc\WalletAccount.md)

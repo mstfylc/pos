@@ -5,8 +5,9 @@
 
 // ignore_for_file: unused_import
 
-import 'package:built_collection/built_collection.dart';
+import 'package:mansis_pos_api_client/model/ledger_entry_state.dart';
 import 'package:mansis_pos_api_client/model/store_product_movement_type.dart';
+import 'package:mansis_pos_api_client/model/ledger_direction.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -26,19 +27,38 @@ abstract class StockMovement implements Built<StockMovement, StockMovementBuilde
     @BuiltValueField(wireName: r'productId')
     String get productId;
 
+    @nullable
+    @BuiltValueField(wireName: r'operationId')
+    String get operationId;
+
     @BuiltValueField(wireName: r'movementType')
     StoreProductMovementType get movementType;
     // enum movementTypeEnum {  StockIn,  StockOut,  Destroy,  Order,  Purchase,  TransferIn,  TransferOut,  };
 
     @BuiltValueField(wireName: r'direction')
-    StockMovementDirectionEnum get direction;
+    LedgerDirection get direction;
     // enum directionEnum {  Debit,  Credit,  };
 
     @BuiltValueField(wireName: r'quantity')
     int get quantity;
 
+    @BuiltValueField(wireName: r'state')
+    LedgerEntryState get state;
+    // enum stateEnum {  Posted,  Reversed,  };
+
+    @nullable
+    @BuiltValueField(wireName: r'reversalOfId')
+    String get reversalOfId;
+
+    @nullable
+    @BuiltValueField(wireName: r'description')
+    String get description;
+
     @BuiltValueField(wireName: r'occurredAt')
     DateTime get occurredAt;
+
+    @BuiltValueField(wireName: r'currentQuantity')
+    int get currentQuantity;
 
     StockMovement._();
 
@@ -77,6 +97,12 @@ class _$StockMovementSerializer implements StructuredSerializer<StockMovement> {
             ..add(r'productId')
             ..add(serializers.serialize(object.productId,
                 specifiedType: const FullType(String)));
+        if (object.operationId != null) {
+            result
+                ..add(r'operationId')
+                ..add(serializers.serialize(object.operationId,
+                    specifiedType: const FullType(String)));
+        }
         result
             ..add(r'movementType')
             ..add(serializers.serialize(object.movementType,
@@ -84,15 +110,35 @@ class _$StockMovementSerializer implements StructuredSerializer<StockMovement> {
         result
             ..add(r'direction')
             ..add(serializers.serialize(object.direction,
-                specifiedType: const FullType(StockMovementDirectionEnum)));
+                specifiedType: const FullType(LedgerDirection)));
         result
             ..add(r'quantity')
             ..add(serializers.serialize(object.quantity,
                 specifiedType: const FullType(int)));
         result
+            ..add(r'state')
+            ..add(serializers.serialize(object.state,
+                specifiedType: const FullType(LedgerEntryState)));
+        if (object.reversalOfId != null) {
+            result
+                ..add(r'reversalOfId')
+                ..add(serializers.serialize(object.reversalOfId,
+                    specifiedType: const FullType(String)));
+        }
+        if (object.description != null) {
+            result
+                ..add(r'description')
+                ..add(serializers.serialize(object.description,
+                    specifiedType: const FullType(String)));
+        }
+        result
             ..add(r'occurredAt')
             ..add(serializers.serialize(object.occurredAt,
                 specifiedType: const FullType(DateTime)));
+        result
+            ..add(r'currentQuantity')
+            ..add(serializers.serialize(object.currentQuantity,
+                specifiedType: const FullType(int)));
         return result;
     }
 
@@ -123,40 +169,45 @@ class _$StockMovementSerializer implements StructuredSerializer<StockMovement> {
                     result.productId = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
+                case r'operationId':
+                    result.operationId = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
                 case r'movementType':
                     result.movementType = serializers.deserialize(value,
                         specifiedType: const FullType(StoreProductMovementType)) as StoreProductMovementType;
                     break;
                 case r'direction':
                     result.direction = serializers.deserialize(value,
-                        specifiedType: const FullType(StockMovementDirectionEnum)) as StockMovementDirectionEnum;
+                        specifiedType: const FullType(LedgerDirection)) as LedgerDirection;
                     break;
                 case r'quantity':
                     result.quantity = serializers.deserialize(value,
                         specifiedType: const FullType(int)) as int;
                     break;
+                case r'state':
+                    result.state = serializers.deserialize(value,
+                        specifiedType: const FullType(LedgerEntryState)) as LedgerEntryState;
+                    break;
+                case r'reversalOfId':
+                    result.reversalOfId = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'description':
+                    result.description = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
                 case r'occurredAt':
                     result.occurredAt = serializers.deserialize(value,
                         specifiedType: const FullType(DateTime)) as DateTime;
+                    break;
+                case r'currentQuantity':
+                    result.currentQuantity = serializers.deserialize(value,
+                        specifiedType: const FullType(int)) as int;
                     break;
             }
         }
         return result.build();
     }
-}
-
-class StockMovementDirectionEnum extends EnumClass {
-
-  @BuiltValueEnumConst(wireName: r'Debit')
-  static const StockMovementDirectionEnum debit = _$stockMovementDirectionEnum_debit;
-  @BuiltValueEnumConst(wireName: r'Credit')
-  static const StockMovementDirectionEnum credit = _$stockMovementDirectionEnum_credit;
-
-  static Serializer<StockMovementDirectionEnum> get serializer => _$stockMovementDirectionEnumSerializer;
-
-  const StockMovementDirectionEnum._(String name): super(name);
-
-  static BuiltSet<StockMovementDirectionEnum> get values => _$stockMovementDirectionEnumValues;
-  static StockMovementDirectionEnum valueOf(String name) => _$stockMovementDirectionEnumValueOf(name);
 }
 

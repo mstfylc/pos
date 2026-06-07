@@ -1,5 +1,6 @@
 using FluentValidation;
 using System.Text.Json;
+using Mansis.Pos.Domain.Enumerations;
 
 namespace Mansis.Pos.Application.Core;
 
@@ -120,5 +121,64 @@ public sealed class CampaignWriteValidator : AbstractValidator<CampaignWriteDto>
         {
             return false;
         }
+    }
+}
+
+public sealed class EarnRuleWriteValidator : AbstractValidator<EarnRuleWriteDto>
+{
+    public EarnRuleWriteValidator()
+    {
+        RuleFor(request => request.CompanyId).NotEmpty();
+        RuleFor(request => request.UserId).NotEmpty();
+        RuleFor(request => request.Name).NotEmpty();
+        RuleFor(request => request.PointsPerCurrency).GreaterThan(0);
+        RuleFor(request => request.MinOrder).GreaterThanOrEqualTo(0);
+        RuleFor(request => request.ExpiryDays).GreaterThan(0).When(request => request.ExpiryDays.HasValue);
+        RuleFor(request => request.Scope).IsInEnum();
+        RuleFor(request => request.BranchId).NotEmpty().When(request => request.Scope == EarnRuleScope.Branch);
+        RuleFor(request => request.CategoryId).NotEmpty().When(request => request.Scope == EarnRuleScope.Category);
+        RuleFor(request => request.EndsAt)
+            .GreaterThanOrEqualTo(request => request.StartsAt)
+            .When(request => request.StartsAt.HasValue && request.EndsAt.HasValue);
+    }
+}
+
+public sealed class LoyaltyTierWriteValidator : AbstractValidator<LoyaltyTierWriteDto>
+{
+    public LoyaltyTierWriteValidator()
+    {
+        RuleFor(request => request.CompanyId).NotEmpty();
+        RuleFor(request => request.UserId).NotEmpty();
+        RuleFor(request => request.Name).NotEmpty();
+        RuleFor(request => request.MinPoints).GreaterThanOrEqualTo(0);
+        RuleFor(request => request.PointMultiplier).GreaterThan(0);
+    }
+}
+
+public sealed class RewardWriteValidator : AbstractValidator<RewardWriteDto>
+{
+    public RewardWriteValidator()
+    {
+        RuleFor(request => request.CompanyId).NotEmpty();
+        RuleFor(request => request.UserId).NotEmpty();
+        RuleFor(request => request.Name).NotEmpty();
+        RuleFor(request => request.PointCost).GreaterThan(0);
+        RuleFor(request => request.RewardType).IsInEnum();
+        RuleFor(request => request.DiscountAmount).GreaterThan(0).When(request => request.DiscountAmount.HasValue);
+        RuleFor(request => request.ProductId).NotEmpty().When(request => request.RewardType == RewardType.FreeProduct);
+    }
+}
+
+public sealed class StampCardWriteValidator : AbstractValidator<StampCardWriteDto>
+{
+    public StampCardWriteValidator()
+    {
+        RuleFor(request => request.CompanyId).NotEmpty();
+        RuleFor(request => request.UserId).NotEmpty();
+        RuleFor(request => request.Name).NotEmpty();
+        RuleFor(request => request.RequiredStamps).GreaterThan(0);
+        RuleFor(request => request.EndsAt)
+            .GreaterThanOrEqualTo(request => request.StartsAt)
+            .When(request => request.StartsAt.HasValue && request.EndsAt.HasValue);
     }
 }

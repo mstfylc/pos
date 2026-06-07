@@ -484,6 +484,134 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/earn-rules": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminEarnRules"];
+        put?: never;
+        post: operations["createAdminEarnRule"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/earn-rules/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAdminEarnRule"];
+        put: operations["updateAdminEarnRule"];
+        post?: never;
+        delete: operations["deleteAdminEarnRule"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/loyalty-tiers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminLoyaltyTiers"];
+        put?: never;
+        post: operations["createAdminLoyaltyTier"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/loyalty-tiers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAdminLoyaltyTier"];
+        put: operations["updateAdminLoyaltyTier"];
+        post?: never;
+        delete: operations["deleteAdminLoyaltyTier"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/rewards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminRewards"];
+        put?: never;
+        post: operations["createAdminReward"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/rewards/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAdminReward"];
+        put: operations["updateAdminReward"];
+        post?: never;
+        delete: operations["deleteAdminReward"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/stamp-cards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminStampCards"];
+        put?: never;
+        post: operations["createAdminStampCard"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/stamp-cards/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAdminStampCard"];
+        put: operations["updateAdminStampCard"];
+        post?: never;
+        delete: operations["deleteAdminStampCard"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/app/orders": {
         parameters: {
             query?: never;
@@ -734,6 +862,134 @@ export interface paths {
         get: operations["listStockMovements"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/stock/stock-in": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["createStockIn"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/stock/stock-out": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["createStockOut"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/stock/destroy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["createStockDestroy"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/stock/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["finalizeStockCount"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/stock/transfers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["createStockTransfer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/stock/transfers/{id}/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["confirmStockTransfer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/stock/transfers/{id}/receive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["receiveStockTransfer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/stock/transfers/{id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["cancelStockTransfer"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1165,6 +1421,134 @@ export interface components {
             endsAt?: string | null;
             active: boolean;
         };
+        EarnRule: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            /** Format: decimal */
+            pointsPerCurrency: string;
+            /** Format: decimal */
+            minOrder: string;
+            expiryDays?: number | null;
+            scope: components["schemas"]["EarnRuleScope"];
+            /** Format: uuid */
+            branchId?: string | null;
+            /** Format: uuid */
+            categoryId?: string | null;
+            /** Format: date-time */
+            startsAt?: string | null;
+            /** Format: date-time */
+            endsAt?: string | null;
+            active: boolean;
+        };
+        EarnRuleWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            name: string;
+            /** Format: decimal */
+            pointsPerCurrency: string;
+            /** Format: decimal */
+            minOrder: string;
+            expiryDays?: number | null;
+            scope: components["schemas"]["EarnRuleScope"];
+            /** Format: uuid */
+            branchId?: string | null;
+            /** Format: uuid */
+            categoryId?: string | null;
+            /** Format: date-time */
+            startsAt?: string | null;
+            /** Format: date-time */
+            endsAt?: string | null;
+            active: boolean;
+        };
+        LoyaltyTier: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            minPoints: number;
+            /** Format: decimal */
+            pointMultiplier: string;
+            benefits?: string | null;
+            active: boolean;
+        };
+        LoyaltyTierWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            name: string;
+            minPoints: number;
+            /** Format: decimal */
+            pointMultiplier: string;
+            benefits?: string | null;
+            active: boolean;
+        };
+        Reward: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            pointCost: number;
+            rewardType: components["schemas"]["RewardType"];
+            /** Format: decimal */
+            discountAmount?: string | null;
+            image?: string | null;
+            /** Format: uuid */
+            productId?: string | null;
+            active: boolean;
+        };
+        RewardWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            name: string;
+            pointCost: number;
+            rewardType: components["schemas"]["RewardType"];
+            /** Format: decimal */
+            discountAmount?: string | null;
+            image?: string | null;
+            /** Format: uuid */
+            productId?: string | null;
+            active: boolean;
+        };
+        StampCard: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            requiredStamps: number;
+            /** Format: uuid */
+            rewardId?: string | null;
+            /** Format: date-time */
+            startsAt?: string | null;
+            /** Format: date-time */
+            endsAt?: string | null;
+            active: boolean;
+        };
+        StampCardWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            name: string;
+            requiredStamps: number;
+            /** Format: uuid */
+            rewardId?: string | null;
+            /** Format: date-time */
+            startsAt?: string | null;
+            /** Format: date-time */
+            endsAt?: string | null;
+            active: boolean;
+        };
         CreateOrderRequest: {
             /** Format: uuid */
             companyId: string;
@@ -1385,12 +1769,139 @@ export interface components {
             storeId: string;
             /** Format: uuid */
             productId: string;
+            /** Format: uuid */
+            operationId?: string | null;
             movementType: components["schemas"]["StoreProductMovementType"];
-            /** @enum {string} */
-            direction: "Debit" | "Credit";
+            direction: components["schemas"]["LedgerDirection"];
             quantity: number;
+            state: components["schemas"]["LedgerEntryState"];
+            /** Format: uuid */
+            reversalOfId?: string | null;
+            description?: string | null;
             /** Format: date-time */
             occurredAt: string;
+            currentQuantity: number;
+        };
+        StockAdjustmentRequest: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            /** Format: uuid */
+            storeId: string;
+            /** Format: uuid */
+            productId: string;
+            quantity: number;
+            description?: string | null;
+        };
+        DestroyStockRequest: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            /** Format: uuid */
+            storeId: string;
+            /** Format: uuid */
+            productId: string;
+            quantity: number;
+            reason: string;
+        };
+        StockCountRequest: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            /** Format: uuid */
+            storeId: string;
+            /** Format: uuid */
+            productId: string;
+            countedQuantity: number;
+            description?: string | null;
+        };
+        TransferLineWrite: {
+            /** Format: uuid */
+            productId: string;
+            quantity: number;
+            unit?: components["schemas"]["ProductUnitType"];
+            /** Format: decimal */
+            unitPrice?: string | null;
+        };
+        StoreProductTransfer: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            sourceStoreId: string;
+            /** Format: uuid */
+            targetStoreId: string;
+            /** Format: uuid */
+            requestedById: string;
+            /** Format: date-time */
+            requestedTime: string;
+            transferState: components["schemas"]["ProductTransferState"];
+            /** Format: uuid */
+            confirmedById?: string | null;
+            /** Format: date-time */
+            confirmedTime?: string | null;
+            /** Format: uuid */
+            receivedById?: string | null;
+            /** Format: date-time */
+            receivedTime?: string | null;
+            /** Format: uuid */
+            cancelledById?: string | null;
+            /** Format: date-time */
+            cancelledTime?: string | null;
+            cancelReason?: string | null;
+            transferDone?: boolean | null;
+            lines: components["schemas"]["StoreProductTransferLine"][];
+        };
+        StoreProductTransferLine: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            productId: string;
+            quantity: number;
+            receivedQuantity?: number | null;
+            unit?: components["schemas"]["ProductUnitType"];
+            /** Format: decimal */
+            unitPrice?: string | null;
+        };
+        CreateTransferRequest: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            /** Format: uuid */
+            sourceStoreId: string;
+            /** Format: uuid */
+            targetStoreId: string;
+            lines: components["schemas"]["TransferLineWrite"][];
+        };
+        ConfirmTransferRequest: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+        };
+        ReceiveTransferLine: {
+            /** Format: uuid */
+            productId: string;
+            receivedQuantity: number;
+        };
+        ReceiveTransferRequest: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            lines: components["schemas"]["ReceiveTransferLine"][];
+        };
+        CancelTransferRequest: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            reason: string;
         };
         /** @enum {string} */
         PaymentType: "Cash" | "CreditCard" | "Ticket" | "Sodexo" | "Multinet";
@@ -1410,6 +1921,14 @@ export interface components {
         CampaignType: "ExtraPoints" | "DiscountAmount" | "Stamp";
         /** @enum {string} */
         RewardType: "DiscountAmount" | "FreeProduct" | "Custom";
+        /** @enum {string} */
+        EarnRuleScope: "All" | "Branch" | "Category";
+        /** @enum {string} */
+        ProductTransferState: "Requested" | "Confirmed" | "Received" | "Cancelled";
+        /** @enum {string} */
+        LedgerDirection: "Debit" | "Credit";
+        /** @enum {string} */
+        LedgerEntryState: "Posted" | "Reversed";
         /** @enum {string} */
         OrderState: "Received" | "Preparing" | "Completed" | "Cancelled" | "Deleted" | "Transferring";
         /** @enum {string} */
@@ -2802,6 +3321,498 @@ export interface operations {
             default: components["responses"]["Problem"];
         };
     };
+    listAdminEarnRules: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Earn rule list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EarnRule"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminEarnRule: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EarnRuleWrite"];
+            };
+        };
+        responses: {
+            /** @description Earn rule created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EarnRule"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    getAdminEarnRule: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Earn rule detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EarnRule"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminEarnRule: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EarnRuleWrite"];
+            };
+        };
+        responses: {
+            /** @description Earn rule updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EarnRule"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminEarnRule: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Earn rule deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminLoyaltyTiers: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Loyalty tier list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoyaltyTier"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminLoyaltyTier: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoyaltyTierWrite"];
+            };
+        };
+        responses: {
+            /** @description Loyalty tier created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoyaltyTier"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    getAdminLoyaltyTier: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Loyalty tier detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoyaltyTier"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminLoyaltyTier: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoyaltyTierWrite"];
+            };
+        };
+        responses: {
+            /** @description Loyalty tier updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoyaltyTier"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminLoyaltyTier: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Loyalty tier deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminRewards: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Reward list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Reward"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminReward: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RewardWrite"];
+            };
+        };
+        responses: {
+            /** @description Reward created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Reward"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    getAdminReward: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Reward detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Reward"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminReward: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RewardWrite"];
+            };
+        };
+        responses: {
+            /** @description Reward updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Reward"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminReward: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Reward deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminStampCards: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Stamp card list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StampCard"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminStampCard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StampCardWrite"];
+            };
+        };
+        responses: {
+            /** @description Stamp card created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StampCard"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    getAdminStampCard: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Stamp card detail */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StampCard"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminStampCard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StampCardWrite"];
+            };
+        };
+        responses: {
+            /** @description Stamp card updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StampCard"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminStampCard: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Stamp card deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
     listAppOrders: {
         parameters: {
             query: {
@@ -3205,6 +4216,11 @@ export interface operations {
         parameters: {
             query: {
                 companyId: components["parameters"]["CompanyId"];
+                storeId?: string | null;
+                productId?: string | null;
+                movementType?: components["schemas"]["StoreProductMovementType"];
+                from?: string | null;
+                to?: string | null;
             };
             header?: never;
             path?: never;
@@ -3219,6 +4235,212 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["StockMovement"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createStockIn: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StockAdjustmentRequest"];
+            };
+        };
+        responses: {
+            /** @description Stock in movement */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StockMovement"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createStockOut: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StockAdjustmentRequest"];
+            };
+        };
+        responses: {
+            /** @description Stock out movement */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StockMovement"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createStockDestroy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DestroyStockRequest"];
+            };
+        };
+        responses: {
+            /** @description Destroy movement */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StockMovement"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    finalizeStockCount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StockCountRequest"];
+            };
+        };
+        responses: {
+            /** @description Stock count movement */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StockMovement"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createStockTransfer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateTransferRequest"];
+            };
+        };
+        responses: {
+            /** @description Transfer requested */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreProductTransfer"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    confirmStockTransfer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConfirmTransferRequest"];
+            };
+        };
+        responses: {
+            /** @description Transfer confirmed */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreProductTransfer"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    receiveStockTransfer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReceiveTransferRequest"];
+            };
+        };
+        responses: {
+            /** @description Transfer received */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreProductTransfer"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    cancelStockTransfer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CancelTransferRequest"];
+            };
+        };
+        responses: {
+            /** @description Transfer cancelled */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreProductTransfer"];
                 };
             };
             default: components["responses"]["Problem"];

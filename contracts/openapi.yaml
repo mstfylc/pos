@@ -621,6 +621,178 @@ paths:
       responses:
         '204': { description: Campaign deactivated }
         default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/earn-rules:
+    get:
+      tags: [Admin]
+      operationId: listAdminEarnRules
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Earn rule list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/EarnRule' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminEarnRule
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/EarnRuleWrite' } } } }
+      responses:
+        '201': { description: Earn rule created, content: { application/json: { schema: { $ref: '#/components/schemas/EarnRule' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/earn-rules/{id}:
+    get:
+      tags: [Admin]
+      operationId: getAdminEarnRule
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Earn rule detail, content: { application/json: { schema: { $ref: '#/components/schemas/EarnRule' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    put:
+      tags: [Admin]
+      operationId: updateAdminEarnRule
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/EarnRuleWrite' } } } }
+      responses:
+        '200': { description: Earn rule updated, content: { application/json: { schema: { $ref: '#/components/schemas/EarnRule' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminEarnRule
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '204': { description: Earn rule deactivated }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/loyalty-tiers:
+    get:
+      tags: [Admin]
+      operationId: listAdminLoyaltyTiers
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Loyalty tier list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/LoyaltyTier' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminLoyaltyTier
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/LoyaltyTierWrite' } } } }
+      responses:
+        '201': { description: Loyalty tier created, content: { application/json: { schema: { $ref: '#/components/schemas/LoyaltyTier' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/loyalty-tiers/{id}:
+    get:
+      tags: [Admin]
+      operationId: getAdminLoyaltyTier
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Loyalty tier detail, content: { application/json: { schema: { $ref: '#/components/schemas/LoyaltyTier' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    put:
+      tags: [Admin]
+      operationId: updateAdminLoyaltyTier
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/LoyaltyTierWrite' } } } }
+      responses:
+        '200': { description: Loyalty tier updated, content: { application/json: { schema: { $ref: '#/components/schemas/LoyaltyTier' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminLoyaltyTier
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '204': { description: Loyalty tier deactivated }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/rewards:
+    get:
+      tags: [Admin]
+      operationId: listAdminRewards
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Reward list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Reward' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminReward
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/RewardWrite' } } } }
+      responses:
+        '201': { description: Reward created, content: { application/json: { schema: { $ref: '#/components/schemas/Reward' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/rewards/{id}:
+    get:
+      tags: [Admin]
+      operationId: getAdminReward
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Reward detail, content: { application/json: { schema: { $ref: '#/components/schemas/Reward' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    put:
+      tags: [Admin]
+      operationId: updateAdminReward
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/RewardWrite' } } } }
+      responses:
+        '200': { description: Reward updated, content: { application/json: { schema: { $ref: '#/components/schemas/Reward' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminReward
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '204': { description: Reward deactivated }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/stamp-cards:
+    get:
+      tags: [Admin]
+      operationId: listAdminStampCards
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Stamp card list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/StampCard' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminStampCard
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/StampCardWrite' } } } }
+      responses:
+        '201': { description: Stamp card created, content: { application/json: { schema: { $ref: '#/components/schemas/StampCard' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/stamp-cards/{id}:
+    get:
+      tags: [Admin]
+      operationId: getAdminStampCard
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Stamp card detail, content: { application/json: { schema: { $ref: '#/components/schemas/StampCard' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    put:
+      tags: [Admin]
+      operationId: updateAdminStampCard
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/StampCardWrite' } } } }
+      responses:
+        '200': { description: Stamp card updated, content: { application/json: { schema: { $ref: '#/components/schemas/StampCard' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminStampCard
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '204': { description: Stamp card deactivated }
+        default: { $ref: '#/components/responses/Problem' }
   /api/v1/app/orders:
     get:
       tags: [App]
@@ -852,6 +1024,26 @@ paths:
       security: [{ bearerAuth: [] }]
       parameters:
         - $ref: '#/components/parameters/CompanyId'
+        - name: storeId
+          in: query
+          required: false
+          schema: { type: string, format: uuid, nullable: true }
+        - name: productId
+          in: query
+          required: false
+          schema: { type: string, format: uuid, nullable: true }
+        - name: movementType
+          in: query
+          required: false
+          schema: { $ref: '#/components/schemas/StoreProductMovementType' }
+        - name: from
+          in: query
+          required: false
+          schema: { type: string, format: date-time, nullable: true }
+        - name: to
+          in: query
+          required: false
+          schema: { type: string, format: date-time, nullable: true }
       responses:
         '200':
           description: Stock movement list
@@ -863,6 +1055,81 @@ paths:
                   $ref: '#/components/schemas/StockMovement'
         default:
           $ref: '#/components/responses/Problem'
+  /api/v1/stock/stock-in:
+    post:
+      tags: [Stock]
+      operationId: createStockIn
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/StockAdjustmentRequest' } } } }
+      responses:
+        '200': { description: Stock in movement, content: { application/json: { schema: { $ref: '#/components/schemas/StockMovement' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/stock/stock-out:
+    post:
+      tags: [Stock]
+      operationId: createStockOut
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/StockAdjustmentRequest' } } } }
+      responses:
+        '200': { description: Stock out movement, content: { application/json: { schema: { $ref: '#/components/schemas/StockMovement' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/stock/destroy:
+    post:
+      tags: [Stock]
+      operationId: createStockDestroy
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/DestroyStockRequest' } } } }
+      responses:
+        '200': { description: Destroy movement, content: { application/json: { schema: { $ref: '#/components/schemas/StockMovement' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/stock/count:
+    post:
+      tags: [Stock]
+      operationId: finalizeStockCount
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/StockCountRequest' } } } }
+      responses:
+        '200': { description: Stock count movement, content: { application/json: { schema: { $ref: '#/components/schemas/StockMovement' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/stock/transfers:
+    post:
+      tags: [Stock]
+      operationId: createStockTransfer
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CreateTransferRequest' } } } }
+      responses:
+        '200': { description: Transfer requested, content: { application/json: { schema: { $ref: '#/components/schemas/StoreProductTransfer' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/stock/transfers/{id}/confirm:
+    post:
+      tags: [Stock]
+      operationId: confirmStockTransfer
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/ConfirmTransferRequest' } } } }
+      responses:
+        '200': { description: Transfer confirmed, content: { application/json: { schema: { $ref: '#/components/schemas/StoreProductTransfer' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/stock/transfers/{id}/receive:
+    post:
+      tags: [Stock]
+      operationId: receiveStockTransfer
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/ReceiveTransferRequest' } } } }
+      responses:
+        '200': { description: Transfer received, content: { application/json: { schema: { $ref: '#/components/schemas/StoreProductTransfer' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/stock/transfers/{id}/cancel:
+    post:
+      tags: [Stock]
+      operationId: cancelStockTransfer
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CancelTransferRequest' } } } }
+      responses:
+        '200': { description: Transfer cancelled, content: { application/json: { schema: { $ref: '#/components/schemas/StoreProductTransfer' } } } }
+        default: { $ref: '#/components/responses/Problem' }
 components:
   securitySchemes:
     bearerAuth:
@@ -1300,6 +1567,110 @@ components:
         startsAt: { type: string, format: date-time, nullable: true }
         endsAt: { type: string, format: date-time, nullable: true }
         active: { type: boolean }
+    EarnRule:
+      type: object
+      required: [id, companyId, name, pointsPerCurrency, minOrder, scope, active]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        name: { type: string }
+        pointsPerCurrency: { type: string, format: decimal }
+        minOrder: { type: string, format: decimal }
+        expiryDays: { type: integer, nullable: true }
+        scope: { $ref: '#/components/schemas/EarnRuleScope' }
+        branchId: { type: string, format: uuid, nullable: true }
+        categoryId: { type: string, format: uuid, nullable: true }
+        startsAt: { type: string, format: date-time, nullable: true }
+        endsAt: { type: string, format: date-time, nullable: true }
+        active: { type: boolean }
+    EarnRuleWrite:
+      type: object
+      required: [companyId, userId, name, pointsPerCurrency, minOrder, scope, active]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+        pointsPerCurrency: { type: string, format: decimal }
+        minOrder: { type: string, format: decimal }
+        expiryDays: { type: integer, nullable: true }
+        scope: { $ref: '#/components/schemas/EarnRuleScope' }
+        branchId: { type: string, format: uuid, nullable: true }
+        categoryId: { type: string, format: uuid, nullable: true }
+        startsAt: { type: string, format: date-time, nullable: true }
+        endsAt: { type: string, format: date-time, nullable: true }
+        active: { type: boolean }
+    LoyaltyTier:
+      type: object
+      required: [id, companyId, name, minPoints, pointMultiplier, active]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        name: { type: string }
+        minPoints: { type: integer }
+        pointMultiplier: { type: string, format: decimal }
+        benefits: { type: string, nullable: true }
+        active: { type: boolean }
+    LoyaltyTierWrite:
+      type: object
+      required: [companyId, userId, name, minPoints, pointMultiplier, active]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+        minPoints: { type: integer }
+        pointMultiplier: { type: string, format: decimal }
+        benefits: { type: string, nullable: true }
+        active: { type: boolean }
+    Reward:
+      type: object
+      required: [id, companyId, name, pointCost, rewardType, active]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        name: { type: string }
+        pointCost: { type: integer }
+        rewardType: { $ref: '#/components/schemas/RewardType' }
+        discountAmount: { type: string, format: decimal, nullable: true }
+        image: { type: string, nullable: true }
+        productId: { type: string, format: uuid, nullable: true }
+        active: { type: boolean }
+    RewardWrite:
+      type: object
+      required: [companyId, userId, name, pointCost, rewardType, active]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+        pointCost: { type: integer }
+        rewardType: { $ref: '#/components/schemas/RewardType' }
+        discountAmount: { type: string, format: decimal, nullable: true }
+        image: { type: string, nullable: true }
+        productId: { type: string, format: uuid, nullable: true }
+        active: { type: boolean }
+    StampCard:
+      type: object
+      required: [id, companyId, name, requiredStamps, active]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        name: { type: string }
+        requiredStamps: { type: integer }
+        rewardId: { type: string, format: uuid, nullable: true }
+        startsAt: { type: string, format: date-time, nullable: true }
+        endsAt: { type: string, format: date-time, nullable: true }
+        active: { type: boolean }
+    StampCardWrite:
+      type: object
+      required: [companyId, userId, name, requiredStamps, active]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+        requiredStamps: { type: integer }
+        rewardId: { type: string, format: uuid, nullable: true }
+        startsAt: { type: string, format: date-time, nullable: true }
+        endsAt: { type: string, format: date-time, nullable: true }
+        active: { type: boolean }
     CreateOrderRequest:
       type: object
       required: [companyId, posId, userId, shippingType, orderTime, lines, payments]
@@ -1520,19 +1891,127 @@ components:
         pointBalance: { type: integer }
     StockMovement:
       type: object
-      required: [id, companyId, storeId, productId, movementType, direction, quantity, occurredAt]
+      required: [id, companyId, storeId, productId, movementType, direction, quantity, state, occurredAt, currentQuantity]
       properties:
         id: { type: string, format: uuid }
         companyId: { type: string, format: uuid }
         storeId: { type: string, format: uuid }
         productId: { type: string, format: uuid }
+        operationId: { type: string, format: uuid, nullable: true }
         movementType:
           $ref: '#/components/schemas/StoreProductMovementType'
         direction:
-          type: string
-          enum: [Debit, Credit]
+          $ref: '#/components/schemas/LedgerDirection'
         quantity: { type: integer }
+        state:
+          $ref: '#/components/schemas/LedgerEntryState'
+        reversalOfId: { type: string, format: uuid, nullable: true }
+        description: { type: string, nullable: true }
         occurredAt: { type: string, format: date-time }
+        currentQuantity: { type: integer }
+    StockAdjustmentRequest:
+      type: object
+      required: [companyId, userId, storeId, productId, quantity]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        storeId: { type: string, format: uuid }
+        productId: { type: string, format: uuid }
+        quantity: { type: integer, minimum: 1 }
+        description: { type: string, nullable: true }
+    DestroyStockRequest:
+      type: object
+      required: [companyId, userId, storeId, productId, quantity, reason]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        storeId: { type: string, format: uuid }
+        productId: { type: string, format: uuid }
+        quantity: { type: integer, minimum: 1 }
+        reason: { type: string, minLength: 1, maxLength: 512 }
+    StockCountRequest:
+      type: object
+      required: [companyId, userId, storeId, productId, countedQuantity]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        storeId: { type: string, format: uuid }
+        productId: { type: string, format: uuid }
+        countedQuantity: { type: integer, minimum: 0 }
+        description: { type: string, nullable: true }
+    TransferLineWrite:
+      type: object
+      required: [productId, quantity]
+      properties:
+        productId: { type: string, format: uuid }
+        quantity: { type: integer, minimum: 1 }
+        unit: { $ref: '#/components/schemas/ProductUnitType' }
+        unitPrice: { type: string, format: decimal, nullable: true }
+    StoreProductTransfer:
+      type: object
+      required: [id, companyId, sourceStoreId, targetStoreId, requestedById, requestedTime, transferState, lines]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        sourceStoreId: { type: string, format: uuid }
+        targetStoreId: { type: string, format: uuid }
+        requestedById: { type: string, format: uuid }
+        requestedTime: { type: string, format: date-time }
+        transferState: { $ref: '#/components/schemas/ProductTransferState' }
+        confirmedById: { type: string, format: uuid, nullable: true }
+        confirmedTime: { type: string, format: date-time, nullable: true }
+        receivedById: { type: string, format: uuid, nullable: true }
+        receivedTime: { type: string, format: date-time, nullable: true }
+        cancelledById: { type: string, format: uuid, nullable: true }
+        cancelledTime: { type: string, format: date-time, nullable: true }
+        cancelReason: { type: string, nullable: true }
+        transferDone: { type: boolean, nullable: true }
+        lines: { type: array, items: { $ref: '#/components/schemas/StoreProductTransferLine' } }
+    StoreProductTransferLine:
+      type: object
+      required: [id, productId, quantity]
+      properties:
+        id: { type: string, format: uuid }
+        productId: { type: string, format: uuid }
+        quantity: { type: integer }
+        receivedQuantity: { type: integer, nullable: true }
+        unit: { $ref: '#/components/schemas/ProductUnitType' }
+        unitPrice: { type: string, format: decimal, nullable: true }
+    CreateTransferRequest:
+      type: object
+      required: [companyId, userId, sourceStoreId, targetStoreId, lines]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        sourceStoreId: { type: string, format: uuid }
+        targetStoreId: { type: string, format: uuid }
+        lines: { type: array, items: { $ref: '#/components/schemas/TransferLineWrite' } }
+    ConfirmTransferRequest:
+      type: object
+      required: [companyId, userId]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+    ReceiveTransferLine:
+      type: object
+      required: [productId, receivedQuantity]
+      properties:
+        productId: { type: string, format: uuid }
+        receivedQuantity: { type: integer, minimum: 0 }
+    ReceiveTransferRequest:
+      type: object
+      required: [companyId, userId, lines]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        lines: { type: array, items: { $ref: '#/components/schemas/ReceiveTransferLine' } }
+    CancelTransferRequest:
+      type: object
+      required: [companyId, userId, reason]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        reason: { type: string, minLength: 1, maxLength: 512 }
     PaymentType:
       type: string
       enum: [Cash, CreditCard, Ticket, Sodexo, Multinet]
@@ -1560,6 +2039,18 @@ components:
     RewardType:
       type: string
       enum: [DiscountAmount, FreeProduct, Custom]
+    EarnRuleScope:
+      type: string
+      enum: [All, Branch, Category]
+    ProductTransferState:
+      type: string
+      enum: [Requested, Confirmed, Received, Cancelled]
+    LedgerDirection:
+      type: string
+      enum: [Debit, Credit]
+    LedgerEntryState:
+      type: string
+      enum: [Posted, Reversed]
     OrderState:
       type: string
       enum: [Received, Preparing, Completed, Cancelled, Deleted, Transferring]

@@ -1,0 +1,204 @@
+//
+// AUTO-GENERATED FILE, DO NOT MODIFY!
+//
+// @dart=2.7
+
+// ignore_for_file: unused_import
+
+import 'package:mansis_pos_api_client/model/earn_rule_scope.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+
+part 'earn_rule_write.g.dart';
+
+abstract class EarnRuleWrite implements Built<EarnRuleWrite, EarnRuleWriteBuilder> {
+
+    @BuiltValueField(wireName: r'companyId')
+    String get companyId;
+
+    @BuiltValueField(wireName: r'userId')
+    String get userId;
+
+    @BuiltValueField(wireName: r'name')
+    String get name;
+
+    @BuiltValueField(wireName: r'pointsPerCurrency')
+    double get pointsPerCurrency;
+
+    @BuiltValueField(wireName: r'minOrder')
+    double get minOrder;
+
+    @nullable
+    @BuiltValueField(wireName: r'expiryDays')
+    int get expiryDays;
+
+    @BuiltValueField(wireName: r'scope')
+    EarnRuleScope get scope;
+    // enum scopeEnum {  All,  Branch,  Category,  };
+
+    @nullable
+    @BuiltValueField(wireName: r'branchId')
+    String get branchId;
+
+    @nullable
+    @BuiltValueField(wireName: r'categoryId')
+    String get categoryId;
+
+    @nullable
+    @BuiltValueField(wireName: r'startsAt')
+    DateTime get startsAt;
+
+    @nullable
+    @BuiltValueField(wireName: r'endsAt')
+    DateTime get endsAt;
+
+    @BuiltValueField(wireName: r'active')
+    bool get active;
+
+    EarnRuleWrite._();
+
+    static void _initializeBuilder(EarnRuleWriteBuilder b) => b;
+
+    factory EarnRuleWrite([void updates(EarnRuleWriteBuilder b)]) = _$EarnRuleWrite;
+
+    @BuiltValueSerializer(custom: true)
+    static Serializer<EarnRuleWrite> get serializer => _$EarnRuleWriteSerializer();
+}
+
+class _$EarnRuleWriteSerializer implements StructuredSerializer<EarnRuleWrite> {
+
+    @override
+    final Iterable<Type> types = const [EarnRuleWrite, _$EarnRuleWrite];
+    @override
+    final String wireName = r'EarnRuleWrite';
+
+    @override
+    Iterable<Object> serialize(Serializers serializers, EarnRuleWrite object,
+        {FullType specifiedType = FullType.unspecified}) {
+        final result = <Object>[];
+        result
+            ..add(r'companyId')
+            ..add(serializers.serialize(object.companyId,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'userId')
+            ..add(serializers.serialize(object.userId,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'name')
+            ..add(serializers.serialize(object.name,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'pointsPerCurrency')
+            ..add(serializers.serialize(object.pointsPerCurrency,
+                specifiedType: const FullType(double)));
+        result
+            ..add(r'minOrder')
+            ..add(serializers.serialize(object.minOrder,
+                specifiedType: const FullType(double)));
+        if (object.expiryDays != null) {
+            result
+                ..add(r'expiryDays')
+                ..add(serializers.serialize(object.expiryDays,
+                    specifiedType: const FullType(int)));
+        }
+        result
+            ..add(r'scope')
+            ..add(serializers.serialize(object.scope,
+                specifiedType: const FullType(EarnRuleScope)));
+        if (object.branchId != null) {
+            result
+                ..add(r'branchId')
+                ..add(serializers.serialize(object.branchId,
+                    specifiedType: const FullType(String)));
+        }
+        if (object.categoryId != null) {
+            result
+                ..add(r'categoryId')
+                ..add(serializers.serialize(object.categoryId,
+                    specifiedType: const FullType(String)));
+        }
+        if (object.startsAt != null) {
+            result
+                ..add(r'startsAt')
+                ..add(serializers.serialize(object.startsAt,
+                    specifiedType: const FullType(DateTime)));
+        }
+        if (object.endsAt != null) {
+            result
+                ..add(r'endsAt')
+                ..add(serializers.serialize(object.endsAt,
+                    specifiedType: const FullType(DateTime)));
+        }
+        result
+            ..add(r'active')
+            ..add(serializers.serialize(object.active,
+                specifiedType: const FullType(bool)));
+        return result;
+    }
+
+    @override
+    EarnRuleWrite deserialize(Serializers serializers, Iterable<Object> serialized,
+        {FullType specifiedType = FullType.unspecified}) {
+        final result = EarnRuleWriteBuilder();
+
+        final iterator = serialized.iterator;
+        while (iterator.moveNext()) {
+            final key = iterator.current as String;
+            iterator.moveNext();
+            final dynamic value = iterator.current;
+            switch (key) {
+                case r'companyId':
+                    result.companyId = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'userId':
+                    result.userId = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'name':
+                    result.name = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'pointsPerCurrency':
+                    result.pointsPerCurrency = serializers.deserialize(value,
+                        specifiedType: const FullType(double)) as double;
+                    break;
+                case r'minOrder':
+                    result.minOrder = serializers.deserialize(value,
+                        specifiedType: const FullType(double)) as double;
+                    break;
+                case r'expiryDays':
+                    result.expiryDays = serializers.deserialize(value,
+                        specifiedType: const FullType(int)) as int;
+                    break;
+                case r'scope':
+                    result.scope = serializers.deserialize(value,
+                        specifiedType: const FullType(EarnRuleScope)) as EarnRuleScope;
+                    break;
+                case r'branchId':
+                    result.branchId = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'categoryId':
+                    result.categoryId = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'startsAt':
+                    result.startsAt = serializers.deserialize(value,
+                        specifiedType: const FullType(DateTime)) as DateTime;
+                    break;
+                case r'endsAt':
+                    result.endsAt = serializers.deserialize(value,
+                        specifiedType: const FullType(DateTime)) as DateTime;
+                    break;
+                case r'active':
+                    result.active = serializers.deserialize(value,
+                        specifiedType: const FullType(bool)) as bool;
+                    break;
+            }
+        }
+        return result.build();
+    }
+}
+

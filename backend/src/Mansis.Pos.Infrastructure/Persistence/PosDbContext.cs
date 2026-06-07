@@ -66,6 +66,7 @@ public sealed class PosDbContext(
     public DbSet<RewardRedemption> RewardRedemptions => Set<RewardRedemption>();
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
+    public DbSet<StampCard> StampCards => Set<StampCard>();
     public DbSet<Store> Stores => Set<Store>();
     public DbSet<StoreActivityLog> StoreActivityLogs => Set<StoreActivityLog>();
     public DbSet<StoreProduct> StoreProducts => Set<StoreProduct>();
@@ -150,6 +151,9 @@ public sealed class PosDbContext(
         modelBuilder.Entity<LoyaltyAccount>()
             .HasIndex(account => new { account.CompanyId, account.CustomerId })
             .IsUnique();
+
+        modelBuilder.Entity<StampCard>()
+            .HasIndex(stampCard => new { stampCard.CompanyId, stampCard.Active });
 
         modelBuilder.Entity<Product>()
             .HasIndex(product => new { product.CompanyId, product.CategoryId, product.Active });

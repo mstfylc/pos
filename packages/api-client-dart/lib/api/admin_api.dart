@@ -21,6 +21,10 @@ import 'package:mansis_pos_api_client/model/customer.dart';
 import 'package:mansis_pos_api_client/model/customer_write.dart';
 import 'package:mansis_pos_api_client/model/discount.dart';
 import 'package:mansis_pos_api_client/model/discount_write.dart';
+import 'package:mansis_pos_api_client/model/earn_rule.dart';
+import 'package:mansis_pos_api_client/model/earn_rule_write.dart';
+import 'package:mansis_pos_api_client/model/loyalty_tier.dart';
+import 'package:mansis_pos_api_client/model/loyalty_tier_write.dart';
 import 'package:mansis_pos_api_client/model/order_list_item.dart';
 import 'package:mansis_pos_api_client/model/permission.dart';
 import 'package:mansis_pos_api_client/model/pos.dart';
@@ -30,9 +34,13 @@ import 'package:mansis_pos_api_client/model/pos_write.dart';
 import 'package:mansis_pos_api_client/model/problem_details.dart';
 import 'package:mansis_pos_api_client/model/product.dart';
 import 'package:mansis_pos_api_client/model/product_write.dart';
+import 'package:mansis_pos_api_client/model/reward.dart';
+import 'package:mansis_pos_api_client/model/reward_write.dart';
 import 'package:mansis_pos_api_client/model/role.dart';
 import 'package:mansis_pos_api_client/model/role_permission_write.dart';
 import 'package:mansis_pos_api_client/model/role_write.dart';
+import 'package:mansis_pos_api_client/model/stamp_card.dart';
+import 'package:mansis_pos_api_client/model/stamp_card_write.dart';
 import 'package:mansis_pos_api_client/model/store.dart';
 import 'package:mansis_pos_api_client/model/store_write.dart';
 import 'package:mansis_pos_api_client/model/user.dart';
@@ -364,6 +372,132 @@ class AdminApi {
   /// 
   ///
   /// 
+  Future<Response<EarnRule>> createAdminEarnRule(
+    EarnRuleWrite earnRuleWrite, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/earn-rules',
+      method: 'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(EarnRuleWrite);
+    _bodyData = _serializers.serialize(earnRuleWrite, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(EarnRule);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as EarnRule;
+
+    return Response<EarnRule>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<LoyaltyTier>> createAdminLoyaltyTier(
+    LoyaltyTierWrite loyaltyTierWrite, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/loyalty-tiers',
+      method: 'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(LoyaltyTierWrite);
+    _bodyData = _serializers.serialize(loyaltyTierWrite, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(LoyaltyTier);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as LoyaltyTier;
+
+    return Response<LoyaltyTier>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
   Future<Response<Pos>> createAdminPos(
     PosWrite posWrite, { 
     CancelToken cancelToken,
@@ -553,6 +687,69 @@ class AdminApi {
   /// 
   ///
   /// 
+  Future<Response<Reward>> createAdminReward(
+    RewardWrite rewardWrite, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/rewards',
+      method: 'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(RewardWrite);
+    _bodyData = _serializers.serialize(rewardWrite, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(Reward);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as Reward;
+
+    return Response<Reward>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
   Future<Response<Role>> createAdminRole(
     RoleWrite roleWrite, { 
     CancelToken cancelToken,
@@ -602,6 +799,69 @@ class AdminApi {
     ) as Role;
 
     return Response<Role>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<StampCard>> createAdminStampCard(
+    StampCardWrite stampCardWrite, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/stamp-cards',
+      method: 'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(StampCardWrite);
+    _bodyData = _serializers.serialize(stampCardWrite, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(StampCard);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as StampCard;
+
+    return Response<StampCard>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -993,6 +1253,104 @@ class AdminApi {
   /// 
   ///
   /// 
+  Future<Response<void>> deleteAdminEarnRule(
+    String id,
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/earn-rules/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'DELETE',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    return _response;
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<void>> deleteAdminLoyaltyTier(
+    String id,
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/loyalty-tiers/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'DELETE',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    return _response;
+  }
+
+  /// 
+  ///
+  /// 
   Future<Response<void>> deleteAdminPos(
     String id,
     String companyId,
@@ -1095,6 +1453,55 @@ class AdminApi {
   /// 
   ///
   /// 
+  Future<Response<void>> deleteAdminReward(
+    String id,
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/rewards/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'DELETE',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    return _response;
+  }
+
+  /// 
+  ///
+  /// 
   Future<Response<void>> deleteAdminRole(
     String id,
     String companyId,
@@ -1115,6 +1522,55 @@ class AdminApi {
       queryParameters: <String, dynamic>{
         r'companyId': companyId,
         r'userId': userId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    return _response;
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<void>> deleteAdminStampCard(
+    String id,
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/stamp-cards/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'DELETE',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
       },
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
@@ -1440,6 +1896,198 @@ class AdminApi {
   /// 
   ///
   /// 
+  Future<Response<EarnRule>> getAdminEarnRule(
+    String id,
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/earn-rules/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(EarnRule);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as EarnRule;
+
+    return Response<EarnRule>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<LoyaltyTier>> getAdminLoyaltyTier(
+    String id,
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/loyalty-tiers/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(LoyaltyTier);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as LoyaltyTier;
+
+    return Response<LoyaltyTier>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<Reward>> getAdminReward(
+    String id,
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/rewards/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(Reward);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as Reward;
+
+    return Response<Reward>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
   Future<Response<Role>> getAdminRole(
     String id,
     String companyId, { 
@@ -1490,6 +2138,70 @@ class AdminApi {
     ) as Role;
 
     return Response<Role>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<StampCard>> getAdminStampCard(
+    String id,
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/stamp-cards/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(StampCard);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as StampCard;
+
+    return Response<StampCard>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -1944,6 +2656,132 @@ class AdminApi {
   /// 
   ///
   /// 
+  Future<Response<BuiltList<EarnRule>>> listAdminEarnRules(
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/earn-rules',
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(BuiltList, [FullType(EarnRule)]);
+    final BuiltList<EarnRule> _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as BuiltList<EarnRule>;
+
+    return Response<BuiltList<EarnRule>>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<BuiltList<LoyaltyTier>>> listAdminLoyaltyTiers(
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/loyalty-tiers',
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(BuiltList, [FullType(LoyaltyTier)]);
+    final BuiltList<LoyaltyTier> _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as BuiltList<LoyaltyTier>;
+
+    return Response<BuiltList<LoyaltyTier>>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
   Future<Response<BuiltList<OrderListItem>>> listAdminOrders(
     String companyId, { 
     CancelToken cancelToken,
@@ -2192,6 +3030,69 @@ class AdminApi {
   /// 
   ///
   /// 
+  Future<Response<BuiltList<Reward>>> listAdminRewards(
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/rewards',
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(BuiltList, [FullType(Reward)]);
+    final BuiltList<Reward> _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as BuiltList<Reward>;
+
+    return Response<BuiltList<Reward>>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
   Future<Response<BuiltList<Role>>> listAdminRoles(
     String companyId, { 
     CancelToken cancelToken,
@@ -2241,6 +3142,69 @@ class AdminApi {
     ) as BuiltList<Role>;
 
     return Response<BuiltList<Role>>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<BuiltList<StampCard>>> listAdminStampCards(
+    String companyId, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/stamp-cards',
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(BuiltList, [FullType(StampCard)]);
+    final BuiltList<StampCard> _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as BuiltList<StampCard>;
+
+    return Response<BuiltList<StampCard>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -2701,6 +3665,134 @@ class AdminApi {
   /// 
   ///
   /// 
+  Future<Response<EarnRule>> updateAdminEarnRule(
+    String id,
+    EarnRuleWrite earnRuleWrite, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/earn-rules/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'PUT',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(EarnRuleWrite);
+    _bodyData = _serializers.serialize(earnRuleWrite, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(EarnRule);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as EarnRule;
+
+    return Response<EarnRule>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<LoyaltyTier>> updateAdminLoyaltyTier(
+    String id,
+    LoyaltyTierWrite loyaltyTierWrite, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/loyalty-tiers/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'PUT',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(LoyaltyTierWrite);
+    _bodyData = _serializers.serialize(loyaltyTierWrite, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(LoyaltyTier);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as LoyaltyTier;
+
+    return Response<LoyaltyTier>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
   Future<Response<Pos>> updateAdminPos(
     String id,
     PosWrite posWrite, { 
@@ -2893,6 +3985,70 @@ class AdminApi {
   /// 
   ///
   /// 
+  Future<Response<Reward>> updateAdminReward(
+    String id,
+    RewardWrite rewardWrite, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/rewards/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'PUT',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(RewardWrite);
+    _bodyData = _serializers.serialize(rewardWrite, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(Reward);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as Reward;
+
+    return Response<Reward>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
   Future<Response<Role>> updateAdminRole(
     String id,
     RoleWrite roleWrite, { 
@@ -3007,6 +4163,70 @@ class AdminApi {
     ) as Role;
 
     return Response<Role>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<StampCard>> updateAdminStampCard(
+    String id,
+    StampCardWrite stampCardWrite, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/stamp-cards/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'PUT',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(StampCardWrite);
+    _bodyData = _serializers.serialize(stampCardWrite, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(StampCard);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as StampCard;
+
+    return Response<StampCard>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
