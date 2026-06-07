@@ -20,6 +20,7 @@ public static class DependencyInjection
         services.AddValidatorsFromAssembly(ApplicationAssembly.Assembly);
         services.AddScoped<AuthService>();
         services.AddScoped<CoreCrudService>();
+        services.AddScoped<CampaignEvaluator>();
         services.AddScoped<LoyaltyEarnCalculator>();
         services.AddScoped<RedeemRewardService>();
         services.AddScoped<CancelOrderService>();

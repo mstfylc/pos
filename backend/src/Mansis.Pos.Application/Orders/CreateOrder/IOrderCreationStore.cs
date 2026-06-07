@@ -16,7 +16,8 @@ public sealed record OrderCreationSnapshot(
     WalletAccount? WalletAccount,
     LoyaltyAccount? LoyaltyAccount,
     IReadOnlyList<EarnRule> EarnRules,
-    IReadOnlyList<LoyaltyTier> LoyaltyTiers);
+    IReadOnlyList<LoyaltyTier> LoyaltyTiers,
+    IReadOnlyList<Campaign> Campaigns);
 
 public sealed record ProductStockSnapshot(Guid ProductId, Guid CategoryId, bool Stocktaking, int Quantity);
 

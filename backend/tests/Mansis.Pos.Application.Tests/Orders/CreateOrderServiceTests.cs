@@ -106,6 +106,53 @@ public sealed class CreateOrderServiceTests
     }
 
     [Fact]
+    public async Task CreateAsync_WithEligibleCampaign_AppliesDiscountAndExtraPoints()
+    {
+        var store = FakeOrderCreationStore.Ready(
+            campaigns:
+            [
+                new Campaign
+                {
+                    Id = Guid.NewGuid(),
+                    CompanyId = CompanyId,
+                    Name = "Five off",
+                    CampaignType = CampaignType.DiscountAmount,
+                    RuleJson = """{"minOrderTotal":20,"discountAmount":5}""",
+                    Active = true
+                },
+                new Campaign
+                {
+                    Id = Guid.NewGuid(),
+                    CompanyId = CompanyId,
+                    Name = "Bonus points",
+                    CampaignType = CampaignType.ExtraPoints,
+                    RuleJson = """{"minOrderTotal":20,"extraPoints":7}""",
+                    Active = true
+                }
+            ]);
+        var service = CreateService(store);
+        var request = new CreateOrderRequest(
+            CompanyId,
+            PosId,
+            UserId,
+            CustomerId,
+            ShippingType.Self,
+            DateTimeOffset.UtcNow,
+            "idem-campaign",
+            [new CreateOrderLine(ProductId, 2, 10m)],
+            [new CreateOrderPayment(PaymentType.Cash, 15m)]);
+
+        var result = await service.CreateAsync(request);
+
+        Assert.True(result.IsSuccess);
+        Assert.Equal(15m, store.SavedGraph!.Order.Total);
+        Assert.Equal(5m, store.SavedGraph.Order.TotalDiscount);
+        Assert.Equal(2, store.SavedGraph.LoyaltyPointTransactions.Count);
+        Assert.Contains(store.SavedGraph.LoyaltyPointTransactions, transaction => transaction.Points == 7);
+        Assert.Equal(22, store.SavedGraph.LoyaltyAccountToUpdate!.PointBalance);
+    }
+
+    [Fact]
     public async Task CreateAsync_WithRepeatedIdempotencyKey_ReturnsExistingOrderWithoutDuplicateGraph()
     {
         var existing = new Order
@@ -157,7 +204,7 @@ public sealed class CreateOrderServiceTests
     private static CreateOrderService CreateService(IOrderCreationStore store)
     {
         IValidator<CreateOrderRequest> validator = new CreateOrderValidator();
-        return new CreateOrderService(validator, store, new LoyaltyEarnCalculator());
+        return new CreateOrderService(validator, store, new LoyaltyEarnCalculator(), new CampaignEvaluator());
     }
 
     private static CreateOrderRequest ValidRequest()
@@ -181,7 +228,8 @@ public sealed class CreateOrderServiceTests
         IReadOnlyList<EarnRule> earnRules,
         IReadOnlyList<LoyaltyTier> loyaltyTiers,
         Guid? loyaltyTierId,
-        int loyaltyLifetimePoints)
+        int loyaltyLifetimePoints,
+        IReadOnlyList<Campaign> campaigns)
         : IOrderCreationStore
     {
         public OrderCreationGraph? SavedGraph { get; private set; }
@@ -193,7 +241,8 @@ public sealed class CreateOrderServiceTests
             IReadOnlyList<EarnRule>? earnRules = null,
             IReadOnlyList<LoyaltyTier>? loyaltyTiers = null,
             Guid? loyaltyTierId = null,
-            int loyaltyLifetimePoints = 0)
+            int loyaltyLifetimePoints = 0,
+            IReadOnlyList<Campaign>? campaigns = null)
         {
             earnRules ??=
             [
@@ -215,7 +264,8 @@ public sealed class CreateOrderServiceTests
                 earnRules,
                 loyaltyTiers ?? [],
                 loyaltyTierId,
-                loyaltyLifetimePoints);
+                loyaltyLifetimePoints,
+                campaigns ?? []);
         }
 
         public Task<Order?> FindByIdempotencyKeyAsync(
@@ -258,7 +308,8 @@ public sealed class CreateOrderServiceTests
                     LifetimePoints = loyaltyLifetimePoints
                 },
                 earnRules,
-                loyaltyTiers);
+                loyaltyTiers,
+                campaigns);
 
             return Task.FromResult(snapshot);
         }

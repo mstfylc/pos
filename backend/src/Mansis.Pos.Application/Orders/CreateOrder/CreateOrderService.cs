@@ -9,7 +9,8 @@ namespace Mansis.Pos.Application.Orders.CreateOrder;
 public sealed class CreateOrderService(
     IValidator<CreateOrderRequest> validator,
     IOrderCreationStore store,
-    LoyaltyEarnCalculator loyaltyEarnCalculator)
+    LoyaltyEarnCalculator loyaltyEarnCalculator,
+    CampaignEvaluator campaignEvaluator)
 {
     public async Task<Result<OrderResult>> CreateAsync(CreateOrderRequest request, CancellationToken cancellationToken = default)
     {
@@ -27,7 +28,9 @@ public sealed class CreateOrderService(
 
         var productIds = request.Lines.Select(line => line.ProductId).Distinct().ToArray();
         var snapshot = await store.LoadSnapshotAsync(request.CompanyId, request.PosId, request.CustomerId, productIds, cancellationToken);
-        var total = request.Lines.Sum(line => line.UnitPrice * line.Quantity + line.TaxAmount);
+        var grossTotal = request.Lines.Sum(line => line.UnitPrice * line.Quantity + line.TaxAmount);
+        var campaignEvaluation = campaignEvaluator.Evaluate(snapshot, grossTotal, DateTimeOffset.UtcNow);
+        var total = grossTotal - campaignEvaluation.DiscountAmount;
         var paymentTotal = request.Payments.Sum(payment => payment.Amount);
 
         if (paymentTotal != total)
@@ -67,7 +70,7 @@ public sealed class CreateOrderService(
             IdempotencyKey = request.IdempotencyKey,
             SubTotal = request.Lines.Sum(line => line.UnitPrice * line.Quantity),
             TaxTotal = request.Lines.Sum(line => line.TaxAmount),
-            TotalDiscount = 0m,
+            TotalDiscount = campaignEvaluation.DiscountAmount,
             Total = total,
             PaymentSummary = ResolvePaymentSummary(request.Payments),
             CreatedAt = now,
@@ -181,6 +184,24 @@ public sealed class CreateOrderService(
                     State = LedgerEntryState.Posted,
                     Description = description,
                     ExpiresAt = earnResult.ExpiresAt,
+                    OccurredAt = now
+                });
+            }
+
+            if (campaignEvaluation.ExtraPoints > 0)
+            {
+                snapshot.LoyaltyAccount.PointBalance += campaignEvaluation.ExtraPoints;
+                snapshot.LoyaltyAccount.LifetimePoints += campaignEvaluation.ExtraPoints;
+                loyaltyTransactions.Add(new LoyaltyPointTransaction
+                {
+                    Id = Guid.NewGuid(),
+                    CompanyId = request.CompanyId,
+                    LoyaltyAccountId = snapshot.LoyaltyAccount.Id,
+                    OrderId = order.Id,
+                    TransactionType = LoyaltyPointTransactionType.Earn,
+                    Points = campaignEvaluation.ExtraPoints,
+                    State = LedgerEntryState.Posted,
+                    Description = "Campaign extra points: " + string.Join(", ", campaignEvaluation.AppliedCampaignNames),
                     OccurredAt = now
                 });
             }

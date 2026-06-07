@@ -49,6 +49,7 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
         LoyaltyAccount? loyaltyAccount = null;
         List<EarnRule> earnRules = [];
         List<LoyaltyTier> loyaltyTiers = [];
+        List<Campaign> campaigns = [];
         if (customerId.HasValue)
         {
             walletAccount = await dbContext.WalletAccounts
@@ -70,9 +71,14 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
                 .AsNoTracking()
                 .Where(tier => tier.CompanyId == companyId && tier.Active)
                 .ToListAsync(cancellationToken);
+
+            campaigns = await dbContext.Campaigns
+                .AsNoTracking()
+                .Where(campaign => campaign.CompanyId == companyId && campaign.Active)
+                .ToListAsync(cancellationToken);
         }
 
-        return new OrderCreationSnapshot(pos.StoreId, pos.BranchId, productSnapshots, walletAccount, loyaltyAccount, earnRules, loyaltyTiers);
+        return new OrderCreationSnapshot(pos.StoreId, pos.BranchId, productSnapshots, walletAccount, loyaltyAccount, earnRules, loyaltyTiers, campaigns);
     }
 
     public async Task AddOrderGraphAsync(OrderCreationGraph graph, CancellationToken cancellationToken)
