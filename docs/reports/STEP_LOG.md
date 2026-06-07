@@ -76,5 +76,5 @@
 - Takilan: kampanya cakisma onceligi karar bekliyor.
 ### 2026-06-07 06:22 ADIM 22 - Campaign Conflict - branch: main - build: YESIL
 - Yapilan: Ayni tip kampanyada highest priority tek secim, farkli tip birlikte uygulama ve max_total_discount cap kuralina gecildi.
-- Dosya/commit: 8 dosya, commit bekliyor
+- Dosya/commit: 8 dosya, commit bef13af
 - Takilan: yok

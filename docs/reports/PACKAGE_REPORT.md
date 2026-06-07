@@ -8,7 +8,7 @@
 | 18 Reward Redemption | feat/faz3-auth-seed-smoke-closeout | YESIL | 811acf1 |
 | 19 Campaign Evaluation | feat/faz3-auth-seed-smoke-closeout | YESIL | ac8aa0a |
 | 20 Deploy CI Smoke | feat/faz3-auth-seed-smoke-closeout | YESIL | 15096ef |
-| 21 Campaign Conflict Rule | main | YESIL | bekliyor |
+| 21 Campaign Conflict Rule | main | YESIL | bef13af |
 
 ## DUR LISTESI (karar bekleyen)
 | # | Konum (dosya) | Eski davranis | Sorulan karar |
