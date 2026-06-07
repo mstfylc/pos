@@ -4,5 +4,5 @@
 - Takilan: yok
 ### 2026-06-07 03:05 ADIM 4 - Domain - branch: feat/be-domain - build: YESIL
 - Yapilan: Legacy cekirdek entity/enum envanteri Domain'e Guid id, audit, tenant scope ve EF mapping iskeletiyle tasindi.
-- Dosya/commit: 17 dosya, commit 115635a
+- Dosya/commit: 17 dosya, commit 957f8a4
 - Takilan: yok
