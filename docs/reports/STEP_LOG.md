@@ -14,3 +14,7 @@
 - Yapilan: Admin/App/Loyalty/Stock tag'li OpenAPI kontrati ve TS/Dart codegen client'lari uretildi.
 - Dosya/commit: 77 dosya, commit 22d5669
 - Takilan: yok
+### 2026-06-07 03:43 ADIM 7 - Order Create - branch: feat/order-create-usecase - build: YESIL
+- Yapilan: Idempotent order create use-case tek transaction graph'i, PaymentSummary ve kritik testlerle eklendi.
+- Dosya/commit: 17 dosya, commit 612cd47
+- Takilan: yok
