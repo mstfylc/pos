@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Mansis.Pos.Api;
 using Mansis.Pos.Api.Auth;
 using Mansis.Pos.Api.Realtime;
@@ -22,7 +23,11 @@ builder.Host.UseSerilog((context, services, loggerConfiguration) =>
         .WriteTo.Console();
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddOpenApi();
 builder.Services.AddSignalR();

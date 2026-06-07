@@ -53,7 +53,7 @@ public sealed class AppOrdersController(
         var response = OrderResponse.From(result.Value);
         return result.Value.Existing
             ? Ok(response)
-            : CreatedAtAction(nameof(GetAsync), new { orderId = response.OrderId, companyId = request.CompanyId }, response);
+            : StatusCode(StatusCodes.Status201Created, response);
     }
 
     [HttpGet("{orderId:guid}")]

@@ -1,9 +1,29 @@
 param(
     [string]$BaseUrl = "http://localhost:5254",
-    [string]$Project = "backend/src/Mansis.Pos.Api/Mansis.Pos.Api.csproj"
+    [string]$Project = ""
 )
 
 $ErrorActionPreference = "Stop"
+
+$BackendRoot = Split-Path -Parent $PSScriptRoot
+$RepoRoot = Split-Path -Parent $BackendRoot
+$EnvPath = Join-Path $BackendRoot ".env"
+$EnvExamplePath = Join-Path $BackendRoot ".env.example"
+$ComposePath = Join-Path $BackendRoot "docker-compose.yml"
+if ([string]::IsNullOrWhiteSpace($Project)) {
+    $Project = Join-Path $BackendRoot "src/Mansis.Pos.Api/Mansis.Pos.Api.csproj"
+}
+
+if (-not (Test-Path -LiteralPath $EnvPath)) {
+    Copy-Item -LiteralPath $EnvExamplePath -Destination $EnvPath
+    Write-Host "Created backend/.env from backend/.env.example. Edit local-only values when needed."
+}
+
+Get-Content -LiteralPath $EnvPath | ForEach-Object {
+    if ($_ -match '^\s*#' -or $_ -notmatch '=') { return }
+    $parts = $_ -split '=', 2
+    [Environment]::SetEnvironmentVariable($parts[0].Trim(), $parts[1].Trim(), "Process")
+}
 
 function Assert-Equal($Actual, $Expected, $Message) {
     if ($Actual -ne $Expected) {
@@ -20,7 +40,11 @@ function Invoke-Json($Method, $Uri, $Body = $null, $Token = $null, $Headers = @{
 }
 
 function DbScalar([string]$Sql) {
-    return (docker compose exec -T postgres psql -U mansis -d mansis_pos -tAc $Sql).Trim()
+    return (docker compose --env-file $EnvPath -f $ComposePath exec -T postgres psql -U mansis -d mansis_pos -tAc $Sql).Trim()
+}
+
+function DbDecimal([string]$Sql) {
+    return [decimal](DbScalar $Sql)
 }
 
 if ([string]::IsNullOrWhiteSpace($env:POSTGRES_PASSWORD)) { $env:POSTGRES_PASSWORD = "change-me-local-only" }
@@ -35,15 +59,15 @@ $env:SEED_DATABASE = "true"
 $env:ASPNETCORE_ENVIRONMENT = "Development"
 $env:ASPNETCORE_URLS = $BaseUrl
 
-docker compose up -d postgres | Out-Host
+docker compose --env-file $EnvPath -f $ComposePath up -d postgres | Out-Host
 if ($LASTEXITCODE -ne 0) {
     throw "Docker PostgreSQL could not be started. Is Docker Desktop running?"
 }
 
-$out = Join-Path $PWD "backend/smoke/api-out.log"
-$err = Join-Path $PWD "backend/smoke/api-err.log"
+$out = Join-Path $PSScriptRoot "api-out.log"
+$err = Join-Path $PSScriptRoot "api-err.log"
 Remove-Item -LiteralPath $out, $err -ErrorAction SilentlyContinue
-$api = Start-Process -FilePath dotnet -ArgumentList @("run", "--no-launch-profile", "--project", $Project) -WorkingDirectory $PWD -RedirectStandardOutput $out -RedirectStandardError $err -PassThru -WindowStyle Hidden
+$api = Start-Process -FilePath dotnet -ArgumentList @("run", "--no-launch-profile", "--project", $Project) -WorkingDirectory $RepoRoot -RedirectStandardOutput $out -RedirectStandardError $err -PassThru -WindowStyle Hidden
 
 try {
     $openApiReady = $false
@@ -76,16 +100,21 @@ try {
         payments = @(@{ paymentType = "Cash"; amount = 20; currency = "TRY" })
     }
 
-    $headers = @{ "Idempotency-Key" = "smoke-order-001" }
+    $runKey = "smoke-" + [Guid]::NewGuid().ToString("N")
+    $stockBefore = DbDecimal "select quantity from pos.store_products where store_id='10000000-0000-0000-0000-000000000003' and product_id='10000000-0000-0000-0000-000000000010';"
+    $walletBefore = DbDecimal "select balance from pos.wallet_accounts where id='10000000-0000-0000-0000-000000000013';"
+    $loyaltyBefore = DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';"
+
+    $headers = @{ "Idempotency-Key" = "$runKey-order" }
     $created = Invoke-Json Post "$BaseUrl/api/v1/app/orders" $orderBody $login.accessToken $headers
     $duplicate = Invoke-Json Post "$BaseUrl/api/v1/app/orders" $orderBody $login.accessToken $headers
     Assert-Equal $created.orderId $duplicate.orderId "Idempotent order id"
     Assert-Equal $duplicate.existing $true "Duplicate idempotency result"
 
-    Assert-Equal (DbScalar "select count(*) from pos.orders where idempotency_key='smoke-order-001';") "1" "Order row count"
-    Assert-Equal (DbScalar "select quantity from pos.store_products where store_id='10000000-0000-0000-0000-000000000003' and product_id='10000000-0000-0000-0000-000000000010';") "8" "Stock after create"
-    Assert-Equal (DbScalar "select balance from pos.wallet_accounts where id='10000000-0000-0000-0000-000000000013';") "980" "Wallet after create"
-    Assert-Equal (DbScalar "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") "20" "Loyalty after create"
+    Assert-Equal (DbScalar "select count(*) from pos.orders where idempotency_key='$runKey-order';") "1" "Order row count"
+    Assert-Equal (DbDecimal "select quantity from pos.store_products where store_id='10000000-0000-0000-0000-000000000003' and product_id='10000000-0000-0000-0000-000000000010';") ($stockBefore - 2) "Stock after create"
+    Assert-Equal (DbDecimal "select balance from pos.wallet_accounts where id='10000000-0000-0000-0000-000000000013';") ($walletBefore - 20) "Wallet after create"
+    Assert-Equal (DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") ($loyaltyBefore + 20) "Loyalty after create"
 
     $cancel = Invoke-Json Post "$BaseUrl/api/v1/app/orders/$($created.orderId)/cancel" @{
         companyId = $env:COMPANY_ID
@@ -93,9 +122,9 @@ try {
         reason = "smoke cancel"
     } $login.accessToken
     Assert-Equal $cancel.orderState "Cancelled" "Cancel state"
-    Assert-Equal (DbScalar "select quantity from pos.store_products where store_id='10000000-0000-0000-0000-000000000003' and product_id='10000000-0000-0000-0000-000000000010';") "10" "Stock after cancel"
-    Assert-Equal (DbScalar "select balance from pos.wallet_accounts where id='10000000-0000-0000-0000-000000000013';") "1000" "Wallet after cancel"
-    Assert-Equal (DbScalar "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") "0" "Loyalty after cancel"
+    Assert-Equal (DbDecimal "select quantity from pos.store_products where store_id='10000000-0000-0000-0000-000000000003' and product_id='10000000-0000-0000-0000-000000000010';") $stockBefore "Stock after cancel"
+    Assert-Equal (DbDecimal "select balance from pos.wallet_accounts where id='10000000-0000-0000-0000-000000000013';") $walletBefore "Wallet after cancel"
+    Assert-Equal (DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") $loyaltyBefore "Loyalty after cancel"
     Assert-Equal (DbScalar "select count(*) from pos.stock_movements where operation_id='$($created.orderId)' and reversal_of_id is not null;") "1" "Stock reversal count"
 
     try {
@@ -108,7 +137,7 @@ try {
             orderTime = "2026-06-07T00:05:00Z"
             lines = @(@{ productId = "10000000-0000-0000-0000-000000000011"; quantity = 2; unitPrice = 15; taxAmount = 0 })
             payments = @(@{ paymentType = "Cash"; amount = 30; currency = "TRY" })
-        } $login.accessToken @{ "Idempotency-Key" = "smoke-insufficient-stock" } | Out-Null
+        } $login.accessToken @{ "Idempotency-Key" = "$runKey-insufficient-stock" } | Out-Null
         throw "Insufficient stock request unexpectedly succeeded."
     } catch {
         if ($_.Exception.Response.StatusCode.value__ -ne 400) { throw }
@@ -124,7 +153,7 @@ try {
             orderTime = "2026-06-07T00:10:00Z"
             lines = @(@{ productId = "10000000-0000-0000-0000-000000000010"; quantity = 1; unitPrice = 2000; taxAmount = 0 })
             payments = @(@{ paymentType = "Cash"; amount = 2000; currency = "TRY" })
-        } $login.accessToken @{ "Idempotency-Key" = "smoke-insufficient-wallet" } | Out-Null
+        } $login.accessToken @{ "Idempotency-Key" = "$runKey-insufficient-wallet" } | Out-Null
         throw "Insufficient wallet request unexpectedly succeeded."
     } catch {
         if ($_.Exception.Response.StatusCode.value__ -ne 400) { throw }
