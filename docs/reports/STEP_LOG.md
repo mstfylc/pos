@@ -18,3 +18,7 @@
 - Yapilan: Idempotent order create use-case tek transaction graph'i, PaymentSummary ve kritik testlerle eklendi.
 - Dosya/commit: 17 dosya, commit 612cd47
 - Takilan: yok
+### 2026-06-07 03:53 ADIM 8 - Order Cancel/Refund - branch: feat/order-cancel-refund-usecase - build: YESIL
+- Yapilan: Reason zorunlu cancel/refund use-case append-only reversal satirlariyla stok, bakiye ve puani geri alacak sekilde eklendi.
+- Dosya/commit: 13 dosya, commit 46c1004
+- Takilan: yok
