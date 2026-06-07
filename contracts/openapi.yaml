@@ -48,7 +48,262 @@ paths:
                   $ref: '#/components/schemas/Product'
         default:
           $ref: '#/components/responses/Problem'
+    post:
+      tags: [Admin]
+      operationId: createAdminProduct
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductWrite'
+      responses:
+        '201':
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/admin/products/{id}:
+    put:
+      tags: [Admin]
+      operationId: updateAdminProduct
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductWrite'
+      responses:
+        '200':
+          description: Product updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        default:
+          $ref: '#/components/responses/Problem'
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminProduct
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '204':
+          description: Product deactivated
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/admin/categories:
+    get:
+      tags: [Admin]
+      operationId: listAdminCategories
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+      responses:
+        '200':
+          description: Category list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+        default:
+          $ref: '#/components/responses/Problem'
+    post:
+      tags: [Admin]
+      operationId: createAdminCategory
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CategoryWrite' } } } }
+      responses:
+        '201': { description: Category created, content: { application/json: { schema: { $ref: '#/components/schemas/Category' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/categories/{id}:
+    put:
+      tags: [Admin]
+      operationId: updateAdminCategory
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CategoryWrite' } } } }
+      responses:
+        '200': { description: Category updated, content: { application/json: { schema: { $ref: '#/components/schemas/Category' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminCategory
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' }, { $ref: '#/components/parameters/UserId' } ]
+      responses:
+        '204': { description: Category deactivated }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/customers:
+    get:
+      tags: [Admin]
+      operationId: listAdminCustomers
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Customer list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Customer' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminCustomer
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CustomerWrite' } } } }
+      responses:
+        '201': { description: Customer created, content: { application/json: { schema: { $ref: '#/components/schemas/Customer' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/customers/{id}:
+    put:
+      tags: [Admin]
+      operationId: updateAdminCustomer
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/CustomerWrite' } } } }
+      responses:
+        '200': { description: Customer updated, content: { application/json: { schema: { $ref: '#/components/schemas/Customer' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminCustomer
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' }, { $ref: '#/components/parameters/UserId' } ]
+      responses:
+        '204': { description: Customer deactivated }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/orders:
+    get:
+      tags: [Admin]
+      operationId: listAdminOrders
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Order list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/OrderListItem' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/stores:
+    get:
+      tags: [Admin]
+      operationId: listAdminStores
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Store list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Store' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminStore
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/StoreWrite' } } } }
+      responses:
+        '201': { description: Store created, content: { application/json: { schema: { $ref: '#/components/schemas/Store' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/stores/{id}:
+    put:
+      tags: [Admin]
+      operationId: updateAdminStore
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/StoreWrite' } } } }
+      responses:
+        '200': { description: Store updated, content: { application/json: { schema: { $ref: '#/components/schemas/Store' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminStore
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' }, { $ref: '#/components/parameters/UserId' } ]
+      responses:
+        '204': { description: Store deactivated }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/pos:
+    get:
+      tags: [Admin]
+      operationId: listAdminPos
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: POS list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Pos' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminPos
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/PosWrite' } } } }
+      responses:
+        '201': { description: POS created, content: { application/json: { schema: { $ref: '#/components/schemas/Pos' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/pos/{id}:
+    put:
+      tags: [Admin]
+      operationId: updateAdminPos
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/PosWrite' } } } }
+      responses:
+        '200': { description: POS updated, content: { application/json: { schema: { $ref: '#/components/schemas/Pos' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminPos
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' }, { $ref: '#/components/parameters/UserId' } ]
+      responses:
+        '204': { description: POS deactivated }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/discounts:
+    get:
+      tags: [Admin]
+      operationId: listAdminDiscounts
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Discount list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Discount' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    post:
+      tags: [Admin]
+      operationId: createAdminDiscount
+      security: [{ bearerAuth: [] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/DiscountWrite' } } } }
+      responses:
+        '201': { description: Discount created, content: { application/json: { schema: { $ref: '#/components/schemas/Discount' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/admin/discounts/{id}:
+    put:
+      tags: [Admin]
+      operationId: updateAdminDiscount
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' } ]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/DiscountWrite' } } } }
+      responses:
+        '200': { description: Discount updated, content: { application/json: { schema: { $ref: '#/components/schemas/Discount' } } } }
+        default: { $ref: '#/components/responses/Problem' }
+    delete:
+      tags: [Admin]
+      operationId: deleteAdminDiscount
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/Id' }, { $ref: '#/components/parameters/CompanyId' }, { $ref: '#/components/parameters/UserId' } ]
+      responses:
+        '204': { description: Discount deactivated }
+        default: { $ref: '#/components/responses/Problem' }
   /api/v1/app/orders:
+    get:
+      tags: [App]
+      operationId: listAppOrders
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Order list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/OrderListItem' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
     post:
       tags: [App]
       operationId: createAppOrder
@@ -76,6 +331,60 @@ paths:
                 $ref: '#/components/schemas/OrderResponse'
         default:
           $ref: '#/components/responses/Problem'
+  /api/v1/app/products:
+    get:
+      tags: [App]
+      operationId: listAppProducts
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Product list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Product' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/app/categories:
+    get:
+      tags: [App]
+      operationId: listAppCategories
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Category list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Category' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/app/customers:
+    get:
+      tags: [App]
+      operationId: listAppCustomers
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Customer list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Customer' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/app/stores:
+    get:
+      tags: [App]
+      operationId: listAppStores
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Store list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Store' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/app/pos:
+    get:
+      tags: [App]
+      operationId: listAppPos
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: POS list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Pos' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
+  /api/v1/app/discounts:
+    get:
+      tags: [App]
+      operationId: listAppDiscounts
+      security: [{ bearerAuth: [] }]
+      parameters: [ { $ref: '#/components/parameters/CompanyId' } ]
+      responses:
+        '200': { description: Discount list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Discount' } } } } }
+        default: { $ref: '#/components/responses/Problem' }
   /api/v1/app/orders/{orderId}/cancel:
     post:
       tags: [App]
@@ -205,6 +514,20 @@ components:
       schema:
         type: string
         minLength: 8
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    UserId:
+      name: userId
+      in: query
+      required: true
+      schema:
+        type: string
+        format: uuid
   responses:
     Problem:
       description: ProblemDetails error response
@@ -231,17 +554,148 @@ components:
         active: { type: boolean }
     Product:
       type: object
-      required: [id, companyId, name, taxType, unitType, active]
+      required: [id, companyId, name, categoryId, active]
       properties:
         id: { type: string, format: uuid }
         companyId: { type: string, format: uuid }
         name: { type: string }
+        categoryId: { type: string, format: uuid }
         salePrice: { type: string, format: decimal, nullable: true }
-        taxType:
-          $ref: '#/components/schemas/TaxType'
-        unitType:
-          $ref: '#/components/schemas/ProductUnitType'
+        barcode: { type: string, nullable: true }
+        stockCode: { type: string, nullable: true }
         active: { type: boolean }
+    ProductWrite:
+      type: object
+      required: [companyId, userId, name, categoryId, productUnitType, taxType, stocktaking]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+        categoryId: { type: string, format: uuid }
+        salePrice: { type: string, format: decimal, nullable: true }
+        barcode: { type: string, nullable: true }
+        stockCode: { type: string, nullable: true }
+        productUnitType: { $ref: '#/components/schemas/ProductUnitType' }
+        taxType: { $ref: '#/components/schemas/TaxType' }
+        stocktaking: { type: boolean }
+    Category:
+      type: object
+      required: [id, companyId, name, sortOrder, active]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        name: { type: string }
+        sortOrder: { type: integer }
+        active: { type: boolean }
+    CategoryWrite:
+      type: object
+      required: [companyId, userId, name, sortOrder, categoryColorId, categoryShapeId]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+        sortOrder: { type: integer }
+        categoryColorId: { type: string, format: uuid }
+        categoryShapeId: { type: string, format: uuid }
+    Customer:
+      type: object
+      required: [id, companyId, name, surname, username, balance, active]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        name: { type: string }
+        surname: { type: string }
+        username: { type: string }
+        phone: { type: string, nullable: true }
+        mail: { type: string, nullable: true }
+        balance: { type: string, format: decimal }
+        active: { type: boolean }
+    CustomerWrite:
+      type: object
+      required: [companyId, userId, name, surname, username, roleId]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+        surname: { type: string }
+        username: { type: string }
+        phone: { type: string, nullable: true }
+        mail: { type: string, nullable: true }
+        roleId: { type: string, format: uuid }
+    OrderListItem:
+      type: object
+      required: [id, companyId, posId, orderTime, total, orderState, paymentSummary]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        posId: { type: string, format: uuid }
+        customerId: { type: string, format: uuid, nullable: true }
+        orderTime: { type: string, format: date-time }
+        total: { type: string, format: decimal }
+        orderState: { $ref: '#/components/schemas/OrderState' }
+        paymentSummary: { $ref: '#/components/schemas/PaymentSummary' }
+    Store:
+      type: object
+      required: [id, companyId, name, active]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        name: { type: string }
+        branchId: { type: string, format: uuid, nullable: true }
+        active: { type: boolean }
+    StoreWrite:
+      type: object
+      required: [companyId, userId, name]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+        branchId: { type: string, format: uuid, nullable: true }
+    Pos:
+      type: object
+      required: [id, companyId, name, branchId, storeId, active]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        name: { type: string }
+        branchId: { type: string, format: uuid }
+        storeId: { type: string, format: uuid }
+        active: { type: boolean }
+    PosWrite:
+      type: object
+      required: [companyId, userId, name, branchId, storeId]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+        branchId: { type: string, format: uuid }
+        storeId: { type: string, format: uuid }
+    Discount:
+      type: object
+      required: [id, companyId, amount, maxDiscountAmount, discountType, discountCategory, active]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        description: { type: string, nullable: true }
+        amount: { type: string, format: decimal }
+        maxDiscountAmount: { type: string, format: decimal }
+        expireDate: { type: string, format: date-time, nullable: true }
+        discountType: { $ref: '#/components/schemas/DiscountType' }
+        discountCategory: { $ref: '#/components/schemas/DiscountCategory' }
+        active: { type: boolean }
+    DiscountWrite:
+      type: object
+      required: [companyId, userId, amount, maxDiscountAmount, discountType, discountCategory, sortOrder]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        description: { type: string, nullable: true }
+        amount: { type: string, format: decimal }
+        maxDiscountAmount: { type: string, format: decimal }
+        expireDate: { type: string, format: date-time, nullable: true }
+        discountType: { $ref: '#/components/schemas/DiscountType' }
+        discountCategory: { $ref: '#/components/schemas/DiscountCategory' }
+        sortOrder: { type: integer }
     CreateOrderRequest:
       type: object
       required: [companyId, posId, userId, shippingType, orderTime, lines, payments]
@@ -356,6 +810,12 @@ components:
     ShippingType:
       type: string
       enum: [Self, ComeTake, Order, Customer]
+    DiscountType:
+      type: string
+      enum: [Percentage, Amount]
+    DiscountCategory:
+      type: string
+      enum: [All, Branch, Personnel, Pos]
     OrderState:
       type: string
       enum: [Received, Preparing, Completed, Cancelled, Deleted, Transferring]

@@ -1,4 +1,4 @@
-# mansis_pos_api_client.model.Product
+# mansis_pos_api_client.model.Pos
 
 ## Load the model package
 ```dart
@@ -11,10 +11,8 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **companyId** | **String** |  | 
 **name** | **String** |  | 
-**categoryId** | **String** |  | 
-**salePrice** | **double** |  | [optional] 
-**barcode** | **String** |  | [optional] 
-**stockCode** | **String** |  | [optional] 
+**branchId** | **String** |  | 
+**storeId** | **String** |  | 
 **active** | **bool** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

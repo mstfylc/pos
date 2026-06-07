@@ -8,9 +8,9 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'product.g.dart';
+part 'customer.g.dart';
 
-abstract class Product implements Built<Product, ProductBuilder> {
+abstract class Customer implements Built<Customer, CustomerBuilder> {
 
     @BuiltValueField(wireName: r'id')
     String get id;
@@ -21,43 +21,45 @@ abstract class Product implements Built<Product, ProductBuilder> {
     @BuiltValueField(wireName: r'name')
     String get name;
 
-    @BuiltValueField(wireName: r'categoryId')
-    String get categoryId;
+    @BuiltValueField(wireName: r'surname')
+    String get surname;
+
+    @BuiltValueField(wireName: r'username')
+    String get username;
 
     @nullable
-    @BuiltValueField(wireName: r'salePrice')
-    double get salePrice;
+    @BuiltValueField(wireName: r'phone')
+    String get phone;
 
     @nullable
-    @BuiltValueField(wireName: r'barcode')
-    String get barcode;
+    @BuiltValueField(wireName: r'mail')
+    String get mail;
 
-    @nullable
-    @BuiltValueField(wireName: r'stockCode')
-    String get stockCode;
+    @BuiltValueField(wireName: r'balance')
+    double get balance;
 
     @BuiltValueField(wireName: r'active')
     bool get active;
 
-    Product._();
+    Customer._();
 
-    static void _initializeBuilder(ProductBuilder b) => b;
+    static void _initializeBuilder(CustomerBuilder b) => b;
 
-    factory Product([void updates(ProductBuilder b)]) = _$Product;
+    factory Customer([void updates(CustomerBuilder b)]) = _$Customer;
 
     @BuiltValueSerializer(custom: true)
-    static Serializer<Product> get serializer => _$ProductSerializer();
+    static Serializer<Customer> get serializer => _$CustomerSerializer();
 }
 
-class _$ProductSerializer implements StructuredSerializer<Product> {
+class _$CustomerSerializer implements StructuredSerializer<Customer> {
 
     @override
-    final Iterable<Type> types = const [Product, _$Product];
+    final Iterable<Type> types = const [Customer, _$Customer];
     @override
-    final String wireName = r'Product';
+    final String wireName = r'Customer';
 
     @override
-    Iterable<Object> serialize(Serializers serializers, Product object,
+    Iterable<Object> serialize(Serializers serializers, Customer object,
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object>[];
         result
@@ -73,27 +75,29 @@ class _$ProductSerializer implements StructuredSerializer<Product> {
             ..add(serializers.serialize(object.name,
                 specifiedType: const FullType(String)));
         result
-            ..add(r'categoryId')
-            ..add(serializers.serialize(object.categoryId,
+            ..add(r'surname')
+            ..add(serializers.serialize(object.surname,
                 specifiedType: const FullType(String)));
-        if (object.salePrice != null) {
+        result
+            ..add(r'username')
+            ..add(serializers.serialize(object.username,
+                specifiedType: const FullType(String)));
+        if (object.phone != null) {
             result
-                ..add(r'salePrice')
-                ..add(serializers.serialize(object.salePrice,
-                    specifiedType: const FullType(double)));
-        }
-        if (object.barcode != null) {
-            result
-                ..add(r'barcode')
-                ..add(serializers.serialize(object.barcode,
+                ..add(r'phone')
+                ..add(serializers.serialize(object.phone,
                     specifiedType: const FullType(String)));
         }
-        if (object.stockCode != null) {
+        if (object.mail != null) {
             result
-                ..add(r'stockCode')
-                ..add(serializers.serialize(object.stockCode,
+                ..add(r'mail')
+                ..add(serializers.serialize(object.mail,
                     specifiedType: const FullType(String)));
         }
+        result
+            ..add(r'balance')
+            ..add(serializers.serialize(object.balance,
+                specifiedType: const FullType(double)));
         result
             ..add(r'active')
             ..add(serializers.serialize(object.active,
@@ -102,9 +106,9 @@ class _$ProductSerializer implements StructuredSerializer<Product> {
     }
 
     @override
-    Product deserialize(Serializers serializers, Iterable<Object> serialized,
+    Customer deserialize(Serializers serializers, Iterable<Object> serialized,
         {FullType specifiedType = FullType.unspecified}) {
-        final result = ProductBuilder();
+        final result = CustomerBuilder();
 
         final iterator = serialized.iterator;
         while (iterator.moveNext()) {
@@ -124,21 +128,25 @@ class _$ProductSerializer implements StructuredSerializer<Product> {
                     result.name = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
-                case r'categoryId':
-                    result.categoryId = serializers.deserialize(value,
+                case r'surname':
+                    result.surname = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
-                case r'salePrice':
-                    result.salePrice = serializers.deserialize(value,
+                case r'username':
+                    result.username = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'phone':
+                    result.phone = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'mail':
+                    result.mail = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'balance':
+                    result.balance = serializers.deserialize(value,
                         specifiedType: const FullType(double)) as double;
-                    break;
-                case r'barcode':
-                    result.barcode = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    break;
-                case r'stockCode':
-                    result.stockCode = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
                     break;
                 case r'active':
                     result.active = serializers.deserialize(value,

@@ -41,12 +41,13 @@ import 'package:mansis_pos_api_client/api.dart';
 
 
 final api = AdminApi();
+final categoryWrite = CategoryWrite(); // CategoryWrite | 
 
 try {
-    final response = await api.listAdminCompanies();
+    final response = await api.createAdminCategory(categoryWrite);
     print(response);
 } catch (e) {
-    print("Exception when calling AdminApi->listAdminCompanies: $e\n");
+    print("Exception when calling AdminApi->createAdminCategory: $e\n");
 }
 
 ```
@@ -57,11 +58,42 @@ All URIs are relative to *https://api.example.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AdminApi* | [**createAdminCategory**](doc\AdminApi.md#createadmincategory) | **POST** /api/v1/admin/categories | 
+*AdminApi* | [**createAdminCustomer**](doc\AdminApi.md#createadmincustomer) | **POST** /api/v1/admin/customers | 
+*AdminApi* | [**createAdminDiscount**](doc\AdminApi.md#createadmindiscount) | **POST** /api/v1/admin/discounts | 
+*AdminApi* | [**createAdminPos**](doc\AdminApi.md#createadminpos) | **POST** /api/v1/admin/pos | 
+*AdminApi* | [**createAdminProduct**](doc\AdminApi.md#createadminproduct) | **POST** /api/v1/admin/products | 
+*AdminApi* | [**createAdminStore**](doc\AdminApi.md#createadminstore) | **POST** /api/v1/admin/stores | 
+*AdminApi* | [**deleteAdminCategory**](doc\AdminApi.md#deleteadmincategory) | **DELETE** /api/v1/admin/categories/{id} | 
+*AdminApi* | [**deleteAdminCustomer**](doc\AdminApi.md#deleteadmincustomer) | **DELETE** /api/v1/admin/customers/{id} | 
+*AdminApi* | [**deleteAdminDiscount**](doc\AdminApi.md#deleteadmindiscount) | **DELETE** /api/v1/admin/discounts/{id} | 
+*AdminApi* | [**deleteAdminPos**](doc\AdminApi.md#deleteadminpos) | **DELETE** /api/v1/admin/pos/{id} | 
+*AdminApi* | [**deleteAdminProduct**](doc\AdminApi.md#deleteadminproduct) | **DELETE** /api/v1/admin/products/{id} | 
+*AdminApi* | [**deleteAdminStore**](doc\AdminApi.md#deleteadminstore) | **DELETE** /api/v1/admin/stores/{id} | 
+*AdminApi* | [**listAdminCategories**](doc\AdminApi.md#listadmincategories) | **GET** /api/v1/admin/categories | 
 *AdminApi* | [**listAdminCompanies**](doc\AdminApi.md#listadmincompanies) | **GET** /api/v1/admin/companies | 
+*AdminApi* | [**listAdminCustomers**](doc\AdminApi.md#listadmincustomers) | **GET** /api/v1/admin/customers | 
+*AdminApi* | [**listAdminDiscounts**](doc\AdminApi.md#listadmindiscounts) | **GET** /api/v1/admin/discounts | 
+*AdminApi* | [**listAdminOrders**](doc\AdminApi.md#listadminorders) | **GET** /api/v1/admin/orders | 
+*AdminApi* | [**listAdminPos**](doc\AdminApi.md#listadminpos) | **GET** /api/v1/admin/pos | 
 *AdminApi* | [**listAdminProducts**](doc\AdminApi.md#listadminproducts) | **GET** /api/v1/admin/products | 
+*AdminApi* | [**listAdminStores**](doc\AdminApi.md#listadminstores) | **GET** /api/v1/admin/stores | 
+*AdminApi* | [**updateAdminCategory**](doc\AdminApi.md#updateadmincategory) | **PUT** /api/v1/admin/categories/{id} | 
+*AdminApi* | [**updateAdminCustomer**](doc\AdminApi.md#updateadmincustomer) | **PUT** /api/v1/admin/customers/{id} | 
+*AdminApi* | [**updateAdminDiscount**](doc\AdminApi.md#updateadmindiscount) | **PUT** /api/v1/admin/discounts/{id} | 
+*AdminApi* | [**updateAdminPos**](doc\AdminApi.md#updateadminpos) | **PUT** /api/v1/admin/pos/{id} | 
+*AdminApi* | [**updateAdminProduct**](doc\AdminApi.md#updateadminproduct) | **PUT** /api/v1/admin/products/{id} | 
+*AdminApi* | [**updateAdminStore**](doc\AdminApi.md#updateadminstore) | **PUT** /api/v1/admin/stores/{id} | 
 *AppApi* | [**cancelAppOrder**](doc\AppApi.md#cancelapporder) | **POST** /api/v1/app/orders/{orderId}/cancel | 
 *AppApi* | [**createAppOrder**](doc\AppApi.md#createapporder) | **POST** /api/v1/app/orders | 
 *AppApi* | [**getAppCustomerWallet**](doc\AppApi.md#getappcustomerwallet) | **GET** /api/v1/app/customers/{customerId}/wallet | 
+*AppApi* | [**listAppCategories**](doc\AppApi.md#listappcategories) | **GET** /api/v1/app/categories | 
+*AppApi* | [**listAppCustomers**](doc\AppApi.md#listappcustomers) | **GET** /api/v1/app/customers | 
+*AppApi* | [**listAppDiscounts**](doc\AppApi.md#listappdiscounts) | **GET** /api/v1/app/discounts | 
+*AppApi* | [**listAppOrders**](doc\AppApi.md#listapporders) | **GET** /api/v1/app/orders | 
+*AppApi* | [**listAppPos**](doc\AppApi.md#listapppos) | **GET** /api/v1/app/pos | 
+*AppApi* | [**listAppProducts**](doc\AppApi.md#listappproducts) | **GET** /api/v1/app/products | 
+*AppApi* | [**listAppStores**](doc\AppApi.md#listappstores) | **GET** /api/v1/app/stores | 
 *AppApi* | [**refundAppOrder**](doc\AppApi.md#refundapporder) | **POST** /api/v1/app/orders/{orderId}/refund | 
 *LoyaltyApi* | [**getLoyaltyAccount**](doc\LoyaltyApi.md#getloyaltyaccount) | **GET** /api/v1/loyalty/accounts/{customerId} | 
 *StockApi* | [**listStockMovements**](doc\StockApi.md#liststockmovements) | **GET** /api/v1/stock/movements | 
@@ -70,23 +102,37 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [CancelOrderResponse](doc\CancelOrderResponse.md)
+ - [Category](doc\Category.md)
+ - [CategoryWrite](doc\CategoryWrite.md)
  - [Company](doc\Company.md)
  - [CreateOrderRequest](doc\CreateOrderRequest.md)
+ - [Customer](doc\Customer.md)
+ - [CustomerWrite](doc\CustomerWrite.md)
+ - [Discount](doc\Discount.md)
+ - [DiscountCategory](doc\DiscountCategory.md)
+ - [DiscountType](doc\DiscountType.md)
+ - [DiscountWrite](doc\DiscountWrite.md)
  - [LoyaltyAccount](doc\LoyaltyAccount.md)
  - [Order](doc\Order.md)
  - [OrderLine](doc\OrderLine.md)
+ - [OrderListItem](doc\OrderListItem.md)
  - [OrderPayment](doc\OrderPayment.md)
  - [OrderResponse](doc\OrderResponse.md)
  - [OrderState](doc\OrderState.md)
  - [PaymentSummary](doc\PaymentSummary.md)
  - [PaymentType](doc\PaymentType.md)
+ - [Pos](doc\Pos.md)
+ - [PosWrite](doc\PosWrite.md)
  - [ProblemDetails](doc\ProblemDetails.md)
  - [Product](doc\Product.md)
  - [ProductUnitType](doc\ProductUnitType.md)
+ - [ProductWrite](doc\ProductWrite.md)
  - [ReasonRequest](doc\ReasonRequest.md)
  - [ShippingType](doc\ShippingType.md)
  - [StockMovement](doc\StockMovement.md)
+ - [Store](doc\Store.md)
  - [StoreProductMovementType](doc\StoreProductMovementType.md)
+ - [StoreWrite](doc\StoreWrite.md)
  - [TaxType](doc\TaxType.md)
  - [WalletAccount](doc\WalletAccount.md)
 

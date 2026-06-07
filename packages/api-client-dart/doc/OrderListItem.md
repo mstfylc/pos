@@ -1,4 +1,4 @@
-# mansis_pos_api_client.model.Product
+# mansis_pos_api_client.model.OrderListItem
 
 ## Load the model package
 ```dart
@@ -10,12 +10,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
 **companyId** | **String** |  | 
-**name** | **String** |  | 
-**categoryId** | **String** |  | 
-**salePrice** | **double** |  | [optional] 
-**barcode** | **String** |  | [optional] 
-**stockCode** | **String** |  | [optional] 
-**active** | **bool** |  | 
+**posId** | **String** |  | 
+**customerId** | **String** |  | [optional] 
+**orderTime** | [**DateTime**](DateTime.md) |  | 
+**total** | **double** |  | 
+**orderState** | [**OrderState**](OrderState.md) |  | 
+**paymentSummary** | [**PaymentSummary**](PaymentSummary.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -8,9 +8,9 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'product.g.dart';
+part 'pos.g.dart';
 
-abstract class Product implements Built<Product, ProductBuilder> {
+abstract class Pos implements Built<Pos, PosBuilder> {
 
     @BuiltValueField(wireName: r'id')
     String get id;
@@ -21,43 +21,34 @@ abstract class Product implements Built<Product, ProductBuilder> {
     @BuiltValueField(wireName: r'name')
     String get name;
 
-    @BuiltValueField(wireName: r'categoryId')
-    String get categoryId;
+    @BuiltValueField(wireName: r'branchId')
+    String get branchId;
 
-    @nullable
-    @BuiltValueField(wireName: r'salePrice')
-    double get salePrice;
-
-    @nullable
-    @BuiltValueField(wireName: r'barcode')
-    String get barcode;
-
-    @nullable
-    @BuiltValueField(wireName: r'stockCode')
-    String get stockCode;
+    @BuiltValueField(wireName: r'storeId')
+    String get storeId;
 
     @BuiltValueField(wireName: r'active')
     bool get active;
 
-    Product._();
+    Pos._();
 
-    static void _initializeBuilder(ProductBuilder b) => b;
+    static void _initializeBuilder(PosBuilder b) => b;
 
-    factory Product([void updates(ProductBuilder b)]) = _$Product;
+    factory Pos([void updates(PosBuilder b)]) = _$Pos;
 
     @BuiltValueSerializer(custom: true)
-    static Serializer<Product> get serializer => _$ProductSerializer();
+    static Serializer<Pos> get serializer => _$PosSerializer();
 }
 
-class _$ProductSerializer implements StructuredSerializer<Product> {
+class _$PosSerializer implements StructuredSerializer<Pos> {
 
     @override
-    final Iterable<Type> types = const [Product, _$Product];
+    final Iterable<Type> types = const [Pos, _$Pos];
     @override
-    final String wireName = r'Product';
+    final String wireName = r'Pos';
 
     @override
-    Iterable<Object> serialize(Serializers serializers, Product object,
+    Iterable<Object> serialize(Serializers serializers, Pos object,
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object>[];
         result
@@ -73,27 +64,13 @@ class _$ProductSerializer implements StructuredSerializer<Product> {
             ..add(serializers.serialize(object.name,
                 specifiedType: const FullType(String)));
         result
-            ..add(r'categoryId')
-            ..add(serializers.serialize(object.categoryId,
+            ..add(r'branchId')
+            ..add(serializers.serialize(object.branchId,
                 specifiedType: const FullType(String)));
-        if (object.salePrice != null) {
-            result
-                ..add(r'salePrice')
-                ..add(serializers.serialize(object.salePrice,
-                    specifiedType: const FullType(double)));
-        }
-        if (object.barcode != null) {
-            result
-                ..add(r'barcode')
-                ..add(serializers.serialize(object.barcode,
-                    specifiedType: const FullType(String)));
-        }
-        if (object.stockCode != null) {
-            result
-                ..add(r'stockCode')
-                ..add(serializers.serialize(object.stockCode,
-                    specifiedType: const FullType(String)));
-        }
+        result
+            ..add(r'storeId')
+            ..add(serializers.serialize(object.storeId,
+                specifiedType: const FullType(String)));
         result
             ..add(r'active')
             ..add(serializers.serialize(object.active,
@@ -102,9 +79,9 @@ class _$ProductSerializer implements StructuredSerializer<Product> {
     }
 
     @override
-    Product deserialize(Serializers serializers, Iterable<Object> serialized,
+    Pos deserialize(Serializers serializers, Iterable<Object> serialized,
         {FullType specifiedType = FullType.unspecified}) {
-        final result = ProductBuilder();
+        final result = PosBuilder();
 
         final iterator = serialized.iterator;
         while (iterator.moveNext()) {
@@ -124,20 +101,12 @@ class _$ProductSerializer implements StructuredSerializer<Product> {
                     result.name = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
-                case r'categoryId':
-                    result.categoryId = serializers.deserialize(value,
+                case r'branchId':
+                    result.branchId = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
-                case r'salePrice':
-                    result.salePrice = serializers.deserialize(value,
-                        specifiedType: const FullType(double)) as double;
-                    break;
-                case r'barcode':
-                    result.barcode = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    break;
-                case r'stockCode':
-                    result.stockCode = serializers.deserialize(value,
+                case r'storeId':
+                    result.storeId = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
                 case r'active':

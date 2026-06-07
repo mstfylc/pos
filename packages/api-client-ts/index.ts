@@ -29,8 +29,200 @@ export interface paths {
         };
         get: operations["listAdminProducts"];
         put?: never;
+        post: operations["createAdminProduct"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateAdminProduct"];
+        post?: never;
+        delete: operations["deleteAdminProduct"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminCategories"];
+        put?: never;
+        post: operations["createAdminCategory"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/categories/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateAdminCategory"];
+        post?: never;
+        delete: operations["deleteAdminCategory"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/customers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminCustomers"];
+        put?: never;
+        post: operations["createAdminCustomer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/customers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateAdminCustomer"];
+        post?: never;
+        delete: operations["deleteAdminCustomer"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/orders": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminOrders"];
+        put?: never;
         post?: never;
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/stores": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminStores"];
+        put?: never;
+        post: operations["createAdminStore"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/stores/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateAdminStore"];
+        post?: never;
+        delete: operations["deleteAdminStore"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/pos": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminPos"];
+        put?: never;
+        post: operations["createAdminPos"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/pos/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateAdminPos"];
+        post?: never;
+        delete: operations["deleteAdminPos"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/discounts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAdminDiscounts"];
+        put?: never;
+        post: operations["createAdminDiscount"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/discounts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateAdminDiscount"];
+        post?: never;
+        delete: operations["deleteAdminDiscount"];
         options?: never;
         head?: never;
         patch?: never;
@@ -43,9 +235,105 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        get: operations["listAppOrders"];
         put?: never;
         post: operations["createAppOrder"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/app/products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAppProducts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/app/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAppCategories"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/app/customers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAppCustomers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/app/stores": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAppStores"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/app/pos": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAppPos"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/app/discounts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAppDiscounts"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -157,11 +445,167 @@ export interface components {
             /** Format: uuid */
             companyId: string;
             name: string;
+            /** Format: uuid */
+            categoryId: string;
             /** Format: decimal */
             salePrice?: string | null;
-            taxType: components["schemas"]["TaxType"];
-            unitType: components["schemas"]["ProductUnitType"];
+            barcode?: string | null;
+            stockCode?: string | null;
             active: boolean;
+        };
+        ProductWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            name: string;
+            /** Format: uuid */
+            categoryId: string;
+            /** Format: decimal */
+            salePrice?: string | null;
+            barcode?: string | null;
+            stockCode?: string | null;
+            productUnitType: components["schemas"]["ProductUnitType"];
+            taxType: components["schemas"]["TaxType"];
+            stocktaking: boolean;
+        };
+        Category: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            sortOrder: number;
+            active: boolean;
+        };
+        CategoryWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            name: string;
+            sortOrder: number;
+            /** Format: uuid */
+            categoryColorId: string;
+            /** Format: uuid */
+            categoryShapeId: string;
+        };
+        Customer: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            surname: string;
+            username: string;
+            phone?: string | null;
+            mail?: string | null;
+            /** Format: decimal */
+            balance: string;
+            active: boolean;
+        };
+        CustomerWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            name: string;
+            surname: string;
+            username: string;
+            phone?: string | null;
+            mail?: string | null;
+            /** Format: uuid */
+            roleId: string;
+        };
+        OrderListItem: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            posId: string;
+            /** Format: uuid */
+            customerId?: string | null;
+            /** Format: date-time */
+            orderTime: string;
+            /** Format: decimal */
+            total: string;
+            orderState: components["schemas"]["OrderState"];
+            paymentSummary: components["schemas"]["PaymentSummary"];
+        };
+        Store: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            /** Format: uuid */
+            branchId?: string | null;
+            active: boolean;
+        };
+        StoreWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            name: string;
+            /** Format: uuid */
+            branchId?: string | null;
+        };
+        Pos: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            /** Format: uuid */
+            branchId: string;
+            /** Format: uuid */
+            storeId: string;
+            active: boolean;
+        };
+        PosWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            name: string;
+            /** Format: uuid */
+            branchId: string;
+            /** Format: uuid */
+            storeId: string;
+        };
+        Discount: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            description?: string | null;
+            /** Format: decimal */
+            amount: string;
+            /** Format: decimal */
+            maxDiscountAmount: string;
+            /** Format: date-time */
+            expireDate?: string | null;
+            discountType: components["schemas"]["DiscountType"];
+            discountCategory: components["schemas"]["DiscountCategory"];
+            active: boolean;
+        };
+        DiscountWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            description?: string | null;
+            /** Format: decimal */
+            amount: string;
+            /** Format: decimal */
+            maxDiscountAmount: string;
+            /** Format: date-time */
+            expireDate?: string | null;
+            discountType: components["schemas"]["DiscountType"];
+            discountCategory: components["schemas"]["DiscountCategory"];
+            sortOrder: number;
         };
         CreateOrderRequest: {
             /** Format: uuid */
@@ -266,6 +710,10 @@ export interface components {
         /** @enum {string} */
         ShippingType: "Self" | "ComeTake" | "Order" | "Customer";
         /** @enum {string} */
+        DiscountType: "Percentage" | "Amount";
+        /** @enum {string} */
+        DiscountCategory: "All" | "Branch" | "Personnel" | "Pos";
+        /** @enum {string} */
         OrderState: "Received" | "Preparing" | "Completed" | "Cancelled" | "Deleted" | "Transferring";
         /** @enum {string} */
         ProductUnitType: "Adet" | "MiliLitre" | "Gram";
@@ -290,6 +738,8 @@ export interface components {
         CustomerId: string;
         OrderId: string;
         IdempotencyKey: string;
+        Id: string;
+        UserId: string;
     };
     requestBodies: never;
     headers: never;
@@ -341,6 +791,623 @@ export interface operations {
             default: components["responses"]["Problem"];
         };
     };
+    createAdminProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProductWrite"];
+            };
+        };
+        responses: {
+            /** @description Product created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Product"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProductWrite"];
+            };
+        };
+        responses: {
+            /** @description Product updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Product"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminProduct: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+                userId: components["parameters"]["UserId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Product deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminCategories: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Category list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Category"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminCategory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryWrite"];
+            };
+        };
+        responses: {
+            /** @description Category created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Category"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminCategory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CategoryWrite"];
+            };
+        };
+        responses: {
+            /** @description Category updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Category"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminCategory: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+                userId: components["parameters"]["UserId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Category deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminCustomers: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Customer list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Customer"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminCustomer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CustomerWrite"];
+            };
+        };
+        responses: {
+            /** @description Customer created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Customer"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminCustomer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CustomerWrite"];
+            };
+        };
+        responses: {
+            /** @description Customer updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Customer"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminCustomer: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+                userId: components["parameters"]["UserId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Customer deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminOrders: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Order list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderListItem"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminStores: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Store list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Store"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminStore: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StoreWrite"];
+            };
+        };
+        responses: {
+            /** @description Store created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Store"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminStore: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StoreWrite"];
+            };
+        };
+        responses: {
+            /** @description Store updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Store"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminStore: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+                userId: components["parameters"]["UserId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Store deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminPos: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description POS list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Pos"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminPos: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PosWrite"];
+            };
+        };
+        responses: {
+            /** @description POS created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Pos"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminPos: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PosWrite"];
+            };
+        };
+        responses: {
+            /** @description POS updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Pos"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminPos: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+                userId: components["parameters"]["UserId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description POS deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAdminDiscounts: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Discount list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Discount"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminDiscount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DiscountWrite"];
+            };
+        };
+        responses: {
+            /** @description Discount created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Discount"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminDiscount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DiscountWrite"];
+            };
+        };
+        responses: {
+            /** @description Discount updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Discount"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    deleteAdminDiscount: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+                userId: components["parameters"]["UserId"];
+            };
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Discount deactivated */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAppOrders: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Order list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderListItem"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
     createAppOrder: {
         parameters: {
             query?: never;
@@ -372,6 +1439,144 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["OrderResponse"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAppProducts: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Product list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Product"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAppCategories: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Category list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Category"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAppCustomers: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Customer list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Customer"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAppStores: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Store list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Store"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAppPos: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description POS list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Pos"][];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    listAppDiscounts: {
+        parameters: {
+            query: {
+                companyId: components["parameters"]["CompanyId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Discount list */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Discount"][];
                 };
             };
             default: components["responses"]["Problem"];

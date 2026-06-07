@@ -1,4 +1,4 @@
-# mansis_pos_api_client.model.Product
+# mansis_pos_api_client.model.Discount
 
 ## Load the model package
 ```dart
@@ -10,11 +10,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
 **companyId** | **String** |  | 
-**name** | **String** |  | 
-**categoryId** | **String** |  | 
-**salePrice** | **double** |  | [optional] 
-**barcode** | **String** |  | [optional] 
-**stockCode** | **String** |  | [optional] 
+**description** | **String** |  | [optional] 
+**amount** | **double** |  | 
+**maxDiscountAmount** | **double** |  | 
+**expireDate** | [**DateTime**](DateTime.md) |  | [optional] 
+**discountType** | [**DiscountType**](DiscountType.md) |  | 
+**discountCategory** | [**DiscountCategory**](DiscountCategory.md) |  | 
 **active** | **bool** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

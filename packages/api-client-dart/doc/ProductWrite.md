@@ -1,4 +1,4 @@
-# mansis_pos_api_client.model.Product
+# mansis_pos_api_client.model.ProductWrite
 
 ## Load the model package
 ```dart
@@ -8,14 +8,16 @@ import 'package:mansis_pos_api_client/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
 **companyId** | **String** |  | 
+**userId** | **String** |  | 
 **name** | **String** |  | 
 **categoryId** | **String** |  | 
 **salePrice** | **double** |  | [optional] 
 **barcode** | **String** |  | [optional] 
 **stockCode** | **String** |  | [optional] 
-**active** | **bool** |  | 
+**productUnitType** | [**ProductUnitType**](ProductUnitType.md) |  | 
+**taxType** | [**TaxType**](TaxType.md) |  | 
+**stocktaking** | **bool** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

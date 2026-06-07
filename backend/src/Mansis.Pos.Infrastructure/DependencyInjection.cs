@@ -1,5 +1,6 @@
 using Mansis.Pos.Application.Abstractions.Data;
 using Mansis.Pos.Application.Abstractions.Tenancy;
+using Mansis.Pos.Application.Core;
 using Mansis.Pos.Application.Orders.CancelOrder;
 using Mansis.Pos.Application.Orders.CreateOrder;
 using Mansis.Pos.Infrastructure.Persistence;
@@ -31,6 +32,7 @@ public static class DependencyInjection
 
         services.TryAddScoped<ITenantContext, EnvironmentTenantContext>();
         services.AddScoped<IUnitOfWork, EfUnitOfWork>();
+        services.AddScoped<ICoreCrudStore, EfCoreCrudStore>();
         services.AddScoped<IOrderCancellationStore, EfOrderCancellationStore>();
         services.AddScoped<IOrderCreationStore, EfOrderCreationStore>();
 

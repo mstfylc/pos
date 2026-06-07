@@ -5,18 +5,20 @@
 
 // ignore_for_file: unused_import
 
+import 'package:mansis_pos_api_client/model/tax_type.dart';
+import 'package:mansis_pos_api_client/model/product_unit_type.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'product.g.dart';
+part 'product_write.g.dart';
 
-abstract class Product implements Built<Product, ProductBuilder> {
-
-    @BuiltValueField(wireName: r'id')
-    String get id;
+abstract class ProductWrite implements Built<ProductWrite, ProductWriteBuilder> {
 
     @BuiltValueField(wireName: r'companyId')
     String get companyId;
+
+    @BuiltValueField(wireName: r'userId')
+    String get userId;
 
     @BuiltValueField(wireName: r'name')
     String get name;
@@ -36,37 +38,45 @@ abstract class Product implements Built<Product, ProductBuilder> {
     @BuiltValueField(wireName: r'stockCode')
     String get stockCode;
 
-    @BuiltValueField(wireName: r'active')
-    bool get active;
+    @BuiltValueField(wireName: r'productUnitType')
+    ProductUnitType get productUnitType;
+    // enum productUnitTypeEnum {  Adet,  MiliLitre,  Gram,  };
 
-    Product._();
+    @BuiltValueField(wireName: r'taxType')
+    TaxType get taxType;
+    // enum taxTypeEnum {  Bir,  Sekiz,  OnSekiz,  };
 
-    static void _initializeBuilder(ProductBuilder b) => b;
+    @BuiltValueField(wireName: r'stocktaking')
+    bool get stocktaking;
 
-    factory Product([void updates(ProductBuilder b)]) = _$Product;
+    ProductWrite._();
+
+    static void _initializeBuilder(ProductWriteBuilder b) => b;
+
+    factory ProductWrite([void updates(ProductWriteBuilder b)]) = _$ProductWrite;
 
     @BuiltValueSerializer(custom: true)
-    static Serializer<Product> get serializer => _$ProductSerializer();
+    static Serializer<ProductWrite> get serializer => _$ProductWriteSerializer();
 }
 
-class _$ProductSerializer implements StructuredSerializer<Product> {
+class _$ProductWriteSerializer implements StructuredSerializer<ProductWrite> {
 
     @override
-    final Iterable<Type> types = const [Product, _$Product];
+    final Iterable<Type> types = const [ProductWrite, _$ProductWrite];
     @override
-    final String wireName = r'Product';
+    final String wireName = r'ProductWrite';
 
     @override
-    Iterable<Object> serialize(Serializers serializers, Product object,
+    Iterable<Object> serialize(Serializers serializers, ProductWrite object,
         {FullType specifiedType = FullType.unspecified}) {
         final result = <Object>[];
         result
-            ..add(r'id')
-            ..add(serializers.serialize(object.id,
-                specifiedType: const FullType(String)));
-        result
             ..add(r'companyId')
             ..add(serializers.serialize(object.companyId,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'userId')
+            ..add(serializers.serialize(object.userId,
                 specifiedType: const FullType(String)));
         result
             ..add(r'name')
@@ -95,16 +105,24 @@ class _$ProductSerializer implements StructuredSerializer<Product> {
                     specifiedType: const FullType(String)));
         }
         result
-            ..add(r'active')
-            ..add(serializers.serialize(object.active,
+            ..add(r'productUnitType')
+            ..add(serializers.serialize(object.productUnitType,
+                specifiedType: const FullType(ProductUnitType)));
+        result
+            ..add(r'taxType')
+            ..add(serializers.serialize(object.taxType,
+                specifiedType: const FullType(TaxType)));
+        result
+            ..add(r'stocktaking')
+            ..add(serializers.serialize(object.stocktaking,
                 specifiedType: const FullType(bool)));
         return result;
     }
 
     @override
-    Product deserialize(Serializers serializers, Iterable<Object> serialized,
+    ProductWrite deserialize(Serializers serializers, Iterable<Object> serialized,
         {FullType specifiedType = FullType.unspecified}) {
-        final result = ProductBuilder();
+        final result = ProductWriteBuilder();
 
         final iterator = serialized.iterator;
         while (iterator.moveNext()) {
@@ -112,12 +130,12 @@ class _$ProductSerializer implements StructuredSerializer<Product> {
             iterator.moveNext();
             final dynamic value = iterator.current;
             switch (key) {
-                case r'id':
-                    result.id = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    break;
                 case r'companyId':
                     result.companyId = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'userId':
+                    result.userId = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
                 case r'name':
@@ -140,8 +158,16 @@ class _$ProductSerializer implements StructuredSerializer<Product> {
                     result.stockCode = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     break;
-                case r'active':
-                    result.active = serializers.deserialize(value,
+                case r'productUnitType':
+                    result.productUnitType = serializers.deserialize(value,
+                        specifiedType: const FullType(ProductUnitType)) as ProductUnitType;
+                    break;
+                case r'taxType':
+                    result.taxType = serializers.deserialize(value,
+                        specifiedType: const FullType(TaxType)) as TaxType;
+                    break;
+                case r'stocktaking':
+                    result.stocktaking = serializers.deserialize(value,
                         specifiedType: const FullType(bool)) as bool;
                     break;
             }
