@@ -20,13 +20,16 @@ public sealed class CampaignEvaluator
         var currentTierId = snapshot.LoyaltyAccount?.LoyaltyTierId;
         var eligibleCampaigns = snapshot.Campaigns
             .Where(campaign => IsEligible(campaign, currentTierId, orderTotal, now))
-            .OrderByDescending(campaign => campaign.Priority)
-            .ThenBy(campaign => campaign.Id)
+            .GroupBy(campaign => campaign.CampaignType)
+            .Select(group => group
+                .OrderByDescending(campaign => campaign.Priority)
+                .ThenBy(campaign => campaign.Id)
+                .First())
             .ToArray();
 
-        // TODO: verify rule (eski davranis: kampanya cakisma onceligi yoktu; simdilik uygun tum kampanyalar uygulanir).
         var extraPoints = 0;
         var discountAmount = 0m;
+        decimal? maxTotalDiscount = null;
         var descriptions = new List<string>();
         foreach (var campaign in eligibleCampaigns)
         {
@@ -40,11 +43,15 @@ public sealed class CampaignEvaluator
             if (campaign.CampaignType == CampaignType.DiscountAmount && rule.DiscountAmount > 0m)
             {
                 discountAmount += rule.DiscountAmount;
+                maxTotalDiscount = campaign.MaxTotalDiscount.HasValue
+                    ? Math.Min(maxTotalDiscount ?? campaign.MaxTotalDiscount.Value, campaign.MaxTotalDiscount.Value)
+                    : maxTotalDiscount;
                 descriptions.Add(campaign.Name);
             }
         }
 
-        return new CampaignEvaluationResult(extraPoints, Math.Min(discountAmount, orderTotal), descriptions);
+        var cappedDiscount = Math.Min(discountAmount, maxTotalDiscount ?? discountAmount);
+        return new CampaignEvaluationResult(extraPoints, Math.Min(cappedDiscount, orderTotal), descriptions);
     }
 
     private static bool IsEligible(

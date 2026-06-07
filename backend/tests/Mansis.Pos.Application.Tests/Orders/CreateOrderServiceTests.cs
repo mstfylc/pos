@@ -153,6 +153,77 @@ public sealed class CreateOrderServiceTests
     }
 
     [Fact]
+    public async Task CreateAsync_WithConflictingSameTypeCampaigns_AppliesHighestPriorityPerTypeAndDiscountCap()
+    {
+        var store = FakeOrderCreationStore.Ready(
+            campaigns:
+            [
+                new Campaign
+                {
+                    Id = Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
+                    CompanyId = CompanyId,
+                    Name = "Low priority discount",
+                    CampaignType = CampaignType.DiscountAmount,
+                    RuleJson = """{"minOrderTotal":20,"discountAmount":8}""",
+                    Priority = 1,
+                    Active = true
+                },
+                new Campaign
+                {
+                    Id = Guid.Parse("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"),
+                    CompanyId = CompanyId,
+                    Name = "High priority discount",
+                    CampaignType = CampaignType.DiscountAmount,
+                    RuleJson = """{"minOrderTotal":20,"discountAmount":12}""",
+                    Priority = 10,
+                    MaxTotalDiscount = 7m,
+                    Active = true
+                },
+                new Campaign
+                {
+                    Id = Guid.Parse("cccccccc-cccc-cccc-cccc-cccccccccccc"),
+                    CompanyId = CompanyId,
+                    Name = "Low priority points",
+                    CampaignType = CampaignType.ExtraPoints,
+                    RuleJson = """{"minOrderTotal":20,"extraPoints":3}""",
+                    Priority = 1,
+                    Active = true
+                },
+                new Campaign
+                {
+                    Id = Guid.Parse("dddddddd-dddd-dddd-dddd-dddddddddddd"),
+                    CompanyId = CompanyId,
+                    Name = "High priority points",
+                    CampaignType = CampaignType.ExtraPoints,
+                    RuleJson = """{"minOrderTotal":20,"extraPoints":9}""",
+                    Priority = 10,
+                    Active = true
+                }
+            ]);
+        var service = CreateService(store);
+        var request = new CreateOrderRequest(
+            CompanyId,
+            PosId,
+            UserId,
+            CustomerId,
+            ShippingType.Self,
+            DateTimeOffset.UtcNow,
+            "idem-campaign-conflict",
+            [new CreateOrderLine(ProductId, 2, 10m)],
+            [new CreateOrderPayment(PaymentType.Cash, 13m)]);
+
+        var result = await service.CreateAsync(request);
+
+        Assert.True(result.IsSuccess);
+        Assert.Equal(13m, store.SavedGraph!.Order.Total);
+        Assert.Equal(7m, store.SavedGraph.Order.TotalDiscount);
+        Assert.Equal(2, store.SavedGraph.LoyaltyPointTransactions.Count);
+        Assert.Contains(store.SavedGraph.LoyaltyPointTransactions, transaction => transaction.Points == 9);
+        Assert.DoesNotContain(store.SavedGraph.LoyaltyPointTransactions, transaction => transaction.Points == 3);
+        Assert.Equal(22, store.SavedGraph.LoyaltyAccountToUpdate!.PointBalance);
+    }
+
+    [Fact]
     public async Task CreateAsync_WithRepeatedIdempotencyKey_ReturnsExistingOrderWithoutDuplicateGraph()
     {
         var existing = new Order

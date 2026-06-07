@@ -66,6 +66,7 @@ public sealed class Campaign : Entity, ICompanyScoped
     public CampaignType CampaignType { get; set; } = CampaignType.ExtraPoints;
     public string RuleJson { get; set; } = "{}";
     public int Priority { get; set; }
+    public decimal? MaxTotalDiscount { get; set; }
     public Guid? TargetTierId { get; set; }
     public DateTimeOffset? StartsAt { get; set; }
     public DateTimeOffset? EndsAt { get; set; }

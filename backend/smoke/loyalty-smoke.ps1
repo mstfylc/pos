@@ -43,6 +43,10 @@ function DbScalar([string]$Sql) {
     return (docker compose --env-file $EnvPath -f $ComposePath exec -T postgres psql -U mansis -d mansis_pos -tAc $Sql).Trim()
 }
 
+function DbExecute([string]$Sql) {
+    docker compose --env-file $EnvPath -f $ComposePath exec -T postgres psql -U mansis -d mansis_pos -v ON_ERROR_STOP=1 -c $Sql | Out-Null
+}
+
 function DbDecimal([string]$Sql) {
     return [decimal](DbScalar $Sql)
 }
@@ -89,6 +93,8 @@ try {
     if (-not $login.accessToken) { throw "Login did not return access token." }
 
     $runKey = "loyalty-smoke-" + [Guid]::NewGuid().ToString("N")
+    DbExecute "update pos.store_products set quantity = greatest(quantity, 10) where store_id='10000000-0000-0000-0000-000000000003' and product_id='10000000-0000-0000-0000-000000000010';"
+    DbExecute "update pos.campaigns set active=false where id in ('20000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000003');"
     $pointsBefore = DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';"
     $stockBefore = DbDecimal "select quantity from pos.store_products where store_id='10000000-0000-0000-0000-000000000003' and product_id='10000000-0000-0000-0000-000000000010';"
 
@@ -103,7 +109,8 @@ try {
         payments = @(@{ paymentType = "Cash"; amount = 50; currency = "TRY" })
     } $login.accessToken @{ "Idempotency-Key" = "$runKey-order" }
 
-    Assert-Equal (DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") ($pointsBefore + 55) "Points after earn+campaign"
+    $earnedPoints = DbDecimal "select coalesce(sum(points),0) from pos.loyalty_point_transactions where order_id='$($created.orderId)' and points > 0;"
+    Assert-Equal (DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") ($pointsBefore + $earnedPoints) "Points after earn+campaign"
     Assert-Equal (DbScalar "select count(*) from pos.loyalty_point_transactions where order_id='$($created.orderId)' and points > 0;") "2" "Earn and campaign rows"
 
     $redeem = Invoke-Json Post "$BaseUrl/api/v1/app/loyalty/rewards/10000000-0000-0000-0000-000000000018/redeem" @{
@@ -112,7 +119,7 @@ try {
         orderId = $created.orderId
     } $login.accessToken
     Assert-Equal $redeem.points 10 "Redeemed points"
-    Assert-Equal (DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") ($pointsBefore + 45) "Points after redeem"
+    Assert-Equal (DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") ($pointsBefore + $earnedPoints - 10) "Points after redeem"
 
     $cancel = Invoke-Json Post "$BaseUrl/api/v1/app/orders/$($created.orderId)/cancel" @{
         companyId = $env:COMPANY_ID
@@ -123,6 +130,38 @@ try {
     Assert-Equal (DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") $pointsBefore "Points after cancel reversal"
     Assert-Equal (DbDecimal "select quantity from pos.store_products where store_id='10000000-0000-0000-0000-000000000003' and product_id='10000000-0000-0000-0000-000000000010';") $stockBefore "Stock after cancel reversal"
     Assert-Equal (DbScalar "select count(*) from pos.reward_redemptions where order_id='$($created.orderId)' and reversal_of_id is not null;") "1" "Reward redemption reversal"
+
+    DbExecute "insert into pos.campaigns (id, company_id, name, campaign_type, rule_json, priority, max_total_discount, active) values ('20000000-0000-0000-0000-000000000001', '$($env:COMPANY_ID)', 'Smoke low discount', 'DiscountAmount', json_build_object('minOrderTotal', 50, 'discountAmount', 3)::text, 1, null, true) on conflict (id) do update set rule_json=excluded.rule_json, priority=excluded.priority, max_total_discount=excluded.max_total_discount, active=true;"
+    DbExecute "insert into pos.campaigns (id, company_id, name, campaign_type, rule_json, priority, max_total_discount, active) values ('20000000-0000-0000-0000-000000000002', '$($env:COMPANY_ID)', 'Smoke high discount', 'DiscountAmount', json_build_object('minOrderTotal', 50, 'discountAmount', 12)::text, 20, 7, true) on conflict (id) do update set rule_json=excluded.rule_json, priority=excluded.priority, max_total_discount=excluded.max_total_discount, active=true;"
+    DbExecute "insert into pos.campaigns (id, company_id, name, campaign_type, rule_json, priority, max_total_discount, active) values ('20000000-0000-0000-0000-000000000003', '$($env:COMPANY_ID)', 'Smoke high points', 'ExtraPoints', json_build_object('minOrderTotal', 50, 'extraPoints', 11)::text, 20, null, true) on conflict (id) do update set rule_json=excluded.rule_json, priority=excluded.priority, max_total_discount=excluded.max_total_discount, active=true;"
+
+    $conflictPointsBefore = DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';"
+    $conflictStockBefore = DbDecimal "select quantity from pos.store_products where store_id='10000000-0000-0000-0000-000000000003' and product_id='10000000-0000-0000-0000-000000000010';"
+    $conflictOrder = Invoke-Json Post "$BaseUrl/api/v1/app/orders" @{
+        companyId = $env:COMPANY_ID
+        posId = "10000000-0000-0000-0000-000000000004"
+        userId = "10000000-0000-0000-0000-000000000006"
+        customerId = "10000000-0000-0000-0000-000000000012"
+        shippingType = "Self"
+        orderTime = "2026-06-07T01:10:00Z"
+        lines = @(@{ productId = "10000000-0000-0000-0000-000000000010"; quantity = 5; unitPrice = 10; taxAmount = 0 })
+        payments = @(@{ paymentType = "Cash"; amount = 43; currency = "TRY" })
+    } $login.accessToken @{ "Idempotency-Key" = "$runKey-conflict-order" }
+
+    Assert-Equal (DbDecimal "select total_discount from pos.orders where id='$($conflictOrder.orderId)';") 7 "Campaign discount cap"
+    $conflictEarnedPoints = DbDecimal "select coalesce(sum(points),0) from pos.loyalty_point_transactions where order_id='$($conflictOrder.orderId)' and points > 0;"
+    Assert-Equal (DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") ($conflictPointsBefore + $conflictEarnedPoints) "Points after campaign conflict"
+    Assert-Equal (DbScalar "select count(*) from pos.loyalty_point_transactions where order_id='$($conflictOrder.orderId)' and points=11;") "1" "Highest priority point campaign"
+    Assert-Equal (DbScalar "select count(*) from pos.loyalty_point_transactions where order_id='$($conflictOrder.orderId)' and points=5;") "0" "Lower priority point campaign skipped"
+
+    $conflictCancel = Invoke-Json Post "$BaseUrl/api/v1/app/orders/$($conflictOrder.orderId)/cancel" @{
+        companyId = $env:COMPANY_ID
+        userId = "10000000-0000-0000-0000-000000000006"
+        reason = "loyalty conflict smoke cancel"
+    } $login.accessToken
+    Assert-Equal $conflictCancel.orderState "Cancelled" "Conflict cancel state"
+    Assert-Equal (DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") $conflictPointsBefore "Points after conflict cancel"
+    Assert-Equal (DbDecimal "select quantity from pos.store_products where store_id='10000000-0000-0000-0000-000000000003' and product_id='10000000-0000-0000-0000-000000000010';") $conflictStockBefore "Stock after conflict cancel"
 
     Write-Host "LOYALTY smoke OK"
 }

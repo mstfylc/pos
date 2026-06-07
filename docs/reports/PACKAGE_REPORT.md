@@ -8,11 +8,12 @@
 | 18 Reward Redemption | feat/faz3-auth-seed-smoke-closeout | YESIL | 811acf1 |
 | 19 Campaign Evaluation | feat/faz3-auth-seed-smoke-closeout | YESIL | ac8aa0a |
 | 20 Deploy CI Smoke | feat/faz3-auth-seed-smoke-closeout | YESIL | 15096ef |
+| 21 Campaign Conflict Rule | main | YESIL | bekliyor |
 
 ## DUR LISTESI (karar bekleyen)
 | # | Konum (dosya) | Eski davranis | Sorulan karar |
 |---|---------------|---------------|---------------|
-| 1 | backend/src/Mansis.Pos.Application/Loyalty/CampaignEvaluator.cs | Kampanya cakisma onceligi yoktu. | Birden fazla kampanya uyarsa hepsi mi uygulansin, priority ile tek kampanya mi secilsin? |
+| - | - | - | Bekleyen DUR yok. |
 
 ## Davranis degisiklikleri (ledger reversal vb.)
 | # | Konum | Eski | Yeni (uygulanan) |
@@ -23,15 +24,16 @@
 | 4 | Order cancel | Redeem/order baglantisi terslenmiyordu. | Order'a bagli reward redemption append-only cancelled reversal satiri yazar. |
 | 5 | Campaign | Kampanya degerlendirmesi yoktu. | Rule JSON ile ekstra puan ve sabit indirim order create icinde uygulanir. |
 | 6 | Deploy/CI | Production container ve CI smoke yoktu. | API Dockerfile, docker-compose.prod.yml, backend CI, faz3-smoke ve loyalty-smoke akisi eklendi. |
+| 7 | Campaign conflict | Ayni tip uygun kampanyalar birlikte uygulanabiliyordu. | Ayni tipte en yuksek priority tek kampanya uygulanir; farkli tipler birlikte uygulanir; indirim max_total_discount ile caplenir. |
 
 ## Dogrulama
 | Kontrol | Sonuc |
 |---------|-------|
 | dotnet build | PASS; 0 hata, 0 uyari |
-| dotnet test --no-build | PASS; 11/11 test |
+| dotnet test --no-build | PASS; 12/12 test |
 | backend/smoke/faz3-smoke.ps1 | PASS |
 | backend/smoke/loyalty-smoke.ps1 | PASS |
 | docker build -f backend/Dockerfile | PASS |
 
 ## Siradaki oneri
-- DUR 1 netlesince kampanya cakisma davranisi kilitlensin.
+- Kampanya conflict kuralini admin UI formunda priority ve max_total_discount alanlariyla aciga cikar.
