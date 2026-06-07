@@ -1,26 +1,25 @@
-# FAZ 1 PAKET RAPORU - 2026-06-07
+# FAZ 2 PAKET RAPORU - 2026-06-07
 
 ## Tamamlanan
 | Adim | Branch | Build | Commit |
 |------|--------|-------|--------|
-| 3 Iskelet | feat/be-skeleton | YESIL | 04e29fe |
-| 4 Domain | feat/be-domain | YESIL | 957f8a4 |
-| 5 Ledger+Sadakat | feat/be-ledger | YESIL | 384c609 |
-| 6 OpenAPI | feat/be-openapi | YESIL | 22d5669 |
+| 7 Order Create | feat/order-create-usecase | YESIL | 612cd47 |
+| 8 Order Cancel/Refund | feat/order-cancel-refund-usecase | YESIL | 46c1004 |
+| 9 Kritik Index Review | feat/model-index-review | YESIL | 701b32f |
 
 ## DUR LISTESI (karar bekleyen)
 | # | Konum (dosya) | Eski davranis | Sorulan karar |
 |---|---------------|---------------|---------------|
-| 1 | backend/src/Mansis.Pos.Domain/Entities/OrderEntities.cs | Order tek PaymentType tasiyordu. | Coklu odeme sonrasi eski PaymentType rapor/filtre uyumlulugu nasil korunacak? |
-| 2 | backend/src/Mansis.Pos.Domain/Entities/LedgerEntities.cs | Stok/bakiye/indirim hareketleri eski sistemde silinebiliyordu. | Reversal kayitlari icin UI/API'de iptal nedeni zorunlu olsun mu? |
+| - | - | - | Bekleyen DUR yok. |
 
 ## Davranis degisiklikleri (ledger reversal vb.)
 | # | Konum | Eski | Yeni (uygulanan) |
 |---|-------|------|------------------|
-| 1 | backend/src/Mansis.Pos.Domain/Entities/OrderEntities.cs | Order.PaymentType tek enum alaniydi. | OrderPayment satirlari append-only olarak eklendi. |
-| 2 | backend/src/Mansis.Pos.Infrastructure/Persistence/PosDbContext.cs | Ledger benzeri satirlar silinebiliyordu. | IAppendOnly satir delete islemleri SaveChanges seviyesinde engellendi. |
-| 3 | contracts/openapi.yaml | Frontend/mobil icin kontrat yoktu. | Admin/App/Loyalty/Stock tag'li OpenAPI ve uretilmis TS/Dart client eklendi. |
+| 1 | backend/src/Mansis.Pos.Application/Orders/CreateOrder | Order create use-case yoktu. | Idempotency key zorunlu, tekrar ayni sonucu doner ve order graph tek transaction'da yazilir. |
+| 2 | backend/src/Mansis.Pos.Domain/Entities/OrderEntities.cs | Payment ozeti yoktu. | Order.PaymentSummary turetilmis alan oldu; rapor kaynagi OrderPayment satirlari olarak kaldi. |
+| 3 | backend/src/Mansis.Pos.Application/Orders/CancelOrder | Iptal/iade reversal use-case yoktu. | Reason zorunlu, silme yok; payment, stock, wallet ve loyalty ters ledger satirlari uretilir. |
+| 4 | backend/src/Mansis.Pos.Infrastructure/Persistence/PosDbContext.cs | Kritik sorgular icin eksik indeksler vardi. | Order, katalog, musteri, discount usage ve link tablolarina PostgreSQL indeksleri eklendi. |
 
 ## Siradaki oneri
-- Adim 4-5 modelleri icin kritik iliski ve indeksleri legacy davranisla review et.
-- Order create use-case'i icin transaction + idempotency_key uygulamasina gec.
+- API endpoint/controller katmanini create/cancel use-case servislerine bagla.
+- UI tarafinda cancel/refund/stock-adjustment reason alani tamamlanmadan submit'i engelle.
