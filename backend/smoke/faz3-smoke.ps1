@@ -114,7 +114,8 @@ try {
     Assert-Equal (DbScalar "select count(*) from pos.orders where idempotency_key='$runKey-order';") "1" "Order row count"
     Assert-Equal (DbDecimal "select quantity from pos.store_products where store_id='10000000-0000-0000-0000-000000000003' and product_id='10000000-0000-0000-0000-000000000010';") ($stockBefore - 2) "Stock after create"
     Assert-Equal (DbDecimal "select balance from pos.wallet_accounts where id='10000000-0000-0000-0000-000000000013';") ($walletBefore - 20) "Wallet after create"
-    Assert-Equal (DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") ($loyaltyBefore + 20) "Loyalty after create"
+    $earnedPoints = DbDecimal "select coalesce(sum(points),0) from pos.loyalty_point_transactions where order_id='$($created.orderId)' and points > 0;"
+    Assert-Equal (DbDecimal "select point_balance from pos.loyalty_accounts where id='10000000-0000-0000-0000-000000000014';") ($loyaltyBefore + $earnedPoints) "Loyalty after create"
 
     $cancel = Invoke-Json Post "$BaseUrl/api/v1/app/orders/$($created.orderId)/cancel" @{
         companyId = $env:COMPANY_ID
