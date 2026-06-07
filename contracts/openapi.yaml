@@ -1,0 +1,269 @@
+openapi: 3.0.3
+info:
+  title: Mansis POS v2 API
+  version: 0.1.0
+  description: Backend contract source for generated web and mobile clients.
+servers:
+  - url: https://api.example.com
+    description: Production placeholder
+  - url: http://localhost:5000
+    description: Local development
+tags:
+  - name: Admin
+  - name: App
+  - name: Loyalty
+  - name: Stock
+paths:
+  /api/v1/admin/companies:
+    get:
+      tags: [Admin]
+      operationId: listAdminCompanies
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200':
+          description: Company list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/admin/products:
+    get:
+      tags: [Admin]
+      operationId: listAdminProducts
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+      responses:
+        '200':
+          description: Product list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/app/orders:
+    post:
+      tags: [App]
+      operationId: createAppOrder
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        '201':
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/app/customers/{customerId}/wallet:
+    get:
+      tags: [App]
+      operationId: getAppCustomerWallet
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/CustomerId'
+      responses:
+        '200':
+          description: Wallet account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletAccount'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/loyalty/accounts/{customerId}:
+    get:
+      tags: [Loyalty]
+      operationId: getLoyaltyAccount
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/CustomerId'
+      responses:
+        '200':
+          description: Loyalty account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoyaltyAccount'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/stock/movements:
+    get:
+      tags: [Stock]
+      operationId: listStockMovements
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+      responses:
+        '200':
+          description: Stock movement list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StockMovement'
+        default:
+          $ref: '#/components/responses/Problem'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    CompanyId:
+      name: companyId
+      in: query
+      required: true
+      schema:
+        type: string
+        format: uuid
+    CustomerId:
+      name: customerId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Problem:
+      description: ProblemDetails error response
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+  schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type: { type: string, nullable: true }
+        title: { type: string, nullable: true }
+        status: { type: integer, nullable: true }
+        detail: { type: string, nullable: true }
+        instance: { type: string, nullable: true }
+      additionalProperties: true
+    Company:
+      type: object
+      required: [id, name, active]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        active: { type: boolean }
+    Product:
+      type: object
+      required: [id, companyId, name, taxType, unitType, active]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        name: { type: string }
+        salePrice: { type: string, format: decimal, nullable: true }
+        taxType:
+          $ref: '#/components/schemas/TaxType'
+        unitType:
+          $ref: '#/components/schemas/ProductUnitType'
+        active: { type: boolean }
+    CreateOrderRequest:
+      type: object
+      required: [companyId, posId, userId, orderTime, idempotencyKey, lines, payments]
+      properties:
+        companyId: { type: string, format: uuid }
+        posId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        customerId: { type: string, format: uuid, nullable: true }
+        orderTime: { type: string, format: date-time }
+        idempotencyKey: { type: string, minLength: 8 }
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLine'
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderPayment'
+    Order:
+      type: object
+      required: [id, companyId, total, state, orderTime, payments]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        total: { type: string, format: decimal }
+        state:
+          $ref: '#/components/schemas/OrderState'
+        orderTime: { type: string, format: date-time }
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderPayment'
+    OrderLine:
+      type: object
+      required: [productId, quantity]
+      properties:
+        productId: { type: string, format: uuid }
+        quantity: { type: integer, minimum: 1 }
+    OrderPayment:
+      type: object
+      required: [paymentType, amount]
+      properties:
+        paymentType:
+          $ref: '#/components/schemas/PaymentType'
+        amount: { type: string, format: decimal }
+    WalletAccount:
+      type: object
+      required: [id, customerId, currency, balance]
+      properties:
+        id: { type: string, format: uuid }
+        customerId: { type: string, format: uuid }
+        currency: { type: string }
+        balance: { type: string, format: decimal }
+    LoyaltyAccount:
+      type: object
+      required: [id, customerId, pointBalance]
+      properties:
+        id: { type: string, format: uuid }
+        customerId: { type: string, format: uuid }
+        tierName: { type: string, nullable: true }
+        pointBalance: { type: integer }
+    StockMovement:
+      type: object
+      required: [id, companyId, storeId, productId, movementType, direction, quantity, occurredAt]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        storeId: { type: string, format: uuid }
+        productId: { type: string, format: uuid }
+        movementType:
+          $ref: '#/components/schemas/StoreProductMovementType'
+        direction:
+          type: string
+          enum: [Debit, Credit]
+        quantity: { type: integer }
+        occurredAt: { type: string, format: date-time }
+    PaymentType:
+      type: string
+      enum: [Cash, CreditCard, Ticket, Sodexo, Multinet]
+    OrderState:
+      type: string
+      enum: [Received, Preparing, Completed, Cancelled, Deleted, Transferring]
+    ProductUnitType:
+      type: string
+      enum: [Adet, MiliLitre, Gram]
+    StoreProductMovementType:
+      type: string
+      enum: [StockIn, StockOut, Destroy, Order, Purchase, TransferIn, TransferOut]
+    TaxType:
+      type: string
+      enum: [Bir, Sekiz, OnSekiz]

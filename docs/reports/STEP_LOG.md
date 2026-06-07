@@ -10,3 +10,7 @@
 - Yapilan: Coklu odeme, append-only stock/wallet/loyalty ledger, token ve sadakat modelleri ile EF migration eklendi.
 - Dosya/commit: 11 dosya, commit 384c609
 - Takilan: yok
+### 2026-06-07 03:17 ADIM 6 - OpenAPI - branch: feat/be-openapi - build: YESIL
+- Yapilan: Admin/App/Loyalty/Stock tag'li OpenAPI kontrati ve TS/Dart codegen client'lari uretildi.
+- Dosya/commit: 80+ dosya, commit bekliyor
+- Takilan: yok

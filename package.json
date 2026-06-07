@@ -1,0 +1,13 @@
+{
+  "name": "mansis-pos-v2",
+  "private": true,
+  "scripts": {
+    "gen:api": "npm run gen:api:ts && npm run gen:api:dart",
+    "gen:api:ts": "openapi-typescript contracts/openapi.yaml -o packages/api-client-ts/index.ts",
+    "gen:api:dart": "openapi-generator-cli generate -i contracts/openapi.yaml -g dart-dio -o packages/api-client-dart --additional-properties=pubName=mansis_pos_api_client,pubVersion=0.1.0"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.21.4",
+    "openapi-typescript": "^7.10.1"
+  }
+}
