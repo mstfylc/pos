@@ -27,3 +27,9 @@ Backend (.NET 10) migrate ve yeni modüller; OpenAPI kontratının sahibi; API c
 ## Çalışma tarzı
 - Tek seferde tek modül/endpoint grubu. Büyük "tüm backend" görevi alma.
 - Her PR `docs/DEFINITION_OF_DONE.md`'den geçer (test + tenant + transaction + secret kontrolü).
+
+## Token verimliliği (kalıcı kural)
+- Her görevde dosyaların tamamını baştan okuma. Kural dosyaları bir kez okundu; sadece DEĞİŞTİRECEĞİN/İLGİLİ dosyaları aç.
+- Çıktıda gereksiz tekrar yok: tabloları/envanteri tekrar dökme, "şunu yaptım" özetini kısa tut.
+- Tek seferde tek modül/endpoint grubu; büyük "her şeyi kur" görevleri bölünür.
+- Açıklama değil, iş üret; gerekçeyi kısa ver.
