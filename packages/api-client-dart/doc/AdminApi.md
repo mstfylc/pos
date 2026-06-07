@@ -5,1824 +5,114 @@
 import 'package:mansis_pos_api_client/api.dart';
 ```
 
-All URIs are relative to *https://api.example.com*
+All URIs are relative to *http://localhost:5088*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createAdminAssignment**](AdminApi.md#createadminassignment) | **POST** /api/v1/admin/assignments | 
-[**createAdminCampaign**](AdminApi.md#createadmincampaign) | **POST** /api/v1/admin/campaigns | 
-[**createAdminCategory**](AdminApi.md#createadmincategory) | **POST** /api/v1/admin/categories | 
-[**createAdminCustomer**](AdminApi.md#createadmincustomer) | **POST** /api/v1/admin/customers | 
-[**createAdminDiscount**](AdminApi.md#createadmindiscount) | **POST** /api/v1/admin/discounts | 
-[**createAdminEarnRule**](AdminApi.md#createadminearnrule) | **POST** /api/v1/admin/earn-rules | 
-[**createAdminLoyaltyTier**](AdminApi.md#createadminloyaltytier) | **POST** /api/v1/admin/loyalty-tiers | 
-[**createAdminPos**](AdminApi.md#createadminpos) | **POST** /api/v1/admin/pos | 
-[**createAdminPosProduct**](AdminApi.md#createadminposproduct) | **POST** /api/v1/admin/pos-products | 
-[**createAdminProduct**](AdminApi.md#createadminproduct) | **POST** /api/v1/admin/products | 
-[**createAdminReward**](AdminApi.md#createadminreward) | **POST** /api/v1/admin/rewards | 
-[**createAdminRole**](AdminApi.md#createadminrole) | **POST** /api/v1/admin/roles | 
-[**createAdminStampCard**](AdminApi.md#createadminstampcard) | **POST** /api/v1/admin/stamp-cards | 
-[**createAdminStore**](AdminApi.md#createadminstore) | **POST** /api/v1/admin/stores | 
-[**createAdminUser**](AdminApi.md#createadminuser) | **POST** /api/v1/admin/users | 
-[**deleteAdminAssignment**](AdminApi.md#deleteadminassignment) | **DELETE** /api/v1/admin/assignments/{id} | 
-[**deleteAdminCampaign**](AdminApi.md#deleteadmincampaign) | **DELETE** /api/v1/admin/campaigns/{id} | 
-[**deleteAdminCategory**](AdminApi.md#deleteadmincategory) | **DELETE** /api/v1/admin/categories/{id} | 
-[**deleteAdminCustomer**](AdminApi.md#deleteadmincustomer) | **DELETE** /api/v1/admin/customers/{id} | 
-[**deleteAdminDiscount**](AdminApi.md#deleteadmindiscount) | **DELETE** /api/v1/admin/discounts/{id} | 
-[**deleteAdminEarnRule**](AdminApi.md#deleteadminearnrule) | **DELETE** /api/v1/admin/earn-rules/{id} | 
-[**deleteAdminLoyaltyTier**](AdminApi.md#deleteadminloyaltytier) | **DELETE** /api/v1/admin/loyalty-tiers/{id} | 
-[**deleteAdminPos**](AdminApi.md#deleteadminpos) | **DELETE** /api/v1/admin/pos/{id} | 
-[**deleteAdminProduct**](AdminApi.md#deleteadminproduct) | **DELETE** /api/v1/admin/products/{id} | 
-[**deleteAdminReward**](AdminApi.md#deleteadminreward) | **DELETE** /api/v1/admin/rewards/{id} | 
-[**deleteAdminRole**](AdminApi.md#deleteadminrole) | **DELETE** /api/v1/admin/roles/{id} | 
-[**deleteAdminStampCard**](AdminApi.md#deleteadminstampcard) | **DELETE** /api/v1/admin/stamp-cards/{id} | 
-[**deleteAdminStore**](AdminApi.md#deleteadminstore) | **DELETE** /api/v1/admin/stores/{id} | 
-[**deleteAdminUser**](AdminApi.md#deleteadminuser) | **DELETE** /api/v1/admin/users/{id} | 
-[**getAdminAssignment**](AdminApi.md#getadminassignment) | **GET** /api/v1/admin/assignments/{id} | 
-[**getAdminCampaign**](AdminApi.md#getadmincampaign) | **GET** /api/v1/admin/campaigns/{id} | 
-[**getAdminDiscount**](AdminApi.md#getadmindiscount) | **GET** /api/v1/admin/discounts/{id} | 
-[**getAdminEarnRule**](AdminApi.md#getadminearnrule) | **GET** /api/v1/admin/earn-rules/{id} | 
-[**getAdminLoyaltyTier**](AdminApi.md#getadminloyaltytier) | **GET** /api/v1/admin/loyalty-tiers/{id} | 
-[**getAdminReward**](AdminApi.md#getadminreward) | **GET** /api/v1/admin/rewards/{id} | 
-[**getAdminRole**](AdminApi.md#getadminrole) | **GET** /api/v1/admin/roles/{id} | 
-[**getAdminStampCard**](AdminApi.md#getadminstampcard) | **GET** /api/v1/admin/stamp-cards/{id} | 
-[**getAdminUser**](AdminApi.md#getadminuser) | **GET** /api/v1/admin/users/{id} | 
-[**listAdminAssignments**](AdminApi.md#listadminassignments) | **GET** /api/v1/admin/assignments | 
-[**listAdminCampaigns**](AdminApi.md#listadmincampaigns) | **GET** /api/v1/admin/campaigns | 
-[**listAdminCategories**](AdminApi.md#listadmincategories) | **GET** /api/v1/admin/categories | 
-[**listAdminCompanies**](AdminApi.md#listadmincompanies) | **GET** /api/v1/admin/companies | 
-[**listAdminCustomers**](AdminApi.md#listadmincustomers) | **GET** /api/v1/admin/customers | 
-[**listAdminDiscounts**](AdminApi.md#listadmindiscounts) | **GET** /api/v1/admin/discounts | 
-[**listAdminEarnRules**](AdminApi.md#listadminearnrules) | **GET** /api/v1/admin/earn-rules | 
-[**listAdminLoyaltyTiers**](AdminApi.md#listadminloyaltytiers) | **GET** /api/v1/admin/loyalty-tiers | 
-[**listAdminOrders**](AdminApi.md#listadminorders) | **GET** /api/v1/admin/orders | 
-[**listAdminPermissions**](AdminApi.md#listadminpermissions) | **GET** /api/v1/admin/permissions | 
-[**listAdminPos**](AdminApi.md#listadminpos) | **GET** /api/v1/admin/pos | 
-[**listAdminProducts**](AdminApi.md#listadminproducts) | **GET** /api/v1/admin/products | 
-[**listAdminRewards**](AdminApi.md#listadminrewards) | **GET** /api/v1/admin/rewards | 
-[**listAdminRoles**](AdminApi.md#listadminroles) | **GET** /api/v1/admin/roles | 
-[**listAdminStampCards**](AdminApi.md#listadminstampcards) | **GET** /api/v1/admin/stamp-cards | 
-[**listAdminStores**](AdminApi.md#listadminstores) | **GET** /api/v1/admin/stores | 
-[**listAdminUsers**](AdminApi.md#listadminusers) | **GET** /api/v1/admin/users | 
-[**updateAdminAssignment**](AdminApi.md#updateadminassignment) | **PUT** /api/v1/admin/assignments/{id} | 
-[**updateAdminCampaign**](AdminApi.md#updateadmincampaign) | **PUT** /api/v1/admin/campaigns/{id} | 
-[**updateAdminCategory**](AdminApi.md#updateadmincategory) | **PUT** /api/v1/admin/categories/{id} | 
-[**updateAdminCustomer**](AdminApi.md#updateadmincustomer) | **PUT** /api/v1/admin/customers/{id} | 
-[**updateAdminDiscount**](AdminApi.md#updateadmindiscount) | **PUT** /api/v1/admin/discounts/{id} | 
-[**updateAdminEarnRule**](AdminApi.md#updateadminearnrule) | **PUT** /api/v1/admin/earn-rules/{id} | 
-[**updateAdminLoyaltyTier**](AdminApi.md#updateadminloyaltytier) | **PUT** /api/v1/admin/loyalty-tiers/{id} | 
-[**updateAdminPos**](AdminApi.md#updateadminpos) | **PUT** /api/v1/admin/pos/{id} | 
-[**updateAdminPosProduct**](AdminApi.md#updateadminposproduct) | **PUT** /api/v1/admin/pos-products/{id} | 
-[**updateAdminProduct**](AdminApi.md#updateadminproduct) | **PUT** /api/v1/admin/products/{id} | 
-[**updateAdminReward**](AdminApi.md#updateadminreward) | **PUT** /api/v1/admin/rewards/{id} | 
-[**updateAdminRole**](AdminApi.md#updateadminrole) | **PUT** /api/v1/admin/roles/{id} | 
-[**updateAdminRolePermissions**](AdminApi.md#updateadminrolepermissions) | **PUT** /api/v1/admin/roles/{id}/permissions | 
-[**updateAdminStampCard**](AdminApi.md#updateadminstampcard) | **PUT** /api/v1/admin/stamp-cards/{id} | 
-[**updateAdminStore**](AdminApi.md#updateadminstore) | **PUT** /api/v1/admin/stores/{id} | 
-[**updateAdminUser**](AdminApi.md#updateadminuser) | **PUT** /api/v1/admin/users/{id} | 
+[**apiV1AdminAssignmentsGet**](AdminApi.md#apiv1adminassignmentsget) | **GET** /api/v1/admin/assignments | 
+[**apiV1AdminAssignmentsIdDelete**](AdminApi.md#apiv1adminassignmentsiddelete) | **DELETE** /api/v1/admin/assignments/{id} | 
+[**apiV1AdminAssignmentsIdGet**](AdminApi.md#apiv1adminassignmentsidget) | **GET** /api/v1/admin/assignments/{id} | 
+[**apiV1AdminAssignmentsIdPut**](AdminApi.md#apiv1adminassignmentsidput) | **PUT** /api/v1/admin/assignments/{id} | 
+[**apiV1AdminAssignmentsPost**](AdminApi.md#apiv1adminassignmentspost) | **POST** /api/v1/admin/assignments | 
+[**apiV1AdminCampaignsGet**](AdminApi.md#apiv1admincampaignsget) | **GET** /api/v1/admin/campaigns | 
+[**apiV1AdminCampaignsIdDelete**](AdminApi.md#apiv1admincampaignsiddelete) | **DELETE** /api/v1/admin/campaigns/{id} | 
+[**apiV1AdminCampaignsIdGet**](AdminApi.md#apiv1admincampaignsidget) | **GET** /api/v1/admin/campaigns/{id} | 
+[**apiV1AdminCampaignsIdPut**](AdminApi.md#apiv1admincampaignsidput) | **PUT** /api/v1/admin/campaigns/{id} | 
+[**apiV1AdminCampaignsPost**](AdminApi.md#apiv1admincampaignspost) | **POST** /api/v1/admin/campaigns | 
+[**apiV1AdminCategoriesGet**](AdminApi.md#apiv1admincategoriesget) | **GET** /api/v1/admin/categories | 
+[**apiV1AdminCategoriesIdDelete**](AdminApi.md#apiv1admincategoriesiddelete) | **DELETE** /api/v1/admin/categories/{id} | 
+[**apiV1AdminCategoriesIdPut**](AdminApi.md#apiv1admincategoriesidput) | **PUT** /api/v1/admin/categories/{id} | 
+[**apiV1AdminCategoriesPost**](AdminApi.md#apiv1admincategoriespost) | **POST** /api/v1/admin/categories | 
+[**apiV1AdminCustomersGet**](AdminApi.md#apiv1admincustomersget) | **GET** /api/v1/admin/customers | 
+[**apiV1AdminCustomersIdDelete**](AdminApi.md#apiv1admincustomersiddelete) | **DELETE** /api/v1/admin/customers/{id} | 
+[**apiV1AdminCustomersIdGet**](AdminApi.md#apiv1admincustomersidget) | **GET** /api/v1/admin/customers/{id} | 
+[**apiV1AdminCustomersIdLoyaltyAdjustmentsPost**](AdminApi.md#apiv1admincustomersidloyaltyadjustmentspost) | **POST** /api/v1/admin/customers/{id}/loyalty-adjustments | 
+[**apiV1AdminCustomersIdPut**](AdminApi.md#apiv1admincustomersidput) | **PUT** /api/v1/admin/customers/{id} | 
+[**apiV1AdminCustomersIdWalletAdjustmentsPost**](AdminApi.md#apiv1admincustomersidwalletadjustmentspost) | **POST** /api/v1/admin/customers/{id}/wallet-adjustments | 
+[**apiV1AdminCustomersPost**](AdminApi.md#apiv1admincustomerspost) | **POST** /api/v1/admin/customers | 
+[**apiV1AdminDiscountsGet**](AdminApi.md#apiv1admindiscountsget) | **GET** /api/v1/admin/discounts | 
+[**apiV1AdminDiscountsIdDelete**](AdminApi.md#apiv1admindiscountsiddelete) | **DELETE** /api/v1/admin/discounts/{id} | 
+[**apiV1AdminDiscountsIdGet**](AdminApi.md#apiv1admindiscountsidget) | **GET** /api/v1/admin/discounts/{id} | 
+[**apiV1AdminDiscountsIdPut**](AdminApi.md#apiv1admindiscountsidput) | **PUT** /api/v1/admin/discounts/{id} | 
+[**apiV1AdminDiscountsPost**](AdminApi.md#apiv1admindiscountspost) | **POST** /api/v1/admin/discounts | 
+[**apiV1AdminEarnRulesGet**](AdminApi.md#apiv1adminearnrulesget) | **GET** /api/v1/admin/earn-rules | 
+[**apiV1AdminEarnRulesIdDelete**](AdminApi.md#apiv1adminearnrulesiddelete) | **DELETE** /api/v1/admin/earn-rules/{id} | 
+[**apiV1AdminEarnRulesIdGet**](AdminApi.md#apiv1adminearnrulesidget) | **GET** /api/v1/admin/earn-rules/{id} | 
+[**apiV1AdminEarnRulesIdPut**](AdminApi.md#apiv1adminearnrulesidput) | **PUT** /api/v1/admin/earn-rules/{id} | 
+[**apiV1AdminEarnRulesPost**](AdminApi.md#apiv1adminearnrulespost) | **POST** /api/v1/admin/earn-rules | 
+[**apiV1AdminLoyaltyTiersGet**](AdminApi.md#apiv1adminloyaltytiersget) | **GET** /api/v1/admin/loyalty-tiers | 
+[**apiV1AdminLoyaltyTiersIdDelete**](AdminApi.md#apiv1adminloyaltytiersiddelete) | **DELETE** /api/v1/admin/loyalty-tiers/{id} | 
+[**apiV1AdminLoyaltyTiersIdGet**](AdminApi.md#apiv1adminloyaltytiersidget) | **GET** /api/v1/admin/loyalty-tiers/{id} | 
+[**apiV1AdminLoyaltyTiersIdPut**](AdminApi.md#apiv1adminloyaltytiersidput) | **PUT** /api/v1/admin/loyalty-tiers/{id} | 
+[**apiV1AdminLoyaltyTiersPost**](AdminApi.md#apiv1adminloyaltytierspost) | **POST** /api/v1/admin/loyalty-tiers | 
+[**apiV1AdminOrdersGet**](AdminApi.md#apiv1adminordersget) | **GET** /api/v1/admin/orders | 
+[**apiV1AdminPermissionsGet**](AdminApi.md#apiv1adminpermissionsget) | **GET** /api/v1/admin/permissions | 
+[**apiV1AdminPosGet**](AdminApi.md#apiv1adminposget) | **GET** /api/v1/admin/pos | 
+[**apiV1AdminPosIdDelete**](AdminApi.md#apiv1adminposiddelete) | **DELETE** /api/v1/admin/pos/{id} | 
+[**apiV1AdminPosIdPut**](AdminApi.md#apiv1adminposidput) | **PUT** /api/v1/admin/pos/{id} | 
+[**apiV1AdminPosPost**](AdminApi.md#apiv1adminpospost) | **POST** /api/v1/admin/pos | 
+[**apiV1AdminPosProductsIdPut**](AdminApi.md#apiv1adminposproductsidput) | **PUT** /api/v1/admin/pos-products/{id} | 
+[**apiV1AdminPosProductsPost**](AdminApi.md#apiv1adminposproductspost) | **POST** /api/v1/admin/pos-products | 
+[**apiV1AdminProductsGet**](AdminApi.md#apiv1adminproductsget) | **GET** /api/v1/admin/products | 
+[**apiV1AdminProductsIdDelete**](AdminApi.md#apiv1adminproductsiddelete) | **DELETE** /api/v1/admin/products/{id} | 
+[**apiV1AdminProductsIdPut**](AdminApi.md#apiv1adminproductsidput) | **PUT** /api/v1/admin/products/{id} | 
+[**apiV1AdminProductsPost**](AdminApi.md#apiv1adminproductspost) | **POST** /api/v1/admin/products | 
+[**apiV1AdminProductsProductIdPosProductsGet**](AdminApi.md#apiv1adminproductsproductidposproductsget) | **GET** /api/v1/admin/products/{productId}/pos-products | 
+[**apiV1AdminPurchasesGet**](AdminApi.md#apiv1adminpurchasesget) | **GET** /api/v1/admin/purchases | 
+[**apiV1AdminPurchasesIdDelete**](AdminApi.md#apiv1adminpurchasesiddelete) | **DELETE** /api/v1/admin/purchases/{id} | 
+[**apiV1AdminPurchasesIdGet**](AdminApi.md#apiv1adminpurchasesidget) | **GET** /api/v1/admin/purchases/{id} | 
+[**apiV1AdminPurchasesIdPut**](AdminApi.md#apiv1adminpurchasesidput) | **PUT** /api/v1/admin/purchases/{id} | 
+[**apiV1AdminPurchasesPost**](AdminApi.md#apiv1adminpurchasespost) | **POST** /api/v1/admin/purchases | 
+[**apiV1AdminRewardsGet**](AdminApi.md#apiv1adminrewardsget) | **GET** /api/v1/admin/rewards | 
+[**apiV1AdminRewardsIdDelete**](AdminApi.md#apiv1adminrewardsiddelete) | **DELETE** /api/v1/admin/rewards/{id} | 
+[**apiV1AdminRewardsIdGet**](AdminApi.md#apiv1adminrewardsidget) | **GET** /api/v1/admin/rewards/{id} | 
+[**apiV1AdminRewardsIdPut**](AdminApi.md#apiv1adminrewardsidput) | **PUT** /api/v1/admin/rewards/{id} | 
+[**apiV1AdminRewardsPost**](AdminApi.md#apiv1adminrewardspost) | **POST** /api/v1/admin/rewards | 
+[**apiV1AdminRolesGet**](AdminApi.md#apiv1adminrolesget) | **GET** /api/v1/admin/roles | 
+[**apiV1AdminRolesIdDelete**](AdminApi.md#apiv1adminrolesiddelete) | **DELETE** /api/v1/admin/roles/{id} | 
+[**apiV1AdminRolesIdGet**](AdminApi.md#apiv1adminrolesidget) | **GET** /api/v1/admin/roles/{id} | 
+[**apiV1AdminRolesIdPermissionsPut**](AdminApi.md#apiv1adminrolesidpermissionsput) | **PUT** /api/v1/admin/roles/{id}/permissions | 
+[**apiV1AdminRolesIdPut**](AdminApi.md#apiv1adminrolesidput) | **PUT** /api/v1/admin/roles/{id} | 
+[**apiV1AdminRolesPost**](AdminApi.md#apiv1adminrolespost) | **POST** /api/v1/admin/roles | 
+[**apiV1AdminStampCardsGet**](AdminApi.md#apiv1adminstampcardsget) | **GET** /api/v1/admin/stamp-cards | 
+[**apiV1AdminStampCardsIdDelete**](AdminApi.md#apiv1adminstampcardsiddelete) | **DELETE** /api/v1/admin/stamp-cards/{id} | 
+[**apiV1AdminStampCardsIdGet**](AdminApi.md#apiv1adminstampcardsidget) | **GET** /api/v1/admin/stamp-cards/{id} | 
+[**apiV1AdminStampCardsIdPut**](AdminApi.md#apiv1adminstampcardsidput) | **PUT** /api/v1/admin/stamp-cards/{id} | 
+[**apiV1AdminStampCardsPost**](AdminApi.md#apiv1adminstampcardspost) | **POST** /api/v1/admin/stamp-cards | 
+[**apiV1AdminStoresGet**](AdminApi.md#apiv1adminstoresget) | **GET** /api/v1/admin/stores | 
+[**apiV1AdminStoresIdDelete**](AdminApi.md#apiv1adminstoresiddelete) | **DELETE** /api/v1/admin/stores/{id} | 
+[**apiV1AdminStoresIdPut**](AdminApi.md#apiv1adminstoresidput) | **PUT** /api/v1/admin/stores/{id} | 
+[**apiV1AdminStoresPost**](AdminApi.md#apiv1adminstorespost) | **POST** /api/v1/admin/stores | 
+[**apiV1AdminSuppliersGet**](AdminApi.md#apiv1adminsuppliersget) | **GET** /api/v1/admin/suppliers | 
+[**apiV1AdminSuppliersIdDelete**](AdminApi.md#apiv1adminsuppliersiddelete) | **DELETE** /api/v1/admin/suppliers/{id} | 
+[**apiV1AdminSuppliersIdGet**](AdminApi.md#apiv1adminsuppliersidget) | **GET** /api/v1/admin/suppliers/{id} | 
+[**apiV1AdminSuppliersIdPut**](AdminApi.md#apiv1adminsuppliersidput) | **PUT** /api/v1/admin/suppliers/{id} | 
+[**apiV1AdminSuppliersPost**](AdminApi.md#apiv1adminsupplierspost) | **POST** /api/v1/admin/suppliers | 
+[**apiV1AdminUsersGet**](AdminApi.md#apiv1adminusersget) | **GET** /api/v1/admin/users | 
+[**apiV1AdminUsersIdDelete**](AdminApi.md#apiv1adminusersiddelete) | **DELETE** /api/v1/admin/users/{id} | 
+[**apiV1AdminUsersIdGet**](AdminApi.md#apiv1adminusersidget) | **GET** /api/v1/admin/users/{id} | 
+[**apiV1AdminUsersIdPut**](AdminApi.md#apiv1adminusersidput) | **PUT** /api/v1/admin/users/{id} | 
+[**apiV1AdminUsersPost**](AdminApi.md#apiv1adminuserspost) | **POST** /api/v1/admin/users | 
 
 
-# **createAdminAssignment**
-> Assignment createAdminAssignment(assignmentWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var assignmentWrite = new AssignmentWrite(); // AssignmentWrite | 
-
-try {
-    var result = api_instance.createAdminAssignment(assignmentWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminAssignment: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **assignmentWrite** | [**AssignmentWrite**](AssignmentWrite.md)|  | 
-
-### Return type
-
-[**Assignment**](Assignment.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminCampaign**
-> Campaign createAdminCampaign(campaignWrite)
+# **apiV1AdminAssignmentsGet**
+> BuiltList<AssignmentDto> apiV1AdminAssignmentsGet(companyId, userId)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var campaignWrite = new CampaignWrite(); // CampaignWrite | 
-
-try {
-    var result = api_instance.createAdminCampaign(campaignWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminCampaign: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **campaignWrite** | [**CampaignWrite**](CampaignWrite.md)|  | 
-
-### Return type
-
-[**Campaign**](Campaign.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminCategory**
-> Category createAdminCategory(categoryWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var categoryWrite = new CategoryWrite(); // CategoryWrite | 
-
-try {
-    var result = api_instance.createAdminCategory(categoryWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminCategory: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **categoryWrite** | [**CategoryWrite**](CategoryWrite.md)|  | 
-
-### Return type
-
-[**Category**](Category.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminCustomer**
-> Customer createAdminCustomer(customerWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var customerWrite = new CustomerWrite(); // CustomerWrite | 
-
-try {
-    var result = api_instance.createAdminCustomer(customerWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminCustomer: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **customerWrite** | [**CustomerWrite**](CustomerWrite.md)|  | 
-
-### Return type
-
-[**Customer**](Customer.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminDiscount**
-> Discount createAdminDiscount(discountWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var discountWrite = new DiscountWrite(); // DiscountWrite | 
-
-try {
-    var result = api_instance.createAdminDiscount(discountWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminDiscount: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **discountWrite** | [**DiscountWrite**](DiscountWrite.md)|  | 
-
-### Return type
-
-[**Discount**](Discount.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminEarnRule**
-> EarnRule createAdminEarnRule(earnRuleWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var earnRuleWrite = new EarnRuleWrite(); // EarnRuleWrite | 
-
-try {
-    var result = api_instance.createAdminEarnRule(earnRuleWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminEarnRule: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **earnRuleWrite** | [**EarnRuleWrite**](EarnRuleWrite.md)|  | 
-
-### Return type
-
-[**EarnRule**](EarnRule.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminLoyaltyTier**
-> LoyaltyTier createAdminLoyaltyTier(loyaltyTierWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var loyaltyTierWrite = new LoyaltyTierWrite(); // LoyaltyTierWrite | 
-
-try {
-    var result = api_instance.createAdminLoyaltyTier(loyaltyTierWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminLoyaltyTier: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **loyaltyTierWrite** | [**LoyaltyTierWrite**](LoyaltyTierWrite.md)|  | 
-
-### Return type
-
-[**LoyaltyTier**](LoyaltyTier.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminPos**
-> Pos createAdminPos(posWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var posWrite = new PosWrite(); // PosWrite | 
-
-try {
-    var result = api_instance.createAdminPos(posWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminPos: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **posWrite** | [**PosWrite**](PosWrite.md)|  | 
-
-### Return type
-
-[**Pos**](Pos.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminPosProduct**
-> PosProduct createAdminPosProduct(posProductWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var posProductWrite = new PosProductWrite(); // PosProductWrite | 
-
-try {
-    var result = api_instance.createAdminPosProduct(posProductWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminPosProduct: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **posProductWrite** | [**PosProductWrite**](PosProductWrite.md)|  | 
-
-### Return type
-
-[**PosProduct**](PosProduct.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminProduct**
-> Product createAdminProduct(productWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var productWrite = new ProductWrite(); // ProductWrite | 
-
-try {
-    var result = api_instance.createAdminProduct(productWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminProduct: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **productWrite** | [**ProductWrite**](ProductWrite.md)|  | 
-
-### Return type
-
-[**Product**](Product.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminReward**
-> Reward createAdminReward(rewardWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var rewardWrite = new RewardWrite(); // RewardWrite | 
-
-try {
-    var result = api_instance.createAdminReward(rewardWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminReward: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **rewardWrite** | [**RewardWrite**](RewardWrite.md)|  | 
-
-### Return type
-
-[**Reward**](Reward.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminRole**
-> Role createAdminRole(roleWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var roleWrite = new RoleWrite(); // RoleWrite | 
-
-try {
-    var result = api_instance.createAdminRole(roleWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminRole: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **roleWrite** | [**RoleWrite**](RoleWrite.md)|  | 
-
-### Return type
-
-[**Role**](Role.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminStampCard**
-> StampCard createAdminStampCard(stampCardWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var stampCardWrite = new StampCardWrite(); // StampCardWrite | 
-
-try {
-    var result = api_instance.createAdminStampCard(stampCardWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminStampCard: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **stampCardWrite** | [**StampCardWrite**](StampCardWrite.md)|  | 
-
-### Return type
-
-[**StampCard**](StampCard.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminStore**
-> Store createAdminStore(storeWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var storeWrite = new StoreWrite(); // StoreWrite | 
-
-try {
-    var result = api_instance.createAdminStore(storeWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminStore: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **storeWrite** | [**StoreWrite**](StoreWrite.md)|  | 
-
-### Return type
-
-[**Store**](Store.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **createAdminUser**
-> User createAdminUser(userWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var userWrite = new UserWrite(); // UserWrite | 
-
-try {
-    var result = api_instance.createAdminUser(userWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->createAdminUser: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **userWrite** | [**UserWrite**](UserWrite.md)|  | 
-
-### Return type
-
-[**User**](User.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminAssignment**
-> deleteAdminAssignment(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminAssignment(id, companyId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminAssignment: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminCampaign**
-> deleteAdminCampaign(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminCampaign(id, companyId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminCampaign: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminCategory**
-> deleteAdminCategory(id, companyId, userId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminCategory(id, companyId, userId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminCategory: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
- **userId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminCustomer**
-> deleteAdminCustomer(id, companyId, userId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminCustomer(id, companyId, userId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminCustomer: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
- **userId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminDiscount**
-> deleteAdminDiscount(id, companyId, userId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminDiscount(id, companyId, userId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminDiscount: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
- **userId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminEarnRule**
-> deleteAdminEarnRule(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminEarnRule(id, companyId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminEarnRule: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminLoyaltyTier**
-> deleteAdminLoyaltyTier(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminLoyaltyTier(id, companyId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminLoyaltyTier: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminPos**
-> deleteAdminPos(id, companyId, userId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminPos(id, companyId, userId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminPos: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
- **userId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminProduct**
-> deleteAdminProduct(id, companyId, userId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminProduct(id, companyId, userId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminProduct: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
- **userId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminReward**
-> deleteAdminReward(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminReward(id, companyId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminReward: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminRole**
-> deleteAdminRole(id, companyId, userId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminRole(id, companyId, userId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminRole: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
- **userId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminStampCard**
-> deleteAdminStampCard(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminStampCard(id, companyId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminStampCard: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminStore**
-> deleteAdminStore(id, companyId, userId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminStore(id, companyId, userId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminStore: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
- **userId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteAdminUser**
-> deleteAdminUser(id, companyId, userId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    api_instance.deleteAdminUser(id, companyId, userId);
-} catch (e) {
-    print('Exception when calling AdminApi->deleteAdminUser: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
- **userId** | **String**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getAdminAssignment**
-> Assignment getAdminAssignment(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.getAdminAssignment(id, companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->getAdminAssignment: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-[**Assignment**](Assignment.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getAdminCampaign**
-> Campaign getAdminCampaign(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.getAdminCampaign(id, companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->getAdminCampaign: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-[**Campaign**](Campaign.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getAdminDiscount**
-> Discount getAdminDiscount(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.getAdminDiscount(id, companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->getAdminDiscount: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-[**Discount**](Discount.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getAdminEarnRule**
-> EarnRule getAdminEarnRule(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.getAdminEarnRule(id, companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->getAdminEarnRule: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-[**EarnRule**](EarnRule.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getAdminLoyaltyTier**
-> LoyaltyTier getAdminLoyaltyTier(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.getAdminLoyaltyTier(id, companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->getAdminLoyaltyTier: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-[**LoyaltyTier**](LoyaltyTier.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getAdminReward**
-> Reward getAdminReward(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.getAdminReward(id, companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->getAdminReward: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-[**Reward**](Reward.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getAdminRole**
-> Role getAdminRole(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.getAdminRole(id, companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->getAdminRole: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-[**Role**](Role.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getAdminStampCard**
-> StampCard getAdminStampCard(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.getAdminStampCard(id, companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->getAdminStampCard: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-[**StampCard**](StampCard.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getAdminUser**
-> User getAdminUser(id, companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.getAdminUser(id, companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->getAdminUser: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **companyId** | **String**|  | 
-
-### Return type
-
-[**User**](User.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **listAdminAssignments**
-> BuiltList<Assignment> listAdminAssignments(companyId, userId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
 
 var api_instance = new AdminApi();
 var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 
 try {
-    var result = api_instance.listAdminAssignments(companyId, userId);
+    var result = api_instance.apiV1AdminAssignmentsGet(companyId, userId);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminAssignments: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminAssignmentsGet: $e\n');
 }
 ```
 
@@ -1830,44 +120,41 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
  **userId** | **String**|  | [optional] 
 
 ### Return type
 
-[**BuiltList<Assignment>**](Assignment.md)
+[**BuiltList<AssignmentDto>**](AssignmentDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminCampaigns**
-> BuiltList<Campaign> listAdminCampaigns(companyId)
+# **apiV1AdminAssignmentsIdDelete**
+> apiV1AdminAssignmentsIdDelete(id, companyId)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
 
 var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 
 try {
-    var result = api_instance.listAdminCampaigns(companyId);
-    print(result);
+    api_instance.apiV1AdminAssignmentsIdDelete(id, companyId);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminCampaigns: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminAssignmentsIdDelete: $e\n');
 }
 ```
 
@@ -1875,43 +162,42 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
 
 ### Return type
 
-[**BuiltList<Campaign>**](Campaign.md)
+void (empty response body)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminCategories**
-> BuiltList<Category> listAdminCategories(companyId)
+# **apiV1AdminAssignmentsIdGet**
+> AssignmentDto apiV1AdminAssignmentsIdGet(id, companyId)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
 
 var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 
 try {
-    var result = api_instance.listAdminCategories(companyId);
+    var result = api_instance.apiV1AdminAssignmentsIdGet(id, companyId);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminCategories: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminAssignmentsIdGet: $e\n');
 }
 ```
 
@@ -1919,42 +205,1522 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
 
 ### Return type
 
-[**BuiltList<Category>**](Category.md)
+[**AssignmentDto**](AssignmentDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminCompanies**
-> BuiltList<Company> listAdminCompanies()
+# **apiV1AdminAssignmentsIdPut**
+> AssignmentDto apiV1AdminAssignmentsIdPut(id, assignmentWriteDto)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var assignmentWriteDto = new AssignmentWriteDto(); // AssignmentWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminAssignmentsIdPut(id, assignmentWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminAssignmentsIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **assignmentWriteDto** | [**AssignmentWriteDto**](AssignmentWriteDto.md)|  | 
+
+### Return type
+
+[**AssignmentDto**](AssignmentDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminAssignmentsPost**
+> AssignmentDto apiV1AdminAssignmentsPost(assignmentWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var assignmentWriteDto = new AssignmentWriteDto(); // AssignmentWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminAssignmentsPost(assignmentWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminAssignmentsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **assignmentWriteDto** | [**AssignmentWriteDto**](AssignmentWriteDto.md)|  | 
+
+### Return type
+
+[**AssignmentDto**](AssignmentDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCampaignsGet**
+> PagedResultOfCampaignDto apiV1AdminCampaignsGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
+
+try {
+    var result = api_instance.apiV1AdminCampaignsGet(companyId, page, pageSize, sort, filter);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCampaignsGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+
+### Return type
+
+[**PagedResultOfCampaignDto**](PagedResultOfCampaignDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCampaignsIdDelete**
+> apiV1AdminCampaignsIdDelete(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminCampaignsIdDelete(id, companyId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCampaignsIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCampaignsIdGet**
+> CampaignDto apiV1AdminCampaignsIdGet(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminCampaignsIdGet(id, companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCampaignsIdGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**CampaignDto**](CampaignDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCampaignsIdPut**
+> CampaignDto apiV1AdminCampaignsIdPut(id, campaignWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var campaignWriteDto = new CampaignWriteDto(); // CampaignWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminCampaignsIdPut(id, campaignWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCampaignsIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **campaignWriteDto** | [**CampaignWriteDto**](CampaignWriteDto.md)|  | 
+
+### Return type
+
+[**CampaignDto**](CampaignDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCampaignsPost**
+> CampaignDto apiV1AdminCampaignsPost(campaignWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var campaignWriteDto = new CampaignWriteDto(); // CampaignWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminCampaignsPost(campaignWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCampaignsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaignWriteDto** | [**CampaignWriteDto**](CampaignWriteDto.md)|  | 
+
+### Return type
+
+[**CampaignDto**](CampaignDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCategoriesGet**
+> BuiltList<CategoryDto> apiV1AdminCategoriesGet(companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminCategoriesGet(companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCategoriesGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**BuiltList<CategoryDto>**](CategoryDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCategoriesIdDelete**
+> apiV1AdminCategoriesIdDelete(id, companyId, userId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminCategoriesIdDelete(id, companyId, userId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCategoriesIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+ **userId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCategoriesIdPut**
+> CategoryDto apiV1AdminCategoriesIdPut(id, categoryWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var categoryWriteDto = new CategoryWriteDto(); // CategoryWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminCategoriesIdPut(id, categoryWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCategoriesIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **categoryWriteDto** | [**CategoryWriteDto**](CategoryWriteDto.md)|  | 
+
+### Return type
+
+[**CategoryDto**](CategoryDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCategoriesPost**
+> CategoryDto apiV1AdminCategoriesPost(categoryWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var categoryWriteDto = new CategoryWriteDto(); // CategoryWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminCategoriesPost(categoryWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCategoriesPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **categoryWriteDto** | [**CategoryWriteDto**](CategoryWriteDto.md)|  | 
+
+### Return type
+
+[**CategoryDto**](CategoryDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCustomersGet**
+> PagedResultOfCustomerDto apiV1AdminCustomersGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
+
+try {
+    var result = api_instance.apiV1AdminCustomersGet(companyId, page, pageSize, sort, filter);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCustomersGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+
+### Return type
+
+[**PagedResultOfCustomerDto**](PagedResultOfCustomerDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCustomersIdDelete**
+> apiV1AdminCustomersIdDelete(id, companyId, userId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminCustomersIdDelete(id, companyId, userId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCustomersIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+ **userId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCustomersIdGet**
+> CustomerDetailDto apiV1AdminCustomersIdGet(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminCustomersIdGet(id, companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCustomersIdGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**CustomerDetailDto**](CustomerDetailDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCustomersIdLoyaltyAdjustmentsPost**
+> LoyaltyAdjustmentDto apiV1AdminCustomersIdLoyaltyAdjustmentsPost(id, customerLoyaltyAdjustmentRequest)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var customerLoyaltyAdjustmentRequest = new CustomerLoyaltyAdjustmentRequest(); // CustomerLoyaltyAdjustmentRequest | 
+
+try {
+    var result = api_instance.apiV1AdminCustomersIdLoyaltyAdjustmentsPost(id, customerLoyaltyAdjustmentRequest);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCustomersIdLoyaltyAdjustmentsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **customerLoyaltyAdjustmentRequest** | [**CustomerLoyaltyAdjustmentRequest**](CustomerLoyaltyAdjustmentRequest.md)|  | 
+
+### Return type
+
+[**LoyaltyAdjustmentDto**](LoyaltyAdjustmentDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCustomersIdPut**
+> CustomerDto apiV1AdminCustomersIdPut(id, customerWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var customerWriteDto = new CustomerWriteDto(); // CustomerWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminCustomersIdPut(id, customerWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCustomersIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **customerWriteDto** | [**CustomerWriteDto**](CustomerWriteDto.md)|  | 
+
+### Return type
+
+[**CustomerDto**](CustomerDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCustomersIdWalletAdjustmentsPost**
+> WalletAdjustmentDto apiV1AdminCustomersIdWalletAdjustmentsPost(id, customerWalletAdjustmentRequest)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var customerWalletAdjustmentRequest = new CustomerWalletAdjustmentRequest(); // CustomerWalletAdjustmentRequest | 
+
+try {
+    var result = api_instance.apiV1AdminCustomersIdWalletAdjustmentsPost(id, customerWalletAdjustmentRequest);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCustomersIdWalletAdjustmentsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **customerWalletAdjustmentRequest** | [**CustomerWalletAdjustmentRequest**](CustomerWalletAdjustmentRequest.md)|  | 
+
+### Return type
+
+[**WalletAdjustmentDto**](WalletAdjustmentDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCustomersPost**
+> CustomerDto apiV1AdminCustomersPost(customerWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var customerWriteDto = new CustomerWriteDto(); // CustomerWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminCustomersPost(customerWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCustomersPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **customerWriteDto** | [**CustomerWriteDto**](CustomerWriteDto.md)|  | 
+
+### Return type
+
+[**CustomerDto**](CustomerDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminDiscountsGet**
+> PagedResultOfDiscountDto apiV1AdminDiscountsGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
+
+try {
+    var result = api_instance.apiV1AdminDiscountsGet(companyId, page, pageSize, sort, filter);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminDiscountsGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+
+### Return type
+
+[**PagedResultOfDiscountDto**](PagedResultOfDiscountDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminDiscountsIdDelete**
+> apiV1AdminDiscountsIdDelete(id, companyId, userId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminDiscountsIdDelete(id, companyId, userId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminDiscountsIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+ **userId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminDiscountsIdGet**
+> DiscountDto apiV1AdminDiscountsIdGet(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminDiscountsIdGet(id, companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminDiscountsIdGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**DiscountDto**](DiscountDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminDiscountsIdPut**
+> DiscountDto apiV1AdminDiscountsIdPut(id, discountWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var discountWriteDto = new DiscountWriteDto(); // DiscountWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminDiscountsIdPut(id, discountWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminDiscountsIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **discountWriteDto** | [**DiscountWriteDto**](DiscountWriteDto.md)|  | 
+
+### Return type
+
+[**DiscountDto**](DiscountDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminDiscountsPost**
+> DiscountDto apiV1AdminDiscountsPost(discountWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var discountWriteDto = new DiscountWriteDto(); // DiscountWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminDiscountsPost(discountWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminDiscountsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **discountWriteDto** | [**DiscountWriteDto**](DiscountWriteDto.md)|  | 
+
+### Return type
+
+[**DiscountDto**](DiscountDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminEarnRulesGet**
+> PagedResultOfEarnRuleDto apiV1AdminEarnRulesGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
+
+try {
+    var result = api_instance.apiV1AdminEarnRulesGet(companyId, page, pageSize, sort, filter);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminEarnRulesGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+
+### Return type
+
+[**PagedResultOfEarnRuleDto**](PagedResultOfEarnRuleDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminEarnRulesIdDelete**
+> apiV1AdminEarnRulesIdDelete(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminEarnRulesIdDelete(id, companyId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminEarnRulesIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminEarnRulesIdGet**
+> EarnRuleDto apiV1AdminEarnRulesIdGet(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminEarnRulesIdGet(id, companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminEarnRulesIdGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**EarnRuleDto**](EarnRuleDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminEarnRulesIdPut**
+> EarnRuleDto apiV1AdminEarnRulesIdPut(id, earnRuleWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var earnRuleWriteDto = new EarnRuleWriteDto(); // EarnRuleWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminEarnRulesIdPut(id, earnRuleWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminEarnRulesIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **earnRuleWriteDto** | [**EarnRuleWriteDto**](EarnRuleWriteDto.md)|  | 
+
+### Return type
+
+[**EarnRuleDto**](EarnRuleDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminEarnRulesPost**
+> EarnRuleDto apiV1AdminEarnRulesPost(earnRuleWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var earnRuleWriteDto = new EarnRuleWriteDto(); // EarnRuleWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminEarnRulesPost(earnRuleWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminEarnRulesPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **earnRuleWriteDto** | [**EarnRuleWriteDto**](EarnRuleWriteDto.md)|  | 
+
+### Return type
+
+[**EarnRuleDto**](EarnRuleDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminLoyaltyTiersGet**
+> PagedResultOfLoyaltyTierDto apiV1AdminLoyaltyTiersGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
+
+try {
+    var result = api_instance.apiV1AdminLoyaltyTiersGet(companyId, page, pageSize, sort, filter);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminLoyaltyTiersGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+
+### Return type
+
+[**PagedResultOfLoyaltyTierDto**](PagedResultOfLoyaltyTierDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminLoyaltyTiersIdDelete**
+> apiV1AdminLoyaltyTiersIdDelete(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminLoyaltyTiersIdDelete(id, companyId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminLoyaltyTiersIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminLoyaltyTiersIdGet**
+> LoyaltyTierDto apiV1AdminLoyaltyTiersIdGet(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminLoyaltyTiersIdGet(id, companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminLoyaltyTiersIdGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**LoyaltyTierDto**](LoyaltyTierDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminLoyaltyTiersIdPut**
+> LoyaltyTierDto apiV1AdminLoyaltyTiersIdPut(id, loyaltyTierWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var loyaltyTierWriteDto = new LoyaltyTierWriteDto(); // LoyaltyTierWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminLoyaltyTiersIdPut(id, loyaltyTierWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminLoyaltyTiersIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **loyaltyTierWriteDto** | [**LoyaltyTierWriteDto**](LoyaltyTierWriteDto.md)|  | 
+
+### Return type
+
+[**LoyaltyTierDto**](LoyaltyTierDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminLoyaltyTiersPost**
+> LoyaltyTierDto apiV1AdminLoyaltyTiersPost(loyaltyTierWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var loyaltyTierWriteDto = new LoyaltyTierWriteDto(); // LoyaltyTierWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminLoyaltyTiersPost(loyaltyTierWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminLoyaltyTiersPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **loyaltyTierWriteDto** | [**LoyaltyTierWriteDto**](LoyaltyTierWriteDto.md)|  | 
+
+### Return type
+
+[**LoyaltyTierDto**](LoyaltyTierDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminOrdersGet**
+> PagedResultOfOrderListDto apiV1AdminOrdersGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
+
+try {
+    var result = api_instance.apiV1AdminOrdersGet(companyId, page, pageSize, sort, filter);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminOrdersGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+
+### Return type
+
+[**PagedResultOfOrderListDto**](PagedResultOfOrderListDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminPermissionsGet**
+> BuiltList<PermissionDto> apiV1AdminPermissionsGet()
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
 
 var api_instance = new AdminApi();
 
 try {
-    var result = api_instance.listAdminCompanies();
+    var result = api_instance.apiV1AdminPermissionsGet();
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminCompanies: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminPermissionsGet: $e\n');
 }
 ```
 
@@ -1963,39 +1729,36 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**BuiltList<Company>**](Company.md)
+[**BuiltList<PermissionDto>**](PermissionDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminCustomers**
-> BuiltList<Customer> listAdminCustomers(companyId)
+# **apiV1AdminPosGet**
+> BuiltList<PosDto> apiV1AdminPosGet(companyId)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
 
 var api_instance = new AdminApi();
 var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 
 try {
-    var result = api_instance.listAdminCustomers(companyId);
+    var result = api_instance.apiV1AdminPosGet(companyId);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminCustomers: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminPosGet: $e\n');
 }
 ```
 
@@ -2003,43 +1766,908 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
 
 ### Return type
 
-[**BuiltList<Customer>**](Customer.md)
+[**BuiltList<PosDto>**](PosDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminDiscounts**
-> BuiltList<Discount> listAdminDiscounts(companyId)
+# **apiV1AdminPosIdDelete**
+> apiV1AdminPosIdDelete(id, companyId, userId)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminPosIdDelete(id, companyId, userId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminPosIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+ **userId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminPosIdPut**
+> PosDto apiV1AdminPosIdPut(id, posWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var posWriteDto = new PosWriteDto(); // PosWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminPosIdPut(id, posWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminPosIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **posWriteDto** | [**PosWriteDto**](PosWriteDto.md)|  | 
+
+### Return type
+
+[**PosDto**](PosDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminPosPost**
+> PosDto apiV1AdminPosPost(posWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var posWriteDto = new PosWriteDto(); // PosWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminPosPost(posWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminPosPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **posWriteDto** | [**PosWriteDto**](PosWriteDto.md)|  | 
+
+### Return type
+
+[**PosDto**](PosDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminPosProductsIdPut**
+> PosProductDto apiV1AdminPosProductsIdPut(id, posProductWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var posProductWriteDto = new PosProductWriteDto(); // PosProductWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminPosProductsIdPut(id, posProductWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminPosProductsIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **posProductWriteDto** | [**PosProductWriteDto**](PosProductWriteDto.md)|  | 
+
+### Return type
+
+[**PosProductDto**](PosProductDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminPosProductsPost**
+> PosProductDto apiV1AdminPosProductsPost(posProductWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var posProductWriteDto = new PosProductWriteDto(); // PosProductWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminPosProductsPost(posProductWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminPosProductsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **posProductWriteDto** | [**PosProductWriteDto**](PosProductWriteDto.md)|  | 
+
+### Return type
+
+[**PosProductDto**](PosProductDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminProductsGet**
+> PagedResultOfProductDto apiV1AdminProductsGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
+
+try {
+    var result = api_instance.apiV1AdminProductsGet(companyId, page, pageSize, sort, filter);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminProductsGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+
+### Return type
+
+[**PagedResultOfProductDto**](PagedResultOfProductDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminProductsIdDelete**
+> apiV1AdminProductsIdDelete(id, companyId, userId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminProductsIdDelete(id, companyId, userId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminProductsIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+ **userId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminProductsIdPut**
+> ProductDto apiV1AdminProductsIdPut(id, productWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var productWriteDto = new ProductWriteDto(); // ProductWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminProductsIdPut(id, productWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminProductsIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **productWriteDto** | [**ProductWriteDto**](ProductWriteDto.md)|  | 
+
+### Return type
+
+[**ProductDto**](ProductDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminProductsPost**
+> ProductDto apiV1AdminProductsPost(productWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var productWriteDto = new ProductWriteDto(); // ProductWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminProductsPost(productWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminProductsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **productWriteDto** | [**ProductWriteDto**](ProductWriteDto.md)|  | 
+
+### Return type
+
+[**ProductDto**](ProductDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminProductsProductIdPosProductsGet**
+> BuiltList<PosProductDto> apiV1AdminProductsProductIdPosProductsGet(productId, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var productId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminProductsProductIdPosProductsGet(productId, companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminProductsProductIdPosProductsGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **productId** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**BuiltList<PosProductDto>**](PosProductDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminPurchasesGet**
+> PagedResultOfPurchaseDto apiV1AdminPurchasesGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
+
+try {
+    var result = api_instance.apiV1AdminPurchasesGet(companyId, page, pageSize, sort, filter);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminPurchasesGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+
+### Return type
+
+[**PagedResultOfPurchaseDto**](PagedResultOfPurchaseDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminPurchasesIdDelete**
+> apiV1AdminPurchasesIdDelete(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminPurchasesIdDelete(id, companyId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminPurchasesIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminPurchasesIdGet**
+> PurchaseDto apiV1AdminPurchasesIdGet(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminPurchasesIdGet(id, companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminPurchasesIdGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**PurchaseDto**](PurchaseDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminPurchasesIdPut**
+> PurchaseDto apiV1AdminPurchasesIdPut(id, purchaseWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var purchaseWriteDto = new PurchaseWriteDto(); // PurchaseWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminPurchasesIdPut(id, purchaseWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminPurchasesIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **purchaseWriteDto** | [**PurchaseWriteDto**](PurchaseWriteDto.md)|  | 
+
+### Return type
+
+[**PurchaseDto**](PurchaseDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminPurchasesPost**
+> PurchaseDto apiV1AdminPurchasesPost(purchaseWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var purchaseWriteDto = new PurchaseWriteDto(); // PurchaseWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminPurchasesPost(purchaseWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminPurchasesPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **purchaseWriteDto** | [**PurchaseWriteDto**](PurchaseWriteDto.md)|  | 
+
+### Return type
+
+[**PurchaseDto**](PurchaseDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminRewardsGet**
+> PagedResultOfRewardDto apiV1AdminRewardsGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
+
+try {
+    var result = api_instance.apiV1AdminRewardsGet(companyId, page, pageSize, sort, filter);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminRewardsGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+
+### Return type
+
+[**PagedResultOfRewardDto**](PagedResultOfRewardDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminRewardsIdDelete**
+> apiV1AdminRewardsIdDelete(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminRewardsIdDelete(id, companyId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminRewardsIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminRewardsIdGet**
+> RewardDto apiV1AdminRewardsIdGet(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminRewardsIdGet(id, companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminRewardsIdGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**RewardDto**](RewardDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminRewardsIdPut**
+> RewardDto apiV1AdminRewardsIdPut(id, rewardWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var rewardWriteDto = new RewardWriteDto(); // RewardWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminRewardsIdPut(id, rewardWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminRewardsIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **rewardWriteDto** | [**RewardWriteDto**](RewardWriteDto.md)|  | 
+
+### Return type
+
+[**RewardDto**](RewardDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminRewardsPost**
+> RewardDto apiV1AdminRewardsPost(rewardWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var rewardWriteDto = new RewardWriteDto(); // RewardWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminRewardsPost(rewardWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminRewardsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **rewardWriteDto** | [**RewardWriteDto**](RewardWriteDto.md)|  | 
+
+### Return type
+
+[**RewardDto**](RewardDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminRolesGet**
+> BuiltList<RoleDto> apiV1AdminRolesGet(companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
 
 var api_instance = new AdminApi();
 var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 
 try {
-    var result = api_instance.listAdminDiscounts(companyId);
+    var result = api_instance.apiV1AdminRolesGet(companyId);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminDiscounts: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminRolesGet: $e\n');
 }
 ```
 
@@ -2047,43 +2675,472 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
 
 ### Return type
 
-[**BuiltList<Discount>**](Discount.md)
+[**BuiltList<RoleDto>**](RoleDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminEarnRules**
-> BuiltList<EarnRule> listAdminEarnRules(companyId)
+# **apiV1AdminRolesIdDelete**
+> apiV1AdminRolesIdDelete(id, companyId, userId)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminRolesIdDelete(id, companyId, userId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminRolesIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+ **userId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminRolesIdGet**
+> RoleDto apiV1AdminRolesIdGet(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminRolesIdGet(id, companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminRolesIdGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**RoleDto**](RoleDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminRolesIdPermissionsPut**
+> RoleDto apiV1AdminRolesIdPermissionsPut(id, rolePermissionWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var rolePermissionWriteDto = new RolePermissionWriteDto(); // RolePermissionWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminRolesIdPermissionsPut(id, rolePermissionWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminRolesIdPermissionsPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **rolePermissionWriteDto** | [**RolePermissionWriteDto**](RolePermissionWriteDto.md)|  | 
+
+### Return type
+
+[**RoleDto**](RoleDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminRolesIdPut**
+> RoleDto apiV1AdminRolesIdPut(id, roleWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var roleWriteDto = new RoleWriteDto(); // RoleWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminRolesIdPut(id, roleWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminRolesIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **roleWriteDto** | [**RoleWriteDto**](RoleWriteDto.md)|  | 
+
+### Return type
+
+[**RoleDto**](RoleDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminRolesPost**
+> RoleDto apiV1AdminRolesPost(roleWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var roleWriteDto = new RoleWriteDto(); // RoleWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminRolesPost(roleWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminRolesPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **roleWriteDto** | [**RoleWriteDto**](RoleWriteDto.md)|  | 
+
+### Return type
+
+[**RoleDto**](RoleDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminStampCardsGet**
+> PagedResultOfStampCardDto apiV1AdminStampCardsGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
+
+try {
+    var result = api_instance.apiV1AdminStampCardsGet(companyId, page, pageSize, sort, filter);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminStampCardsGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
+
+### Return type
+
+[**PagedResultOfStampCardDto**](PagedResultOfStampCardDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminStampCardsIdDelete**
+> apiV1AdminStampCardsIdDelete(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminStampCardsIdDelete(id, companyId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminStampCardsIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminStampCardsIdGet**
+> StampCardDto apiV1AdminStampCardsIdGet(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminStampCardsIdGet(id, companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminStampCardsIdGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**StampCardDto**](StampCardDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminStampCardsIdPut**
+> StampCardDto apiV1AdminStampCardsIdPut(id, stampCardWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var stampCardWriteDto = new StampCardWriteDto(); // StampCardWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminStampCardsIdPut(id, stampCardWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminStampCardsIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **stampCardWriteDto** | [**StampCardWriteDto**](StampCardWriteDto.md)|  | 
+
+### Return type
+
+[**StampCardDto**](StampCardDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminStampCardsPost**
+> StampCardDto apiV1AdminStampCardsPost(stampCardWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var stampCardWriteDto = new StampCardWriteDto(); // StampCardWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminStampCardsPost(stampCardWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminStampCardsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **stampCardWriteDto** | [**StampCardWriteDto**](StampCardWriteDto.md)|  | 
+
+### Return type
+
+[**StampCardDto**](StampCardDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminStoresGet**
+> BuiltList<StoreDto> apiV1AdminStoresGet(companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
 
 var api_instance = new AdminApi();
 var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 
 try {
-    var result = api_instance.listAdminEarnRules(companyId);
+    var result = api_instance.apiV1AdminStoresGet(companyId);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminEarnRules: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminStoresGet: $e\n');
 }
 ```
 
@@ -2091,43 +3148,172 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
 
 ### Return type
 
-[**BuiltList<EarnRule>**](EarnRule.md)
+[**BuiltList<StoreDto>**](StoreDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminLoyaltyTiers**
-> BuiltList<LoyaltyTier> listAdminLoyaltyTiers(companyId)
+# **apiV1AdminStoresIdDelete**
+> apiV1AdminStoresIdDelete(id, companyId, userId)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminStoresIdDelete(id, companyId, userId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminStoresIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+ **userId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminStoresIdPut**
+> StoreDto apiV1AdminStoresIdPut(id, storeWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var storeWriteDto = new StoreWriteDto(); // StoreWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminStoresIdPut(id, storeWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminStoresIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **storeWriteDto** | [**StoreWriteDto**](StoreWriteDto.md)|  | 
+
+### Return type
+
+[**StoreDto**](StoreDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminStoresPost**
+> StoreDto apiV1AdminStoresPost(storeWriteDto)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var storeWriteDto = new StoreWriteDto(); // StoreWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminStoresPost(storeWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminStoresPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **storeWriteDto** | [**StoreWriteDto**](StoreWriteDto.md)|  | 
+
+### Return type
+
+[**StoreDto**](StoreDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminSuppliersGet**
+> PagedResultOfSupplierDto apiV1AdminSuppliersGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
 
 var api_instance = new AdminApi();
 var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
 
 try {
-    var result = api_instance.listAdminLoyaltyTiers(companyId);
+    var result = api_instance.apiV1AdminSuppliersGet(companyId, page, pageSize, sort, filter);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminLoyaltyTiers: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminSuppliersGet: $e\n');
 }
 ```
 
@@ -2135,43 +3321,89 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
 
 ### Return type
 
-[**BuiltList<LoyaltyTier>**](LoyaltyTier.md)
+[**PagedResultOfSupplierDto**](PagedResultOfSupplierDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminOrders**
-> BuiltList<OrderListItem> listAdminOrders(companyId)
+# **apiV1AdminSuppliersIdDelete**
+> apiV1AdminSuppliersIdDelete(id, companyId, userId)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
 
 var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminSuppliersIdDelete(id, companyId, userId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminSuppliersIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+ **userId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminSuppliersIdGet**
+> SupplierDto apiV1AdminSuppliersIdGet(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 
 try {
-    var result = api_instance.listAdminOrders(companyId);
+    var result = api_instance.apiV1AdminSuppliersIdGet(id, companyId);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminOrders: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminSuppliersIdGet: $e\n');
 }
 ```
 
@@ -2179,83 +3411,129 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
 
 ### Return type
 
-[**BuiltList<OrderListItem>**](OrderListItem.md)
+[**SupplierDto**](SupplierDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminPermissions**
-> BuiltList<Permission> listAdminPermissions()
+# **apiV1AdminSuppliersIdPut**
+> SupplierDto apiV1AdminSuppliersIdPut(id, supplierWriteDto)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
 
 var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var supplierWriteDto = new SupplierWriteDto(); // SupplierWriteDto | 
 
 try {
-    var result = api_instance.listAdminPermissions();
+    var result = api_instance.apiV1AdminSuppliersIdPut(id, supplierWriteDto);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminPermissions: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminSuppliersIdPut: $e\n');
 }
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **supplierWriteDto** | [**SupplierWriteDto**](SupplierWriteDto.md)|  | 
 
 ### Return type
 
-[**BuiltList<Permission>**](Permission.md)
+[**SupplierDto**](SupplierDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminPos**
-> BuiltList<Pos> listAdminPos(companyId)
+# **apiV1AdminSuppliersPost**
+> SupplierDto apiV1AdminSuppliersPost(supplierWriteDto)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
+
+var api_instance = new AdminApi();
+var supplierWriteDto = new SupplierWriteDto(); // SupplierWriteDto | 
+
+try {
+    var result = api_instance.apiV1AdminSuppliersPost(supplierWriteDto);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminSuppliersPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **supplierWriteDto** | [**SupplierWriteDto**](SupplierWriteDto.md)|  | 
+
+### Return type
+
+[**SupplierDto**](SupplierDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminUsersGet**
+> PagedResultOfUserDto apiV1AdminUsersGet(companyId, page, pageSize, sort, filter)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
 
 var api_instance = new AdminApi();
 var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var page = 56; // int | 
+var pageSize = 56; // int | 
+var sort = sort_example; // String | 
+var filter = filter_example; // String | 
 
 try {
-    var result = api_instance.listAdminPos(companyId);
+    var result = api_instance.apiV1AdminUsersGet(companyId, page, pageSize, sort, filter);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminPos: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminUsersGet: $e\n');
 }
 ```
 
@@ -2263,43 +3541,89 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+ **page** | **int**|  | [optional] [default to 1]
+ **pageSize** | **int**|  | [optional] [default to 50]
+ **sort** | **String**|  | [optional] 
+ **filter** | **String**|  | [optional] 
 
 ### Return type
 
-[**BuiltList<Pos>**](Pos.md)
+[**PagedResultOfUserDto**](PagedResultOfUserDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminProducts**
-> BuiltList<Product> listAdminProducts(companyId)
+# **apiV1AdminUsersIdDelete**
+> apiV1AdminUsersIdDelete(id, companyId, userId)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
 
 var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var userId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api_instance.apiV1AdminUsersIdDelete(id, companyId, userId);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminUsersIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
+ **userId** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminUsersIdGet**
+> UserDto apiV1AdminUsersIdGet(id, companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
 
 try {
-    var result = api_instance.listAdminProducts(companyId);
+    var result = api_instance.apiV1AdminUsersIdGet(id, companyId);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->listAdminProducts: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminUsersIdGet: $e\n');
 }
 ```
 
@@ -2307,264 +3631,42 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
+ **id** | **String**|  | 
+ **companyId** | **String**|  | [optional] 
 
 ### Return type
 
-[**BuiltList<Product>**](Product.md)
+[**UserDto**](UserDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listAdminRewards**
-> BuiltList<Reward> listAdminRewards(companyId)
+# **apiV1AdminUsersIdPut**
+> UserDto apiV1AdminUsersIdPut(id, userWriteDto)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.listAdminRewards(companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->listAdminRewards: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
-
-### Return type
-
-[**BuiltList<Reward>**](Reward.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **listAdminRoles**
-> BuiltList<Role> listAdminRoles(companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.listAdminRoles(companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->listAdminRoles: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
-
-### Return type
-
-[**BuiltList<Role>**](Role.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **listAdminStampCards**
-> BuiltList<StampCard> listAdminStampCards(companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.listAdminStampCards(companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->listAdminStampCards: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
-
-### Return type
-
-[**BuiltList<StampCard>**](StampCard.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **listAdminStores**
-> BuiltList<Store> listAdminStores(companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.listAdminStores(companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->listAdminStores: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
-
-### Return type
-
-[**BuiltList<Store>**](Store.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **listAdminUsers**
-> BuiltList<User> listAdminUsers(companyId)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-
-try {
-    var result = api_instance.listAdminUsers(companyId);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->listAdminUsers: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **companyId** | **String**|  | 
-
-### Return type
-
-[**BuiltList<User>**](User.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminAssignment**
-> Assignment updateAdminAssignment(id, assignmentWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
 
 var api_instance = new AdminApi();
 var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var assignmentWrite = new AssignmentWrite(); // AssignmentWrite | 
+var userWriteDto = new UserWriteDto(); // UserWriteDto | 
 
 try {
-    var result = api_instance.updateAdminAssignment(id, assignmentWrite);
+    var result = api_instance.apiV1AdminUsersIdPut(id, userWriteDto);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->updateAdminAssignment: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminUsersIdPut: $e\n');
 }
 ```
 
@@ -2573,44 +3675,40 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  | 
- **assignmentWrite** | [**AssignmentWrite**](AssignmentWrite.md)|  | 
+ **userWriteDto** | [**UserWriteDto**](UserWriteDto.md)|  | 
 
 ### Return type
 
-[**Assignment**](Assignment.md)
+[**UserDto**](UserDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **updateAdminCampaign**
-> Campaign updateAdminCampaign(id, campaignWrite)
+# **apiV1AdminUsersPost**
+> UserDto apiV1AdminUsersPost(userWriteDto)
 
 
 
 ### Example
 ```dart
 import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
 
 var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var campaignWrite = new CampaignWrite(); // CampaignWrite | 
+var userWriteDto = new UserWriteDto(); // UserWriteDto | 
 
 try {
-    var result = api_instance.updateAdminCampaign(id, campaignWrite);
+    var result = api_instance.apiV1AdminUsersPost(userWriteDto);
     print(result);
 } catch (e) {
-    print('Exception when calling AdminApi->updateAdminCampaign: $e\n');
+    print('Exception when calling AdminApi->apiV1AdminUsersPost: $e\n');
 }
 ```
 
@@ -2618,665 +3716,20 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **campaignWrite** | [**CampaignWrite**](CampaignWrite.md)|  | 
+ **userWriteDto** | [**UserWriteDto**](UserWriteDto.md)|  | 
 
 ### Return type
 
-[**Campaign**](Campaign.md)
+[**UserDto**](UserDto.md)
 
 ### Authorization
 
-[bearerAuth](../README.md#bearerAuth)
+No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminCategory**
-> Category updateAdminCategory(id, categoryWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var categoryWrite = new CategoryWrite(); // CategoryWrite | 
-
-try {
-    var result = api_instance.updateAdminCategory(id, categoryWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminCategory: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **categoryWrite** | [**CategoryWrite**](CategoryWrite.md)|  | 
-
-### Return type
-
-[**Category**](Category.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminCustomer**
-> Customer updateAdminCustomer(id, customerWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var customerWrite = new CustomerWrite(); // CustomerWrite | 
-
-try {
-    var result = api_instance.updateAdminCustomer(id, customerWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminCustomer: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **customerWrite** | [**CustomerWrite**](CustomerWrite.md)|  | 
-
-### Return type
-
-[**Customer**](Customer.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminDiscount**
-> Discount updateAdminDiscount(id, discountWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var discountWrite = new DiscountWrite(); // DiscountWrite | 
-
-try {
-    var result = api_instance.updateAdminDiscount(id, discountWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminDiscount: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **discountWrite** | [**DiscountWrite**](DiscountWrite.md)|  | 
-
-### Return type
-
-[**Discount**](Discount.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminEarnRule**
-> EarnRule updateAdminEarnRule(id, earnRuleWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var earnRuleWrite = new EarnRuleWrite(); // EarnRuleWrite | 
-
-try {
-    var result = api_instance.updateAdminEarnRule(id, earnRuleWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminEarnRule: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **earnRuleWrite** | [**EarnRuleWrite**](EarnRuleWrite.md)|  | 
-
-### Return type
-
-[**EarnRule**](EarnRule.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminLoyaltyTier**
-> LoyaltyTier updateAdminLoyaltyTier(id, loyaltyTierWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var loyaltyTierWrite = new LoyaltyTierWrite(); // LoyaltyTierWrite | 
-
-try {
-    var result = api_instance.updateAdminLoyaltyTier(id, loyaltyTierWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminLoyaltyTier: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **loyaltyTierWrite** | [**LoyaltyTierWrite**](LoyaltyTierWrite.md)|  | 
-
-### Return type
-
-[**LoyaltyTier**](LoyaltyTier.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminPos**
-> Pos updateAdminPos(id, posWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var posWrite = new PosWrite(); // PosWrite | 
-
-try {
-    var result = api_instance.updateAdminPos(id, posWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminPos: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **posWrite** | [**PosWrite**](PosWrite.md)|  | 
-
-### Return type
-
-[**Pos**](Pos.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminPosProduct**
-> PosProduct updateAdminPosProduct(id, posProductWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var posProductWrite = new PosProductWrite(); // PosProductWrite | 
-
-try {
-    var result = api_instance.updateAdminPosProduct(id, posProductWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminPosProduct: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **posProductWrite** | [**PosProductWrite**](PosProductWrite.md)|  | 
-
-### Return type
-
-[**PosProduct**](PosProduct.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminProduct**
-> Product updateAdminProduct(id, productWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var productWrite = new ProductWrite(); // ProductWrite | 
-
-try {
-    var result = api_instance.updateAdminProduct(id, productWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminProduct: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **productWrite** | [**ProductWrite**](ProductWrite.md)|  | 
-
-### Return type
-
-[**Product**](Product.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminReward**
-> Reward updateAdminReward(id, rewardWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var rewardWrite = new RewardWrite(); // RewardWrite | 
-
-try {
-    var result = api_instance.updateAdminReward(id, rewardWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminReward: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **rewardWrite** | [**RewardWrite**](RewardWrite.md)|  | 
-
-### Return type
-
-[**Reward**](Reward.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminRole**
-> Role updateAdminRole(id, roleWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var roleWrite = new RoleWrite(); // RoleWrite | 
-
-try {
-    var result = api_instance.updateAdminRole(id, roleWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminRole: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **roleWrite** | [**RoleWrite**](RoleWrite.md)|  | 
-
-### Return type
-
-[**Role**](Role.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminRolePermissions**
-> Role updateAdminRolePermissions(id, rolePermissionWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var rolePermissionWrite = new RolePermissionWrite(); // RolePermissionWrite | 
-
-try {
-    var result = api_instance.updateAdminRolePermissions(id, rolePermissionWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminRolePermissions: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **rolePermissionWrite** | [**RolePermissionWrite**](RolePermissionWrite.md)|  | 
-
-### Return type
-
-[**Role**](Role.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminStampCard**
-> StampCard updateAdminStampCard(id, stampCardWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var stampCardWrite = new StampCardWrite(); // StampCardWrite | 
-
-try {
-    var result = api_instance.updateAdminStampCard(id, stampCardWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminStampCard: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **stampCardWrite** | [**StampCardWrite**](StampCardWrite.md)|  | 
-
-### Return type
-
-[**StampCard**](StampCard.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminStore**
-> Store updateAdminStore(id, storeWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var storeWrite = new StoreWrite(); // StoreWrite | 
-
-try {
-    var result = api_instance.updateAdminStore(id, storeWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminStore: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **storeWrite** | [**StoreWrite**](StoreWrite.md)|  | 
-
-### Return type
-
-[**Store**](Store.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateAdminUser**
-> User updateAdminUser(id, userWrite)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-// TODO Configure HTTP basic authorization: bearerAuth
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
-//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
-
-var api_instance = new AdminApi();
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
-var userWrite = new UserWrite(); // UserWrite | 
-
-try {
-    var result = api_instance.updateAdminUser(id, userWrite);
-    print(result);
-} catch (e) {
-    print('Exception when calling AdminApi->updateAdminUser: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **userWrite** | [**UserWrite**](UserWrite.md)|  | 
-
-### Return type
-
-[**User**](User.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

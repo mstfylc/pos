@@ -5,18 +5,18 @@
 import 'package:mansis_pos_api_client/api.dart';
 ```
 
-All URIs are relative to *https://api.example.com*
+All URIs are relative to *http://localhost:5088*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**login**](AuthApi.md#login) | **POST** /api/v1/auth/login | 
-[**refresh**](AuthApi.md#refresh) | **POST** /api/v1/auth/refresh | 
-[**requestOtp**](AuthApi.md#requestotp) | **POST** /api/v1/auth/otp/request | 
-[**verifyOtp**](AuthApi.md#verifyotp) | **POST** /api/v1/auth/otp/verify | 
+[**apiV1AuthLoginPost**](AuthApi.md#apiv1authloginpost) | **POST** /api/v1/auth/login | 
+[**apiV1AuthOtpRequestPost**](AuthApi.md#apiv1authotprequestpost) | **POST** /api/v1/auth/otp/request | 
+[**apiV1AuthOtpVerifyPost**](AuthApi.md#apiv1authotpverifypost) | **POST** /api/v1/auth/otp/verify | 
+[**apiV1AuthRefreshPost**](AuthApi.md#apiv1authrefreshpost) | **POST** /api/v1/auth/refresh | 
 
 
-# **login**
-> AuthTokenResult login(loginRequest)
+# **apiV1AuthLoginPost**
+> AuthTokenResult apiV1AuthLoginPost(loginRequest)
 
 
 
@@ -28,10 +28,10 @@ var api_instance = new AuthApi();
 var loginRequest = new LoginRequest(); // LoginRequest | 
 
 try {
-    var result = api_instance.login(loginRequest);
+    var result = api_instance.apiV1AuthLoginPost(loginRequest);
     print(result);
 } catch (e) {
-    print('Exception when calling AuthApi->login: $e\n');
+    print('Exception when calling AuthApi->apiV1AuthLoginPost: $e\n');
 }
 ```
 
@@ -51,54 +51,13 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **refresh**
-> AuthTokenResult refresh(refreshTokenRequest)
-
-
-
-### Example
-```dart
-import 'package:mansis_pos_api_client/api.dart';
-
-var api_instance = new AuthApi();
-var refreshTokenRequest = new RefreshTokenRequest(); // RefreshTokenRequest | 
-
-try {
-    var result = api_instance.refresh(refreshTokenRequest);
-    print(result);
-} catch (e) {
-    print('Exception when calling AuthApi->refresh: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **refreshTokenRequest** | [**RefreshTokenRequest**](RefreshTokenRequest.md)|  | 
-
-### Return type
-
-[**AuthTokenResult**](AuthTokenResult.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **requestOtp**
-> OtpResult requestOtp(otpRequest)
+# **apiV1AuthOtpRequestPost**
+> OtpResult apiV1AuthOtpRequestPost(otpRequest)
 
 
 
@@ -110,10 +69,10 @@ var api_instance = new AuthApi();
 var otpRequest = new OtpRequest(); // OtpRequest | 
 
 try {
-    var result = api_instance.requestOtp(otpRequest);
+    var result = api_instance.apiV1AuthOtpRequestPost(otpRequest);
     print(result);
 } catch (e) {
-    print('Exception when calling AuthApi->requestOtp: $e\n');
+    print('Exception when calling AuthApi->apiV1AuthOtpRequestPost: $e\n');
 }
 ```
 
@@ -133,13 +92,13 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **verifyOtp**
-> OtpResult verifyOtp(otpVerifyRequest)
+# **apiV1AuthOtpVerifyPost**
+> OtpResult apiV1AuthOtpVerifyPost(otpVerifyRequest)
 
 
 
@@ -151,10 +110,10 @@ var api_instance = new AuthApi();
 var otpVerifyRequest = new OtpVerifyRequest(); // OtpVerifyRequest | 
 
 try {
-    var result = api_instance.verifyOtp(otpVerifyRequest);
+    var result = api_instance.apiV1AuthOtpVerifyPost(otpVerifyRequest);
     print(result);
 } catch (e) {
-    print('Exception when calling AuthApi->verifyOtp: $e\n');
+    print('Exception when calling AuthApi->apiV1AuthOtpVerifyPost: $e\n');
 }
 ```
 
@@ -174,8 +133,49 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, application/problem+json
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AuthRefreshPost**
+> AuthTokenResult apiV1AuthRefreshPost(refreshTokenRequest)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AuthApi();
+var refreshTokenRequest = new RefreshTokenRequest(); // RefreshTokenRequest | 
+
+try {
+    var result = api_instance.apiV1AuthRefreshPost(refreshTokenRequest);
+    print(result);
+} catch (e) {
+    print('Exception when calling AuthApi->apiV1AuthRefreshPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **refreshTokenRequest** | [**RefreshTokenRequest**](RefreshTokenRequest.md)|  | 
+
+### Return type
+
+[**AuthTokenResult**](AuthTokenResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

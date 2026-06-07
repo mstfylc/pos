@@ -11,7 +11,6 @@ import 'package:built_value/serializer.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:mansis_pos_api_client/model/entry_product_delivery_report_row.dart';
-import 'package:mansis_pos_api_client/model/problem_details.dart';
 
 class ReportsApi {
 
@@ -24,10 +23,10 @@ class ReportsApi {
   /// 
   ///
   /// 
-  Future<Response<BuiltList<EntryProductDeliveryReportRow>>> listEntryProductDeliveries(
+  Future<Response<BuiltList<EntryProductDeliveryReportRow>>> apiV1ReportsEntryProductsGet({ 
     String companyId,
     DateTime from,
-    DateTime to, { 
+    DateTime to,
     String branchId,
     String posId,
     String productId,
@@ -45,20 +44,15 @@ class ReportsApi {
         ...?headers,
       },
       queryParameters: <String, dynamic>{
-        r'companyId': companyId,
-        r'from': from,
-        r'to': to,
+        if (companyId != null) r'companyId': companyId,
+        if (from != null) r'from': from,
+        if (to != null) r'to': to,
         if (branchId != null) r'branchId': branchId,
         if (posId != null) r'posId': posId,
         if (productId != null) r'productId': productId,
       },
       extra: <String, dynamic>{
-        'secure': <Map<String, String>>[
-          {
-            'type': 'http',
-            'name': 'bearerAuth',
-          },
-        ],
+        'secure': <Map<String, String>>[],
         ...?extra,
       },
       validateStatus: validateStatus,

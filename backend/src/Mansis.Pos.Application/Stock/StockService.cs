@@ -2,6 +2,8 @@ using FluentValidation;
 using Mansis.Pos.Application.Common;
 using Mansis.Pos.Domain.Enumerations;
 
+using Mansis.Pos.Application.Core;
+
 namespace Mansis.Pos.Application.Stock;
 
 public sealed class StockService(
@@ -14,7 +16,7 @@ public sealed class StockService(
     IValidator<ReceiveTransferRequest> receiveTransferValidator,
     IValidator<CancelTransferRequest> cancelTransferValidator)
 {
-    public Task<IReadOnlyList<StockMovementDto>> ListMovementsAsync(StockMovementFilter filter, CancellationToken cancellationToken) =>
+    public Task<PagedResult<StockMovementDto>> ListMovementsAsync(StockMovementFilter filter, CancellationToken cancellationToken) =>
         store.ListMovementsAsync(filter, cancellationToken);
 
     public async Task<Result<StockMovementDto>> StockInAsync(StockAdjustmentRequest request, CancellationToken cancellationToken)

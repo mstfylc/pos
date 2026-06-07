@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **userId** | **String** |  | 
 **sourceStoreId** | **String** |  | 
 **targetStoreId** | **String** |  | 
-**lines** | [**BuiltList<TransferLineWrite>**](TransferLineWrite.md) |  | 
+**lines** | [**BuiltList<TransferLineWriteDto>**](TransferLineWriteDto.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

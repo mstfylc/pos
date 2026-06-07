@@ -11,15 +11,19 @@ namespace Mansis.Pos.Api.Controllers;
 public sealed class StockController(StockService stockService) : ControllerBase
 {
     [HttpGet("movements")]
-    public Task<IReadOnlyList<StockMovementDto>> ListMovementsAsync(
+    public Task<Mansis.Pos.Application.Core.PagedResult<StockMovementDto>> ListMovementsAsync(
         [FromQuery] Guid companyId,
         [FromQuery] Guid? storeId,
         [FromQuery] Guid? productId,
         [FromQuery] StoreProductMovementType? movementType,
         [FromQuery] DateTimeOffset? from,
         [FromQuery] DateTimeOffset? to,
-        CancellationToken cancellationToken) =>
-        stockService.ListMovementsAsync(new StockMovementFilter(companyId, storeId, productId, movementType, from, to), cancellationToken);
+        CancellationToken cancellationToken,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 50,
+        [FromQuery] string? sort = null,
+        [FromQuery] string? filter = null) =>
+        stockService.ListMovementsAsync(new StockMovementFilter(companyId, storeId, productId, movementType, from, to, page, pageSize, sort, filter), cancellationToken);
 
     [HttpPost("stock-in")]
     public async Task<ActionResult<StockMovementDto>> StockInAsync([FromBody] StockAdjustmentRequest request, CancellationToken cancellationToken) =>

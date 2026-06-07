@@ -5,7 +5,6 @@
 
 // ignore_for_file: unused_import
 
-import 'package:mansis_pos_api_client/model/payment_summary.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -23,8 +22,7 @@ abstract class OrderResponse implements Built<OrderResponse, OrderResponseBuilde
     double get total;
 
     @BuiltValueField(wireName: r'paymentSummary')
-    PaymentSummary get paymentSummary;
-    // enum paymentSummaryEnum {  Cash,  CreditCard,  Ticket,  Sodexo,  Multinet,  Mixed,  };
+    int get paymentSummary;
 
     @BuiltValueField(wireName: r'existing')
     bool get existing;
@@ -65,7 +63,7 @@ class _$OrderResponseSerializer implements StructuredSerializer<OrderResponse> {
         result
             ..add(r'paymentSummary')
             ..add(serializers.serialize(object.paymentSummary,
-                specifiedType: const FullType(PaymentSummary)));
+                specifiedType: const FullType(int)));
         result
             ..add(r'existing')
             ..add(serializers.serialize(object.existing,
@@ -98,7 +96,7 @@ class _$OrderResponseSerializer implements StructuredSerializer<OrderResponse> {
                     break;
                 case r'paymentSummary':
                     result.paymentSummary = serializers.deserialize(value,
-                        specifiedType: const FullType(PaymentSummary)) as PaymentSummary;
+                        specifiedType: const FullType(int)) as int;
                     break;
                 case r'existing':
                     result.existing = serializers.deserialize(value,

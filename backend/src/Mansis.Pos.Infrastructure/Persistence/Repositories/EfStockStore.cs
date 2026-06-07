@@ -1,4 +1,5 @@
 using Mansis.Pos.Application.Stock;
+using Mansis.Pos.Application.Core;
 using Mansis.Pos.Domain.Entities;
 using Mansis.Pos.Domain.Enumerations;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ namespace Mansis.Pos.Infrastructure.Persistence.Repositories;
 
 internal sealed class EfStockStore(PosDbContext dbContext) : IStockStore
 {
-    public async Task<IReadOnlyList<StockMovementDto>> ListMovementsAsync(StockMovementFilter filter, CancellationToken cancellationToken)
+    public async Task<PagedResult<StockMovementDto>> ListMovementsAsync(StockMovementFilter filter, CancellationToken cancellationToken)
     {
         var query = dbContext.StockMovements
             .AsNoTracking()
@@ -18,9 +19,28 @@ internal sealed class EfStockStore(PosDbContext dbContext) : IStockStore
         if (filter.MovementType.HasValue) query = query.Where(movement => movement.MovementType == filter.MovementType.Value);
         if (filter.From.HasValue) query = query.Where(movement => movement.OccurredAt >= filter.From.Value);
         if (filter.To.HasValue) query = query.Where(movement => movement.OccurredAt <= filter.To.Value);
+        if (!string.IsNullOrWhiteSpace(filter.Filter))
+        {
+            var search = filter.Filter.Trim().ToLower();
+            query = query.Where(movement => movement.Description != null && movement.Description.ToLower().Contains(search));
+        }
 
-        return await query
-            .OrderByDescending(movement => movement.OccurredAt)
+        query = (filter.Sort ?? string.Empty).Trim().Replace("-", "_").ToLowerInvariant() switch
+        {
+            "occurred_at" => query.OrderBy(movement => movement.OccurredAt),
+            "quantity" => query.OrderBy(movement => movement.Quantity),
+            "quantity_desc" => query.OrderByDescending(movement => movement.Quantity),
+            "type" => query.OrderBy(movement => movement.MovementType).ThenByDescending(movement => movement.OccurredAt),
+            "type_desc" => query.OrderByDescending(movement => movement.MovementType).ThenByDescending(movement => movement.OccurredAt),
+            _ => query.OrderByDescending(movement => movement.OccurredAt)
+        };
+
+        var page = filter.Page < 1 ? 1 : filter.Page;
+        var pageSize = filter.PageSize switch { < 1 => 50, > 200 => 200, _ => filter.PageSize };
+        var totalCount = await query.CountAsync(cancellationToken);
+        var items = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .Select(movement => ToDto(
                 movement,
                 dbContext.StoreProducts
@@ -28,6 +48,8 @@ internal sealed class EfStockStore(PosDbContext dbContext) : IStockStore
                     .Select(storeProduct => storeProduct.Quantity)
                     .FirstOrDefault()))
             .ToListAsync(cancellationToken);
+        var totalPages = totalCount == 0 ? 0 : (int)Math.Ceiling(totalCount / (double)pageSize);
+        return new PagedResult<StockMovementDto>(items, page, pageSize, totalCount, totalPages);
     }
 
     public async Task<StockMovementDto?> ApplyStockMovementAsync(

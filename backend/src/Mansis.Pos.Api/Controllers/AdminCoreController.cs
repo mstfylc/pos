@@ -11,6 +11,9 @@ public sealed class AdminCoreController(
     CoreCrudService coreCrudService,
     IValidator<ProductWriteDto> productWriteValidator,
     IValidator<PosProductWriteDto> posProductWriteValidator,
+    IValidator<CustomerWriteDto> customerWriteValidator,
+    IValidator<CustomerWalletAdjustmentRequest> customerWalletAdjustmentValidator,
+    IValidator<CustomerLoyaltyAdjustmentRequest> customerLoyaltyAdjustmentValidator,
     IValidator<UserWriteDto> userWriteValidator,
     IValidator<RoleWriteDto> roleWriteValidator,
     IValidator<RolePermissionWriteDto> rolePermissionWriteValidator,
@@ -20,11 +23,13 @@ public sealed class AdminCoreController(
     IValidator<EarnRuleWriteDto> earnRuleWriteValidator,
     IValidator<LoyaltyTierWriteDto> loyaltyTierWriteValidator,
     IValidator<RewardWriteDto> rewardWriteValidator,
-    IValidator<StampCardWriteDto> stampCardWriteValidator) : ControllerBase
+    IValidator<StampCardWriteDto> stampCardWriteValidator,
+    IValidator<SupplierWriteDto> supplierWriteValidator,
+    IValidator<PurchaseWriteDto> purchaseWriteValidator) : ControllerBase
 {
     [HttpGet("products")]
-    public Task<IReadOnlyList<ProductDto>> ListProductsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
-        coreCrudService.ListProductsAsync(companyId, cancellationToken);
+    public Task<PagedResult<ProductDto>> ListProductsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListProductsAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
 
     [HttpPost("products")]
     public async Task<ActionResult<ProductDto>> CreateProductAsync([FromBody] ProductWriteDto request, CancellationToken cancellationToken)
@@ -66,6 +71,10 @@ public sealed class AdminCoreController(
         return NullableResult(await coreCrudService.UpdatePosProductAsync(id, request, cancellationToken));
     }
 
+    [HttpGet("products/{productId:guid}/pos-products")]
+    public Task<IReadOnlyList<PosProductDto>> ListProductPosOverridesAsync(Guid productId, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        coreCrudService.ListPosProductsForProductAsync(companyId, productId, cancellationToken);
+
     [HttpGet("categories")]
     public Task<IReadOnlyList<CategoryDto>> ListCategoriesAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
         coreCrudService.ListCategoriesAsync(companyId, cancellationToken);
@@ -83,24 +92,56 @@ public sealed class AdminCoreController(
         BoolResult(await coreCrudService.DeactivateCategoryAsync(companyId, id, userId, cancellationToken));
 
     [HttpGet("customers")]
-    public Task<IReadOnlyList<CustomerDto>> ListCustomersAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
-        coreCrudService.ListCustomersAsync(companyId, cancellationToken);
+    public Task<PagedResult<CustomerDto>> ListCustomersAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListCustomersAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
+
+    [HttpGet("customers/{id:guid}")]
+    public async Task<ActionResult<CustomerDetailDto>> GetCustomerAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        NullableResult(await coreCrudService.GetCustomerAsync(companyId, id, cancellationToken));
 
     [HttpPost("customers")]
-    public async Task<ActionResult<CustomerDto>> CreateCustomerAsync([FromBody] CustomerWriteDto request, CancellationToken cancellationToken) =>
-        CreatedResult(await coreCrudService.CreateCustomerAsync(request, cancellationToken));
+    public async Task<ActionResult<CustomerDto>> CreateCustomerAsync([FromBody] CustomerWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await customerWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return CreatedResult(await coreCrudService.CreateCustomerAsync(request, cancellationToken));
+    }
 
     [HttpPut("customers/{id:guid}")]
-    public async Task<ActionResult<CustomerDto>> UpdateCustomerAsync(Guid id, [FromBody] CustomerWriteDto request, CancellationToken cancellationToken) =>
-        NullableResult(await coreCrudService.UpdateCustomerAsync(id, request, cancellationToken));
+    public async Task<ActionResult<CustomerDto>> UpdateCustomerAsync(Guid id, [FromBody] CustomerWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await customerWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return NullableResult(await coreCrudService.UpdateCustomerAsync(id, request, cancellationToken));
+    }
 
     [HttpDelete("customers/{id:guid}")]
     public async Task<IActionResult> DeleteCustomerAsync(Guid id, [FromQuery] Guid companyId, [FromQuery] Guid userId, CancellationToken cancellationToken) =>
         BoolResult(await coreCrudService.DeactivateCustomerAsync(companyId, id, userId, cancellationToken));
 
+    [HttpPost("customers/{id:guid}/wallet-adjustments")]
+    public async Task<ActionResult<WalletAdjustmentDto>> AdjustCustomerWalletAsync(Guid id, [FromBody] CustomerWalletAdjustmentRequest request, CancellationToken cancellationToken)
+    {
+        var validationResult = await customerWalletAdjustmentValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return NullableResult(await coreCrudService.AdjustCustomerWalletAsync(id, request, cancellationToken));
+    }
+
+    [HttpPost("customers/{id:guid}/loyalty-adjustments")]
+    public async Task<ActionResult<LoyaltyAdjustmentDto>> AdjustCustomerLoyaltyAsync(Guid id, [FromBody] CustomerLoyaltyAdjustmentRequest request, CancellationToken cancellationToken)
+    {
+        var validationResult = await customerLoyaltyAdjustmentValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return NullableResult(await coreCrudService.AdjustCustomerLoyaltyAsync(id, request, cancellationToken));
+    }
+
     [HttpGet("users")]
-    public Task<IReadOnlyList<UserDto>> ListUsersAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
-        coreCrudService.ListUsersAsync(companyId, cancellationToken);
+    public Task<PagedResult<UserDto>> ListUsersAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListUsersAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
 
     [HttpGet("users/{id:guid}")]
     public async Task<ActionResult<UserDto>> GetUserAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
@@ -209,8 +250,8 @@ public sealed class AdminCoreController(
         BoolResult(await coreCrudService.DeleteAssignmentAsync(companyId, id, cancellationToken));
 
     [HttpGet("orders")]
-    public Task<IReadOnlyList<OrderListDto>> ListOrdersAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
-        coreCrudService.ListOrdersAsync(companyId, cancellationToken);
+    public Task<PagedResult<OrderListDto>> ListOrdersAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListOrdersAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
 
     [HttpGet("stores")]
     public Task<IReadOnlyList<StoreDto>> ListStoresAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
@@ -245,8 +286,8 @@ public sealed class AdminCoreController(
         BoolResult(await coreCrudService.DeactivatePosAsync(companyId, id, userId, cancellationToken));
 
     [HttpGet("discounts")]
-    public Task<IReadOnlyList<DiscountDto>> ListDiscountsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
-        coreCrudService.ListDiscountsAsync(companyId, cancellationToken);
+    public Task<PagedResult<DiscountDto>> ListDiscountsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListDiscountsAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
 
     [HttpGet("discounts/{id:guid}")]
     public async Task<ActionResult<DiscountDto>> GetDiscountAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
@@ -275,8 +316,8 @@ public sealed class AdminCoreController(
         BoolResult(await coreCrudService.DeactivateDiscountAsync(companyId, id, userId, cancellationToken));
 
     [HttpGet("campaigns")]
-    public Task<IReadOnlyList<CampaignDto>> ListCampaignsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
-        coreCrudService.ListCampaignsAsync(companyId, cancellationToken);
+    public Task<PagedResult<CampaignDto>> ListCampaignsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListCampaignsAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
 
     [HttpGet("campaigns/{id:guid}")]
     public async Task<ActionResult<CampaignDto>> GetCampaignAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
@@ -305,8 +346,8 @@ public sealed class AdminCoreController(
         BoolResult(await coreCrudService.DeleteCampaignAsync(companyId, id, cancellationToken));
 
     [HttpGet("earn-rules")]
-    public Task<IReadOnlyList<EarnRuleDto>> ListEarnRulesAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
-        coreCrudService.ListEarnRulesAsync(companyId, cancellationToken);
+    public Task<PagedResult<EarnRuleDto>> ListEarnRulesAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListEarnRulesAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
 
     [HttpGet("earn-rules/{id:guid}")]
     public async Task<ActionResult<EarnRuleDto>> GetEarnRuleAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
@@ -335,8 +376,8 @@ public sealed class AdminCoreController(
         BoolResult(await coreCrudService.DeleteEarnRuleAsync(companyId, id, cancellationToken));
 
     [HttpGet("loyalty-tiers")]
-    public Task<IReadOnlyList<LoyaltyTierDto>> ListLoyaltyTiersAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
-        coreCrudService.ListLoyaltyTiersAsync(companyId, cancellationToken);
+    public Task<PagedResult<LoyaltyTierDto>> ListLoyaltyTiersAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListLoyaltyTiersAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
 
     [HttpGet("loyalty-tiers/{id:guid}")]
     public async Task<ActionResult<LoyaltyTierDto>> GetLoyaltyTierAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
@@ -365,8 +406,8 @@ public sealed class AdminCoreController(
         BoolResult(await coreCrudService.DeleteLoyaltyTierAsync(companyId, id, cancellationToken));
 
     [HttpGet("rewards")]
-    public Task<IReadOnlyList<RewardDto>> ListRewardsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
-        coreCrudService.ListRewardsAsync(companyId, cancellationToken);
+    public Task<PagedResult<RewardDto>> ListRewardsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListRewardsAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
 
     [HttpGet("rewards/{id:guid}")]
     public async Task<ActionResult<RewardDto>> GetRewardAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
@@ -395,8 +436,8 @@ public sealed class AdminCoreController(
         BoolResult(await coreCrudService.DeleteRewardAsync(companyId, id, cancellationToken));
 
     [HttpGet("stamp-cards")]
-    public Task<IReadOnlyList<StampCardDto>> ListStampCardsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
-        coreCrudService.ListStampCardsAsync(companyId, cancellationToken);
+    public Task<PagedResult<StampCardDto>> ListStampCardsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListStampCardsAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
 
     [HttpGet("stamp-cards/{id:guid}")]
     public async Task<ActionResult<StampCardDto>> GetStampCardAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
@@ -424,7 +465,68 @@ public sealed class AdminCoreController(
     public async Task<IActionResult> DeleteStampCardAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
         BoolResult(await coreCrudService.DeleteStampCardAsync(companyId, id, cancellationToken));
 
+    [HttpGet("suppliers")]
+    public Task<PagedResult<SupplierDto>> ListSuppliersAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListSuppliersAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
+
+    [HttpGet("suppliers/{id:guid}")]
+    public async Task<ActionResult<SupplierDto>> GetSupplierAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        NullableResult(await coreCrudService.GetSupplierAsync(companyId, id, cancellationToken));
+
+    [HttpPost("suppliers")]
+    public async Task<ActionResult<SupplierDto>> CreateSupplierAsync([FromBody] SupplierWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await supplierWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return CreatedResult(await coreCrudService.CreateSupplierAsync(request, cancellationToken));
+    }
+
+    [HttpPut("suppliers/{id:guid}")]
+    public async Task<ActionResult<SupplierDto>> UpdateSupplierAsync(Guid id, [FromBody] SupplierWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await supplierWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return NullableResult(await coreCrudService.UpdateSupplierAsync(id, request, cancellationToken));
+    }
+
+    [HttpDelete("suppliers/{id:guid}")]
+    public async Task<IActionResult> DeleteSupplierAsync(Guid id, [FromQuery] Guid companyId, [FromQuery] Guid userId, CancellationToken cancellationToken) =>
+        BoolResult(await coreCrudService.DeactivateSupplierAsync(companyId, id, userId, cancellationToken));
+
+    [HttpGet("purchases")]
+    public Task<PagedResult<PurchaseDto>> ListPurchasesAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
+        coreCrudService.ListPurchasesAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
+
+    [HttpGet("purchases/{id:guid}")]
+    public async Task<ActionResult<PurchaseDto>> GetPurchaseAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        NullableResult(await coreCrudService.GetPurchaseAsync(companyId, id, cancellationToken));
+
+    [HttpPost("purchases")]
+    public async Task<ActionResult<PurchaseDto>> CreatePurchaseAsync([FromBody] PurchaseWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await purchaseWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return CreatedResult(await coreCrudService.CreatePurchaseAsync(request, cancellationToken));
+    }
+
+    [HttpPut("purchases/{id:guid}")]
+    public async Task<ActionResult<PurchaseDto>> UpdatePurchaseAsync(Guid id, [FromBody] PurchaseWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await purchaseWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return NullableResult(await coreCrudService.UpdatePurchaseAsync(id, request, cancellationToken));
+    }
+
+    [HttpDelete("purchases/{id:guid}")]
+    public async Task<IActionResult> DeletePurchaseAsync(Guid id, [FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        BoolResult(await coreCrudService.DeletePurchaseAsync(companyId, id, cancellationToken));
+
     private ActionResult<T> CreatedResult<T>(T? value) => value is null ? BadRequest() : StatusCode(StatusCodes.Status201Created, value);
     private ActionResult<T> NullableResult<T>(T? value) => value is null ? NotFound() : Ok(value);
     private IActionResult BoolResult(bool value) => value ? NoContent() : NotFound();
+    private static ListQuery Query(int page, int pageSize, string? sort, string? filter) => new(page, pageSize, sort, filter);
 }

@@ -1,10 +1,12 @@
 using Mansis.Pos.Domain.Enumerations;
 
+using Mansis.Pos.Application.Core;
+
 namespace Mansis.Pos.Application.Stock;
 
 public interface IStockStore
 {
-    Task<IReadOnlyList<StockMovementDto>> ListMovementsAsync(StockMovementFilter filter, CancellationToken cancellationToken);
+    Task<PagedResult<StockMovementDto>> ListMovementsAsync(StockMovementFilter filter, CancellationToken cancellationToken);
     Task<StockMovementDto?> ApplyStockMovementAsync(StockAdjustmentRequest request, StoreProductMovementType movementType, LedgerDirection direction, string? description, CancellationToken cancellationToken);
     Task<StockMovementDto?> ApplyStockCountAsync(StockCountRequest request, CancellationToken cancellationToken);
     Task<StoreProductTransferDto?> CreateTransferAsync(CreateTransferRequest request, CancellationToken cancellationToken);

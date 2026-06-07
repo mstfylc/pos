@@ -72,12 +72,10 @@ class _$StockAdjustmentRequestSerializer implements StructuredSerializer<StockAd
             ..add(r'quantity')
             ..add(serializers.serialize(object.quantity,
                 specifiedType: const FullType(int)));
-        if (object.description != null) {
-            result
-                ..add(r'description')
-                ..add(serializers.serialize(object.description,
-                    specifiedType: const FullType(String)));
-        }
+        result
+            ..add(r'description')
+            ..add(object.description == null ? null : serializers.serialize(object.description,
+                specifiedType: const FullType(String)));
         return result;
     }
 

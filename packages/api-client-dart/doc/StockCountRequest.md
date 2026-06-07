@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **storeId** | **String** |  | 
 **productId** | **String** |  | 
 **countedQuantity** | **int** |  | 
-**description** | **String** |  | [optional] 
+**description** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

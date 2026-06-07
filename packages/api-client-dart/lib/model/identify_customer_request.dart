@@ -48,18 +48,14 @@ class _$IdentifyCustomerRequestSerializer implements StructuredSerializer<Identi
             ..add(r'companyId')
             ..add(serializers.serialize(object.companyId,
                 specifiedType: const FullType(String)));
-        if (object.token != null) {
-            result
-                ..add(r'token')
-                ..add(serializers.serialize(object.token,
-                    specifiedType: const FullType(String)));
-        }
-        if (object.cardNumber != null) {
-            result
-                ..add(r'cardNumber')
-                ..add(serializers.serialize(object.cardNumber,
-                    specifiedType: const FullType(String)));
-        }
+        result
+            ..add(r'token')
+            ..add(object.token == null ? null : serializers.serialize(object.token,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'cardNumber')
+            ..add(object.cardNumber == null ? null : serializers.serialize(object.cardNumber,
+                specifiedType: const FullType(String)));
         return result;
     }
 

@@ -6,7 +6,7 @@
 // ignore_for_file: unused_import
 
 import 'package:built_collection/built_collection.dart';
-import 'package:mansis_pos_api_client/model/transfer_line_write.dart';
+import 'package:mansis_pos_api_client/model/transfer_line_write_dto.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -27,7 +27,7 @@ abstract class CreateTransferRequest implements Built<CreateTransferRequest, Cre
     String get targetStoreId;
 
     @BuiltValueField(wireName: r'lines')
-    BuiltList<TransferLineWrite> get lines;
+    BuiltList<TransferLineWriteDto> get lines;
 
     CreateTransferRequest._();
 
@@ -69,7 +69,7 @@ class _$CreateTransferRequestSerializer implements StructuredSerializer<CreateTr
         result
             ..add(r'lines')
             ..add(serializers.serialize(object.lines,
-                specifiedType: const FullType(BuiltList, [FullType(TransferLineWrite)])));
+                specifiedType: const FullType(BuiltList, [FullType(TransferLineWriteDto)])));
         return result;
     }
 
@@ -102,7 +102,7 @@ class _$CreateTransferRequestSerializer implements StructuredSerializer<CreateTr
                     break;
                 case r'lines':
                     result.lines.replace(serializers.deserialize(value,
-                        specifiedType: const FullType(BuiltList, [FullType(TransferLineWrite)])) as BuiltList<TransferLineWrite>);
+                        specifiedType: const FullType(BuiltList, [FullType(TransferLineWriteDto)])) as BuiltList<TransferLineWriteDto>);
                     break;
             }
         }

@@ -6,7 +6,7 @@
 // ignore_for_file: unused_import
 
 import 'package:built_collection/built_collection.dart';
-import 'package:mansis_pos_api_client/model/receive_transfer_line.dart';
+import 'package:mansis_pos_api_client/model/receive_transfer_line_dto.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -21,7 +21,7 @@ abstract class ReceiveTransferRequest implements Built<ReceiveTransferRequest, R
     String get userId;
 
     @BuiltValueField(wireName: r'lines')
-    BuiltList<ReceiveTransferLine> get lines;
+    BuiltList<ReceiveTransferLineDto> get lines;
 
     ReceiveTransferRequest._();
 
@@ -55,7 +55,7 @@ class _$ReceiveTransferRequestSerializer implements StructuredSerializer<Receive
         result
             ..add(r'lines')
             ..add(serializers.serialize(object.lines,
-                specifiedType: const FullType(BuiltList, [FullType(ReceiveTransferLine)])));
+                specifiedType: const FullType(BuiltList, [FullType(ReceiveTransferLineDto)])));
         return result;
     }
 
@@ -80,7 +80,7 @@ class _$ReceiveTransferRequestSerializer implements StructuredSerializer<Receive
                     break;
                 case r'lines':
                     result.lines.replace(serializers.deserialize(value,
-                        specifiedType: const FullType(BuiltList, [FullType(ReceiveTransferLine)])) as BuiltList<ReceiveTransferLine>);
+                        specifiedType: const FullType(BuiltList, [FullType(ReceiveTransferLineDto)])) as BuiltList<ReceiveTransferLineDto>);
                     break;
             }
         }

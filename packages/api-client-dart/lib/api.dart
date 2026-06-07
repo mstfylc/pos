@@ -16,7 +16,6 @@ import 'package:mansis_pos_api_client/auth/oauth.dart';
 import 'package:mansis_pos_api_client/api/admin_api.dart';
 import 'package:mansis_pos_api_client/api/app_api.dart';
 import 'package:mansis_pos_api_client/api/auth_api.dart';
-import 'package:mansis_pos_api_client/api/loyalty_api.dart';
 import 'package:mansis_pos_api_client/api/reports_api.dart';
 import 'package:mansis_pos_api_client/api/stock_api.dart';
 
@@ -29,7 +28,7 @@ final _defaultInterceptors = [
 
 class MansisPosApiClient {
 
-    static const String basePath = r'https://api.example.com';
+    static const String basePath = r'http://localhost:5088';
 
     final Dio dio;
 
@@ -91,15 +90,6 @@ class MansisPosApiClient {
     */
     AuthApi getAuthApi() {
     return AuthApi(dio, serializers);
-    }
-
-
-    /**
-    * Get LoyaltyApi instance, base route and serializer can be overridden by a given but be careful,
-    * by doing that all interceptors will not be executed
-    */
-    LoyaltyApi getLoyaltyApi() {
-    return LoyaltyApi(dio, serializers);
     }
 
 

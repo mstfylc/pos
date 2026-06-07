@@ -6,7 +6,7 @@
 // ignore_for_file: unused_import
 
 import 'package:built_collection/built_collection.dart';
-import 'package:mansis_pos_api_client/model/available_reward.dart';
+import 'package:mansis_pos_api_client/model/available_reward_dto.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -37,7 +37,7 @@ abstract class LoyaltyPreviewResponse implements Built<LoyaltyPreviewResponse, L
     BuiltList<String> get appliedCampaigns;
 
     @BuiltValueField(wireName: r'availableRewards')
-    BuiltList<AvailableReward> get availableRewards;
+    BuiltList<AvailableRewardDto> get availableRewards;
 
     LoyaltyPreviewResponse._();
 
@@ -76,12 +76,10 @@ class _$LoyaltyPreviewResponseSerializer implements StructuredSerializer<Loyalty
             ..add(r'earnPoints')
             ..add(serializers.serialize(object.earnPoints,
                 specifiedType: const FullType(int)));
-        if (object.earnExpiresAt != null) {
-            result
-                ..add(r'earnExpiresAt')
-                ..add(serializers.serialize(object.earnExpiresAt,
-                    specifiedType: const FullType(DateTime)));
-        }
+        result
+            ..add(r'earnExpiresAt')
+            ..add(object.earnExpiresAt == null ? null : serializers.serialize(object.earnExpiresAt,
+                specifiedType: const FullType(DateTime)));
         result
             ..add(r'campaignExtraPoints')
             ..add(serializers.serialize(object.campaignExtraPoints,
@@ -93,7 +91,7 @@ class _$LoyaltyPreviewResponseSerializer implements StructuredSerializer<Loyalty
         result
             ..add(r'availableRewards')
             ..add(serializers.serialize(object.availableRewards,
-                specifiedType: const FullType(BuiltList, [FullType(AvailableReward)])));
+                specifiedType: const FullType(BuiltList, [FullType(AvailableRewardDto)])));
         return result;
     }
 
@@ -138,7 +136,7 @@ class _$LoyaltyPreviewResponseSerializer implements StructuredSerializer<Loyalty
                     break;
                 case r'availableRewards':
                     result.availableRewards.replace(serializers.deserialize(value,
-                        specifiedType: const FullType(BuiltList, [FullType(AvailableReward)])) as BuiltList<AvailableReward>);
+                        specifiedType: const FullType(BuiltList, [FullType(AvailableRewardDto)])) as BuiltList<AvailableRewardDto>);
                     break;
             }
         }

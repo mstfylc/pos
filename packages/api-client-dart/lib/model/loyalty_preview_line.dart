@@ -27,7 +27,7 @@ abstract class LoyaltyPreviewLine implements Built<LoyaltyPreviewLine, LoyaltyPr
     LoyaltyPreviewLine._();
 
     static void _initializeBuilder(LoyaltyPreviewLineBuilder b) => b
-        ..taxAmount = '0';
+        ..taxAmount = 0;
 
     factory LoyaltyPreviewLine([void updates(LoyaltyPreviewLineBuilder b)]) = _$LoyaltyPreviewLine;
 

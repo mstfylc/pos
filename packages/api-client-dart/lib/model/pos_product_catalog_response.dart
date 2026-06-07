@@ -5,8 +5,8 @@
 
 // ignore_for_file: unused_import
 
+import 'package:mansis_pos_api_client/model/pos_product_category_dto.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:mansis_pos_api_client/model/pos_product_category.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -15,7 +15,7 @@ part 'pos_product_catalog_response.g.dart';
 abstract class PosProductCatalogResponse implements Built<PosProductCatalogResponse, PosProductCatalogResponseBuilder> {
 
     @BuiltValueField(wireName: r'categories')
-    BuiltList<PosProductCategory> get categories;
+    BuiltList<PosProductCategoryDto> get categories;
 
     PosProductCatalogResponse._();
 
@@ -41,7 +41,7 @@ class _$PosProductCatalogResponseSerializer implements StructuredSerializer<PosP
         result
             ..add(r'categories')
             ..add(serializers.serialize(object.categories,
-                specifiedType: const FullType(BuiltList, [FullType(PosProductCategory)])));
+                specifiedType: const FullType(BuiltList, [FullType(PosProductCategoryDto)])));
         return result;
     }
 
@@ -58,7 +58,7 @@ class _$PosProductCatalogResponseSerializer implements StructuredSerializer<PosP
             switch (key) {
                 case r'categories':
                     result.categories.replace(serializers.deserialize(value,
-                        specifiedType: const FullType(BuiltList, [FullType(PosProductCategory)])) as BuiltList<PosProductCategory>);
+                        specifiedType: const FullType(BuiltList, [FullType(PosProductCategoryDto)])) as BuiltList<PosProductCategoryDto>);
                     break;
             }
         }

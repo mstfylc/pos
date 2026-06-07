@@ -5,7 +5,6 @@
 
 // ignore_for_file: unused_import
 
-import 'package:mansis_pos_api_client/model/order_state.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -17,8 +16,7 @@ abstract class CancelOrderResponse implements Built<CancelOrderResponse, CancelO
     String get orderId;
 
     @BuiltValueField(wireName: r'orderState')
-    OrderState get orderState;
-    // enum orderStateEnum {  Received,  Preparing,  Completed,  Cancelled,  Deleted,  Transferring,  };
+    int get orderState;
 
     @BuiltValueField(wireName: r'existing')
     bool get existing;
@@ -51,7 +49,7 @@ class _$CancelOrderResponseSerializer implements StructuredSerializer<CancelOrde
         result
             ..add(r'orderState')
             ..add(serializers.serialize(object.orderState,
-                specifiedType: const FullType(OrderState)));
+                specifiedType: const FullType(int)));
         result
             ..add(r'existing')
             ..add(serializers.serialize(object.existing,
@@ -76,7 +74,7 @@ class _$CancelOrderResponseSerializer implements StructuredSerializer<CancelOrde
                     break;
                 case r'orderState':
                     result.orderState = serializers.deserialize(value,
-                        specifiedType: const FullType(OrderState)) as OrderState;
+                        specifiedType: const FullType(int)) as int;
                     break;
                 case r'existing':
                     result.existing = serializers.deserialize(value,

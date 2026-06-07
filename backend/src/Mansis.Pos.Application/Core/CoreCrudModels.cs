@@ -56,7 +56,60 @@ public sealed record CategoryDto(Guid Id, Guid CompanyId, string Name, int SortO
 public sealed record CategoryWriteDto(Guid CompanyId, Guid UserId, string Name, int SortOrder, Guid CategoryColorId, Guid CategoryShapeId);
 
 public sealed record CustomerDto(Guid Id, Guid CompanyId, string Name, string Surname, string Username, string? Phone, string? Mail, decimal Balance, bool Active);
-public sealed record CustomerWriteDto(Guid CompanyId, Guid UserId, string Name, string Surname, string Username, string? Phone, string? Mail, Guid RoleId);
+
+public sealed record CustomerDetailDto(
+    Guid Id,
+    Guid CompanyId,
+    string Name,
+    string Surname,
+    string Username,
+    string? Phone,
+    string? Mail,
+    decimal Balance,
+    bool Active,
+    IReadOnlyList<AddressDto> Addresses,
+    WalletAccountDto? Wallet,
+    LoyaltyAccountDto? Loyalty);
+
+public sealed record CustomerWriteDto(
+    Guid CompanyId,
+    Guid UserId,
+    string Name,
+    string Surname,
+    string Username,
+    string? Phone,
+    string? Mail,
+    Guid RoleId,
+    IReadOnlyList<AddressWriteDto>? Addresses = null);
+
+public sealed record AddressDto(
+    Guid Id,
+    AddressType AddressType,
+    string? AddressHeader,
+    Guid CityId,
+    Guid TownId,
+    string? District,
+    string? MobilePhone,
+    string? BusinessPhone,
+    string? Description);
+
+public sealed record AddressWriteDto(
+    Guid? Id,
+    AddressType AddressType,
+    string? AddressHeader,
+    Guid CityId,
+    Guid TownId,
+    string? District,
+    string? MobilePhone,
+    string? BusinessPhone,
+    string? Description);
+
+public sealed record WalletAccountDto(Guid Id, Guid CompanyId, Guid CustomerId, string Currency, decimal Balance);
+public sealed record LoyaltyAccountDto(Guid Id, Guid CompanyId, Guid CustomerId, Guid? LoyaltyTierId, int PointBalance, int LifetimePoints);
+public sealed record CustomerWalletAdjustmentRequest(Guid CompanyId, Guid UserId, decimal Amount, LedgerDirection Direction, string Reason);
+public sealed record CustomerLoyaltyAdjustmentRequest(Guid CompanyId, Guid UserId, int Points, LedgerDirection Direction, string Reason);
+public sealed record WalletAdjustmentDto(WalletAccountDto Account, Guid TransactionId);
+public sealed record LoyaltyAdjustmentDto(LoyaltyAccountDto Account, Guid TransactionId);
 
 public sealed record UserDto(
     Guid Id,
@@ -107,7 +160,20 @@ public sealed record AssignmentDto(
 public sealed record AssignmentRecordDto(Guid RecordId, string RecordName);
 public sealed record AssignmentWriteDto(Guid CompanyId, Guid UserId, AssignmentTableType AssignmentTableType, IReadOnlyList<Guid> RecordIds);
 
-public sealed record OrderListDto(Guid Id, Guid CompanyId, Guid PosId, Guid? CustomerId, DateTimeOffset OrderTime, decimal Total, OrderState OrderState, PaymentSummary PaymentSummary);
+public sealed record OrderListDto(
+    Guid Id,
+    Guid CompanyId,
+    Guid PosId,
+    Guid? CustomerId,
+    DateTimeOffset OrderTime,
+    decimal SubTotal,
+    decimal TaxTotal,
+    decimal? TotalDiscount,
+    decimal Total,
+    OrderState OrderState,
+    PaymentSummary PaymentSummary,
+    string? Description,
+    Guid? AddressId);
 
 public sealed record StoreDto(Guid Id, Guid CompanyId, string Name, Guid? BranchId, bool Active);
 public sealed record StoreWriteDto(Guid CompanyId, Guid UserId, string Name, Guid? BranchId);
@@ -261,3 +327,64 @@ public sealed record StampCardWriteDto(
     DateTimeOffset? StartsAt,
     DateTimeOffset? EndsAt,
     bool Active);
+
+public sealed record SupplierDto(
+    Guid Id,
+    Guid CompanyId,
+    string Name,
+    string? AuthorizedPerson,
+    string? Address,
+    string? Phone,
+    string? Mail,
+    string? TaxOffice,
+    string? TaxNo,
+    bool? TaxFree,
+    MoneyUnitType? MoneyUnitType,
+    int? Maturity,
+    decimal? OpeningBalance,
+    bool Active);
+
+public sealed record SupplierWriteDto(
+    Guid CompanyId,
+    Guid UserId,
+    string Name,
+    string? AuthorizedPerson,
+    string? Address,
+    string? Phone,
+    string? Mail,
+    string? TaxOffice,
+    string? TaxNo,
+    bool? TaxFree,
+    MoneyUnitType? MoneyUnitType,
+    int? Maturity,
+    decimal? OpeningBalance);
+
+public sealed record PurchaseDto(
+    Guid Id,
+    Guid CompanyId,
+    DateTimeOffset? PurchaseTime,
+    string? Invoice,
+    decimal Total,
+    bool PaymentCompleted,
+    bool Received,
+    Guid? PayerId,
+    Guid? ReceiverId,
+    Guid SupplierId,
+    Guid StoreId,
+    IReadOnlyList<PurchaseLineDto> Lines);
+
+public sealed record PurchaseLineDto(Guid Id, Guid ProductId, int Quantity, decimal Price, decimal Total, int? Discount, int? Tax);
+public sealed record PurchaseLineWriteDto(Guid ProductId, int Quantity, decimal Price, int? Discount, int? Tax);
+
+public sealed record PurchaseWriteDto(
+    Guid CompanyId,
+    Guid UserId,
+    DateTimeOffset? PurchaseTime,
+    string? Invoice,
+    bool PaymentCompleted,
+    bool Received,
+    Guid? PayerId,
+    Guid? ReceiverId,
+    Guid SupplierId,
+    Guid StoreId,
+    IReadOnlyList<PurchaseLineWriteDto> Lines);

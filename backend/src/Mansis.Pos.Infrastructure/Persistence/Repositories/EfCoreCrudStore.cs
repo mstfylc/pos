@@ -9,15 +9,33 @@ namespace Mansis.Pos.Infrastructure.Persistence.Repositories;
 
 internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher passwordHasher) : ICoreCrudStore
 {
-    public async Task<IReadOnlyList<ProductDto>> ListProductsAsync(Guid companyId, CancellationToken cancellationToken)
+    public async Task<PagedResult<ProductDto>> ListProductsAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
     {
-        return await dbContext.Products
+        var query = dbContext.Products
             .AsNoTracking()
-            .Where(product => product.CompanyId == companyId)
-            .OrderBy(product => product.SortOrder)
-            .ThenBy(product => product.Name)
-            .Select(product => ToDto(product))
-            .ToListAsync(cancellationToken);
+            .Where(product => product.CompanyId == companyId);
+
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(product =>
+                product.Name.ToLower().Contains(filter)
+                || (product.Barcode != null && product.Barcode.ToLower().Contains(filter))
+                || (product.StockCode != null && product.StockCode.ToLower().Contains(filter)));
+        }
+
+        query = NormalizeSort(listQuery.Sort) switch
+        {
+            "name_desc" => query.OrderByDescending(product => product.Name),
+            "sale_price" => query.OrderBy(product => product.SalePrice),
+            "sale_price_desc" => query.OrderByDescending(product => product.SalePrice),
+            "active" => query.OrderBy(product => product.Active).ThenBy(product => product.Name),
+            "active_desc" => query.OrderByDescending(product => product.Active).ThenBy(product => product.Name),
+            "sort_order_desc" => query.OrderByDescending(product => product.SortOrder).ThenBy(product => product.Name),
+            _ => query.OrderBy(product => product.SortOrder).ThenBy(product => product.Name)
+        };
+
+        return await ToPagedResultAsync(query.Select(product => ToDto(product)), listQuery, cancellationToken);
     }
 
     public async Task<ProductDto?> CreateProductAsync(ProductWriteDto request, CancellationToken cancellationToken)
@@ -100,6 +118,20 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         return ToDto(posProduct, request.CompanyId);
     }
 
+    public async Task<IReadOnlyList<PosProductDto>> ListPosProductsForProductAsync(Guid companyId, Guid productId, CancellationToken cancellationToken)
+    {
+        var productExists = await dbContext.Products.AnyAsync(product => product.CompanyId == companyId && product.Id == productId, cancellationToken);
+        if (!productExists) return [];
+
+        return await dbContext.PosProducts
+            .AsNoTracking()
+            .Include(posProduct => posProduct.Pos)
+            .Where(posProduct => posProduct.ProductId == productId && posProduct.Pos != null && posProduct.Pos.CompanyId == companyId)
+            .OrderBy(posProduct => posProduct.Pos!.Name)
+            .Select(posProduct => ToDto(posProduct, companyId))
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<IReadOnlyList<CategoryDto>> ListCategoriesAsync(Guid companyId, CancellationToken cancellationToken)
     {
         return await dbContext.Categories
@@ -149,19 +181,47 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
     public Task<bool> DeactivateCategoryAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken) =>
         DeactivateAsync(dbContext.Categories, companyId, id, userId, cancellationToken);
 
-    public async Task<IReadOnlyList<CustomerDto>> ListCustomersAsync(Guid companyId, CancellationToken cancellationToken)
+    public async Task<PagedResult<CustomerDto>> ListCustomersAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
     {
-        return await dbContext.Customers
+        var query = dbContext.Customers
             .AsNoTracking()
-            .Where(customer => customer.CompanyId == companyId)
-            .OrderBy(customer => customer.Name)
-            .ThenBy(customer => customer.Surname)
-            .Select(customer => ToDto(customer))
-            .ToListAsync(cancellationToken);
+            .Where(customer => customer.CompanyId == companyId);
+
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(customer =>
+                customer.Name.ToLower().Contains(filter)
+                || customer.Surname.ToLower().Contains(filter)
+                || customer.Username.ToLower().Contains(filter)
+                || (customer.Phone != null && customer.Phone.ToLower().Contains(filter))
+                || (customer.Mail != null && customer.Mail.ToLower().Contains(filter)));
+        }
+
+        query = NormalizeSort(listQuery.Sort) switch
+        {
+            "name_desc" => query.OrderByDescending(customer => customer.Name).ThenByDescending(customer => customer.Surname),
+            "balance" => query.OrderBy(customer => customer.Balance),
+            "balance_desc" => query.OrderByDescending(customer => customer.Balance),
+            "active" => query.OrderBy(customer => customer.Active).ThenBy(customer => customer.Name),
+            "active_desc" => query.OrderByDescending(customer => customer.Active).ThenBy(customer => customer.Name),
+            _ => query.OrderBy(customer => customer.Name).ThenBy(customer => customer.Surname)
+        };
+
+        return await ToPagedResultAsync(query.Select(customer => ToDto(customer)), listQuery, cancellationToken);
+    }
+
+    public async Task<CustomerDetailDto?> GetCustomerAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var customer = await dbContext.Customers.AsNoTracking().FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        if (customer is null) return null;
+
+        return await ToCustomerDetailDtoAsync(customer, cancellationToken);
     }
 
     public async Task<CustomerDto?> CreateCustomerAsync(CustomerWriteDto request, CancellationToken cancellationToken)
     {
+        await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
         var now = DateTimeOffset.UtcNow;
         var customer = new Customer
         {
@@ -180,7 +240,26 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
             Active = true
         };
         dbContext.Customers.Add(customer);
+        dbContext.WalletAccounts.Add(new WalletAccount
+        {
+            Id = Guid.NewGuid(),
+            CompanyId = request.CompanyId,
+            CustomerId = customer.Id,
+            Currency = "TRY",
+            Balance = 0m
+        });
+        dbContext.LoyaltyAccounts.Add(new LoyaltyAccount
+        {
+            Id = Guid.NewGuid(),
+            CompanyId = request.CompanyId,
+            CustomerId = customer.Id,
+            PointBalance = 0,
+            LifetimePoints = 0
+        });
         await dbContext.SaveChangesAsync(cancellationToken);
+        await SyncCustomerAddressesAsync(customer.Id, request, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
         return ToDto(customer);
     }
 
@@ -195,6 +274,7 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         customer.Mail = request.Mail;
         customer.RoleId = request.RoleId;
         Touch(customer, request.UserId);
+        await SyncCustomerAddressesAsync(customer.Id, request, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
         return ToDto(customer);
     }
@@ -202,16 +282,110 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
     public Task<bool> DeactivateCustomerAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken) =>
         DeactivateAsync(dbContext.Customers, companyId, id, userId, cancellationToken);
 
-    public async Task<IReadOnlyList<UserDto>> ListUsersAsync(Guid companyId, CancellationToken cancellationToken)
+    public async Task<WalletAdjustmentDto?> AdjustCustomerWalletAsync(Guid customerId, CustomerWalletAdjustmentRequest request, CancellationToken cancellationToken)
     {
-        var users = await dbContext.Users
-            .AsNoTracking()
-            .Where(user => user.CompanyId == companyId)
-            .OrderBy(user => user.FirstName)
-            .ThenBy(user => user.LastName)
-            .ToListAsync(cancellationToken);
+        var customer = await dbContext.Customers.FirstOrDefaultAsync(item => item.CompanyId == request.CompanyId && item.Id == customerId, cancellationToken);
+        if (customer is null) return null;
 
-        return await ToUserDtosAsync(companyId, users, cancellationToken);
+        await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
+        var wallet = await dbContext.WalletAccounts.FirstOrDefaultAsync(account => account.CompanyId == request.CompanyId && account.CustomerId == customerId, cancellationToken);
+        if (wallet is null)
+        {
+            wallet = new WalletAccount { Id = Guid.NewGuid(), CompanyId = request.CompanyId, CustomerId = customerId, Currency = "TRY" };
+            dbContext.WalletAccounts.Add(wallet);
+        }
+
+        if (request.Direction == LedgerDirection.Debit && wallet.Balance < request.Amount) return null;
+        wallet.Balance += request.Direction == LedgerDirection.Credit ? request.Amount : -request.Amount;
+        customer.Balance = wallet.Balance;
+        Touch(customer, request.UserId);
+        var walletTransaction = new WalletTransaction
+        {
+            Id = Guid.NewGuid(),
+            CompanyId = request.CompanyId,
+            WalletAccountId = wallet.Id,
+            Direction = request.Direction,
+            Amount = request.Amount,
+            State = LedgerEntryState.Posted,
+            Description = request.Reason,
+            OccurredAt = DateTimeOffset.UtcNow
+        };
+        dbContext.WalletTransactions.Add(walletTransaction);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
+        return new WalletAdjustmentDto(ToDto(wallet), walletTransaction.Id);
+    }
+
+    public async Task<LoyaltyAdjustmentDto?> AdjustCustomerLoyaltyAsync(Guid customerId, CustomerLoyaltyAdjustmentRequest request, CancellationToken cancellationToken)
+    {
+        var customerExists = await dbContext.Customers.AnyAsync(customer => customer.CompanyId == request.CompanyId && customer.Id == customerId, cancellationToken);
+        if (!customerExists) return null;
+
+        await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
+        var loyalty = await dbContext.LoyaltyAccounts.FirstOrDefaultAsync(account => account.CompanyId == request.CompanyId && account.CustomerId == customerId, cancellationToken);
+        if (loyalty is null)
+        {
+            loyalty = new LoyaltyAccount { Id = Guid.NewGuid(), CompanyId = request.CompanyId, CustomerId = customerId };
+            dbContext.LoyaltyAccounts.Add(loyalty);
+        }
+
+        if (request.Direction == LedgerDirection.Debit && loyalty.PointBalance < request.Points) return null;
+        loyalty.PointBalance += request.Direction == LedgerDirection.Credit ? request.Points : -request.Points;
+        if (request.Direction == LedgerDirection.Credit)
+        {
+            loyalty.LifetimePoints += request.Points;
+        }
+
+        var pointTransaction = new LoyaltyPointTransaction
+        {
+            Id = Guid.NewGuid(),
+            CompanyId = request.CompanyId,
+            LoyaltyAccountId = loyalty.Id,
+            TransactionType = LoyaltyPointTransactionType.Adjust,
+            Points = request.Direction == LedgerDirection.Credit ? request.Points : -request.Points,
+            State = LedgerEntryState.Posted,
+            Description = request.Reason,
+            OccurredAt = DateTimeOffset.UtcNow
+        };
+        dbContext.LoyaltyPointTransactions.Add(pointTransaction);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
+        return new LoyaltyAdjustmentDto(ToDto(loyalty), pointTransaction.Id);
+    }
+
+    public async Task<PagedResult<UserDto>> ListUsersAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
+    {
+        var query = dbContext.Users
+            .AsNoTracking()
+            .Where(user => user.CompanyId == companyId);
+
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(user =>
+                user.FirstName.ToLower().Contains(filter)
+                || user.LastName.ToLower().Contains(filter)
+                || user.Username.ToLower().Contains(filter)
+                || (user.Phone != null && user.Phone.ToLower().Contains(filter))
+                || (user.Mail != null && user.Mail.ToLower().Contains(filter)));
+        }
+
+        query = NormalizeSort(listQuery.Sort) switch
+        {
+            "name_desc" => query.OrderByDescending(user => user.FirstName).ThenByDescending(user => user.LastName),
+            "username" => query.OrderBy(user => user.Username),
+            "username_desc" => query.OrderByDescending(user => user.Username),
+            "active" => query.OrderBy(user => user.Active).ThenBy(user => user.FirstName),
+            "active_desc" => query.OrderByDescending(user => user.Active).ThenBy(user => user.FirstName),
+            _ => query.OrderBy(user => user.FirstName).ThenBy(user => user.LastName)
+        };
+
+        var page = NormalizePage(listQuery.Page);
+        var pageSize = NormalizePageSize(listQuery.PageSize);
+        var totalCount = await query.CountAsync(cancellationToken);
+        var users = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+        var items = await ToUserDtosAsync(companyId, users, cancellationToken);
+        return new PagedResult<UserDto>(items, page, pageSize, totalCount, TotalPages(totalCount, pageSize));
     }
 
     public async Task<UserDto?> GetUserAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
@@ -441,14 +615,48 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         return true;
     }
 
-    public async Task<IReadOnlyList<OrderListDto>> ListOrdersAsync(Guid companyId, CancellationToken cancellationToken)
+    public async Task<PagedResult<OrderListDto>> ListOrdersAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
     {
-        return await dbContext.Orders
+        var query = dbContext.Orders
             .AsNoTracking()
-            .Where(order => order.CompanyId == companyId)
-            .OrderByDescending(order => order.OrderTime)
-            .Select(order => new OrderListDto(order.Id, order.CompanyId, order.PosId, order.CustomerId, order.OrderTime, order.Total, order.OrderState, order.PaymentSummary))
-            .ToListAsync(cancellationToken);
+            .Where(order => order.CompanyId == companyId);
+
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(order =>
+                order.OrderNumber.ToString().Contains(filter)
+                || (order.Description != null && order.Description.ToLower().Contains(filter))
+                || order.IdempotencyKey.ToLower().Contains(filter));
+        }
+
+        query = NormalizeSort(listQuery.Sort) switch
+        {
+            "time" => query.OrderBy(order => order.OrderTime),
+            "total" => query.OrderBy(order => order.Total),
+            "total_desc" => query.OrderByDescending(order => order.Total),
+            "state" => query.OrderBy(order => order.OrderState).ThenByDescending(order => order.OrderTime),
+            "state_desc" => query.OrderByDescending(order => order.OrderState).ThenByDescending(order => order.OrderTime),
+            _ => query.OrderByDescending(order => order.OrderTime)
+        };
+
+        return await ToPagedResultAsync(
+            query.Select(order => new OrderListDto(
+                order.Id,
+                order.CompanyId,
+                order.PosId,
+                order.CustomerId,
+                order.OrderTime,
+                order.SubTotal,
+                order.TaxTotal,
+                order.TotalDiscount,
+                order.Total,
+                order.OrderState,
+                order.PaymentSummary,
+                order.Description,
+                order.AddressId)),
+            listQuery,
+            cancellationToken);
     }
 
     public async Task<IReadOnlyList<StoreDto>> ListStoresAsync(Guid companyId, CancellationToken cancellationToken)
@@ -516,13 +724,31 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
     public Task<bool> DeactivatePosAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken) =>
         DeactivateAsync(dbContext.PosDevices, companyId, id, userId, cancellationToken);
 
-    public async Task<IReadOnlyList<DiscountDto>> ListDiscountsAsync(Guid companyId, CancellationToken cancellationToken)
+    public async Task<PagedResult<DiscountDto>> ListDiscountsAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
     {
-        var discounts = await dbContext.Discounts.AsNoTracking()
-            .Where(discount => discount.CompanyId == companyId)
-            .OrderBy(discount => discount.SortOrder)
-            .ToListAsync(cancellationToken);
-        return await ToDiscountDtosAsync(companyId, discounts, cancellationToken);
+        var query = dbContext.Discounts.AsNoTracking().Where(discount => discount.CompanyId == companyId);
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(discount => discount.Description != null && discount.Description.ToLower().Contains(filter));
+        }
+
+        query = NormalizeSort(listQuery.Sort) switch
+        {
+            "amount" => query.OrderBy(discount => discount.Amount),
+            "amount_desc" => query.OrderByDescending(discount => discount.Amount),
+            "active" => query.OrderBy(discount => discount.Active).ThenBy(discount => discount.SortOrder),
+            "active_desc" => query.OrderByDescending(discount => discount.Active).ThenBy(discount => discount.SortOrder),
+            "sort_order_desc" => query.OrderByDescending(discount => discount.SortOrder),
+            _ => query.OrderBy(discount => discount.SortOrder)
+        };
+
+        var page = NormalizePage(listQuery.Page);
+        var pageSize = NormalizePageSize(listQuery.PageSize);
+        var totalCount = await query.CountAsync(cancellationToken);
+        var discounts = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+        var items = await ToDiscountDtosAsync(companyId, discounts, cancellationToken);
+        return new PagedResult<DiscountDto>(items, page, pageSize, totalCount, TotalPages(totalCount, pageSize));
     }
 
     public async Task<DiscountDto?> GetDiscountAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
@@ -578,15 +804,31 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
     public Task<bool> DeactivateDiscountAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken) =>
         DeactivateAsync(dbContext.Discounts, companyId, id, userId, cancellationToken);
 
-    public async Task<IReadOnlyList<CampaignDto>> ListCampaignsAsync(Guid companyId, CancellationToken cancellationToken)
+    public async Task<PagedResult<CampaignDto>> ListCampaignsAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
     {
-        return await dbContext.Campaigns
+        var query = dbContext.Campaigns
             .AsNoTracking()
-            .Where(campaign => campaign.CompanyId == companyId)
-            .OrderByDescending(campaign => campaign.Priority)
-            .ThenBy(campaign => campaign.Name)
-            .Select(campaign => ToDto(campaign))
-            .ToListAsync(cancellationToken);
+            .Where(campaign => campaign.CompanyId == companyId);
+
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(campaign =>
+                campaign.Name.ToLower().Contains(filter)
+                || (campaign.Description != null && campaign.Description.ToLower().Contains(filter)));
+        }
+
+        query = NormalizeSort(listQuery.Sort) switch
+        {
+            "name" => query.OrderBy(campaign => campaign.Name),
+            "name_desc" => query.OrderByDescending(campaign => campaign.Name),
+            "priority" => query.OrderBy(campaign => campaign.Priority),
+            "active" => query.OrderBy(campaign => campaign.Active).ThenBy(campaign => campaign.Name),
+            "active_desc" => query.OrderByDescending(campaign => campaign.Active).ThenBy(campaign => campaign.Name),
+            _ => query.OrderByDescending(campaign => campaign.Priority).ThenBy(campaign => campaign.Name)
+        };
+
+        return await ToPagedResultAsync(query.Select(campaign => ToDto(campaign)), listQuery, cancellationToken);
     }
 
     public async Task<CampaignDto?> GetCampaignAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
@@ -634,14 +876,18 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         return true;
     }
 
-    public async Task<IReadOnlyList<EarnRuleDto>> ListEarnRulesAsync(Guid companyId, CancellationToken cancellationToken)
+    public async Task<PagedResult<EarnRuleDto>> ListEarnRulesAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
     {
-        return await dbContext.EarnRules
+        var query = dbContext.EarnRules
             .AsNoTracking()
-            .Where(rule => rule.CompanyId == companyId)
-            .OrderBy(rule => rule.Name)
-            .Select(rule => ToDto(rule))
-            .ToListAsync(cancellationToken);
+            .Where(rule => rule.CompanyId == companyId);
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(rule => rule.Name.ToLower().Contains(filter));
+        }
+        query = NormalizeSort(listQuery.Sort) == "name_desc" ? query.OrderByDescending(rule => rule.Name) : query.OrderBy(rule => rule.Name);
+        return await ToPagedResultAsync(query.Select(rule => ToDto(rule)), listQuery, cancellationToken);
     }
 
     public async Task<EarnRuleDto?> GetEarnRuleAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
@@ -683,14 +929,24 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         return true;
     }
 
-    public async Task<IReadOnlyList<LoyaltyTierDto>> ListLoyaltyTiersAsync(Guid companyId, CancellationToken cancellationToken)
+    public async Task<PagedResult<LoyaltyTierDto>> ListLoyaltyTiersAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
     {
-        return await dbContext.LoyaltyTiers
+        var query = dbContext.LoyaltyTiers
             .AsNoTracking()
-            .Where(tier => tier.CompanyId == companyId)
-            .OrderBy(tier => tier.MinimumPoints)
-            .Select(tier => ToDto(tier))
-            .ToListAsync(cancellationToken);
+            .Where(tier => tier.CompanyId == companyId);
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(tier => tier.Name.ToLower().Contains(filter));
+        }
+        query = NormalizeSort(listQuery.Sort) switch
+        {
+            "name" => query.OrderBy(tier => tier.Name),
+            "name_desc" => query.OrderByDescending(tier => tier.Name),
+            "min_points_desc" => query.OrderByDescending(tier => tier.MinimumPoints),
+            _ => query.OrderBy(tier => tier.MinimumPoints)
+        };
+        return await ToPagedResultAsync(query.Select(tier => ToDto(tier)), listQuery, cancellationToken);
     }
 
     public async Task<LoyaltyTierDto?> GetLoyaltyTierAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
@@ -728,14 +984,18 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         return true;
     }
 
-    public async Task<IReadOnlyList<RewardDto>> ListRewardsAsync(Guid companyId, CancellationToken cancellationToken)
+    public async Task<PagedResult<RewardDto>> ListRewardsAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
     {
-        return await dbContext.Rewards
+        var query = dbContext.Rewards
             .AsNoTracking()
-            .Where(reward => reward.CompanyId == companyId)
-            .OrderBy(reward => reward.Name)
-            .Select(reward => ToDto(reward))
-            .ToListAsync(cancellationToken);
+            .Where(reward => reward.CompanyId == companyId);
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(reward => reward.Name.ToLower().Contains(filter));
+        }
+        query = NormalizeSort(listQuery.Sort) == "name_desc" ? query.OrderByDescending(reward => reward.Name) : query.OrderBy(reward => reward.Name);
+        return await ToPagedResultAsync(query.Select(reward => ToDto(reward)), listQuery, cancellationToken);
     }
 
     public async Task<RewardDto?> GetRewardAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
@@ -777,14 +1037,18 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         return true;
     }
 
-    public async Task<IReadOnlyList<StampCardDto>> ListStampCardsAsync(Guid companyId, CancellationToken cancellationToken)
+    public async Task<PagedResult<StampCardDto>> ListStampCardsAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
     {
-        return await dbContext.StampCards
+        var query = dbContext.StampCards
             .AsNoTracking()
-            .Where(stampCard => stampCard.CompanyId == companyId)
-            .OrderBy(stampCard => stampCard.Name)
-            .Select(stampCard => ToDto(stampCard))
-            .ToListAsync(cancellationToken);
+            .Where(stampCard => stampCard.CompanyId == companyId);
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(stampCard => stampCard.Name.ToLower().Contains(filter));
+        }
+        query = NormalizeSort(listQuery.Sort) == "name_desc" ? query.OrderByDescending(stampCard => stampCard.Name) : query.OrderBy(stampCard => stampCard.Name);
+        return await ToPagedResultAsync(query.Select(stampCard => ToDto(stampCard)), listQuery, cancellationToken);
     }
 
     public async Task<StampCardDto?> GetStampCardAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
@@ -826,6 +1090,143 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         return true;
     }
 
+    public async Task<PagedResult<SupplierDto>> ListSuppliersAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
+    {
+        var query = dbContext.Suppliers.AsNoTracking().Where(supplier => supplier.CompanyId == companyId);
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(supplier =>
+                supplier.Name.ToLower().Contains(filter)
+                || (supplier.Phone != null && supplier.Phone.ToLower().Contains(filter))
+                || (supplier.Mail != null && supplier.Mail.ToLower().Contains(filter))
+                || (supplier.TaxNo != null && supplier.TaxNo.ToLower().Contains(filter)));
+        }
+
+        query = NormalizeSort(listQuery.Sort) == "name_desc" ? query.OrderByDescending(supplier => supplier.Name) : query.OrderBy(supplier => supplier.Name);
+        return await ToPagedResultAsync(query.Select(supplier => ToDto(supplier)), listQuery, cancellationToken);
+    }
+
+    public async Task<SupplierDto?> GetSupplierAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var supplier = await dbContext.Suppliers.AsNoTracking().FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        return supplier is null ? null : ToDto(supplier);
+    }
+
+    public async Task<SupplierDto?> CreateSupplierAsync(SupplierWriteDto request, CancellationToken cancellationToken)
+    {
+        var now = DateTimeOffset.UtcNow;
+        var supplier = new Supplier
+        {
+            Id = Guid.NewGuid(),
+            CompanyId = request.CompanyId,
+            CreatedAt = now,
+            UpdatedAt = now,
+            CreatedById = request.UserId,
+            UpdatedById = request.UserId,
+            Active = true
+        };
+        ApplySupplierWrite(supplier, request);
+        dbContext.Suppliers.Add(supplier);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(supplier);
+    }
+
+    public async Task<SupplierDto?> UpdateSupplierAsync(Guid id, SupplierWriteDto request, CancellationToken cancellationToken)
+    {
+        var supplier = await dbContext.Suppliers.FirstOrDefaultAsync(item => item.CompanyId == request.CompanyId && item.Id == id, cancellationToken);
+        if (supplier is null) return null;
+
+        ApplySupplierWrite(supplier, request);
+        Touch(supplier, request.UserId);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(supplier);
+    }
+
+    public Task<bool> DeactivateSupplierAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken) =>
+        DeactivateAsync(dbContext.Suppliers, companyId, id, userId, cancellationToken);
+
+    public async Task<PagedResult<PurchaseDto>> ListPurchasesAsync(Guid companyId, ListQuery listQuery, CancellationToken cancellationToken)
+    {
+        var query = dbContext.Purchases.AsNoTracking().Where(purchase => purchase.CompanyId == companyId);
+        if (!string.IsNullOrWhiteSpace(listQuery.Filter))
+        {
+            var filter = listQuery.Filter.Trim().ToLower();
+            query = query.Where(purchase => purchase.Invoice != null && purchase.Invoice.ToLower().Contains(filter));
+        }
+
+        query = NormalizeSort(listQuery.Sort) switch
+        {
+            "time" => query.OrderBy(purchase => purchase.PurchaseTime),
+            "total" => query.OrderBy(purchase => purchase.Total),
+            "total_desc" => query.OrderByDescending(purchase => purchase.Total),
+            _ => query.OrderByDescending(purchase => purchase.PurchaseTime)
+        };
+
+        var page = NormalizePage(listQuery.Page);
+        var pageSize = NormalizePageSize(listQuery.PageSize);
+        var totalCount = await query.CountAsync(cancellationToken);
+        var purchases = await query
+            .Include(purchase => purchase.PurchaseProducts)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(cancellationToken);
+        return new PagedResult<PurchaseDto>(purchases.Select(ToDto).ToArray(), page, pageSize, totalCount, TotalPages(totalCount, pageSize));
+    }
+
+    public async Task<PurchaseDto?> GetPurchaseAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var purchase = await dbContext.Purchases
+            .AsNoTracking()
+            .Include(item => item.PurchaseProducts)
+            .FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        return purchase is null ? null : ToDto(purchase);
+    }
+
+    public async Task<PurchaseDto?> CreatePurchaseAsync(PurchaseWriteDto request, CancellationToken cancellationToken)
+    {
+        if (!await PurchaseScopeIsValidAsync(request, cancellationToken)) return null;
+
+        await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
+        var purchase = new Purchase { Id = Guid.NewGuid(), CompanyId = request.CompanyId };
+        ApplyPurchaseWrite(purchase, request);
+        dbContext.Purchases.Add(purchase);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        await SyncPurchaseLinesAsync(purchase, request, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
+        return await GetPurchaseAsync(request.CompanyId, purchase.Id, cancellationToken);
+    }
+
+    public async Task<PurchaseDto?> UpdatePurchaseAsync(Guid id, PurchaseWriteDto request, CancellationToken cancellationToken)
+    {
+        if (!await PurchaseScopeIsValidAsync(request, cancellationToken)) return null;
+
+        await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
+        var purchase = await dbContext.Purchases
+            .Include(item => item.PurchaseProducts)
+            .FirstOrDefaultAsync(item => item.CompanyId == request.CompanyId && item.Id == id, cancellationToken);
+        if (purchase is null) return null;
+
+        ApplyPurchaseWrite(purchase, request);
+        dbContext.PurchaseProducts.RemoveRange(purchase.PurchaseProducts);
+        await SyncPurchaseLinesAsync(purchase, request, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
+        return await GetPurchaseAsync(request.CompanyId, purchase.Id, cancellationToken);
+    }
+
+    public async Task<bool> DeletePurchaseAsync(Guid companyId, Guid id, CancellationToken cancellationToken)
+    {
+        var purchase = await dbContext.Purchases.Include(item => item.PurchaseProducts).FirstOrDefaultAsync(item => item.CompanyId == companyId && item.Id == id, cancellationToken);
+        if (purchase is null) return false;
+
+        dbContext.PurchaseProducts.RemoveRange(purchase.PurchaseProducts);
+        dbContext.Purchases.Remove(purchase);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return true;
+    }
+
     private async Task<bool> DeactivateAsync<TEntity>(DbSet<TEntity> set, Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken)
         where TEntity : AuditableEntity, ICompanyScoped
     {
@@ -843,6 +1244,26 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         entity.UpdatedAt = DateTimeOffset.UtcNow;
         entity.UpdatedById = userId;
     }
+
+    private static async Task<PagedResult<T>> ToPagedResultAsync<T>(IQueryable<T> query, ListQuery listQuery, CancellationToken cancellationToken)
+    {
+        var page = NormalizePage(listQuery.Page);
+        var pageSize = NormalizePageSize(listQuery.PageSize);
+        var totalCount = await query.CountAsync(cancellationToken);
+        var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+        return new PagedResult<T>(items, page, pageSize, totalCount, TotalPages(totalCount, pageSize));
+    }
+
+    private static int NormalizePage(int page) => page < 1 ? 1 : page;
+    private static int NormalizePageSize(int pageSize) => pageSize switch
+    {
+        < 1 => 50,
+        > 200 => 200,
+        _ => pageSize
+    };
+
+    private static int TotalPages(int totalCount, int pageSize) => totalCount == 0 ? 0 : (int)Math.Ceiling(totalCount / (double)pageSize);
+    private static string NormalizeSort(string? sort) => (sort ?? string.Empty).Trim().Replace("-", "_").ToLowerInvariant();
 
     private static void ApplyProductWrite(Product product, ProductWriteDto request)
     {
@@ -864,6 +1285,120 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         product.Description = request.Description;
         product.Main = request.Main;
         product.ParentId = request.ParentId;
+    }
+
+    private async Task SyncCustomerAddressesAsync(Guid customerId, CustomerWriteDto request, CancellationToken cancellationToken)
+    {
+        if (request.Addresses is null) return;
+
+        var currentLinks = await dbContext.CustomerAddresses
+            .Include(link => link.Address)
+            .Where(link => link.CustomerId == customerId)
+            .ToListAsync(cancellationToken);
+        dbContext.CustomerAddresses.RemoveRange(currentLinks);
+        dbContext.Addresses.RemoveRange(currentLinks.Select(link => link.Address).OfType<Address>());
+
+        foreach (var addressWrite in request.Addresses)
+        {
+            var address = new Address
+            {
+                Id = addressWrite.Id.GetValueOrDefault(Guid.NewGuid()),
+                CompanyId = request.CompanyId,
+                AddressType = addressWrite.AddressType,
+                AddressHeader = addressWrite.AddressHeader,
+                CityId = addressWrite.CityId,
+                TownId = addressWrite.TownId,
+                District = addressWrite.District,
+                MobilePhone = addressWrite.MobilePhone,
+                BusinessPhone = addressWrite.BusinessPhone,
+                Description = addressWrite.Description,
+                CreatedAt = DateTimeOffset.UtcNow,
+                UpdatedAt = DateTimeOffset.UtcNow,
+                CreatedById = request.UserId,
+                UpdatedById = request.UserId,
+                Active = true
+            };
+            dbContext.Addresses.Add(address);
+            dbContext.CustomerAddresses.Add(new CustomerAddress { Id = Guid.NewGuid(), CustomerId = customerId, AddressId = address.Id });
+        }
+    }
+
+    private async Task<CustomerDetailDto> ToCustomerDetailDtoAsync(Customer customer, CancellationToken cancellationToken)
+    {
+        var addresses = await dbContext.CustomerAddresses
+            .AsNoTracking()
+            .Include(link => link.Address)
+            .Where(link => link.CustomerId == customer.Id && link.Address != null && link.Address.CompanyId == customer.CompanyId)
+            .Select(link => ToDto(link.Address!))
+            .ToListAsync(cancellationToken);
+        var wallet = await dbContext.WalletAccounts.AsNoTracking().FirstOrDefaultAsync(account => account.CompanyId == customer.CompanyId && account.CustomerId == customer.Id, cancellationToken);
+        var loyalty = await dbContext.LoyaltyAccounts.AsNoTracking().FirstOrDefaultAsync(account => account.CompanyId == customer.CompanyId && account.CustomerId == customer.Id, cancellationToken);
+
+        return new CustomerDetailDto(
+            customer.Id,
+            customer.CompanyId,
+            customer.Name,
+            customer.Surname,
+            customer.Username,
+            customer.Phone,
+            customer.Mail,
+            customer.Balance,
+            customer.Active,
+            addresses,
+            wallet is null ? null : ToDto(wallet),
+            loyalty is null ? null : ToDto(loyalty));
+    }
+
+    private static void ApplySupplierWrite(Supplier supplier, SupplierWriteDto request)
+    {
+        supplier.Name = request.Name;
+        supplier.AuthorizedPerson = request.AuthorizedPerson;
+        supplier.Address = request.Address;
+        supplier.Phone = request.Phone;
+        supplier.Mail = request.Mail;
+        supplier.TaxOffice = request.TaxOffice;
+        supplier.TaxNo = request.TaxNo;
+        supplier.TaxFree = request.TaxFree;
+        supplier.MoneyUnitType = request.MoneyUnitType;
+        supplier.Maturity = request.Maturity;
+        supplier.OpeningBalance = request.OpeningBalance;
+    }
+
+    private async Task<bool> PurchaseScopeIsValidAsync(PurchaseWriteDto request, CancellationToken cancellationToken)
+    {
+        var supplierExists = await dbContext.Suppliers.AnyAsync(supplier => supplier.CompanyId == request.CompanyId && supplier.Id == request.SupplierId, cancellationToken);
+        var storeExists = await dbContext.Stores.AnyAsync(store => store.CompanyId == request.CompanyId && store.Id == request.StoreId, cancellationToken);
+        var productsExist = await CompanyIdsExistAsync(dbContext.Products, request.CompanyId, request.Lines.Select(line => line.ProductId).ToArray(), cancellationToken);
+        return supplierExists && storeExists && productsExist;
+    }
+
+    private static void ApplyPurchaseWrite(Purchase purchase, PurchaseWriteDto request)
+    {
+        purchase.PurchaseTime = request.PurchaseTime;
+        purchase.Invoice = request.Invoice;
+        purchase.PaymentCompleted = request.PaymentCompleted;
+        purchase.Received = request.Received;
+        purchase.PayerId = request.PayerId;
+        purchase.ReceiverId = request.ReceiverId;
+        purchase.SupplierId = request.SupplierId;
+        purchase.StoreId = request.StoreId;
+        purchase.Total = request.Lines.Sum(line => line.Quantity * line.Price);
+    }
+
+    private Task SyncPurchaseLinesAsync(Purchase purchase, PurchaseWriteDto request, CancellationToken cancellationToken)
+    {
+        purchase.PurchaseProducts = request.Lines.Select(line => new PurchaseProduct
+        {
+            Id = Guid.NewGuid(),
+            PurchaseId = purchase.Id,
+            ProductId = line.ProductId,
+            Quantity = line.Quantity,
+            Price = line.Price,
+            Total = line.Quantity * line.Price,
+            Discount = line.Discount,
+            Tax = line.Tax
+        }).ToList();
+        return Task.CompletedTask;
     }
 
     private async Task<bool> ProductAndPosBelongToCompanyAsync(Guid companyId, Guid productId, Guid posId, CancellationToken cancellationToken)
@@ -1229,6 +1764,9 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
 
     private static CategoryDto ToDto(Category category) => new(category.Id, category.CompanyId, category.Name, category.SortOrder, category.Active);
     private static CustomerDto ToDto(Customer customer) => new(customer.Id, customer.CompanyId, customer.Name, customer.Surname, customer.Username, customer.Phone, customer.Mail, customer.Balance, customer.Active);
+    private static AddressDto ToDto(Address address) => new(address.Id, address.AddressType, address.AddressHeader, address.CityId, address.TownId, address.District, address.MobilePhone, address.BusinessPhone, address.Description);
+    private static WalletAccountDto ToDto(WalletAccount account) => new(account.Id, account.CompanyId, account.CustomerId, account.Currency, account.Balance);
+    private static LoyaltyAccountDto ToDto(LoyaltyAccount account) => new(account.Id, account.CompanyId, account.CustomerId, account.LoyaltyTierId, account.PointBalance, account.LifetimePoints);
     private static StoreDto ToDto(Store store) => new(store.Id, store.CompanyId, store.Name, store.BranchId, store.Active);
     private static PosDto ToDto(Domain.Entities.Pos pos) => new(pos.Id, pos.CompanyId, pos.Name, pos.BranchId, pos.StoreId, pos.Active);
     private static DiscountDto ToDto(Discount discount, IReadOnlyList<Guid> branchIds, IReadOnlyList<Guid> posIds, IReadOnlyList<Guid> userIds) => new(
@@ -1304,4 +1842,41 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         stampCard.StartsAt,
         stampCard.EndsAt,
         stampCard.Active);
+
+    private static SupplierDto ToDto(Supplier supplier) => new(
+        supplier.Id,
+        supplier.CompanyId,
+        supplier.Name,
+        supplier.AuthorizedPerson,
+        supplier.Address,
+        supplier.Phone,
+        supplier.Mail,
+        supplier.TaxOffice,
+        supplier.TaxNo,
+        supplier.TaxFree,
+        supplier.MoneyUnitType,
+        supplier.Maturity,
+        supplier.OpeningBalance,
+        supplier.Active);
+
+    private static PurchaseDto ToDto(Purchase purchase) => new(
+        purchase.Id,
+        purchase.CompanyId,
+        purchase.PurchaseTime,
+        purchase.Invoice,
+        purchase.Total,
+        purchase.PaymentCompleted,
+        purchase.Received,
+        purchase.PayerId,
+        purchase.ReceiverId,
+        purchase.SupplierId,
+        purchase.StoreId,
+        purchase.PurchaseProducts.Select(line => new PurchaseLineDto(
+            line.Id,
+            line.ProductId,
+            line.Quantity,
+            line.Price,
+            line.Total,
+            line.Discount,
+            line.Tax)).ToArray());
 }

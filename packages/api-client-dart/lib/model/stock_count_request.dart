@@ -72,12 +72,10 @@ class _$StockCountRequestSerializer implements StructuredSerializer<StockCountRe
             ..add(r'countedQuantity')
             ..add(serializers.serialize(object.countedQuantity,
                 specifiedType: const FullType(int)));
-        if (object.description != null) {
-            result
-                ..add(r'description')
-                ..add(serializers.serialize(object.description,
-                    specifiedType: const FullType(String)));
-        }
+        result
+            ..add(r'description')
+            ..add(object.description == null ? null : serializers.serialize(object.description,
+                specifiedType: const FullType(String)));
         return result;
     }
 

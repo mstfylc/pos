@@ -182,3 +182,78 @@ public sealed class StampCardWriteValidator : AbstractValidator<StampCardWriteDt
             .When(request => request.StartsAt.HasValue && request.EndsAt.HasValue);
     }
 }
+
+public sealed class CustomerWriteValidator : AbstractValidator<CustomerWriteDto>
+{
+    public CustomerWriteValidator()
+    {
+        RuleFor(request => request.CompanyId).NotEmpty();
+        RuleFor(request => request.UserId).NotEmpty();
+        RuleFor(request => request.Name).NotEmpty();
+        RuleFor(request => request.Surname).NotEmpty();
+        RuleFor(request => request.Username).NotEmpty();
+        RuleFor(request => request.RoleId).NotEmpty();
+        RuleForEach(request => request.Addresses).ChildRules(address =>
+        {
+            address.RuleFor(item => item.AddressType).IsInEnum();
+            address.RuleFor(item => item.CityId).NotEmpty();
+            address.RuleFor(item => item.TownId).NotEmpty();
+        });
+    }
+}
+
+public sealed class CustomerWalletAdjustmentValidator : AbstractValidator<CustomerWalletAdjustmentRequest>
+{
+    public CustomerWalletAdjustmentValidator()
+    {
+        RuleFor(request => request.CompanyId).NotEmpty();
+        RuleFor(request => request.UserId).NotEmpty();
+        RuleFor(request => request.Amount).GreaterThan(0);
+        RuleFor(request => request.Direction).IsInEnum();
+        RuleFor(request => request.Reason).NotEmpty();
+    }
+}
+
+public sealed class CustomerLoyaltyAdjustmentValidator : AbstractValidator<CustomerLoyaltyAdjustmentRequest>
+{
+    public CustomerLoyaltyAdjustmentValidator()
+    {
+        RuleFor(request => request.CompanyId).NotEmpty();
+        RuleFor(request => request.UserId).NotEmpty();
+        RuleFor(request => request.Points).GreaterThan(0);
+        RuleFor(request => request.Direction).IsInEnum();
+        RuleFor(request => request.Reason).NotEmpty();
+    }
+}
+
+public sealed class SupplierWriteValidator : AbstractValidator<SupplierWriteDto>
+{
+    public SupplierWriteValidator()
+    {
+        RuleFor(request => request.CompanyId).NotEmpty();
+        RuleFor(request => request.UserId).NotEmpty();
+        RuleFor(request => request.Name).NotEmpty();
+        RuleFor(request => request.MoneyUnitType).IsInEnum().When(request => request.MoneyUnitType.HasValue);
+        RuleFor(request => request.Maturity).GreaterThanOrEqualTo(0).When(request => request.Maturity.HasValue);
+    }
+}
+
+public sealed class PurchaseWriteValidator : AbstractValidator<PurchaseWriteDto>
+{
+    public PurchaseWriteValidator()
+    {
+        RuleFor(request => request.CompanyId).NotEmpty();
+        RuleFor(request => request.UserId).NotEmpty();
+        RuleFor(request => request.SupplierId).NotEmpty();
+        RuleFor(request => request.StoreId).NotEmpty();
+        RuleFor(request => request.Lines).NotEmpty();
+        RuleForEach(request => request.Lines).ChildRules(line =>
+        {
+            line.RuleFor(item => item.ProductId).NotEmpty();
+            line.RuleFor(item => item.Quantity).GreaterThan(0);
+            line.RuleFor(item => item.Price).GreaterThanOrEqualTo(0);
+            line.RuleFor(item => item.Discount).GreaterThanOrEqualTo(0).When(item => item.Discount.HasValue);
+            line.RuleFor(item => item.Tax).GreaterThanOrEqualTo(0).When(item => item.Tax.HasValue);
+        });
+    }
+}

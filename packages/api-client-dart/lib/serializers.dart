@@ -13,303 +13,275 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/json_object.dart';
 import 'package:built_value/standard_json_plugin.dart';
 
-import 'package:mansis_pos_api_client/model/assignment.dart';
-import 'package:mansis_pos_api_client/model/assignment_record.dart';
-import 'package:mansis_pos_api_client/model/assignment_table_type.dart';
-import 'package:mansis_pos_api_client/model/assignment_write.dart';
+import 'package:mansis_pos_api_client/model/address_dto.dart';
+import 'package:mansis_pos_api_client/model/address_write_dto.dart';
+import 'package:mansis_pos_api_client/model/assignment_dto.dart';
+import 'package:mansis_pos_api_client/model/assignment_record_dto.dart';
+import 'package:mansis_pos_api_client/model/assignment_write_dto.dart';
 import 'package:mansis_pos_api_client/model/auth_token_result.dart';
-import 'package:mansis_pos_api_client/model/available_reward.dart';
-import 'package:mansis_pos_api_client/model/campaign.dart';
-import 'package:mansis_pos_api_client/model/campaign_type.dart';
-import 'package:mansis_pos_api_client/model/campaign_write.dart';
+import 'package:mansis_pos_api_client/model/available_reward_dto.dart';
+import 'package:mansis_pos_api_client/model/campaign_dto.dart';
+import 'package:mansis_pos_api_client/model/campaign_write_dto.dart';
 import 'package:mansis_pos_api_client/model/cancel_order_response.dart';
 import 'package:mansis_pos_api_client/model/cancel_transfer_request.dart';
-import 'package:mansis_pos_api_client/model/category.dart';
-import 'package:mansis_pos_api_client/model/category_write.dart';
-import 'package:mansis_pos_api_client/model/company.dart';
+import 'package:mansis_pos_api_client/model/category_dto.dart';
+import 'package:mansis_pos_api_client/model/category_write_dto.dart';
 import 'package:mansis_pos_api_client/model/confirm_transfer_request.dart';
-import 'package:mansis_pos_api_client/model/create_order_request.dart';
+import 'package:mansis_pos_api_client/model/create_app_order_discount_request.dart';
+import 'package:mansis_pos_api_client/model/create_app_order_line_request.dart';
+import 'package:mansis_pos_api_client/model/create_app_order_payment_request.dart';
+import 'package:mansis_pos_api_client/model/create_app_order_request.dart';
 import 'package:mansis_pos_api_client/model/create_transfer_request.dart';
-import 'package:mansis_pos_api_client/model/customer.dart';
 import 'package:mansis_pos_api_client/model/customer_card_token_response.dart';
-import 'package:mansis_pos_api_client/model/customer_write.dart';
+import 'package:mansis_pos_api_client/model/customer_detail_dto.dart';
+import 'package:mansis_pos_api_client/model/customer_dto.dart';
+import 'package:mansis_pos_api_client/model/customer_loyalty_adjustment_request.dart';
+import 'package:mansis_pos_api_client/model/customer_wallet_adjustment_request.dart';
+import 'package:mansis_pos_api_client/model/customer_write_dto.dart';
 import 'package:mansis_pos_api_client/model/destroy_stock_request.dart';
-import 'package:mansis_pos_api_client/model/discount.dart';
-import 'package:mansis_pos_api_client/model/discount_category.dart';
-import 'package:mansis_pos_api_client/model/discount_type.dart';
-import 'package:mansis_pos_api_client/model/discount_write.dart';
-import 'package:mansis_pos_api_client/model/earn_rule.dart';
-import 'package:mansis_pos_api_client/model/earn_rule_scope.dart';
-import 'package:mansis_pos_api_client/model/earn_rule_write.dart';
+import 'package:mansis_pos_api_client/model/discount_dto.dart';
+import 'package:mansis_pos_api_client/model/discount_write_dto.dart';
+import 'package:mansis_pos_api_client/model/earn_rule_dto.dart';
+import 'package:mansis_pos_api_client/model/earn_rule_write_dto.dart';
 import 'package:mansis_pos_api_client/model/entry_product_delivery_report_row.dart';
-import 'package:mansis_pos_api_client/model/entry_tracking_mode.dart';
-import 'package:mansis_pos_api_client/model/identified_customer.dart';
+import 'package:mansis_pos_api_client/model/identified_customer_dto.dart';
 import 'package:mansis_pos_api_client/model/identify_customer_request.dart';
-import 'package:mansis_pos_api_client/model/issue_customer_card_token_request.dart';
-import 'package:mansis_pos_api_client/model/ledger_direction.dart';
-import 'package:mansis_pos_api_client/model/ledger_entry_state.dart';
+import 'package:mansis_pos_api_client/model/issue_customer_card_token_api_request.dart';
 import 'package:mansis_pos_api_client/model/login_request.dart';
-import 'package:mansis_pos_api_client/model/loyalty_account.dart';
+import 'package:mansis_pos_api_client/model/loyalty_account_dto.dart';
+import 'package:mansis_pos_api_client/model/loyalty_adjustment_dto.dart';
 import 'package:mansis_pos_api_client/model/loyalty_preview_line.dart';
 import 'package:mansis_pos_api_client/model/loyalty_preview_request.dart';
 import 'package:mansis_pos_api_client/model/loyalty_preview_response.dart';
-import 'package:mansis_pos_api_client/model/loyalty_tier.dart';
-import 'package:mansis_pos_api_client/model/loyalty_tier_write.dart';
-import 'package:mansis_pos_api_client/model/order.dart';
-import 'package:mansis_pos_api_client/model/order_discount_write.dart';
-import 'package:mansis_pos_api_client/model/order_line.dart';
-import 'package:mansis_pos_api_client/model/order_list_item.dart';
-import 'package:mansis_pos_api_client/model/order_payment.dart';
+import 'package:mansis_pos_api_client/model/loyalty_tier_dto.dart';
+import 'package:mansis_pos_api_client/model/loyalty_tier_write_dto.dart';
+import 'package:mansis_pos_api_client/model/order_list_dto.dart';
 import 'package:mansis_pos_api_client/model/order_response.dart';
-import 'package:mansis_pos_api_client/model/order_state.dart';
 import 'package:mansis_pos_api_client/model/otp_request.dart';
 import 'package:mansis_pos_api_client/model/otp_result.dart';
 import 'package:mansis_pos_api_client/model/otp_verify_request.dart';
-import 'package:mansis_pos_api_client/model/payment_summary.dart';
-import 'package:mansis_pos_api_client/model/payment_type.dart';
-import 'package:mansis_pos_api_client/model/permission.dart';
-import 'package:mansis_pos_api_client/model/permission_type.dart';
-import 'package:mansis_pos_api_client/model/pos.dart';
-import 'package:mansis_pos_api_client/model/pos_product.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_campaign_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_customer_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_discount_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_earn_rule_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_loyalty_tier_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_order_list_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_product_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_purchase_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_reward_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_stamp_card_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_stock_movement_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_supplier_dto.dart';
+import 'package:mansis_pos_api_client/model/paged_result_of_user_dto.dart';
+import 'package:mansis_pos_api_client/model/permission_dto.dart';
+import 'package:mansis_pos_api_client/model/pos_dto.dart';
 import 'package:mansis_pos_api_client/model/pos_product_catalog_response.dart';
-import 'package:mansis_pos_api_client/model/pos_product_category.dart';
-import 'package:mansis_pos_api_client/model/pos_product_sale.dart';
-import 'package:mansis_pos_api_client/model/pos_product_write.dart';
-import 'package:mansis_pos_api_client/model/pos_write.dart';
+import 'package:mansis_pos_api_client/model/pos_product_category_dto.dart';
+import 'package:mansis_pos_api_client/model/pos_product_dto.dart';
+import 'package:mansis_pos_api_client/model/pos_product_sale_dto.dart';
+import 'package:mansis_pos_api_client/model/pos_product_write_dto.dart';
+import 'package:mansis_pos_api_client/model/pos_write_dto.dart';
 import 'package:mansis_pos_api_client/model/problem_details.dart';
-import 'package:mansis_pos_api_client/model/product.dart';
-import 'package:mansis_pos_api_client/model/product_transfer_state.dart';
-import 'package:mansis_pos_api_client/model/product_unit_type.dart';
-import 'package:mansis_pos_api_client/model/product_write.dart';
+import 'package:mansis_pos_api_client/model/product_dto.dart';
+import 'package:mansis_pos_api_client/model/product_write_dto.dart';
+import 'package:mansis_pos_api_client/model/purchase_dto.dart';
+import 'package:mansis_pos_api_client/model/purchase_line_dto.dart';
+import 'package:mansis_pos_api_client/model/purchase_line_write_dto.dart';
+import 'package:mansis_pos_api_client/model/purchase_write_dto.dart';
 import 'package:mansis_pos_api_client/model/reason_request.dart';
-import 'package:mansis_pos_api_client/model/receive_transfer_line.dart';
+import 'package:mansis_pos_api_client/model/receive_transfer_line_dto.dart';
 import 'package:mansis_pos_api_client/model/receive_transfer_request.dart';
+import 'package:mansis_pos_api_client/model/redeem_reward_api_request.dart';
+import 'package:mansis_pos_api_client/model/redeem_reward_response.dart';
 import 'package:mansis_pos_api_client/model/refresh_token_request.dart';
-import 'package:mansis_pos_api_client/model/reward.dart';
-import 'package:mansis_pos_api_client/model/reward_type.dart';
-import 'package:mansis_pos_api_client/model/reward_write.dart';
-import 'package:mansis_pos_api_client/model/role.dart';
-import 'package:mansis_pos_api_client/model/role_permission_write.dart';
-import 'package:mansis_pos_api_client/model/role_write.dart';
-import 'package:mansis_pos_api_client/model/shipping_type.dart';
-import 'package:mansis_pos_api_client/model/stamp_card.dart';
-import 'package:mansis_pos_api_client/model/stamp_card_write.dart';
+import 'package:mansis_pos_api_client/model/reward_dto.dart';
+import 'package:mansis_pos_api_client/model/reward_write_dto.dart';
+import 'package:mansis_pos_api_client/model/role_dto.dart';
+import 'package:mansis_pos_api_client/model/role_permission_write_dto.dart';
+import 'package:mansis_pos_api_client/model/role_write_dto.dart';
+import 'package:mansis_pos_api_client/model/stamp_card_dto.dart';
+import 'package:mansis_pos_api_client/model/stamp_card_write_dto.dart';
 import 'package:mansis_pos_api_client/model/stock_adjustment_request.dart';
 import 'package:mansis_pos_api_client/model/stock_count_request.dart';
-import 'package:mansis_pos_api_client/model/stock_movement.dart';
-import 'package:mansis_pos_api_client/model/store.dart';
-import 'package:mansis_pos_api_client/model/store_product_movement_type.dart';
-import 'package:mansis_pos_api_client/model/store_product_transfer.dart';
-import 'package:mansis_pos_api_client/model/store_product_transfer_line.dart';
-import 'package:mansis_pos_api_client/model/store_write.dart';
-import 'package:mansis_pos_api_client/model/tax_type.dart';
-import 'package:mansis_pos_api_client/model/transfer_line_write.dart';
-import 'package:mansis_pos_api_client/model/user.dart';
-import 'package:mansis_pos_api_client/model/user_write.dart';
-import 'package:mansis_pos_api_client/model/wallet_account.dart';
+import 'package:mansis_pos_api_client/model/stock_movement_dto.dart';
+import 'package:mansis_pos_api_client/model/store_dto.dart';
+import 'package:mansis_pos_api_client/model/store_product_transfer_dto.dart';
+import 'package:mansis_pos_api_client/model/store_product_transfer_line_dto.dart';
+import 'package:mansis_pos_api_client/model/store_write_dto.dart';
+import 'package:mansis_pos_api_client/model/supplier_dto.dart';
+import 'package:mansis_pos_api_client/model/supplier_write_dto.dart';
+import 'package:mansis_pos_api_client/model/transfer_line_write_dto.dart';
+import 'package:mansis_pos_api_client/model/user_dto.dart';
+import 'package:mansis_pos_api_client/model/user_write_dto.dart';
+import 'package:mansis_pos_api_client/model/wallet_account_dto.dart';
+import 'package:mansis_pos_api_client/model/wallet_adjustment_dto.dart';
 
 part 'serializers.g.dart';
 
 @SerializersFor(const [
-  Assignment,
-  AssignmentRecord,
-  AssignmentTableType,
-  AssignmentWrite,
+  AddressDto,
+  AddressWriteDto,
+  AssignmentDto,
+  AssignmentRecordDto,
+  AssignmentWriteDto,
   AuthTokenResult,
-  AvailableReward,
-  Campaign,
-  CampaignType,
-  CampaignWrite,
+  AvailableRewardDto,
+  CampaignDto,
+  CampaignWriteDto,
   CancelOrderResponse,
   CancelTransferRequest,
-  Category,
-  CategoryWrite,
-  Company,
+  CategoryDto,
+  CategoryWriteDto,
   ConfirmTransferRequest,
-  CreateOrderRequest,
+  CreateAppOrderDiscountRequest,
+  CreateAppOrderLineRequest,
+  CreateAppOrderPaymentRequest,
+  CreateAppOrderRequest,
   CreateTransferRequest,
-  Customer,
   CustomerCardTokenResponse,
-  CustomerWrite,
+  CustomerDetailDto,
+  CustomerDto,
+  CustomerLoyaltyAdjustmentRequest,
+  CustomerWalletAdjustmentRequest,
+  CustomerWriteDto,
   DestroyStockRequest,
-  Discount,
-  DiscountCategory,
-  DiscountType,
-  DiscountWrite,
-  EarnRule,
-  EarnRuleScope,
-  EarnRuleWrite,
+  DiscountDto,
+  DiscountWriteDto,
+  EarnRuleDto,
+  EarnRuleWriteDto,
   EntryProductDeliveryReportRow,
-  EntryTrackingMode,
-  IdentifiedCustomer,
+  IdentifiedCustomerDto,
   IdentifyCustomerRequest,
-  IssueCustomerCardTokenRequest,
-  LedgerDirection,
-  LedgerEntryState,
+  IssueCustomerCardTokenApiRequest,
   LoginRequest,
-  LoyaltyAccount,
+  LoyaltyAccountDto,
+  LoyaltyAdjustmentDto,
   LoyaltyPreviewLine,
   LoyaltyPreviewRequest,
   LoyaltyPreviewResponse,
-  LoyaltyTier,
-  LoyaltyTierWrite,
-  Order,
-  OrderDiscountWrite,
-  OrderLine,
-  OrderListItem,
-  OrderPayment,
+  LoyaltyTierDto,
+  LoyaltyTierWriteDto,
+  OrderListDto,
   OrderResponse,
-  OrderState,
   OtpRequest,
   OtpResult,
   OtpVerifyRequest,
-  PaymentSummary,
-  PaymentType,
-  Permission,
-  PermissionType,
-  Pos,
-  PosProduct,
+  PagedResultOfCampaignDto,
+  PagedResultOfCustomerDto,
+  PagedResultOfDiscountDto,
+  PagedResultOfEarnRuleDto,
+  PagedResultOfLoyaltyTierDto,
+  PagedResultOfOrderListDto,
+  PagedResultOfProductDto,
+  PagedResultOfPurchaseDto,
+  PagedResultOfRewardDto,
+  PagedResultOfStampCardDto,
+  PagedResultOfStockMovementDto,
+  PagedResultOfSupplierDto,
+  PagedResultOfUserDto,
+  PermissionDto,
+  PosDto,
   PosProductCatalogResponse,
-  PosProductCategory,
-  PosProductSale,
-  PosProductWrite,
-  PosWrite,
+  PosProductCategoryDto,
+  PosProductDto,
+  PosProductSaleDto,
+  PosProductWriteDto,
+  PosWriteDto,
   ProblemDetails,
-  Product,
-  ProductTransferState,
-  ProductUnitType,
-  ProductWrite,
+  ProductDto,
+  ProductWriteDto,
+  PurchaseDto,
+  PurchaseLineDto,
+  PurchaseLineWriteDto,
+  PurchaseWriteDto,
   ReasonRequest,
-  ReceiveTransferLine,
+  ReceiveTransferLineDto,
   ReceiveTransferRequest,
+  RedeemRewardApiRequest,
+  RedeemRewardResponse,
   RefreshTokenRequest,
-  Reward,
-  RewardType,
-  RewardWrite,
-  Role,
-  RolePermissionWrite,
-  RoleWrite,
-  ShippingType,
-  StampCard,
-  StampCardWrite,
+  RewardDto,
+  RewardWriteDto,
+  RoleDto,
+  RolePermissionWriteDto,
+  RoleWriteDto,
+  StampCardDto,
+  StampCardWriteDto,
   StockAdjustmentRequest,
   StockCountRequest,
-  StockMovement,
-  Store,
-  StoreProductMovementType,
-  StoreProductTransfer,
-  StoreProductTransferLine,
-  StoreWrite,
-  TaxType,
-  TransferLineWrite,
-  User,
-  UserWrite,
-  WalletAccount,
+  StockMovementDto,
+  StoreDto,
+  StoreProductTransferDto,
+  StoreProductTransferLineDto,
+  StoreWriteDto,
+  SupplierDto,
+  SupplierWriteDto,
+  TransferLineWriteDto,
+  UserDto,
+  UserWriteDto,
+  WalletAccountDto,
+  WalletAdjustmentDto,
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Assignment)]),
-        () => ListBuilder<Assignment>(),
+        const FullType(BuiltList, [FullType(PermissionDto)]),
+        () => ListBuilder<PermissionDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Product)]),
-        () => ListBuilder<Product>(),
+        const FullType(BuiltList, [FullType(PosProductDto)]),
+        () => ListBuilder<PosProductDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Campaign)]),
-        () => ListBuilder<Campaign>(),
+        const FullType(BuiltList, [FullType(StoreDto)]),
+        () => ListBuilder<StoreDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Pos)]),
-        () => ListBuilder<Pos>(),
+        const FullType(BuiltList, [FullType(AssignmentDto)]),
+        () => ListBuilder<AssignmentDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Company)]),
-        () => ListBuilder<Company>(),
+        const FullType(BuiltList, [FullType(PosDto)]),
+        () => ListBuilder<PosDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(OrderListItem)]),
-        () => ListBuilder<OrderListItem>(),
+        const FullType(BuiltList, [FullType(CategoryDto)]),
+        () => ListBuilder<CategoryDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Role)]),
-        () => ListBuilder<Role>(),
+        const FullType(BuiltList, [FullType(RoleDto)]),
+        () => ListBuilder<RoleDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Category)]),
-        () => ListBuilder<Category>(),
+        const FullType(BuiltList, [FullType(CustomerDto)]),
+        () => ListBuilder<CustomerDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(User)]),
-        () => ListBuilder<User>(),
+        const FullType(BuiltList, [FullType(DiscountDto)]),
+        () => ListBuilder<DiscountDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Permission)]),
-        () => ListBuilder<Permission>(),
+        const FullType(BuiltList, [FullType(StoreDto)]),
+        () => ListBuilder<StoreDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(EarnRule)]),
-        () => ListBuilder<EarnRule>(),
+        const FullType(BuiltList, [FullType(OrderListDto)]),
+        () => ListBuilder<OrderListDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Discount)]),
-        () => ListBuilder<Discount>(),
+        const FullType(BuiltList, [FullType(ProductDto)]),
+        () => ListBuilder<ProductDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Customer)]),
-        () => ListBuilder<Customer>(),
+        const FullType(BuiltList, [FullType(PosDto)]),
+        () => ListBuilder<PosDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(StampCard)]),
-        () => ListBuilder<StampCard>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(LoyaltyTier)]),
-        () => ListBuilder<LoyaltyTier>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Store)]),
-        () => ListBuilder<Store>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Reward)]),
-        () => ListBuilder<Reward>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(OrderListItem)]),
-        () => ListBuilder<OrderListItem>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Category)]),
-        () => ListBuilder<Category>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Product)]),
-        () => ListBuilder<Product>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Discount)]),
-        () => ListBuilder<Discount>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Customer)]),
-        () => ListBuilder<Customer>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Store)]),
-        () => ListBuilder<Store>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Pos)]),
-        () => ListBuilder<Pos>(),
+        const FullType(BuiltList, [FullType(CategoryDto)]),
+        () => ListBuilder<CategoryDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(EntryProductDeliveryReportRow)]),
         () => ListBuilder<EntryProductDeliveryReportRow>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(StockMovement)]),
-        () => ListBuilder<StockMovement>(),
       )
       ..add(Iso8601DateTimeSerializer()))
     .build();

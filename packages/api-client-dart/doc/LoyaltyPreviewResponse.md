@@ -12,10 +12,10 @@ Name | Type | Description | Notes
 **campaignDiscount** | **double** |  | 
 **finalTotal** | **double** |  | 
 **earnPoints** | **int** |  | 
-**earnExpiresAt** | [**DateTime**](DateTime.md) |  | [optional] 
+**earnExpiresAt** | [**DateTime**](DateTime.md) |  | 
 **campaignExtraPoints** | **int** |  | 
 **appliedCampaigns** | **BuiltList<String>** |  | 
-**availableRewards** | [**BuiltList<AvailableReward>**](AvailableReward.md) |  | 
+**availableRewards** | [**BuiltList<AvailableRewardDto>**](AvailableRewardDto.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

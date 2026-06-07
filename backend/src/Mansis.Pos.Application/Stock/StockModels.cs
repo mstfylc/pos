@@ -47,7 +47,11 @@ public sealed record StockMovementFilter(
     Guid? ProductId,
     StoreProductMovementType? MovementType,
     DateTimeOffset? From,
-    DateTimeOffset? To);
+    DateTimeOffset? To,
+    int Page = 1,
+    int PageSize = 50,
+    string? Sort = null,
+    string? Filter = null);
 
 public sealed record TransferLineWriteDto(Guid ProductId, int Quantity, ProductUnitType? Unit, decimal? UnitPrice);
 
