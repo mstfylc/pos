@@ -25,20 +25,13 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext) : ICoreCrudStore
         {
             Id = Guid.NewGuid(),
             CompanyId = request.CompanyId,
-            Name = request.Name,
-            CategoryId = request.CategoryId,
-            SalePrice = request.SalePrice,
-            Barcode = request.Barcode,
-            StockCode = request.StockCode,
-            ProductUnitType = request.ProductUnitType,
-            TaxType = request.TaxType,
-            Stocktaking = request.Stocktaking,
             CreatedAt = now,
             UpdatedAt = now,
             CreatedById = request.UserId,
             UpdatedById = request.UserId,
             Active = true
         };
+        ApplyProductWrite(product, request);
 
         dbContext.Products.Add(product);
         await dbContext.SaveChangesAsync(cancellationToken);
@@ -49,14 +42,7 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext) : ICoreCrudStore
     {
         var product = await dbContext.Products.FirstOrDefaultAsync(item => item.CompanyId == request.CompanyId && item.Id == id, cancellationToken);
         if (product is null) return null;
-        product.Name = request.Name;
-        product.CategoryId = request.CategoryId;
-        product.SalePrice = request.SalePrice;
-        product.Barcode = request.Barcode;
-        product.StockCode = request.StockCode;
-        product.ProductUnitType = request.ProductUnitType;
-        product.TaxType = request.TaxType;
-        product.Stocktaking = request.Stocktaking;
+        ApplyProductWrite(product, request);
         Touch(product, request.UserId);
         await dbContext.SaveChangesAsync(cancellationToken);
         return ToDto(product);
@@ -64,6 +50,53 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext) : ICoreCrudStore
 
     public Task<bool> DeactivateProductAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken) =>
         DeactivateAsync(dbContext.Products, companyId, id, userId, cancellationToken);
+
+    public async Task<PosProductDto?> CreatePosProductAsync(PosProductWriteDto request, CancellationToken cancellationToken)
+    {
+        var scopeIsValid = await ProductAndPosBelongToCompanyAsync(request.CompanyId, request.ProductId, request.PosId, cancellationToken);
+        if (!scopeIsValid) return null;
+
+        var duplicateExists = await dbContext.PosProducts.AnyAsync(
+            posProduct => posProduct.PosId == request.PosId && posProduct.ProductId == request.ProductId,
+            cancellationToken);
+        if (duplicateExists) return null;
+
+        var posProduct = new PosProduct
+        {
+            Id = Guid.NewGuid(),
+            PosId = request.PosId,
+            ProductId = request.ProductId,
+            PurchasePrice = request.PurchasePrice,
+            SalePrice = request.SalePrice
+        };
+
+        dbContext.PosProducts.Add(posProduct);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(posProduct, request.CompanyId);
+    }
+
+    public async Task<PosProductDto?> UpdatePosProductAsync(Guid id, PosProductWriteDto request, CancellationToken cancellationToken)
+    {
+        var scopeIsValid = await ProductAndPosBelongToCompanyAsync(request.CompanyId, request.ProductId, request.PosId, cancellationToken);
+        if (!scopeIsValid) return null;
+
+        var posProduct = await dbContext.PosProducts
+            .Include(item => item.Pos)
+            .FirstOrDefaultAsync(item => item.Id == id && item.Pos != null && item.Pos.CompanyId == request.CompanyId, cancellationToken);
+        if (posProduct is null) return null;
+
+        var duplicateExists = await dbContext.PosProducts.AnyAsync(
+            item => item.Id != id && item.PosId == request.PosId && item.ProductId == request.ProductId,
+            cancellationToken);
+        if (duplicateExists) return null;
+
+        posProduct.PosId = request.PosId;
+        posProduct.ProductId = request.ProductId;
+        posProduct.PurchasePrice = request.PurchasePrice;
+        posProduct.SalePrice = request.SalePrice;
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return ToDto(posProduct, request.CompanyId);
+    }
 
     public async Task<IReadOnlyList<CategoryDto>> ListCategoriesAsync(Guid companyId, CancellationToken cancellationToken)
     {
@@ -297,7 +330,66 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext) : ICoreCrudStore
         entity.UpdatedById = userId;
     }
 
-    private static ProductDto ToDto(Product product) => new(product.Id, product.CompanyId, product.Name, product.CategoryId, product.SalePrice, product.Barcode, product.StockCode, product.Active);
+    private static void ApplyProductWrite(Product product, ProductWriteDto request)
+    {
+        product.Name = request.Name;
+        product.CategoryId = request.CategoryId;
+        product.PurchasePrice = request.PurchasePrice;
+        product.SalePrice = request.SalePrice;
+        product.Barcode = request.Barcode;
+        product.StockCode = request.StockCode;
+        product.ProductUnitType = request.ProductUnitType;
+        product.TaxType = request.TaxType;
+        product.Stocktaking = request.Stocktaking;
+        product.Image = request.Image;
+        product.StoreProduct = request.StoreProduct;
+        product.PosProduct = request.PosProduct;
+        product.EntryProduct = request.EntryProduct;
+        product.FavoriteProduct = request.FavoriteProduct;
+        product.SortOrder = request.SortOrder;
+        product.Description = request.Description;
+        product.Main = request.Main;
+        product.ParentId = request.ParentId;
+    }
+
+    private async Task<bool> ProductAndPosBelongToCompanyAsync(Guid companyId, Guid productId, Guid posId, CancellationToken cancellationToken)
+    {
+        var productExists = await dbContext.Products.AnyAsync(product => product.CompanyId == companyId && product.Id == productId, cancellationToken);
+        var posExists = await dbContext.PosDevices.AnyAsync(pos => pos.CompanyId == companyId && pos.Id == posId, cancellationToken);
+        return productExists && posExists;
+    }
+
+    private static ProductDto ToDto(Product product) => new(
+        product.Id,
+        product.CompanyId,
+        product.Name,
+        product.CategoryId,
+        product.PurchasePrice,
+        product.SalePrice,
+        product.Barcode,
+        product.StockCode,
+        product.ProductUnitType,
+        product.TaxType,
+        product.Stocktaking,
+        product.Image,
+        product.StoreProduct,
+        product.PosProduct,
+        product.EntryProduct,
+        product.FavoriteProduct,
+        product.SortOrder,
+        product.Description,
+        product.Main,
+        product.ParentId,
+        product.Active);
+
+    private static PosProductDto ToDto(PosProduct posProduct, Guid companyId) => new(
+        posProduct.Id,
+        companyId,
+        posProduct.PosId,
+        posProduct.ProductId,
+        posProduct.PurchasePrice,
+        posProduct.SalePrice);
+
     private static CategoryDto ToDto(Category category) => new(category.Id, category.CompanyId, category.Name, category.SortOrder, category.Active);
     private static CustomerDto ToDto(Customer customer) => new(customer.Id, customer.CompanyId, customer.Name, customer.Surname, customer.Username, customer.Phone, customer.Mail, customer.Balance, customer.Active);
     private static StoreDto ToDto(Store store) => new(store.Id, store.CompanyId, store.Name, store.BranchId, store.Active);

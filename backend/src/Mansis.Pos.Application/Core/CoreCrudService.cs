@@ -6,6 +6,8 @@ public sealed class CoreCrudService(ICoreCrudStore store)
     public Task<ProductDto?> CreateProductAsync(ProductWriteDto request, CancellationToken cancellationToken) => store.CreateProductAsync(request, cancellationToken);
     public Task<ProductDto?> UpdateProductAsync(Guid id, ProductWriteDto request, CancellationToken cancellationToken) => store.UpdateProductAsync(id, request, cancellationToken);
     public Task<bool> DeactivateProductAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken) => store.DeactivateProductAsync(companyId, id, userId, cancellationToken);
+    public Task<PosProductDto?> CreatePosProductAsync(PosProductWriteDto request, CancellationToken cancellationToken) => store.CreatePosProductAsync(request, cancellationToken);
+    public Task<PosProductDto?> UpdatePosProductAsync(Guid id, PosProductWriteDto request, CancellationToken cancellationToken) => store.UpdatePosProductAsync(id, request, cancellationToken);
 
     public Task<IReadOnlyList<CategoryDto>> ListCategoriesAsync(Guid companyId, CancellationToken cancellationToken) => store.ListCategoriesAsync(companyId, cancellationToken);
     public Task<CategoryDto?> CreateCategoryAsync(CategoryWriteDto request, CancellationToken cancellationToken) => store.CreateCategoryAsync(request, cancellationToken);

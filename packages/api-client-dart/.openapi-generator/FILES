@@ -31,6 +31,8 @@ doc/OtpVerifyRequest.md
 doc/PaymentSummary.md
 doc/PaymentType.md
 doc/Pos.md
+doc/PosProduct.md
+doc/PosProductWrite.md
 doc/PosWrite.md
 doc/ProblemDetails.md
 doc/Product.md
@@ -83,6 +85,8 @@ lib/model/otp_verify_request.dart
 lib/model/payment_summary.dart
 lib/model/payment_type.dart
 lib/model/pos.dart
+lib/model/pos_product.dart
+lib/model/pos_product_write.dart
 lib/model/pos_write.dart
 lib/model/problem_details.dart
 lib/model/product.dart
@@ -99,3 +103,5 @@ lib/model/tax_type.dart
 lib/model/wallet_account.dart
 lib/serializers.dart
 pubspec.yaml
+test/pos_product_test.dart
+test/pos_product_write_test.dart

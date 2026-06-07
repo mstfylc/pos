@@ -16,7 +16,7 @@ public enum ProductType { Store, Pos }
 public enum ProductUnitType { Adet, MiliLitre, Gram }
 public enum ShippingType { Self, ComeTake, Order, Customer }
 public enum StoreProductMovementType { StockIn, StockOut, Destroy, Order, Purchase, TransferIn, TransferOut }
-public enum TaxType { Bir, Sekiz, OnSekiz }
+public enum TaxType { Sifir, Bir, Sekiz, OnSekiz }
 public enum LedgerDirection { Debit, Credit }
 public enum LedgerEntryState { Posted, Reversed }
 public enum OrderPaymentState { Pending, Captured, Cancelled, Refunded }

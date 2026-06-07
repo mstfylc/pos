@@ -1,3 +1,4 @@
+using FluentValidation;
 using Mansis.Pos.Application.Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,23 +7,54 @@ namespace Mansis.Pos.Api.Controllers;
 [ApiController]
 [Route("api/v1/admin")]
 [Tags("Admin")]
-public sealed class AdminCoreController(CoreCrudService coreCrudService) : ControllerBase
+public sealed class AdminCoreController(
+    CoreCrudService coreCrudService,
+    IValidator<ProductWriteDto> productWriteValidator,
+    IValidator<PosProductWriteDto> posProductWriteValidator) : ControllerBase
 {
     [HttpGet("products")]
     public Task<IReadOnlyList<ProductDto>> ListProductsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
         coreCrudService.ListProductsAsync(companyId, cancellationToken);
 
     [HttpPost("products")]
-    public async Task<ActionResult<ProductDto>> CreateProductAsync([FromBody] ProductWriteDto request, CancellationToken cancellationToken) =>
-        CreatedResult(await coreCrudService.CreateProductAsync(request, cancellationToken));
+    public async Task<ActionResult<ProductDto>> CreateProductAsync([FromBody] ProductWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await productWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return CreatedResult(await coreCrudService.CreateProductAsync(request, cancellationToken));
+    }
 
     [HttpPut("products/{id:guid}")]
-    public async Task<ActionResult<ProductDto>> UpdateProductAsync(Guid id, [FromBody] ProductWriteDto request, CancellationToken cancellationToken) =>
-        NullableResult(await coreCrudService.UpdateProductAsync(id, request, cancellationToken));
+    public async Task<ActionResult<ProductDto>> UpdateProductAsync(Guid id, [FromBody] ProductWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await productWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return NullableResult(await coreCrudService.UpdateProductAsync(id, request, cancellationToken));
+    }
 
     [HttpDelete("products/{id:guid}")]
     public async Task<IActionResult> DeleteProductAsync(Guid id, [FromQuery] Guid companyId, [FromQuery] Guid userId, CancellationToken cancellationToken) =>
         BoolResult(await coreCrudService.DeactivateProductAsync(companyId, id, userId, cancellationToken));
+
+    [HttpPost("pos-products")]
+    public async Task<ActionResult<PosProductDto>> CreatePosProductAsync([FromBody] PosProductWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await posProductWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return CreatedResult(await coreCrudService.CreatePosProductAsync(request, cancellationToken));
+    }
+
+    [HttpPut("pos-products/{id:guid}")]
+    public async Task<ActionResult<PosProductDto>> UpdatePosProductAsync(Guid id, [FromBody] PosProductWriteDto request, CancellationToken cancellationToken)
+    {
+        var validationResult = await posProductWriteValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid) return BadRequest(new ValidationProblemDetails(validationResult.ToDictionary()));
+
+        return NullableResult(await coreCrudService.UpdatePosProductAsync(id, request, cancellationToken));
+    }
 
     [HttpGet("categories")]
     public Task<IReadOnlyList<CategoryDto>> ListCategoriesAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>

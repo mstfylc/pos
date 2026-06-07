@@ -183,6 +183,48 @@ paths:
           description: Product deactivated
         default:
           $ref: '#/components/responses/Problem'
+  /api/v1/admin/pos-products:
+    post:
+      tags: [Admin]
+      operationId: createAdminPosProduct
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PosProductWrite'
+      responses:
+        '201':
+          description: POS product price override created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PosProduct'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/admin/pos-products/{id}:
+    put:
+      tags: [Admin]
+      operationId: updateAdminPosProduct
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PosProductWrite'
+      responses:
+        '200':
+          description: POS product price override updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PosProduct'
+        default:
+          $ref: '#/components/responses/Problem'
   /api/v1/admin/categories:
     get:
       tags: [Admin]
@@ -676,30 +718,73 @@ components:
         active: { type: boolean }
     Product:
       type: object
-      required: [id, companyId, name, categoryId, active]
+      required: [id, companyId, name, categoryId, productUnitType, taxType, stocktaking, storeProduct, posProduct, entryProduct, favoriteProduct, sortOrder, main, active]
       properties:
         id: { type: string, format: uuid }
         companyId: { type: string, format: uuid }
         name: { type: string }
         categoryId: { type: string, format: uuid }
-        salePrice: { type: string, format: decimal, nullable: true }
-        barcode: { type: string, nullable: true }
-        stockCode: { type: string, nullable: true }
-        active: { type: boolean }
-    ProductWrite:
-      type: object
-      required: [companyId, userId, name, categoryId, productUnitType, taxType, stocktaking]
-      properties:
-        companyId: { type: string, format: uuid }
-        userId: { type: string, format: uuid }
-        name: { type: string }
-        categoryId: { type: string, format: uuid }
+        purchasePrice: { type: string, format: decimal, nullable: true }
         salePrice: { type: string, format: decimal, nullable: true }
         barcode: { type: string, nullable: true }
         stockCode: { type: string, nullable: true }
         productUnitType: { $ref: '#/components/schemas/ProductUnitType' }
         taxType: { $ref: '#/components/schemas/TaxType' }
         stocktaking: { type: boolean }
+        image: { type: string, nullable: true }
+        storeProduct: { type: boolean }
+        posProduct: { type: boolean }
+        entryProduct: { type: boolean }
+        favoriteProduct: { type: boolean }
+        sortOrder: { type: integer }
+        description: { type: string, nullable: true }
+        main: { type: boolean }
+        parentId: { type: string, format: uuid, nullable: true }
+        active: { type: boolean }
+    ProductWrite:
+      type: object
+      required: [companyId, userId, name, categoryId, productUnitType, taxType, stocktaking, storeProduct, posProduct, entryProduct, favoriteProduct, sortOrder, main]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        name: { type: string }
+        categoryId: { type: string, format: uuid }
+        purchasePrice: { type: string, format: decimal, nullable: true }
+        salePrice: { type: string, format: decimal, nullable: true }
+        barcode: { type: string, nullable: true }
+        stockCode: { type: string, nullable: true }
+        productUnitType: { $ref: '#/components/schemas/ProductUnitType' }
+        taxType: { $ref: '#/components/schemas/TaxType' }
+        stocktaking: { type: boolean }
+        image: { type: string, nullable: true }
+        storeProduct: { type: boolean }
+        posProduct: { type: boolean }
+        entryProduct: { type: boolean }
+        favoriteProduct: { type: boolean }
+        sortOrder: { type: integer }
+        description: { type: string, nullable: true }
+        main: { type: boolean }
+        parentId: { type: string, format: uuid, nullable: true }
+    PosProduct:
+      type: object
+      required: [id, companyId, posId, productId]
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        posId: { type: string, format: uuid }
+        productId: { type: string, format: uuid }
+        purchasePrice: { type: string, format: decimal, nullable: true }
+        salePrice: { type: string, format: decimal, nullable: true }
+    PosProductWrite:
+      type: object
+      required: [companyId, userId, posId, productId]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        posId: { type: string, format: uuid }
+        productId: { type: string, format: uuid }
+        purchasePrice: { type: string, format: decimal, nullable: true }
+        salePrice: { type: string, format: decimal, nullable: true }
     Category:
       type: object
       required: [id, companyId, name, sortOrder, active]
@@ -949,4 +1034,4 @@ components:
       enum: [StockIn, StockOut, Destroy, Order, Purchase, TransferIn, TransferOut]
     TaxType:
       type: string
-      enum: [Bir, Sekiz, OnSekiz]
+      enum: [Sifir, Bir, Sekiz, OnSekiz]

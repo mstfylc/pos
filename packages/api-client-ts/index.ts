@@ -116,6 +116,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/pos-products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["createAdminPosProduct"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/pos-products/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateAdminPosProduct"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/categories": {
         parameters: {
             query?: never;
@@ -549,9 +581,24 @@ export interface components {
             /** Format: uuid */
             categoryId: string;
             /** Format: decimal */
+            purchasePrice?: string | null;
+            /** Format: decimal */
             salePrice?: string | null;
             barcode?: string | null;
             stockCode?: string | null;
+            productUnitType: components["schemas"]["ProductUnitType"];
+            taxType: components["schemas"]["TaxType"];
+            stocktaking: boolean;
+            image?: string | null;
+            storeProduct: boolean;
+            posProduct: boolean;
+            entryProduct: boolean;
+            favoriteProduct: boolean;
+            sortOrder: number;
+            description?: string | null;
+            main: boolean;
+            /** Format: uuid */
+            parentId?: string | null;
             active: boolean;
         };
         ProductWrite: {
@@ -563,12 +610,52 @@ export interface components {
             /** Format: uuid */
             categoryId: string;
             /** Format: decimal */
+            purchasePrice?: string | null;
+            /** Format: decimal */
             salePrice?: string | null;
             barcode?: string | null;
             stockCode?: string | null;
             productUnitType: components["schemas"]["ProductUnitType"];
             taxType: components["schemas"]["TaxType"];
             stocktaking: boolean;
+            image?: string | null;
+            storeProduct: boolean;
+            posProduct: boolean;
+            entryProduct: boolean;
+            favoriteProduct: boolean;
+            sortOrder: number;
+            description?: string | null;
+            main: boolean;
+            /** Format: uuid */
+            parentId?: string | null;
+        };
+        PosProduct: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            posId: string;
+            /** Format: uuid */
+            productId: string;
+            /** Format: decimal */
+            purchasePrice?: string | null;
+            /** Format: decimal */
+            salePrice?: string | null;
+        };
+        PosProductWrite: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            /** Format: uuid */
+            posId: string;
+            /** Format: uuid */
+            productId: string;
+            /** Format: decimal */
+            purchasePrice?: string | null;
+            /** Format: decimal */
+            salePrice?: string | null;
         };
         Category: {
             /** Format: uuid */
@@ -821,7 +908,7 @@ export interface components {
         /** @enum {string} */
         StoreProductMovementType: "StockIn" | "StockOut" | "Destroy" | "Order" | "Purchase" | "TransferIn" | "TransferOut";
         /** @enum {string} */
-        TaxType: "Bir" | "Sekiz" | "OnSekiz";
+        TaxType: "Sifir" | "Bir" | "Sekiz" | "OnSekiz";
     };
     responses: {
         /** @description ProblemDetails error response */
@@ -1064,6 +1151,58 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    createAdminPosProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PosProductWrite"];
+            };
+        };
+        responses: {
+            /** @description POS product price override created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PosProduct"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    updateAdminPosProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["parameters"]["Id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PosProductWrite"];
+            };
+        };
+        responses: {
+            /** @description POS product price override updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PosProduct"];
+                };
             };
             default: components["responses"]["Problem"];
         };

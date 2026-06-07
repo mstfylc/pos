@@ -62,6 +62,7 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**createAdminCustomer**](doc\AdminApi.md#createadmincustomer) | **POST** /api/v1/admin/customers | 
 *AdminApi* | [**createAdminDiscount**](doc\AdminApi.md#createadmindiscount) | **POST** /api/v1/admin/discounts | 
 *AdminApi* | [**createAdminPos**](doc\AdminApi.md#createadminpos) | **POST** /api/v1/admin/pos | 
+*AdminApi* | [**createAdminPosProduct**](doc\AdminApi.md#createadminposproduct) | **POST** /api/v1/admin/pos-products | 
 *AdminApi* | [**createAdminProduct**](doc\AdminApi.md#createadminproduct) | **POST** /api/v1/admin/products | 
 *AdminApi* | [**createAdminStore**](doc\AdminApi.md#createadminstore) | **POST** /api/v1/admin/stores | 
 *AdminApi* | [**deleteAdminCategory**](doc\AdminApi.md#deleteadmincategory) | **DELETE** /api/v1/admin/categories/{id} | 
@@ -82,6 +83,7 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**updateAdminCustomer**](doc\AdminApi.md#updateadmincustomer) | **PUT** /api/v1/admin/customers/{id} | 
 *AdminApi* | [**updateAdminDiscount**](doc\AdminApi.md#updateadmindiscount) | **PUT** /api/v1/admin/discounts/{id} | 
 *AdminApi* | [**updateAdminPos**](doc\AdminApi.md#updateadminpos) | **PUT** /api/v1/admin/pos/{id} | 
+*AdminApi* | [**updateAdminPosProduct**](doc\AdminApi.md#updateadminposproduct) | **PUT** /api/v1/admin/pos-products/{id} | 
 *AdminApi* | [**updateAdminProduct**](doc\AdminApi.md#updateadminproduct) | **PUT** /api/v1/admin/products/{id} | 
 *AdminApi* | [**updateAdminStore**](doc\AdminApi.md#updateadminstore) | **PUT** /api/v1/admin/stores/{id} | 
 *AppApi* | [**cancelAppOrder**](doc\AppApi.md#cancelapporder) | **POST** /api/v1/app/orders/{orderId}/cancel | 
@@ -131,6 +133,8 @@ Class | Method | HTTP request | Description
  - [PaymentSummary](doc\PaymentSummary.md)
  - [PaymentType](doc\PaymentType.md)
  - [Pos](doc\Pos.md)
+ - [PosProduct](doc\PosProduct.md)
+ - [PosProductWrite](doc\PosProductWrite.md)
  - [PosWrite](doc\PosWrite.md)
  - [ProblemDetails](doc\ProblemDetails.md)
  - [Product](doc\Product.md)

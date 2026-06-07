@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**createAdminCustomer**](AdminApi.md#createadmincustomer) | **POST** /api/v1/admin/customers | 
 [**createAdminDiscount**](AdminApi.md#createadmindiscount) | **POST** /api/v1/admin/discounts | 
 [**createAdminPos**](AdminApi.md#createadminpos) | **POST** /api/v1/admin/pos | 
+[**createAdminPosProduct**](AdminApi.md#createadminposproduct) | **POST** /api/v1/admin/pos-products | 
 [**createAdminProduct**](AdminApi.md#createadminproduct) | **POST** /api/v1/admin/products | 
 [**createAdminStore**](AdminApi.md#createadminstore) | **POST** /api/v1/admin/stores | 
 [**deleteAdminCategory**](AdminApi.md#deleteadmincategory) | **DELETE** /api/v1/admin/categories/{id} | 
@@ -33,6 +34,7 @@ Method | HTTP request | Description
 [**updateAdminCustomer**](AdminApi.md#updateadmincustomer) | **PUT** /api/v1/admin/customers/{id} | 
 [**updateAdminDiscount**](AdminApi.md#updateadmindiscount) | **PUT** /api/v1/admin/discounts/{id} | 
 [**updateAdminPos**](AdminApi.md#updateadminpos) | **PUT** /api/v1/admin/pos/{id} | 
+[**updateAdminPosProduct**](AdminApi.md#updateadminposproduct) | **PUT** /api/v1/admin/pos-products/{id} | 
 [**updateAdminProduct**](AdminApi.md#updateadminproduct) | **PUT** /api/v1/admin/products/{id} | 
 [**updateAdminStore**](AdminApi.md#updateadminstore) | **PUT** /api/v1/admin/stores/{id} | 
 
@@ -201,6 +203,50 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Pos**](Pos.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **createAdminPosProduct**
+> PosProduct createAdminPosProduct(posProductWrite)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+// TODO Configure HTTP basic authorization: bearerAuth
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
+
+var api_instance = new AdminApi();
+var posProductWrite = new PosProductWrite(); // PosProductWrite | 
+
+try {
+    var result = api_instance.createAdminPosProduct(posProductWrite);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->createAdminPosProduct: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **posProductWrite** | [**PosProductWrite**](PosProductWrite.md)|  | 
+
+### Return type
+
+[**PosProduct**](PosProduct.md)
 
 ### Authorization
 
@@ -1103,6 +1149,52 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Pos**](Pos.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateAdminPosProduct**
+> PosProduct updateAdminPosProduct(id, posProductWrite)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+// TODO Configure HTTP basic authorization: bearerAuth
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').username = 'YOUR_USERNAME'
+//defaultApiClient.getAuthentication<HttpBasicAuth>('bearerAuth').password = 'YOUR_PASSWORD';
+
+var api_instance = new AdminApi();
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+var posProductWrite = new PosProductWrite(); // PosProductWrite | 
+
+try {
+    var result = api_instance.updateAdminPosProduct(id, posProductWrite);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->updateAdminPosProduct: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **posProductWrite** | [**PosProductWrite**](PosProductWrite.md)|  | 
+
+### Return type
+
+[**PosProduct**](PosProduct.md)
 
 ### Authorization
 

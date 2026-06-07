@@ -13,6 +13,8 @@ part 'tax_type.g.dart';
 
 class TaxType extends EnumClass {
 
+  @BuiltValueEnumConst(wireName: r'Sifir')
+  static const TaxType sifir = _$sifir;
   @BuiltValueEnumConst(wireName: r'Bir')
   static const TaxType bir = _$bir;
   @BuiltValueEnumConst(wireName: r'Sekiz')

@@ -19,6 +19,8 @@ import 'package:mansis_pos_api_client/model/discount.dart';
 import 'package:mansis_pos_api_client/model/discount_write.dart';
 import 'package:mansis_pos_api_client/model/order_list_item.dart';
 import 'package:mansis_pos_api_client/model/pos.dart';
+import 'package:mansis_pos_api_client/model/pos_product.dart';
+import 'package:mansis_pos_api_client/model/pos_product_write.dart';
 import 'package:mansis_pos_api_client/model/pos_write.dart';
 import 'package:mansis_pos_api_client/model/problem_details.dart';
 import 'package:mansis_pos_api_client/model/product.dart';
@@ -275,6 +277,69 @@ class AdminApi {
     ) as Pos;
 
     return Response<Pos>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<PosProduct>> createAdminPosProduct(
+    PosProductWrite posProductWrite, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/pos-products',
+      method: 'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(PosProductWrite);
+    _bodyData = _serializers.serialize(posProductWrite, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(PosProduct);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as PosProduct;
+
+    return Response<PosProduct>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -1463,6 +1528,70 @@ class AdminApi {
     ) as Pos;
 
     return Response<Pos>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<PosProduct>> updateAdminPosProduct(
+    String id,
+    PosProductWrite posProductWrite, { 
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/pos-products/{id}'.replaceAll('{' r'id' '}', id.toString()),
+      method: 'PUT',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    const _type = FullType(PosProductWrite);
+    _bodyData = _serializers.serialize(posProductWrite, specifiedType: _type);
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(PosProduct);
+    final _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as PosProduct;
+
+    return Response<PosProduct>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

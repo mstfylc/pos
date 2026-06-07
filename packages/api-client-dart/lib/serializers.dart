@@ -39,6 +39,8 @@ import 'package:mansis_pos_api_client/model/otp_verify_request.dart';
 import 'package:mansis_pos_api_client/model/payment_summary.dart';
 import 'package:mansis_pos_api_client/model/payment_type.dart';
 import 'package:mansis_pos_api_client/model/pos.dart';
+import 'package:mansis_pos_api_client/model/pos_product.dart';
+import 'package:mansis_pos_api_client/model/pos_product_write.dart';
 import 'package:mansis_pos_api_client/model/pos_write.dart';
 import 'package:mansis_pos_api_client/model/problem_details.dart';
 import 'package:mansis_pos_api_client/model/product.dart';
@@ -83,6 +85,8 @@ part 'serializers.g.dart';
   PaymentSummary,
   PaymentType,
   Pos,
+  PosProduct,
+  PosProductWrite,
   PosWrite,
   ProblemDetails,
   Product,
