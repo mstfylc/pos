@@ -1,0 +1,43 @@
+name: Backend
+
+on:
+  push:
+    paths:
+      - "backend/**"
+      - ".github/workflows/backend.yml"
+  pull_request:
+    paths:
+      - "backend/**"
+      - ".github/workflows/backend.yml"
+
+jobs:
+  build-test-smoke:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Build
+        run: dotnet build
+
+      - name: Test
+        run: dotnet test --no-build
+
+      - name: Prepare smoke env
+        shell: pwsh
+        run: |
+          Copy-Item .env.example .env
+
+      - name: Faz 3 smoke
+        shell: pwsh
+        run: ./smoke/faz3-smoke.ps1
+
+      - name: Loyalty smoke
+        shell: pwsh
+        run: ./smoke/loyalty-smoke.ps1

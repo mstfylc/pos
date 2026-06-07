@@ -237,7 +237,84 @@ internal sealed class DbBootstrapHostedService(
                 Id = SeedIds.LoyaltyAccountId,
                 CompanyId = SeedIds.CompanyId,
                 CustomerId = SeedIds.CustomerId,
+                LoyaltyTierId = SeedIds.BronzeTierId,
                 PointBalance = 0
+            });
+        }
+
+        if (!await dbContext.LoyaltyTiers.AnyAsync(tier => tier.Id == SeedIds.BronzeTierId, cancellationToken))
+        {
+            dbContext.LoyaltyTiers.Add(new LoyaltyTier
+            {
+                Id = SeedIds.BronzeTierId,
+                CompanyId = SeedIds.CompanyId,
+                Name = "Bronze",
+                MinimumPoints = 0,
+                EarnMultiplier = 1m,
+                Active = true
+            });
+        }
+
+        if (!await dbContext.LoyaltyTiers.AnyAsync(tier => tier.Id == SeedIds.SilverTierId, cancellationToken))
+        {
+            dbContext.LoyaltyTiers.Add(new LoyaltyTier
+            {
+                Id = SeedIds.SilverTierId,
+                CompanyId = SeedIds.CompanyId,
+                Name = "Silver",
+                MinimumPoints = 50,
+                EarnMultiplier = 1.25m,
+                Active = true
+            });
+        }
+
+        var seededLoyaltyAccount = await dbContext.LoyaltyAccounts
+            .FirstOrDefaultAsync(loyalty => loyalty.Id == SeedIds.LoyaltyAccountId, cancellationToken);
+        if (seededLoyaltyAccount is not null && seededLoyaltyAccount.LoyaltyTierId is null)
+        {
+            seededLoyaltyAccount.LoyaltyTierId = SeedIds.BronzeTierId;
+        }
+
+        if (!await dbContext.EarnRules.AnyAsync(rule => rule.Id == SeedIds.EarnRuleId, cancellationToken))
+        {
+            dbContext.EarnRules.Add(new EarnRule
+            {
+                Id = SeedIds.EarnRuleId,
+                CompanyId = SeedIds.CompanyId,
+                Name = "Smoke earn 1 per TRY",
+                AmountPerPoint = 1m,
+                MinimumOrderTotal = 0m,
+                Scope = EarnRuleScope.All,
+                ExpiryDays = 365,
+                Active = true
+            });
+        }
+
+        if (!await dbContext.Rewards.AnyAsync(reward => reward.Id == SeedIds.RewardId, cancellationToken))
+        {
+            dbContext.Rewards.Add(new Reward
+            {
+                Id = SeedIds.RewardId,
+                CompanyId = SeedIds.CompanyId,
+                Name = "Smoke reward",
+                RequiredPoints = 10,
+                RewardType = RewardType.DiscountAmount,
+                DiscountAmount = 5m,
+                Active = true
+            });
+        }
+
+        if (!await dbContext.Campaigns.AnyAsync(campaign => campaign.Id == SeedIds.CampaignId, cancellationToken))
+        {
+            dbContext.Campaigns.Add(new Campaign
+            {
+                Id = SeedIds.CampaignId,
+                CompanyId = SeedIds.CompanyId,
+                Name = "Smoke campaign bonus",
+                CampaignType = CampaignType.ExtraPoints,
+                RuleJson = """{"minOrderTotal":50,"extraPoints":5}""",
+                Priority = 10,
+                Active = true
             });
         }
 
@@ -316,4 +393,9 @@ public static class SeedIds
     public static readonly Guid CustomerId = Guid.Parse("10000000-0000-0000-0000-000000000012");
     public static readonly Guid WalletAccountId = Guid.Parse("10000000-0000-0000-0000-000000000013");
     public static readonly Guid LoyaltyAccountId = Guid.Parse("10000000-0000-0000-0000-000000000014");
+    public static readonly Guid BronzeTierId = Guid.Parse("10000000-0000-0000-0000-000000000015");
+    public static readonly Guid SilverTierId = Guid.Parse("10000000-0000-0000-0000-000000000016");
+    public static readonly Guid EarnRuleId = Guid.Parse("10000000-0000-0000-0000-000000000017");
+    public static readonly Guid RewardId = Guid.Parse("10000000-0000-0000-0000-000000000018");
+    public static readonly Guid CampaignId = Guid.Parse("10000000-0000-0000-0000-000000000019");
 }
