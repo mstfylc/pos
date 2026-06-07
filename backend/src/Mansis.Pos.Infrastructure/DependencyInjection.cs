@@ -1,6 +1,8 @@
 using Mansis.Pos.Application.Abstractions.Data;
+using Mansis.Pos.Application.Abstractions.Tenancy;
 using Mansis.Pos.Infrastructure.Persistence;
 using Mansis.Pos.Infrastructure.Persistence.Repositories;
+using Mansis.Pos.Infrastructure.Tenancy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,7 @@ public static class DependencyInjection
         services.AddDbContext<PosDbContext>(options =>
             options.UseNpgsql(connectionString));
 
+        services.AddScoped<ITenantContext, EnvironmentTenantContext>();
         services.AddScoped<IUnitOfWork, EfUnitOfWork>();
 
         return services;
