@@ -1,4 +1,5 @@
 using FluentValidation;
+using Mansis.Pos.Application.Loyalty;
 using Mansis.Pos.Application.Orders.CreateOrder;
 using Mansis.Pos.Domain.Entities;
 using Mansis.Pos.Domain.Enumerations;
@@ -36,6 +37,48 @@ public sealed class CreateOrderServiceTests
         Assert.Equal(8, store.SavedGraph.StoreProductsToUpdate[0].Quantity);
         Assert.Equal(80m, store.SavedGraph.WalletAccountToUpdate!.Balance);
         Assert.Equal(20, store.SavedGraph.LoyaltyAccountToUpdate!.PointBalance);
+        Assert.Equal(20, store.SavedGraph.LoyaltyAccountToUpdate!.LifetimePoints);
+    }
+
+    [Fact]
+    public async Task CreateAsync_WithEarnRuleAndTierMultiplier_AppliesConfiguredPoints()
+    {
+        var tier = new LoyaltyTier
+        {
+            Id = Guid.NewGuid(),
+            CompanyId = CompanyId,
+            Name = "Gold",
+            MinimumPoints = 0,
+            EarnMultiplier = 2m,
+            Active = true
+        };
+        var store = FakeOrderCreationStore.Ready(
+            earnRules:
+            [
+                new EarnRule
+                {
+                    Id = Guid.NewGuid(),
+                    CompanyId = CompanyId,
+                    Name = "Ten per point",
+                    AmountPerPoint = 10m,
+                    MinimumOrderTotal = 20m,
+                    Scope = EarnRuleScope.All,
+                    ExpiryDays = 30,
+                    Active = true
+                }
+            ],
+            loyaltyTiers: [tier],
+            loyaltyTierId: tier.Id);
+        var service = CreateService(store);
+
+        var result = await service.CreateAsync(ValidRequest());
+
+        Assert.True(result.IsSuccess);
+        Assert.Single(store.SavedGraph!.LoyaltyPointTransactions);
+        Assert.Equal(4, store.SavedGraph.LoyaltyPointTransactions[0].Points);
+        Assert.NotNull(store.SavedGraph.LoyaltyPointTransactions[0].ExpiresAt);
+        Assert.Equal(4, store.SavedGraph.LoyaltyAccountToUpdate!.PointBalance);
+        Assert.Equal(4, store.SavedGraph.LoyaltyAccountToUpdate!.LifetimePoints);
     }
 
     [Fact]
@@ -90,7 +133,7 @@ public sealed class CreateOrderServiceTests
     private static CreateOrderService CreateService(IOrderCreationStore store)
     {
         IValidator<CreateOrderRequest> validator = new CreateOrderValidator();
-        return new CreateOrderService(validator, store);
+        return new CreateOrderService(validator, store, new LoyaltyEarnCalculator());
     }
 
     private static CreateOrderRequest ValidRequest()
@@ -107,7 +150,13 @@ public sealed class CreateOrderServiceTests
             [new CreateOrderPayment(PaymentType.Cash, 20m)]);
     }
 
-    private sealed class FakeOrderCreationStore(Order? existingOrder, int stockQuantity, decimal walletBalance)
+    private sealed class FakeOrderCreationStore(
+        Order? existingOrder,
+        int stockQuantity,
+        decimal walletBalance,
+        IReadOnlyList<EarnRule> earnRules,
+        IReadOnlyList<LoyaltyTier> loyaltyTiers,
+        Guid? loyaltyTierId)
         : IOrderCreationStore
     {
         public OrderCreationGraph? SavedGraph { get; private set; }
@@ -115,9 +164,31 @@ public sealed class CreateOrderServiceTests
         public static FakeOrderCreationStore Ready(
             Order? existingOrder = null,
             int stockQuantity = 10,
-            decimal walletBalance = 100m)
+            decimal walletBalance = 100m,
+            IReadOnlyList<EarnRule>? earnRules = null,
+            IReadOnlyList<LoyaltyTier>? loyaltyTiers = null,
+            Guid? loyaltyTierId = null)
         {
-            return new FakeOrderCreationStore(existingOrder, stockQuantity, walletBalance);
+            earnRules ??=
+            [
+                new EarnRule
+                {
+                    Id = Guid.NewGuid(),
+                    CompanyId = CompanyId,
+                    Name = "Default",
+                    AmountPerPoint = 1m,
+                    Scope = EarnRuleScope.All,
+                    Active = true
+                }
+            ];
+
+            return new FakeOrderCreationStore(
+                existingOrder,
+                stockQuantity,
+                walletBalance,
+                earnRules,
+                loyaltyTiers ?? [],
+                loyaltyTierId);
         }
 
         public Task<Order?> FindByIdempotencyKeyAsync(
@@ -137,9 +208,10 @@ public sealed class CreateOrderServiceTests
         {
             var snapshot = new OrderCreationSnapshot(
                 StoreId,
+                Guid.NewGuid(),
                 new Dictionary<Guid, ProductStockSnapshot>
                 {
-                    [ProductId] = new ProductStockSnapshot(ProductId, Stocktaking: true, stockQuantity)
+                    [ProductId] = new ProductStockSnapshot(ProductId, Guid.NewGuid(), Stocktaking: true, stockQuantity)
                 },
                 new WalletAccount
                 {
@@ -154,8 +226,11 @@ public sealed class CreateOrderServiceTests
                     Id = Guid.NewGuid(),
                     CompanyId = CompanyId,
                     CustomerId = CustomerId,
+                    LoyaltyTierId = loyaltyTierId,
                     PointBalance = 0
-                });
+                },
+                earnRules,
+                loyaltyTiers);
 
             return Task.FromResult(snapshot);
         }

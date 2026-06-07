@@ -52,6 +52,7 @@ public sealed class LoyaltyAccount : Entity, ICompanyScoped
     public Guid CustomerId { get; set; }
     public Guid? LoyaltyTierId { get; set; }
     public int PointBalance { get; set; }
+    public int LifetimePoints { get; set; }
     public Customer? Customer { get; set; }
     public LoyaltyTier? LoyaltyTier { get; set; }
 }
@@ -66,6 +67,7 @@ public sealed class LoyaltyPointTransaction : Entity, ICompanyScoped, IAppendOnl
     public LedgerEntryState State { get; set; }
     public Guid? ReversalOfId { get; set; }
     public string? Description { get; set; }
+    public DateTimeOffset? ExpiresAt { get; set; }
     public DateTimeOffset OccurredAt { get; set; }
     public LoyaltyAccount? LoyaltyAccount { get; set; }
     public Order? Order { get; set; }

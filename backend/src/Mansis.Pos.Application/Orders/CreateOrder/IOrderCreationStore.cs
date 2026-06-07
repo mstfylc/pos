@@ -11,11 +11,14 @@ public interface IOrderCreationStore
 
 public sealed record OrderCreationSnapshot(
     Guid StoreId,
+    Guid BranchId,
     IReadOnlyDictionary<Guid, ProductStockSnapshot> Products,
     WalletAccount? WalletAccount,
-    LoyaltyAccount? LoyaltyAccount);
+    LoyaltyAccount? LoyaltyAccount,
+    IReadOnlyList<EarnRule> EarnRules,
+    IReadOnlyList<LoyaltyTier> LoyaltyTiers);
 
-public sealed record ProductStockSnapshot(Guid ProductId, bool Stocktaking, int Quantity);
+public sealed record ProductStockSnapshot(Guid ProductId, Guid CategoryId, bool Stocktaking, int Quantity);
 
 public sealed record OrderCreationGraph(
     Order Order,

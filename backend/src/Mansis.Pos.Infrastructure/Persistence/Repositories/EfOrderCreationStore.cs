@@ -29,7 +29,7 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
         var products = await dbContext.Products
             .AsNoTracking()
             .Where(product => product.CompanyId == companyId && productIds.Contains(product.Id))
-            .Select(product => new { product.Id, product.Stocktaking })
+            .Select(product => new { product.Id, product.CategoryId, product.Stocktaking })
             .ToListAsync(cancellationToken);
 
         var storeProducts = await dbContext.StoreProducts
@@ -39,13 +39,16 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
 
         var productSnapshots = products.ToDictionary(
             product => product.Id,
-            product => new ProductStockSnapshot(
-                product.Id,
-                product.Stocktaking,
-                storeProducts.TryGetValue(product.Id, out var storeProduct) ? storeProduct.Quantity : 0));
+                product => new ProductStockSnapshot(
+                    product.Id,
+                    product.CategoryId,
+                    product.Stocktaking,
+                    storeProducts.TryGetValue(product.Id, out var storeProduct) ? storeProduct.Quantity : 0));
 
         WalletAccount? walletAccount = null;
         LoyaltyAccount? loyaltyAccount = null;
+        List<EarnRule> earnRules = [];
+        List<LoyaltyTier> loyaltyTiers = [];
         if (customerId.HasValue)
         {
             walletAccount = await dbContext.WalletAccounts
@@ -57,9 +60,19 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
                 .FirstOrDefaultAsync(
                     loyalty => loyalty.CompanyId == companyId && loyalty.CustomerId == customerId.Value,
                     cancellationToken);
+
+            earnRules = await dbContext.EarnRules
+                .AsNoTracking()
+                .Where(rule => rule.CompanyId == companyId && rule.Active)
+                .ToListAsync(cancellationToken);
+
+            loyaltyTiers = await dbContext.LoyaltyTiers
+                .AsNoTracking()
+                .Where(tier => tier.CompanyId == companyId && tier.Active)
+                .ToListAsync(cancellationToken);
         }
 
-        return new OrderCreationSnapshot(pos.StoreId, productSnapshots, walletAccount, loyaltyAccount);
+        return new OrderCreationSnapshot(pos.StoreId, pos.BranchId, productSnapshots, walletAccount, loyaltyAccount, earnRules, loyaltyTiers);
     }
 
     public async Task AddOrderGraphAsync(OrderCreationGraph graph, CancellationToken cancellationToken)
@@ -72,6 +85,11 @@ internal sealed class EfOrderCreationStore(PosDbContext dbContext) : IOrderCreat
         dbContext.StockMovements.AddRange(graph.StockMovements);
         dbContext.WalletTransactions.AddRange(graph.WalletTransactions);
         dbContext.LoyaltyPointTransactions.AddRange(graph.LoyaltyPointTransactions);
+
+        if (graph.LoyaltyAccountToUpdate is not null)
+        {
+            dbContext.LoyaltyAccounts.Update(graph.LoyaltyAccountToUpdate);
+        }
 
         foreach (var stockUpdate in graph.StoreProductsToUpdate)
         {

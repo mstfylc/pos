@@ -132,6 +132,11 @@ public sealed class CancelOrderService(
             if (snapshot.LoyaltyAccounts.TryGetValue(transaction.LoyaltyAccountId, out var loyaltyAccount))
             {
                 loyaltyAccount.PointBalance -= transaction.Points;
+                if (transaction.TransactionType == LoyaltyPointTransactionType.Earn)
+                {
+                    loyaltyAccount.LifetimePoints = Math.Max(0, loyaltyAccount.LifetimePoints - transaction.Points);
+                }
+
                 loyaltyUpdates[loyaltyAccount.Id] = loyaltyAccount;
             }
         }

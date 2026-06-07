@@ -24,3 +24,6 @@ public enum PaymentSummary { Cash, CreditCard, Ticket, Sodexo, Multinet, Mixed }
 public enum TokenState { Active, Used, Revoked, Expired }
 public enum LoyaltyPointTransactionType { Earn, Redeem, Expire, Adjust, Reverse }
 public enum RewardRedemptionState { Requested, Approved, Cancelled, Completed }
+public enum EarnRuleScope { All, Branch, Category }
+public enum RewardType { DiscountAmount, FreeProduct, Custom }
+public enum CampaignType { ExtraPoints, DiscountAmount, Stamp }

@@ -1,5 +1,6 @@
 using FluentValidation;
 using Mansis.Pos.Application.Common;
+using Mansis.Pos.Application.Loyalty;
 using Mansis.Pos.Domain.Entities;
 using Mansis.Pos.Domain.Enumerations;
 
@@ -7,7 +8,8 @@ namespace Mansis.Pos.Application.Orders.CreateOrder;
 
 public sealed class CreateOrderService(
     IValidator<CreateOrderRequest> validator,
-    IOrderCreationStore store)
+    IOrderCreationStore store,
+    LoyaltyEarnCalculator loyaltyEarnCalculator)
 {
     public async Task<Result<OrderResult>> CreateAsync(CreateOrderRequest request, CancellationToken cancellationToken = default)
     {
@@ -150,19 +152,33 @@ public sealed class CreateOrderService(
         var loyaltyTransactions = new List<LoyaltyPointTransaction>();
         if (snapshot.LoyaltyAccount is not null)
         {
-            var points = (int)Math.Floor(total);
-            snapshot.LoyaltyAccount.PointBalance += points;
-            loyaltyTransactions.Add(new LoyaltyPointTransaction
+            var earnResult = loyaltyEarnCalculator.Calculate(snapshot, request.Lines, total, now);
+            if (earnResult.Points > 0)
             {
-                Id = Guid.NewGuid(),
-                CompanyId = request.CompanyId,
-                LoyaltyAccountId = snapshot.LoyaltyAccount.Id,
-                OrderId = order.Id,
-                TransactionType = LoyaltyPointTransactionType.Earn,
-                Points = points,
-                State = LedgerEntryState.Posted,
-                OccurredAt = now
-            });
+                snapshot.LoyaltyAccount.PointBalance += earnResult.Points;
+                snapshot.LoyaltyAccount.LifetimePoints += earnResult.Points;
+                var nextTier = loyaltyEarnCalculator.ResolveTierAfterEarn(
+                    snapshot.LoyaltyAccount,
+                    snapshot.LoyaltyTiers,
+                    earnedPoints: 0);
+                if (nextTier is not null && snapshot.LoyaltyAccount.LoyaltyTierId != nextTier.Id)
+                {
+                    snapshot.LoyaltyAccount.LoyaltyTierId = nextTier.Id;
+                }
+
+                loyaltyTransactions.Add(new LoyaltyPointTransaction
+                {
+                    Id = Guid.NewGuid(),
+                    CompanyId = request.CompanyId,
+                    LoyaltyAccountId = snapshot.LoyaltyAccount.Id,
+                    OrderId = order.Id,
+                    TransactionType = LoyaltyPointTransactionType.Earn,
+                    Points = earnResult.Points,
+                    State = LedgerEntryState.Posted,
+                    ExpiresAt = earnResult.ExpiresAt,
+                    OccurredAt = now
+                });
+            }
         }
 
         await store.AddOrderGraphAsync(
