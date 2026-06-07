@@ -22,3 +22,7 @@
 - Yapilan: Reason zorunlu cancel/refund use-case append-only reversal satirlariyla stok, bakiye ve puani geri alacak sekilde eklendi.
 - Dosya/commit: 13 dosya, commit 46c1004
 - Takilan: yok
+### 2026-06-07 03:56 ADIM 9 - Kritik Index Review - branch: feat/model-index-review - build: YESIL
+- Yapilan: Order, katalog, musteri, discount usage ve link tablolarina kritik PostgreSQL indeksleri eklendi.
+- Dosya/commit: 4 dosya, commit 701b32f
+- Takilan: yok
