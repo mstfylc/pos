@@ -1,39 +1,41 @@
-# FAZ 4 PAKET RAPORU - 2026-06-07
+# SUNUCU HAZIRLIK RAPORU - 2026-06-07
 
-## Tamamlanan
-| Adim | Branch | Build | Commit |
-|------|--------|-------|--------|
-| 16 Loyalty Earn | feat/faz3-auth-seed-smoke-closeout | YESIL | a079256 |
-| 17 Loyalty Tier | feat/faz3-auth-seed-smoke-closeout | YESIL | e78bdb3 |
-| 18 Reward Redemption | feat/faz3-auth-seed-smoke-closeout | YESIL | 811acf1 |
-| 19 Campaign Evaluation | feat/faz3-auth-seed-smoke-closeout | YESIL | ac8aa0a |
-| 20 Deploy CI Smoke | feat/faz3-auth-seed-smoke-closeout | YESIL | 15096ef |
-| 21 Campaign Conflict Rule | main | YESIL | bef13af |
-
-## DUR LISTESI (karar bekleyen)
-| # | Konum (dosya) | Eski davranis | Sorulan karar |
-|---|---------------|---------------|---------------|
-| - | - | - | Bekleyen DUR yok. |
-
-## Davranis degisiklikleri (ledger reversal vb.)
-| # | Konum | Eski | Yeni (uygulanan) |
-|---|-------|------|------------------|
-| 1 | Order create loyalty | Siparis toplamindan direkt puan yaziliyordu. | Aktif EarnRule, minimum tutar, scope, expiry ve tier multiplier ile puan kazanimi yapilir. |
-| 2 | Loyalty account | Sadece point_balance vardi. | lifetime_points ve tier upgrade-only akisi eklendi; cancel earned puani ve lifetime_points'i reversal ile geri alir ama tier dusurmez. |
-| 3 | Reward redemption | Odul kullanma use-case yoktu. | Yeterli puan kontrolu, -puan ledger satiri, reward_redemptions kaydi ve yetersiz puan 400 eklendi. |
-| 4 | Order cancel | Redeem/order baglantisi terslenmiyordu. | Order'a bagli reward redemption append-only cancelled reversal satiri yazar. |
-| 5 | Campaign | Kampanya degerlendirmesi yoktu. | Rule JSON ile ekstra puan ve sabit indirim order create icinde uygulanir. |
-| 6 | Deploy/CI | Production container ve CI smoke yoktu. | API Dockerfile, docker-compose.prod.yml, backend CI, faz3-smoke ve loyalty-smoke akisi eklendi. |
-| 7 | Campaign conflict | Ayni tip uygun kampanyalar birlikte uygulanabiliyordu. | Ayni tipte en yuksek priority tek kampanya uygulanir; farkli tipler birlikte uygulanir; indirim max_total_discount ile caplenir. |
-
-## Dogrulama
+## On Kontrol
 | Kontrol | Sonuc |
 |---------|-------|
-| dotnet build | PASS; 0 hata, 0 uyari |
-| dotnet test --no-build | PASS; 12/12 test |
-| backend/smoke/faz3-smoke.ps1 | PASS |
-| backend/smoke/loyalty-smoke.ps1 | PASS |
-| docker build -f backend/Dockerfile | PASS |
+| OS | Ubuntu 24.04.4 LTS |
+| RAM | 3.7Gi toplam, 3.2Gi uygun |
+| Disk | 75G toplam, 67G uygun, %8 kullanim |
+| Docker | Eksikti; kuruldu |
+| Docker Compose | Eksikti; kuruldu |
+| UFW | Aktif; 22/80/443 disinda inbound kapali |
+| Fail2ban | Eksikti; kuruldu ve aktif |
+| Acik portlar | SSH ve local DNS listener disinda public servis yok |
+| Mevcut uygulama servisi | Calisan app/container gorulmedi |
 
-## Siradaki oneri
-- Kampanya conflict kuralini admin UI formunda priority ve max_total_discount alanlariyla aciga cikar.
+## Yapilan Hazirlik
+| Adim | Durum |
+|------|-------|
+| Docker Engine | Kuruldu ve servis aktif |
+| Docker Compose plugin | Kuruldu |
+| PostgreSQL 16 zemini | docker-compose.prod ile calismaya hazir; deploy henuz yapilmadi |
+| UFW firewall | 22/80/443 allow, default incoming deny |
+| Fail2ban | Aktif |
+| SSH hardening | root key-only, password ve keyboard-interactive login kapali |
+| Production env | Yeni guclu secret'larla sunucuda olusturuldu; repoya yazilmadi |
+
+## Production Env
+| Konum | Durum |
+|-------|-------|
+| /opt/uyanik/.env | Olusturuldu, chmod 600, root:root |
+| Secret degerleri | Sohbete, repoya, commit mesajina veya koda yazilmadi |
+
+## Deploy Durumu
+| Kalem | Durum |
+|-------|-------|
+| Gercek uygulama deploy'u | YAPILMADI |
+| docker-compose.prod calistirma | BEKLIYOR |
+| Deploy'a hazir mi | Evet; onay bekliyor |
+
+## Sonraki Onay
+- Onay verilirse production deploy icin repo sunucuya alinip docker-compose.prod ile uygulama baslatilacak.
