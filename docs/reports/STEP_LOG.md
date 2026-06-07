@@ -70,3 +70,7 @@
 - Yapilan: Dockerfile, prod compose, CI workflow, loyalty seed/smoke ve README deploy adimlari eklendi.
 - Dosya/commit: 7 dosya, commit 15096ef
 - Takilan: yok
+### 2026-06-07 06:04 ADIM 21 - Tier Karari - branch: feat/faz3-auth-seed-smoke-closeout - build: YESIL
+- Yapilan: Tier downgrade DUR kapatildi; upgrade-only karar kod yorumuna ve paket raporuna islendi.
+- Dosya/commit: 2 dosya, commit bekliyor
+- Takilan: kampanya cakisma onceligi karar bekliyor.

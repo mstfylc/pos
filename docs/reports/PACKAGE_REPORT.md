@@ -12,14 +12,13 @@
 ## DUR LISTESI (karar bekleyen)
 | # | Konum (dosya) | Eski davranis | Sorulan karar |
 |---|---------------|---------------|---------------|
-| 1 | backend/src/Mansis.Pos.Application/Orders/CancelOrder/CancelOrderService.cs | Tier downgrade kurali yoktu. | Iptal/iade lifetime_points dusunce tier de dusurulsun mu, yoksa sadece ileri upgrade mi olsun? |
-| 2 | backend/src/Mansis.Pos.Application/Loyalty/CampaignEvaluator.cs | Kampanya cakisma onceligi yoktu. | Birden fazla kampanya uyarsa hepsi mi uygulansin, priority ile tek kampanya mi secilsin? |
+| 1 | backend/src/Mansis.Pos.Application/Loyalty/CampaignEvaluator.cs | Kampanya cakisma onceligi yoktu. | Birden fazla kampanya uyarsa hepsi mi uygulansin, priority ile tek kampanya mi secilsin? |
 
 ## Davranis degisiklikleri (ledger reversal vb.)
 | # | Konum | Eski | Yeni (uygulanan) |
 |---|-------|------|------------------|
 | 1 | Order create loyalty | Siparis toplamindan direkt puan yaziliyordu. | Aktif EarnRule, minimum tutar, scope, expiry ve tier multiplier ile puan kazanimi yapilir. |
-| 2 | Loyalty account | Sadece point_balance vardi. | lifetime_points ve tier upgrade akisi eklendi; cancel earned puani reversal ile geri alir. |
+| 2 | Loyalty account | Sadece point_balance vardi. | lifetime_points ve tier upgrade-only akisi eklendi; cancel earned puani ve lifetime_points'i reversal ile geri alir ama tier dusurmez. |
 | 3 | Reward redemption | Odul kullanma use-case yoktu. | Yeterli puan kontrolu, -puan ledger satiri, reward_redemptions kaydi ve yetersiz puan 400 eklendi. |
 | 4 | Order cancel | Redeem/order baglantisi terslenmiyordu. | Order'a bagli reward redemption append-only cancelled reversal satiri yazar. |
 | 5 | Campaign | Kampanya degerlendirmesi yoktu. | Rule JSON ile ekstra puan ve sabit indirim order create icinde uygulanir. |
@@ -35,4 +34,4 @@
 | docker build -f backend/Dockerfile | PASS |
 
 ## Siradaki oneri
-- DUR 1 ve DUR 2 kararlari netlesince tier downgrade ve kampanya cakisma davranisi kilitlensin.
+- DUR 1 netlesince kampanya cakisma davranisi kilitlensin.

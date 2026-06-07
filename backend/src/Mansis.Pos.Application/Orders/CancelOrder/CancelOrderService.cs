@@ -135,7 +135,8 @@ public sealed class CancelOrderService(
                 if (transaction.TransactionType == LoyaltyPointTransactionType.Earn)
                 {
                     loyaltyAccount.LifetimePoints = Math.Max(0, loyaltyAccount.LifetimePoints - transaction.Points);
-                    // TODO: verify rule (eski davranis: tier downgrade kurali yoktu; simdilik iptal sonrasi tier dusurulmuyor).
+                    // Tier is upgrade-only: cancel/refund reverses points and lifetime points but never downgrades.
+                    // TODO: annual tier renewal policy can be added later.
                 }
 
                 loyaltyUpdates[loyaltyAccount.Id] = loyaltyAccount;
