@@ -59,25 +59,32 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AdminApi* | [**listAdminCompanies**](doc\AdminApi.md#listadmincompanies) | **GET** /api/v1/admin/companies | 
 *AdminApi* | [**listAdminProducts**](doc\AdminApi.md#listadminproducts) | **GET** /api/v1/admin/products | 
+*AppApi* | [**cancelAppOrder**](doc\AppApi.md#cancelapporder) | **POST** /api/v1/app/orders/{orderId}/cancel | 
 *AppApi* | [**createAppOrder**](doc\AppApi.md#createapporder) | **POST** /api/v1/app/orders | 
 *AppApi* | [**getAppCustomerWallet**](doc\AppApi.md#getappcustomerwallet) | **GET** /api/v1/app/customers/{customerId}/wallet | 
+*AppApi* | [**refundAppOrder**](doc\AppApi.md#refundapporder) | **POST** /api/v1/app/orders/{orderId}/refund | 
 *LoyaltyApi* | [**getLoyaltyAccount**](doc\LoyaltyApi.md#getloyaltyaccount) | **GET** /api/v1/loyalty/accounts/{customerId} | 
 *StockApi* | [**listStockMovements**](doc\StockApi.md#liststockmovements) | **GET** /api/v1/stock/movements | 
 
 
 ## Documentation For Models
 
+ - [CancelOrderResponse](doc\CancelOrderResponse.md)
  - [Company](doc\Company.md)
  - [CreateOrderRequest](doc\CreateOrderRequest.md)
  - [LoyaltyAccount](doc\LoyaltyAccount.md)
  - [Order](doc\Order.md)
  - [OrderLine](doc\OrderLine.md)
  - [OrderPayment](doc\OrderPayment.md)
+ - [OrderResponse](doc\OrderResponse.md)
  - [OrderState](doc\OrderState.md)
+ - [PaymentSummary](doc\PaymentSummary.md)
  - [PaymentType](doc\PaymentType.md)
  - [ProblemDetails](doc\ProblemDetails.md)
  - [Product](doc\Product.md)
  - [ProductUnitType](doc\ProductUnitType.md)
+ - [ReasonRequest](doc\ReasonRequest.md)
+ - [ShippingType](doc\ShippingType.md)
  - [StockMovement](doc\StockMovement.md)
  - [StoreProductMovementType](doc\StoreProductMovementType.md)
  - [TaxType](doc\TaxType.md)

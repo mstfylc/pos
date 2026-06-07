@@ -1,7 +1,9 @@
 using System.Text;
 using Mansis.Pos.Api;
 using Mansis.Pos.Api.Realtime;
+using Mansis.Pos.Api.Tenancy;
 using Mansis.Pos.Application;
+using Mansis.Pos.Application.Abstractions.Tenancy;
 using Mansis.Pos.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -19,11 +21,13 @@ builder.Host.UseSerilog((context, services, loggerConfiguration) =>
 });
 
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddOpenApi();
 builder.Services.AddSignalR();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<ITenantContext, HttpTenantContext>();
 
 builder.Services.AddCors(options =>
 {

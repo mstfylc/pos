@@ -53,6 +53,8 @@ paths:
       tags: [App]
       operationId: createAppOrder
       security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
         required: true
         content:
@@ -65,7 +67,57 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Order'
+                $ref: '#/components/schemas/OrderResponse'
+        '200':
+          description: Existing idempotent order result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/app/orders/{orderId}/cancel:
+    post:
+      tags: [App]
+      operationId: cancelAppOrder
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReasonRequest'
+      responses:
+        '200':
+          description: Order cancelled with ledger reversal rows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelOrderResponse'
+        default:
+          $ref: '#/components/responses/Problem'
+  /api/v1/app/orders/{orderId}/refund:
+    post:
+      tags: [App]
+      operationId: refundAppOrder
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReasonRequest'
+      responses:
+        '200':
+          description: Order refunded with ledger reversal rows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelOrderResponse'
         default:
           $ref: '#/components/responses/Problem'
   /api/v1/app/customers/{customerId}/wallet:
@@ -139,6 +191,20 @@ components:
       schema:
         type: string
         format: uuid
+    OrderId:
+      name: orderId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      schema:
+        type: string
+        minLength: 8
   responses:
     Problem:
       description: ProblemDetails error response
@@ -178,14 +244,16 @@ components:
         active: { type: boolean }
     CreateOrderRequest:
       type: object
-      required: [companyId, posId, userId, orderTime, idempotencyKey, lines, payments]
+      required: [companyId, posId, userId, shippingType, orderTime, lines, payments]
       properties:
         companyId: { type: string, format: uuid }
         posId: { type: string, format: uuid }
         userId: { type: string, format: uuid }
         customerId: { type: string, format: uuid, nullable: true }
+        shippingType:
+          $ref: '#/components/schemas/ShippingType'
         orderTime: { type: string, format: date-time }
-        idempotencyKey: { type: string, minLength: 8 }
+        idempotencyKey: { type: string, minLength: 8, nullable: true }
         lines:
           type: array
           items:
@@ -221,6 +289,33 @@ components:
         paymentType:
           $ref: '#/components/schemas/PaymentType'
         amount: { type: string, format: decimal }
+        currency: { type: string, default: TRY }
+        externalReference: { type: string, nullable: true }
+    OrderResponse:
+      type: object
+      required: [orderId, idempotencyKey, total, paymentSummary, existing]
+      properties:
+        orderId: { type: string, format: uuid }
+        idempotencyKey: { type: string }
+        total: { type: string, format: decimal }
+        paymentSummary:
+          $ref: '#/components/schemas/PaymentSummary'
+        existing: { type: boolean }
+    ReasonRequest:
+      type: object
+      required: [companyId, userId, reason]
+      properties:
+        companyId: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        reason: { type: string, minLength: 1, maxLength: 512 }
+    CancelOrderResponse:
+      type: object
+      required: [orderId, orderState, existing]
+      properties:
+        orderId: { type: string, format: uuid }
+        orderState:
+          $ref: '#/components/schemas/OrderState'
+        existing: { type: boolean }
     WalletAccount:
       type: object
       required: [id, customerId, currency, balance]
@@ -255,6 +350,12 @@ components:
     PaymentType:
       type: string
       enum: [Cash, CreditCard, Ticket, Sodexo, Multinet]
+    PaymentSummary:
+      type: string
+      enum: [Cash, CreditCard, Ticket, Sodexo, Multinet, Mixed]
+    ShippingType:
+      type: string
+      enum: [Self, ComeTake, Order, Customer]
     OrderState:
       type: string
       enum: [Received, Preparing, Completed, Cancelled, Deleted, Transferring]

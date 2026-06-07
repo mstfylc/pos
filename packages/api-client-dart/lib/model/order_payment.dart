@@ -20,9 +20,17 @@ abstract class OrderPayment implements Built<OrderPayment, OrderPaymentBuilder> 
     @BuiltValueField(wireName: r'amount')
     double get amount;
 
+    @BuiltValueField(wireName: r'currency')
+    String get currency;
+
+    @nullable
+    @BuiltValueField(wireName: r'externalReference')
+    String get externalReference;
+
     OrderPayment._();
 
-    static void _initializeBuilder(OrderPaymentBuilder b) => b;
+    static void _initializeBuilder(OrderPaymentBuilder b) => b
+        ..currency = 'TRY';
 
     factory OrderPayment([void updates(OrderPaymentBuilder b)]) = _$OrderPayment;
 
@@ -49,6 +57,18 @@ class _$OrderPaymentSerializer implements StructuredSerializer<OrderPayment> {
             ..add(r'amount')
             ..add(serializers.serialize(object.amount,
                 specifiedType: const FullType(double)));
+        if (object.currency != null) {
+            result
+                ..add(r'currency')
+                ..add(serializers.serialize(object.currency,
+                    specifiedType: const FullType(String)));
+        }
+        if (object.externalReference != null) {
+            result
+                ..add(r'externalReference')
+                ..add(serializers.serialize(object.externalReference,
+                    specifiedType: const FullType(String)));
+        }
         return result;
     }
 
@@ -70,6 +90,14 @@ class _$OrderPaymentSerializer implements StructuredSerializer<OrderPayment> {
                 case r'amount':
                     result.amount = serializers.deserialize(value,
                         specifiedType: const FullType(double)) as double;
+                    break;
+                case r'currency':
+                    result.currency = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    break;
+                case r'externalReference':
+                    result.externalReference = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
                     break;
             }
         }

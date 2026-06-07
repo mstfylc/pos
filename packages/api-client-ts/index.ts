@@ -52,6 +52,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/app/orders/{orderId}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["cancelAppOrder"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/app/orders/{orderId}/refund": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["refundAppOrder"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/app/customers/{customerId}/wallet": {
         parameters: {
             query?: never;
@@ -140,9 +172,10 @@ export interface components {
             userId: string;
             /** Format: uuid */
             customerId?: string | null;
+            shippingType: components["schemas"]["ShippingType"];
             /** Format: date-time */
             orderTime: string;
-            idempotencyKey: string;
+            idempotencyKey?: string | null;
             lines: components["schemas"]["OrderLine"][];
             payments: components["schemas"]["OrderPayment"][];
         };
@@ -167,6 +200,31 @@ export interface components {
             paymentType: components["schemas"]["PaymentType"];
             /** Format: decimal */
             amount: string;
+            /** @default TRY */
+            currency: string;
+            externalReference?: string | null;
+        };
+        OrderResponse: {
+            /** Format: uuid */
+            orderId: string;
+            idempotencyKey: string;
+            /** Format: decimal */
+            total: string;
+            paymentSummary: components["schemas"]["PaymentSummary"];
+            existing: boolean;
+        };
+        ReasonRequest: {
+            /** Format: uuid */
+            companyId: string;
+            /** Format: uuid */
+            userId: string;
+            reason: string;
+        };
+        CancelOrderResponse: {
+            /** Format: uuid */
+            orderId: string;
+            orderState: components["schemas"]["OrderState"];
+            existing: boolean;
         };
         WalletAccount: {
             /** Format: uuid */
@@ -204,6 +262,10 @@ export interface components {
         /** @enum {string} */
         PaymentType: "Cash" | "CreditCard" | "Ticket" | "Sodexo" | "Multinet";
         /** @enum {string} */
+        PaymentSummary: "Cash" | "CreditCard" | "Ticket" | "Sodexo" | "Multinet" | "Mixed";
+        /** @enum {string} */
+        ShippingType: "Self" | "ComeTake" | "Order" | "Customer";
+        /** @enum {string} */
         OrderState: "Received" | "Preparing" | "Completed" | "Cancelled" | "Deleted" | "Transferring";
         /** @enum {string} */
         ProductUnitType: "Adet" | "MiliLitre" | "Gram";
@@ -226,6 +288,8 @@ export interface components {
     parameters: {
         CompanyId: string;
         CustomerId: string;
+        OrderId: string;
+        IdempotencyKey: string;
     };
     requestBodies: never;
     headers: never;
@@ -280,7 +344,9 @@ export interface operations {
     createAppOrder: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                "Idempotency-Key"?: components["parameters"]["IdempotencyKey"];
+            };
             path?: never;
             cookie?: never;
         };
@@ -290,13 +356,76 @@ export interface operations {
             };
         };
         responses: {
+            /** @description Existing idempotent order result */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderResponse"];
+                };
+            };
             /** @description Order created */
             201: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Order"];
+                    "application/json": components["schemas"]["OrderResponse"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    cancelAppOrder: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                orderId: components["parameters"]["OrderId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReasonRequest"];
+            };
+        };
+        responses: {
+            /** @description Order cancelled with ledger reversal rows */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CancelOrderResponse"];
+                };
+            };
+            default: components["responses"]["Problem"];
+        };
+    };
+    refundAppOrder: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                orderId: components["parameters"]["OrderId"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReasonRequest"];
+            };
+        };
+        responses: {
+            /** @description Order refunded with ledger reversal rows */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CancelOrderResponse"];
                 };
             };
             default: components["responses"]["Problem"];

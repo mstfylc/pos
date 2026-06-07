@@ -1,4 +1,4 @@
-# mansis_pos_api_client.model.CreateOrderRequest
+# mansis_pos_api_client.model.ReasonRequest
 
 ## Load the model package
 ```dart
@@ -9,14 +9,8 @@ import 'package:mansis_pos_api_client/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **companyId** | **String** |  | 
-**posId** | **String** |  | 
 **userId** | **String** |  | 
-**customerId** | **String** |  | [optional] 
-**shippingType** | [**ShippingType**](ShippingType.md) |  | 
-**orderTime** | [**DateTime**](DateTime.md) |  | 
-**idempotencyKey** | **String** |  | [optional] 
-**lines** | [**BuiltList<OrderLine>**](OrderLine.md) |  | 
-**payments** | [**BuiltList<OrderPayment>**](OrderPayment.md) |  | 
+**reason** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

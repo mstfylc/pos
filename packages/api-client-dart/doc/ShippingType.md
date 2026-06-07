@@ -1,4 +1,4 @@
-# mansis_pos_api_client.model.OrderPayment
+# mansis_pos_api_client.model.ShippingType
 
 ## Load the model package
 ```dart
@@ -8,10 +8,6 @@ import 'package:mansis_pos_api_client/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**paymentType** | [**PaymentType**](PaymentType.md) |  | 
-**amount** | **double** |  | 
-**currency** | **String** |  | [optional] [default to 'TRY']
-**externalReference** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

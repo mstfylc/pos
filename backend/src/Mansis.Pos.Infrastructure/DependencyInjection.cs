@@ -8,6 +8,7 @@ using Mansis.Pos.Infrastructure.Tenancy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Mansis.Pos.Infrastructure;
 
@@ -28,7 +29,7 @@ public static class DependencyInjection
         services.AddDbContext<PosDbContext>(options =>
             options.UseNpgsql(connectionString));
 
-        services.AddScoped<ITenantContext, EnvironmentTenantContext>();
+        services.TryAddScoped<ITenantContext, EnvironmentTenantContext>();
         services.AddScoped<IUnitOfWork, EfUnitOfWork>();
         services.AddScoped<IOrderCancellationStore, EfOrderCancellationStore>();
         services.AddScoped<IOrderCreationStore, EfOrderCreationStore>();
