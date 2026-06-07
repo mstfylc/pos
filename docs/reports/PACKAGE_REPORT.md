@@ -1,32 +1,38 @@
-# FAZ 3 LOCAL KALDIRMA RAPORU - 2026-06-07
+# FAZ 4 PAKET RAPORU - 2026-06-07
 
 ## Tamamlanan
 | Adim | Branch | Build | Commit |
 |------|--------|-------|--------|
-| 15 Local Compose Smoke | feat/faz3-auth-seed-smoke-closeout | YESIL | 465f44d |
+| 16 Loyalty Earn | feat/faz3-auth-seed-smoke-closeout | YESIL | a079256 |
+| 17 Loyalty Tier | feat/faz3-auth-seed-smoke-closeout | YESIL | e78bdb3 |
+| 18 Reward Redemption | feat/faz3-auth-seed-smoke-closeout | YESIL | 811acf1 |
+| 19 Campaign Evaluation | feat/faz3-auth-seed-smoke-closeout | YESIL | ac8aa0a |
+| 20 Deploy CI Smoke | feat/faz3-auth-seed-smoke-closeout | YESIL | 15096ef |
 
 ## DUR LISTESI (karar bekleyen)
 | # | Konum (dosya) | Eski davranis | Sorulan karar |
 |---|---------------|---------------|---------------|
-| - | - | - | Bekleyen DUR yok. |
+| 1 | backend/src/Mansis.Pos.Application/Orders/CancelOrder/CancelOrderService.cs | Tier downgrade kurali yoktu. | Iptal/iade lifetime_points dusunce tier de dusurulsun mu, yoksa sadece ileri upgrade mi olsun? |
+| 2 | backend/src/Mansis.Pos.Application/Loyalty/CampaignEvaluator.cs | Kampanya cakisma onceligi yoktu. | Birden fazla kampanya uyarsa hepsi mi uygulansin, priority ile tek kampanya mi secilsin? |
 
 ## Davranis degisiklikleri (ledger reversal vb.)
 | # | Konum | Eski | Yeni (uygulanan) |
 |---|-------|------|------------------|
-| 1 | backend/.env.example | backend klasorunden compose calisinca POSTGRES_PASSWORD bulunamiyordu. | Compose ve API/smoke icin gerekli local placeholder env degiskenleri eklendi; gercek secret commitlenmedi. |
-| 2 | backend/docker-compose.yml | Backend klasorunde compose tanimi yoktu. | PostgreSQL 16 servisi backend/.env ile calisacak sekilde eklendi. |
-| 3 | backend/scripts/local-up.ps1 | Local ayaga kaldirma birden fazla manuel komut gerektiriyordu. | Tek komut backend/.env uretir, PostgreSQL'i kaldirir ve API'yi ya da smoke'u baslatir. |
-| 4 | backend/smoke/faz3-smoke.ps1 | Smoke sabit seed bakiyelerine bagliydi ve backend klasoru disindan varsayim yapiyordu. | Script backend/.env/compose yollarini kendi bulur, migration+seed ile API'yi baslatir ve ledger deltasini baslangica gore dogrular. |
-| 5 | backend/src/Mansis.Pos.Api/Program.cs | Enum string JSON gonderimleri model binding'de 400 uretebiliyordu. | JsonStringEnumConverter eklendi; OpenAPI ile uyumlu string enum istekleri kabul edildi. |
-| 6 | backend/src/Mansis.Pos.Api/Controllers/AppOrdersController.cs | Order create sonrasi CreatedAtAction eksik route nedeniyle 500 uretebiliyordu. | Yeni order 201 body, idempotent tekrar 200 body doner hale getirildi. |
+| 1 | Order create loyalty | Siparis toplamindan direkt puan yaziliyordu. | Aktif EarnRule, minimum tutar, scope, expiry ve tier multiplier ile puan kazanimi yapilir. |
+| 2 | Loyalty account | Sadece point_balance vardi. | lifetime_points ve tier upgrade akisi eklendi; cancel earned puani reversal ile geri alir. |
+| 3 | Reward redemption | Odul kullanma use-case yoktu. | Yeterli puan kontrolu, -puan ledger satiri, reward_redemptions kaydi ve yetersiz puan 400 eklendi. |
+| 4 | Order cancel | Redeem/order baglantisi terslenmiyordu. | Order'a bagli reward redemption append-only cancelled reversal satiri yazar. |
+| 5 | Campaign | Kampanya degerlendirmesi yoktu. | Rule JSON ile ekstra puan ve sabit indirim order create icinde uygulanir. |
+| 6 | Deploy/CI | Production container ve CI smoke yoktu. | API Dockerfile, docker-compose.prod.yml, backend CI, faz3-smoke ve loyalty-smoke akisi eklendi. |
 
 ## Dogrulama
 | Kontrol | Sonuc |
 |---------|-------|
-| docker compose up -d postgres | PASS; mansis-pos-postgres healthy |
 | dotnet build | PASS; 0 hata, 0 uyari |
-| dotnet test --no-build | PASS; 6/6 test |
-| backend/smoke/faz3-smoke.ps1 | PASS; login, idempotency, ledger, cancel reversal, yetersiz stok/bakiye |
+| dotnet test --no-build | PASS; 11/11 test |
+| backend/smoke/faz3-smoke.ps1 | PASS |
+| backend/smoke/loyalty-smoke.ps1 | PASS |
+| docker build -f backend/Dockerfile | PASS |
 
 ## Siradaki oneri
-- Bu smoke akisi CI'da ephemeral PostgreSQL ile ayni script uzerinden kosulsun.
+- DUR 1 ve DUR 2 kararlari netlesince tier downgrade ve kampanya cakisma davranisi kilitlensin.

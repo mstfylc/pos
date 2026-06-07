@@ -50,3 +50,23 @@
 - Yapilan: backend/.env.example tamamlandi, backend klasorunden compose/smoke akisi duzeltildi ve gercek Faz3 smoke PASS aldi.
 - Dosya/commit: 7 dosya, commit 465f44d
 - Takilan: yok
+### 2026-06-07 05:22 ADIM 16 - Loyalty Earn - branch: feat/faz3-auth-seed-smoke-closeout - build: YESIL
+- Yapilan: EarnRule motoru, expiry, tier multiplier, lifetime_points ve order cancel puan reversal'i eklendi.
+- Dosya/commit: 14 dosya, commit a079256
+- Takilan: yok
+### 2026-06-07 05:30 ADIM 17 - Loyalty Tier - branch: feat/faz3-auth-seed-smoke-closeout - build: YESIL
+- Yapilan: lifetime_points esigine gore tier upgrade ve ledger aciklama notu eklendi.
+- Dosya/commit: 4 dosya, commit e78bdb3
+- Takilan: tier downgrade kurali karar bekliyor.
+### 2026-06-07 05:42 ADIM 18 - Reward Redemption - branch: feat/faz3-auth-seed-smoke-closeout - build: YESIL
+- Yapilan: Reward redeem use-case/API/EF store ve order cancel redemption reversal'i eklendi.
+- Dosya/commit: 13 dosya, commit 811acf1
+- Takilan: yok
+### 2026-06-07 05:53 ADIM 19 - Campaign Evaluation - branch: feat/faz3-auth-seed-smoke-closeout - build: YESIL
+- Yapilan: Campaign rule JSON ile ekstra puan ve sabit indirim degerlendirmesi order create akimina baglandi.
+- Dosya/commit: 6 dosya, commit ac8aa0a
+- Takilan: kampanya cakisma onceligi karar bekliyor.
+### 2026-06-07 06:10 ADIM 20 - Deploy CI Smoke - branch: feat/faz3-auth-seed-smoke-closeout - build: YESIL
+- Yapilan: Dockerfile, prod compose, CI workflow, loyalty seed/smoke ve README deploy adimlari eklendi.
+- Dosya/commit: 7 dosya, commit 15096ef
+- Takilan: yok
