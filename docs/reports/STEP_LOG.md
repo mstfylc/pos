@@ -8,5 +8,5 @@
 - Takilan: yok
 ### 2026-06-07 03:10 ADIM 5 - Ledger+Sadakat - branch: feat/be-ledger - build: YESIL
 - Yapilan: Coklu odeme, append-only stock/wallet/loyalty ledger, token ve sadakat modelleri ile EF migration eklendi.
-- Dosya/commit: 8 dosya, commit bekliyor
+- Dosya/commit: 11 dosya, commit 384c609
 - Takilan: yok
