@@ -1,0 +1,102 @@
+<!-- @dsCard group="Admin Dashboard" viewport="1440x880" -->
+<!-- @startingPoint section="Admin Dashboard" subtitle="Metronic admin — login, dashboard & profile" viewport="1440x900" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metronic — Admin</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  html,body{height:100%;}
+  body{margin:0;background:var(--surface-page);}
+  #app{min-height:100vh;}
+  /* login */
+  .lg-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:var(--surface-muted);background-image:radial-gradient(var(--border-strong) 1px,transparent 1px);background-size:22px 22px;}
+  .lg-card{width:400px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-2xl);
+    box-shadow:var(--shadow-lg);padding:36px 36px 30px;}
+  .lg-brand{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:22px;}
+  .lg-brand img{height:34px;}
+  .lg-brand .wm{font-family:var(--font-wordmark);font-weight:800;font-size:19px;letter-spacing:-0.01em;color:#1f3864;}
+  .lg-card h1{text-align:center;font:var(--fw-semibold) 19px/1.2 var(--font-sans);color:var(--text-heading);letter-spacing:var(--ls-tight);}
+  .lg-sub{text-align:center;font:var(--fw-regular) 13px/1.4 var(--font-sans);color:var(--text-muted);margin-top:6px;}
+  .lg-sub a{font-weight:var(--fw-semibold);}
+  .lg-social{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 18px;}
+  .lg-or{display:flex;align-items:center;gap:12px;color:var(--text-placeholder);font:var(--fw-medium) 11px/1 var(--font-sans);
+    text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px;}
+  .lg-or::before,.lg-or::after{content:"";flex:1;height:1px;background:var(--border-default);}
+  .lg-fields{display:flex;flex-direction:column;gap:16px;}
+  .lg-rowx{display:flex;align-items:center;justify-content:space-between;}
+  .lg-forgot{font:var(--fw-semibold) 12.5px/1 var(--font-sans);color:var(--color-primary);}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel" src="Shell.jsx"></script>
+<script type="text/babel" src="DashboardView.jsx"></script>
+<script type="text/babel" src="ProfileView.jsx"></script>
+<script type="text/babel">
+  const M = window.MetronicDesignSystem_a73f8f;
+  const { Button, Input, Checkbox, Icon } = M;
+
+  function Login({ onSignIn }) {
+    return (
+      <div className="lg-wrap">
+        <div className="lg-card">
+          <div className="lg-brand"><img src="../../assets/logo-mark.svg" alt=""/><span className="wm">Uyanık</span></div>
+          <h1>Giriş yap</h1>
+          <div className="lg-sub">Yeni misin? <a href="#" onClick={(e)=>{e.preventDefault();onSignIn();}}>Hesap oluştur</a></div>
+          <div className="lg-social">
+            <Button variant="outline" color="primary" size="lg">Google</Button>
+            <Button variant="outline" color="dark" size="lg">Apple</Button>
+          </div>
+          <div className="lg-or">veya</div>
+          <form className="lg-fields" onSubmit={(e)=>{e.preventDefault();onSignIn();}}>
+            <Input label="E-posta" type="email" defaultValue="jenny@uyanik.com" iconLead="messages" />
+            <Input label="Şifre" type="password" defaultValue="password" iconLead="key" />
+            <div className="lg-rowx">
+              <Checkbox label="Beni hatırla" defaultChecked />
+              <a className="lg-forgot" href="#" onClick={(e)=>e.preventDefault()}>Şifremi unuttum?</a>
+            </div>
+            <Button color="accent" size="lg" fullWidth type="submit">Giriş yap</Button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  function Placeholder({ title }) {
+    return (
+      <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:14,padding:'80px 0',textAlign:'center'}}>
+        <Icon name="abstract" size={56} color="var(--border-strong)"/>
+        <div style={{font:'var(--fw-semibold) 18px/1.2 var(--font-sans)',color:'var(--text-heading)',letterSpacing:'var(--ls-tight)'}}>{title}</div>
+        <div style={{font:'var(--fw-regular) 13px/1.4 var(--font-sans)',color:'var(--text-muted)',maxWidth:360}}>Bu bölüm kit örneğinin parçası değil. Bileşen sistemini bağlam içinde görmek için Panolar ve Herkese Açık Profil görünümlerini kullanın.</div>
+      </div>
+    );
+  }
+
+  const CRUMBS = { dashboard:["Panolar","Varsayılan"], profile:["Kullanıcı","Herkese Açık Profil","Profil"] };
+  const TITLES = { onboarding:"Başlangıç", account:"Hesabım", auth:"Kimlik Doğrulama", marketplace:"Pazaryeri", social:"Sosyal", company:"Şirket", blog:"Blog", projects:"Projeler", ecommerce:"E-Ticaret" };
+
+  function App(){
+    const [authed, setAuthed] = React.useState(false);
+    const [view, setView] = React.useState("dashboard");
+    if(!authed) return <Login onSignIn={()=>setAuthed(true)} />;
+    const { AppShell } = window.MTShell;
+    let content, crumb = CRUMBS[view] || ["Sayfalar", TITLES[view]||"Sayfa"];
+    if(view==="dashboard") content = <React.Fragment><div className="mt-pagehd"><h1>Pano</h1><p>Kişisel özelleştirme için merkez</p></div><window.DashboardView/></React.Fragment>;
+    else if(view==="profile") content = <window.ProfileView/>;
+    else content = <Placeholder title={TITLES[view]||"Yakında"} />;
+    return <AppShell active={view} onNavigate={setView} crumb={crumb}>{content}</AppShell>;
+  }
+
+  ReactDOM.createRoot(document.getElementById('app')).render(<App/>);
+</script>
+</body>
+</html>

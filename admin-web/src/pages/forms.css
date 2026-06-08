@@ -1,0 +1,31 @@
+/* Ortak form (Drawer) stilleri — tüm CRUD formları kullanır */
+.fm-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.fm-col2{grid-column:1 / -1;}
+@media(max-width:560px){ .fm-grid{grid-template-columns:1fr;} }
+
+.fm-section{margin:24px 0 12px;font:var(--fw-semibold) 12px/1 var(--font-sans);text-transform:uppercase;
+  letter-spacing:.05em;color:var(--text-muted);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+.fm-section__note{font:var(--fw-regular) 11px/1.4 var(--font-sans);text-transform:none;letter-spacing:0;color:var(--text-placeholder);}
+
+.fm-switches{display:grid;grid-template-columns:1fr 1fr;gap:12px 18px;}
+@media(max-width:560px){ .fm-switches{grid-template-columns:1fr;} }
+
+/* çoklu seçim kutusu */
+.fm-multi{border:1px solid var(--border-default);border-radius:var(--radius-md);max-height:170px;overflow-y:auto;padding:6px;}
+.fm-multi__row{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:var(--radius-sm);cursor:pointer;font:var(--fw-medium) 13px/1.2 var(--font-sans);color:var(--text-body);}
+.fm-multi__row:hover{background:var(--color-grey-50);}
+.fm-multi__row input{width:16px;height:16px;accent-color:var(--color-primary);cursor:pointer;}
+.fm-multi__empty{padding:14px;text-align:center;font:var(--fw-regular) 12px/1.4 var(--font-sans);color:var(--text-placeholder);}
+
+/* permission matrisi */
+.fm-perm{display:flex;flex-direction:column;gap:18px;}
+.fm-perm__group b{display:block;font:var(--fw-semibold) 12px/1 var(--font-sans);color:var(--text-heading);margin-bottom:9px;text-transform:uppercase;letter-spacing:.04em;}
+.fm-perm__items{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;}
+@media(max-width:560px){ .fm-perm__items{grid-template-columns:1fr;} }
+
+.pp-name{display:flex;flex-direction:column;gap:4px;}
+.pp-name b{font:var(--fw-semibold) 13.5px/1.2 var(--font-sans);color:var(--text-heading);}
+.pp-name__tags{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.pp-sku{font:var(--fw-medium) 11px/1 var(--font-mono);color:var(--text-placeholder);}
+.pp-actions{display:flex;align-items:center;gap:4px;justify-content:flex-end;}
+.pp-count{font:var(--fw-medium) 12.5px/1 var(--font-sans);color:var(--text-muted);}

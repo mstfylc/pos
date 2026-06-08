@@ -1,0 +1,30 @@
+/* ============================================================
+   Uyanık Admin — global stylesheet entry
+   1) Webfont (Inter + JetBrains Mono) — @import EN ÜSTTE olmalı
+   2) Tailwind v4 (preflight + utilities)
+   3) Uyanık Design System tokens + base (handoff kaynak)
+   4) @theme: marka token'larını Tailwind utility'lerine map'ler
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@500;700;800&display=swap");
+
+@import "tailwindcss";
+
+/* DS tokens + base reset. Tailwind'den sonra ki DS base body/heading kazansın.
+   (fonts.css yalnızca yukarı taşınan webfont @import'unu içerir, atlanır.) */
+@import "../design-system/tokens/colors.css";
+@import "../design-system/tokens/typography.css";
+@import "../design-system/tokens/spacing.css";
+@import "../design-system/tokens/base.css";
+
+/* Marka token'ları → Tailwind theme (bg-brand, bg-brand-accent, vb.).
+   Hex TEKRARI YOK — tek kaynak DS CSS token'larına (var --color-*) bağlanır.
+   İsimler DS token'larıyla ÇAKIŞMASIN diye "brand" ön ekiyle ayrıldı. */
+@theme {
+  --color-brand: var(--color-primary);
+  --color-brand-active: var(--color-primary-active);
+  --color-brand-soft: var(--color-primary-soft);
+  --color-brand-accent: var(--color-accent);
+  --color-brand-accent-active: var(--color-accent-active);
+  --color-brand-accent-soft: var(--color-accent-soft);
+}

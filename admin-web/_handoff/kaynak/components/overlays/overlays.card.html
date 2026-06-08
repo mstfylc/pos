@@ -1,0 +1,71 @@
+<!-- @dsCard group="Components" viewport="900x560" name="Overlays & DataGrid" subtitle="Modal, Drawer, Toast, StatusBadge, DataGrid" -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body{margin:0;background:var(--surface-page);padding:26px;font-family:var(--font-sans);}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:22px;}
+  h4{font:var(--fw-semibold) 12px/1 var(--font-sans);text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin:0 0 11px;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+const M = window.MetronicDesignSystem_a73f8f;
+const { Button, StatusBadge, DataGrid, Modal, Drawer, ToastProvider } = M;
+const useToast = ToastProvider.useToast;
+
+const COLS = [
+  { key:"name", header:"Ürün", sortable:true },
+  { key:"cat", header:"Kategori" },
+  { key:"price", header:"Fiyat", align:"right", sortable:true, render:r=><b>{r.price} ₺</b> },
+  { key:"st", header:"Durum", align:"right", render:r=><StatusBadge status={r.st}/> },
+];
+const ROWS = [
+  { name:"Sapiens", cat:"Tarih", price:"250", st:"aktif" },
+  { name:"1984", cat:"Roman", price:"130", st:"esik-alti" },
+  { name:"Atomik Alışkanlıklar", cat:"Kişisel Gelişim", price:"180", st:"tukendi" },
+];
+
+function Demo(){
+  const [modal,setModal]=React.useState(false);
+  const [drawer,setDrawer]=React.useState(false);
+  const [sort,setSort]=React.useState({key:"name",dir:"asc"});
+  const toast = useToast();
+  return (
+    <div>
+      <h4>StatusBadge</h4>
+      <div className="row">
+        <StatusBadge status="hazirlaniyor"/><StatusBadge status="tamamlandi"/>
+        <StatusBadge status="iptal"/><StatusBadge status="esik-alti"/><StatusBadge status="aktif"/>
+      </div>
+      <h4>Overlays & Toast</h4>
+      <div className="row">
+        <Button color="accent" onClick={()=>setModal(true)}>Modal aç</Button>
+        <Button variant="outline" color="dark" onClick={()=>setDrawer(true)}>Drawer aç</Button>
+        <Button variant="light" onClick={()=>toast({type:"success",title:"Kaydedildi",description:"Değişiklikler uygulandı."})}>Toast</Button>
+      </div>
+      <h4>DataGrid</h4>
+      <DataGrid columns={COLS} rows={ROWS} sort={sort} onSortChange={setSort}
+        page={1} pageSize={10} total={3} onPageChange={()=>{}} onRowClick={()=>{}}/>
+      <Modal open={modal} onClose={()=>setModal(false)} icon="trash" tone="danger"
+        title="Ürünü sil?" subtitle="Bu işlem geri alınamaz."
+        footer={<><Button variant="ghost" onClick={()=>setModal(false)}>İptal</Button><Button color="danger" onClick={()=>setModal(false)}>Sil</Button></>}/>
+      <Drawer open={drawer} onClose={()=>setDrawer(false)} title="Detay" subtitle="Sağ çekmece"
+        footer={<><Button variant="ghost" onClick={()=>setDrawer(false)}>İptal</Button><Button color="accent">Kaydet</Button></>}>
+        <p style={{font:"var(--fw-regular) 13px/1.6 var(--font-sans)",color:"var(--text-body)"}}>Çekmece içeriği burada.</p>
+      </Drawer>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('app')).render(<ToastProvider><Demo/></ToastProvider>);
+</script>
+</body>
+</html>

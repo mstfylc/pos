@@ -1,0 +1,73 @@
+<!-- @dsCard group="Components" viewport="700x430" name="Data display" subtitle="Card, Badge, Avatar, Tabs, Progress, Tag" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 22px; background: var(--surface-muted); }
+  #root { display: flex; flex-direction: column; gap: 18px; }
+  .strip { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+  .stat { display:flex; flex-direction:column; gap:8px; }
+  .stat .big { font: var(--fw-bold) 26px/1 var(--font-sans); color: var(--text-heading); letter-spacing: var(--ls-tight); }
+  .row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .muted { font: var(--fw-medium) 12px/1 var(--font-sans); color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+  const M = window.MetronicDesignSystem_a73f8f;
+  const { Card, CardHeader, CardBody, CardFooter, Badge, Avatar, AvatarGroup, Tabs, Progress, Tag, Separator, Button, IconButton } = M;
+  function Demo(){
+    const people=[{name:"Jenny Klabber"},{name:"Marcus Lee"},{name:"Ava Stone"},{name:"Devon Park"},{name:"Iris Cho"}];
+    return (
+      <React.Fragment>
+        <div className="strip">
+          <Badge color="primary">Primary</Badge>
+          <Badge color="success" variant="light" dot>Active</Badge>
+          <Badge color="danger" variant="solid">Overdue</Badge>
+          <Badge color="warning" variant="light">Pending</Badge>
+          <Badge color="info" variant="outline">Info</Badge>
+          <Badge color="dark" pill>v9.4.13</Badge>
+          <Separator orientation="vertical" />
+          <Tag icon="price-tag">Design</Tag>
+          <Tag onRemove={()=>{}}>Figma</Tag>
+          <Tag icon="folder" onRemove={()=>{}}>Marketing</Tag>
+        </div>
+        <div className="grid2">
+          <Card>
+            <CardHeader title="Teams" subtitle="52 members" toolbar={<IconButton icon="more" aria-label="More" />} />
+            <CardBody>
+              <Tabs variant="pills" tabs={[{id:'all',label:'All',count:52},{id:'act',label:'Active',count:31},{id:'arch',label:'Archived'}]} defaultValue="all" />
+              <div style={{height:14}}/>
+              <div className="row"><AvatarGroup people={people} max={4} /><Avatar name="Jenny Klabber" status="online" /></div>
+            </CardBody>
+            <CardFooter><Button variant="ghost" size="sm" iconEnd="chevron-right">View all teams</Button></CardFooter>
+          </Card>
+          <Card>
+            <CardHeader title="Storage" subtitle="Workspace usage" />
+            <CardBody>
+              <div className="stat">
+                <div className="row"><span className="big">68%</span><Badge color="warning" variant="light">Filling up</Badge></div>
+                <Progress value={68} color="primary" />
+                <div className="row"><span className="muted">Documents</span><span className="muted">182 GB</span></div>
+                <Progress value={42} color="success" size="sm" />
+                <div className="row"><span className="muted">Media</span><span className="muted">96 GB</span></div>
+                <Progress value={88} color="danger" size="sm" />
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+      </React.Fragment>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script>
+</body>
+</html>

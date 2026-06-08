@@ -1,0 +1,7 @@
+/* Ürünler listesi */
+.pp-name{display:flex;flex-direction:column;gap:4px;}
+.pp-name b{font:var(--fw-semibold) 13.5px/1.2 var(--font-sans);color:var(--text-heading);}
+.pp-name__tags{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.pp-sku{font:var(--fw-medium) 11px/1 var(--font-mono);color:var(--text-placeholder);}
+.pp-actions{display:flex;align-items:center;gap:4px;justify-content:flex-end;}
+.pp-count{font:var(--fw-medium) 12.5px/1 var(--font-sans);color:var(--text-muted);}

@@ -1,0 +1,47 @@
+<!-- @dsCard group="Components" viewport="700x250" name="Icon" subtitle="KeenIcons — inline SVG, themed via currentColor" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 22px; background: var(--surface-card); }
+  #root { display: flex; flex-direction: column; gap: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px 8px; }
+  .cell { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .cap { font: var(--fw-medium) 8px/1.1 var(--font-sans); color: var(--text-muted); text-align: center; }
+  .demo { display: flex; align-items: center; gap: 14px; }
+  .pill { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: var(--radius-sm); font: var(--fw-semibold) 12px/1 var(--font-sans); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+  const { Icon } = window.MetronicDesignSystem_a73f8f;
+  const names = ['home','profile-circle','setting-2','messages','rocket','people','chart-line-up','category','calendar','filter','magnifier','plus-squared','check-circle','cross-circle','share','time','trash','price-tag','handcart','verify','element-11','more','chevron-down','heart'];
+  function Demo() {
+    return (
+      <React.Fragment>
+        <div className="demo">
+          <span className="pill" style={{background:'var(--color-primary)',color:'#fff'}}><Icon name="rocket" size={16}/> Primary</span>
+          <span className="pill" style={{background:'var(--color-success-soft)',color:'var(--color-success-accent)'}}><Icon name="check-circle" size={16}/> Success</span>
+          <span className="pill" style={{background:'var(--color-grey-100)',color:'var(--text-body)'}}><Icon name="setting-2" size={16}/> Settings</span>
+          <Icon name="profile-circle" size={28} color="var(--color-primary)"/>
+          <Icon name="messages" size={28} color="var(--text-muted)"/>
+        </div>
+        <div className="grid">
+          {names.map(n => (
+            <div className="cell" key={n}><Icon name={n} size={22} color="var(--text-body)"/><span className="cap">{n}</span></div>
+          ))}
+        </div>
+      </React.Fragment>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script>
+</body>
+</html>

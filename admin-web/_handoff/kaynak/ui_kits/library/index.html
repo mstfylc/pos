@@ -1,0 +1,97 @@
+<!-- @dsCard group="Kütüphane Paneli" viewport="1440x980" name="Kütüphane Dashboard" subtitle="Şube yönetim paneli — özet, satış trendi, canlı siparişler" -->
+<!-- @startingPoint section="Kütüphane Paneli" subtitle="Uyanık Kütüphane — şube yönetim dashboard'u" viewport="1440x980" -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uyanık Kütüphane — Yönetim Paneli</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  html,body{height:100%;}
+  body{margin:0;background:var(--surface-page);}
+  #app{min-height:100vh;}
+  .lb-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+    padding:96px 0;text-align:center;}
+  .lb-ph__t{font:var(--fw-semibold) 18px/1.2 var(--font-sans);color:var(--text-heading);letter-spacing:var(--ls-tight);}
+  .lb-ph__s{font:var(--fw-regular) 13px/1.5 var(--font-sans);color:var(--text-muted);max-width:380px;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" rx="14" fill="#1F3864"/>
+    <rect x="30" y="30" width="40" height="26" rx="5" fill="#E08A2B"/>
+    <circle cx="42" cy="42" r="4" fill="#1F3864"/>
+    <circle cx="58" cy="42" r="4" fill="#1F3864"/>
+    <path d="M46 52 L50 56 L54 52" stroke="#1F3864" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </svg>
+</template>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel" src="LibraryShell.jsx"></script>
+<script type="text/babel" src="LibraryDashboard.jsx"></script>
+<script type="text/babel">
+  const M = window.MetronicDesignSystem_a73f8f;
+
+  const TITLES = {
+    home:"Ana Sayfa", orders:"Siparişler", products:"Ürünler", categories:"Kategoriler",
+    stock:"Stok / Depo", customers:"Müşteriler", campaigns:"İndirim & Kampanya", loyalty:"Sadakat",
+    users:"Kullanıcılar", branches:"Şubeler & POS", reports:"Raporlar", settings:"Ayarlar",
+  };
+
+  function Placeholder({ title }){
+    return (
+      <div className="lb-ph">
+        <M.Icon name="abstract" size={54} color="var(--border-strong)"/>
+        <div className="lb-ph__t">{title}</div>
+        <div className="lb-ph__s">Bu bölüm bu örneğin parçası değil. Tasarım sistemini bağlam içinde görmek için Ana Sayfa görünümünü kullanın.</div>
+      </div>
+    );
+  }
+
+  function App(){
+    const [view, setView] = React.useState("home");
+    const { LibAppShell } = window.LibShell;
+    let content;
+    if(view==="home"){
+      content = (
+        <React.Fragment>
+          <div className="lb-pagehd">
+            <div>
+              <div className="lb-crumb">Genel <span className="sep">/</span> <b>Ana Sayfa</b></div>
+              <h1>Genel Bakış</h1>
+              <p>Çayyolu Şubesi'nin günlük performansı · 7 Haziran 2026, Pazar</p>
+            </div>
+            <div style={{display:'flex',gap:10}}>
+              <M.Button variant="outline" color="dark" iconStart="calendar">Bugün</M.Button>
+              <M.Button color="accent" iconStart="plus-squared">Yeni sipariş</M.Button>
+            </div>
+          </div>
+          <window.LibraryDashboard/>
+        </React.Fragment>
+      );
+    } else {
+      content = (
+        <React.Fragment>
+          <div className="lb-pagehd">
+            <div>
+              <div className="lb-crumb">Sayfalar <span className="sep">/</span> <b>{TITLES[view]}</b></div>
+              <h1>{TITLES[view]}</h1>
+            </div>
+          </div>
+          <Placeholder title={TITLES[view]+" — yakında"} />
+        </React.Fragment>
+      );
+    }
+    return <LibAppShell active={view} onNavigate={setView}>{content}</LibAppShell>;
+  }
+
+  ReactDOM.createRoot(document.getElementById('app')).render(<App/>);
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!-- @dsCard group="Kütüphane Paneli" viewport="1280x860" name="Giriş Ekranı" subtitle="Uyanık admin — login" -->
+<!-- @startingPoint section="Kütüphane Paneli" subtitle="Uyanık yönetim paneli — giriş ekranı" viewport="1280x860" -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uyanık — Giriş</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  html,body{height:100%;}
+  body{margin:0;background:var(--surface-page);}
+  #app{min-height:100vh;}
+  .lg-wrap{display:grid;grid-template-columns:1.05fr 1fr;min-height:100vh;}
+  @media(max-width:840px){ .lg-wrap{grid-template-columns:1fr;} .lg-brand{display:none;} }
+  /* brand side */
+  .lg-brand{background:#14233f;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:48px 52px;}
+  .lg-brand::before{content:"";position:absolute;top:-120px;right:-120px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(224,138,43,.22),transparent 68%);}
+  .lg-brand::after{content:"";position:absolute;bottom:-160px;left:-100px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(31,56,100,.6),transparent 70%);}
+  .lg-brand__top{display:flex;align-items:center;gap:13px;position:relative;z-index:1;}
+  .lg-brand__top img{height:38px;}
+  .lg-brand__top b{font-family:var(--font-wordmark);font-weight:800;font-size:22px;color:#fff;letter-spacing:-0.01em;}
+  .lg-brand__mid{position:relative;z-index:1;}
+  .lg-brand__mid h1{font:var(--fw-bold) 34px/1.18 var(--font-sans);color:#fff;letter-spacing:-0.02em;margin:0 0 16px;text-wrap:balance;}
+  .lg-brand__mid p{font:var(--fw-regular) 15px/1.6 var(--font-sans);color:rgba(255,255,255,.62);max-width:380px;margin:0;}
+  .lg-stats{display:flex;gap:30px;position:relative;z-index:1;}
+  .lg-stat b{font:var(--fw-bold) 26px/1 var(--font-sans);color:var(--color-accent);display:block;}
+  .lg-stat span{font:var(--fw-medium) 12px/1 var(--font-sans);color:rgba(255,255,255,.55);margin-top:7px;display:block;}
+  /* form side */
+  .lg-form{display:flex;align-items:center;justify-content:center;padding:40px 28px;}
+  .lg-card{width:100%;max-width:380px;}
+  .lg-card__mb{display:none;align-items:center;gap:11px;margin-bottom:30px;justify-content:center;}
+  .lg-card__mb img{height:34px;} .lg-card__mb b{font-family:var(--font-wordmark);font-weight:800;font-size:20px;color:var(--color-primary);}
+  @media(max-width:840px){ .lg-card__mb{display:flex;} }
+  .lg-card h2{font:var(--fw-bold) 24px/1.2 var(--font-sans);color:var(--text-heading);letter-spacing:var(--ls-tight);margin:0 0 7px;}
+  .lg-card__sub{font:var(--fw-regular) 13.5px/1.5 var(--font-sans);color:var(--text-muted);margin:0 0 26px;}
+  .lg-field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
+  .lg-label{font:var(--fw-semibold) 12.5px/1 var(--font-sans);color:var(--text-heading);}
+  .lg-input-wrap{position:relative;display:flex;align-items:center;}
+  .lg-input{width:100%;height:46px;border:1px solid var(--border-default);border-radius:var(--radius-md);background:var(--color-grey-50);
+    padding:0 14px 0 42px;font:var(--fw-medium) 14px/1 var(--font-sans);color:var(--text-heading);outline:none;transition:all .13s;box-sizing:border-box;}
+  .lg-input:focus{border-color:var(--color-primary);background:#fff;box-shadow:0 0 0 3px var(--color-primary-soft);}
+  .lg-input.err{border-color:var(--color-danger);}
+  .lg-ic{position:absolute;left:14px;display:flex;pointer-events:none;}
+  .lg-eye{position:absolute;right:12px;appearance:none;border:0;background:none;cursor:pointer;color:var(--text-placeholder);padding:5px;display:flex;}
+  .lg-eye:hover{color:var(--text-body);}
+  .lg-err{font:var(--fw-medium) 11.5px/1.3 var(--font-sans);color:var(--color-danger);display:flex;align-items:center;gap:5px;}
+  .lg-rowbtw{display:flex;align-items:center;justify-content:space-between;margin:4px 0 22px;}
+  .lg-check{display:flex;align-items:center;gap:8px;cursor:pointer;font:var(--fw-medium) 12.5px/1 var(--font-sans);color:var(--text-body);}
+  .lg-check input{width:16px;height:16px;accent-color:var(--color-primary);cursor:pointer;}
+  .lg-link{font:var(--fw-semibold) 12.5px/1 var(--font-sans);color:var(--color-primary);text-decoration:none;cursor:pointer;}
+  .lg-link:hover{text-decoration:underline;}
+  .lg-btn{width:100%;height:48px;border:0;border-radius:var(--radius-md);background:var(--color-accent);color:#fff;cursor:pointer;
+    font:var(--fw-semibold) 14.5px/1 var(--font-sans);display:flex;align-items:center;justify-content:center;gap:9px;transition:all .14s;box-shadow:0 4px 14px rgba(224,138,43,.32);}
+  .lg-btn:hover{background:var(--color-accent-active,#c6751c);transform:translateY(-1px);}
+  .lg-btn:active{transform:none;}
+  .lg-btn:disabled{opacity:.7;cursor:default;transform:none;box-shadow:none;}
+  .lg-alert{display:flex;align-items:center;gap:9px;background:var(--color-danger-soft);border:1px solid #f3c9cf;border-radius:var(--radius-md);padding:11px 13px;margin-bottom:18px;font:var(--fw-medium) 12.5px/1.4 var(--font-sans);color:var(--color-danger);}
+  .lg-foot{text-align:center;font:var(--fw-regular) 11.5px/1.5 var(--font-sans);color:var(--text-placeholder);margin-top:28px;}
+  .lg-demo{margin-top:18px;padding:11px 13px;border:1px dashed var(--border-strong);border-radius:var(--radius-md);font:var(--fw-regular) 11.5px/1.5 var(--font-sans);color:var(--text-muted);background:var(--color-grey-50);}
+  .lg-demo b{color:var(--text-body);font-weight:var(--fw-semibold);}
+  .lg-spin{width:17px;height:17px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:lgspin .7s linear infinite;}
+  @keyframes lgspin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="14" fill="#1F3864"/><rect x="30" y="30" width="40" height="26" rx="5" fill="#E08A2B"/><circle cx="42" cy="42" r="4" fill="#1F3864"/><circle cx="58" cy="42" r="4" fill="#1F3864"/><path d="M46 52 L50 56 L54 52" stroke="#1F3864" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+</template>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script src="../shared/logo.js"></script>
+<script type="text/babel">
+const M = window.MetronicDesignSystem_a73f8f;
+
+function Login(){
+  const [email,setEmail]=React.useState("selin.aydin@uyanik.co");
+  const [pass,setPass]=React.useState("");
+  const [show,setShow]=React.useState(false);
+  const [remember,setRemember]=React.useState(true);
+  const [err,setErr]=React.useState({});
+  const [authErr,setAuthErr]=React.useState(false);
+  const [loading,setLoading]=React.useState(false);
+
+  function submit(e){
+    e.preventDefault();
+    const er={};
+    if(!email.trim())er.email="E-posta zorunludur.";
+    else if(!/^[^@]+@[^@]+\.[^@]+$/.test(email))er.email="Geçerli bir e-posta girin.";
+    if(!pass)er.pass="Parola zorunludur.";
+    setErr(er); setAuthErr(false);
+    if(Object.keys(er).length) return;
+    setLoading(true);
+    setTimeout(()=>{
+      setLoading(false);
+      if(pass==="uyanik"){ window.location.href="index.html"; }
+      else { setAuthErr(true); }
+    },900);
+  }
+
+  return (
+    <div className="lg-wrap">
+      <div className="lg-brand">
+        <div className="lg-brand__top"><img src={window.UYANIK_LOGO} alt="Uyanık"/><b>Uyanık</b></div>
+        <div className="lg-brand__mid">
+          <h1>Kahvenin ritmini<br/>tek panelden yönet.</h1>
+          <p>Sipariş, stok, sadakat ve şubeler — Uyanık yönetim paneliyle her şey kontrol altında. Çayyolu'ndan Alsancak'a, tüm operasyonun nabzı burada.</p>
+        </div>
+        <div className="lg-stats">
+          <div className="lg-stat"><b>4</b><span>Şube</span></div>
+          <div className="lg-stat"><b>1.240</b><span>Sadakat üyesi</span></div>
+          <div className="lg-stat"><b>₺312K</b><span>Aylık ciro</span></div>
+        </div>
+      </div>
+
+      <div className="lg-form">
+        <form className="lg-card" onSubmit={submit} noValidate>
+          <div className="lg-card__mb"><img src={window.UYANIK_LOGO} alt="Uyanık"/><b>Uyanık</b></div>
+          <h2>Tekrar hoş geldin 👋</h2>
+          <p className="lg-card__sub">Devam etmek için hesabınla giriş yap.</p>
+
+          {authErr && <div className="lg-alert"><M.Icon name="cross-circle" size={16} color="var(--color-danger)"/>E-posta veya parola hatalı. Tekrar deneyin.</div>}
+
+          <div className="lg-field">
+            <label className="lg-label">E-posta</label>
+            <div className="lg-input-wrap">
+              <span className="lg-ic"><M.Icon name="message-notif" size={17} color="var(--text-placeholder)"/></span>
+              <input className={"lg-input"+(err.email?" err":"")} type="email" placeholder="ad@uyanik.co" value={email} onChange={e=>setEmail(e.target.value)}/>
+            </div>
+            {err.email && <span className="lg-err"><M.Icon name="cross-circle" size={12} color="var(--color-danger)"/>{err.email}</span>}
+          </div>
+
+          <div className="lg-field">
+            <label className="lg-label">Parola</label>
+            <div className="lg-input-wrap">
+              <span className="lg-ic"><M.Icon name="key" size={17} color="var(--text-placeholder)"/></span>
+              <input className={"lg-input"+(err.pass?" err":"")} type={show?"text":"password"} placeholder="••••••••" value={pass} onChange={e=>setPass(e.target.value)}/>
+              <button type="button" className="lg-eye" onClick={()=>setShow(s=>!s)} aria-label="Parolayı göster"><M.Icon name={show?"cross-circle":"magnifier"} size={16}/></button>
+            </div>
+            {err.pass && <span className="lg-err"><M.Icon name="cross-circle" size={12} color="var(--color-danger)"/>{err.pass}</span>}
+          </div>
+
+          <div className="lg-rowbtw">
+            <label className="lg-check"><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)}/>Beni hatırla</label>
+            <a className="lg-link" onClick={e=>e.preventDefault()}>Parolamı unuttum</a>
+          </div>
+
+          <button className="lg-btn" type="submit" disabled={loading}>
+            {loading ? <><span className="lg-spin"/>Giriş yapılıyor…</> : <>Giriş yap<M.Icon name="chevron-right" size={17} color="#fff"/></>}
+          </button>
+
+          <div className="lg-demo"><b>Demo:</b> parola alanına <b>uyanik</b> yazıp giriş yapın → panele yönlendirilirsiniz.</div>
+          <div className="lg-foot">© 2026 Uyanık Kahve · Tüm hakları saklıdır</div>
+        </form>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('app')).render(<Login/>);
+</script>
+</body>
+</html>
