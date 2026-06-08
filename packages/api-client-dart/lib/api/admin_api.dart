@@ -12,9 +12,12 @@ import 'package:built_value/serializer.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:mansis_pos_api_client/model/assignment_dto.dart';
 import 'package:mansis_pos_api_client/model/assignment_write_dto.dart';
+import 'package:mansis_pos_api_client/model/branch_dto.dart';
 import 'package:mansis_pos_api_client/model/campaign_dto.dart';
 import 'package:mansis_pos_api_client/model/campaign_write_dto.dart';
+import 'package:mansis_pos_api_client/model/category_color_dto.dart';
 import 'package:mansis_pos_api_client/model/category_dto.dart';
+import 'package:mansis_pos_api_client/model/category_shape_dto.dart';
 import 'package:mansis_pos_api_client/model/category_write_dto.dart';
 import 'package:mansis_pos_api_client/model/customer_detail_dto.dart';
 import 'package:mansis_pos_api_client/model/customer_dto.dart';
@@ -341,6 +344,64 @@ class AdminApi {
     ) as AssignmentDto;
 
     return Response<AssignmentDto>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<BuiltList<BranchDto>>> apiV1AdminBranchesGet({ 
+    String companyId,
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/branches',
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        if (companyId != null) r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(BuiltList, [FullType(BranchDto)]);
+    final BuiltList<BranchDto> _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as BuiltList<BranchDto>;
+
+    return Response<BuiltList<BranchDto>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -848,6 +909,122 @@ class AdminApi {
     ) as CategoryDto;
 
     return Response<CategoryDto>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<BuiltList<CategoryColorDto>>> apiV1AdminCategoryColorsGet({ 
+    String companyId,
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/category-colors',
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        if (companyId != null) r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(BuiltList, [FullType(CategoryColorDto)]);
+    final BuiltList<CategoryColorDto> _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as BuiltList<CategoryColorDto>;
+
+    return Response<BuiltList<CategoryColorDto>>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      request: _response.request,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// 
+  ///
+  /// 
+  Future<Response<BuiltList<CategoryShapeDto>>> apiV1AdminCategoryShapesGet({ 
+    String companyId,
+    CancelToken cancelToken,
+    Map<String, dynamic> headers,
+    Map<String, dynamic> extra,
+    ValidateStatus validateStatus,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+  }) async {
+    final _request = RequestOptions(
+      path: r'/api/v1/admin/category-shapes',
+      method: 'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      queryParameters: <String, dynamic>{
+        if (companyId != null) r'companyId': companyId,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+      contentType: 'application/json',
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    dynamic _bodyData;
+
+    final _response = await _dio.request<dynamic>(
+      _request.path,
+      data: _bodyData,
+      options: _request,
+    );
+
+    const _responseType = FullType(BuiltList, [FullType(CategoryShapeDto)]);
+    final BuiltList<CategoryShapeDto> _responseData = _serializers.deserialize(
+      _response.data,
+      specifiedType: _responseType,
+    ) as BuiltList<CategoryShapeDto>;
+
+    return Response<BuiltList<CategoryShapeDto>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

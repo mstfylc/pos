@@ -5,7 +5,7 @@
 import 'package:mansis_pos_api_client/api.dart';
 ```
 
-All URIs are relative to *http://localhost:5088*
+All URIs are relative to *http://localhost:5254*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**apiV1AdminAssignmentsIdGet**](AdminApi.md#apiv1adminassignmentsidget) | **GET** /api/v1/admin/assignments/{id} | 
 [**apiV1AdminAssignmentsIdPut**](AdminApi.md#apiv1adminassignmentsidput) | **PUT** /api/v1/admin/assignments/{id} | 
 [**apiV1AdminAssignmentsPost**](AdminApi.md#apiv1adminassignmentspost) | **POST** /api/v1/admin/assignments | 
+[**apiV1AdminBranchesGet**](AdminApi.md#apiv1adminbranchesget) | **GET** /api/v1/admin/branches | 
 [**apiV1AdminCampaignsGet**](AdminApi.md#apiv1admincampaignsget) | **GET** /api/v1/admin/campaigns | 
 [**apiV1AdminCampaignsIdDelete**](AdminApi.md#apiv1admincampaignsiddelete) | **DELETE** /api/v1/admin/campaigns/{id} | 
 [**apiV1AdminCampaignsIdGet**](AdminApi.md#apiv1admincampaignsidget) | **GET** /api/v1/admin/campaigns/{id} | 
@@ -23,6 +24,8 @@ Method | HTTP request | Description
 [**apiV1AdminCategoriesIdDelete**](AdminApi.md#apiv1admincategoriesiddelete) | **DELETE** /api/v1/admin/categories/{id} | 
 [**apiV1AdminCategoriesIdPut**](AdminApi.md#apiv1admincategoriesidput) | **PUT** /api/v1/admin/categories/{id} | 
 [**apiV1AdminCategoriesPost**](AdminApi.md#apiv1admincategoriespost) | **POST** /api/v1/admin/categories | 
+[**apiV1AdminCategoryColorsGet**](AdminApi.md#apiv1admincategorycolorsget) | **GET** /api/v1/admin/category-colors | 
+[**apiV1AdminCategoryShapesGet**](AdminApi.md#apiv1admincategoryshapesget) | **GET** /api/v1/admin/category-shapes | 
 [**apiV1AdminCustomersGet**](AdminApi.md#apiv1admincustomersget) | **GET** /api/v1/admin/customers | 
 [**apiV1AdminCustomersIdDelete**](AdminApi.md#apiv1admincustomersiddelete) | **DELETE** /api/v1/admin/customers/{id} | 
 [**apiV1AdminCustomersIdGet**](AdminApi.md#apiv1admincustomersidget) | **GET** /api/v1/admin/customers/{id} | 
@@ -303,6 +306,47 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminBranchesGet**
+> BuiltList<BranchDto> apiV1AdminBranchesGet(companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminBranchesGet(companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminBranchesGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**BuiltList<BranchDto>**](BranchDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -690,6 +734,88 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCategoryColorsGet**
+> BuiltList<CategoryColorDto> apiV1AdminCategoryColorsGet(companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminCategoryColorsGet(companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCategoryColorsGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**BuiltList<CategoryColorDto>**](CategoryColorDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiV1AdminCategoryShapesGet**
+> BuiltList<CategoryShapeDto> apiV1AdminCategoryShapesGet(companyId)
+
+
+
+### Example
+```dart
+import 'package:mansis_pos_api_client/api.dart';
+
+var api_instance = new AdminApi();
+var companyId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    var result = api_instance.apiV1AdminCategoryShapesGet(companyId);
+    print(result);
+} catch (e) {
+    print('Exception when calling AdminApi->apiV1AdminCategoryShapesGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **companyId** | **String**|  | [optional] 
+
+### Return type
+
+[**BuiltList<CategoryShapeDto>**](CategoryShapeDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

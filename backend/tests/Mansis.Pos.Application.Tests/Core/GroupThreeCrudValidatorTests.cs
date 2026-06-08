@@ -67,6 +67,36 @@ public sealed class GroupThreeCrudValidatorTests
     }
 
     [Fact]
+    public void Received_purchase_accepts_positive_lines()
+    {
+        var validator = new PurchaseWriteValidator();
+        var request = new PurchaseWriteDto(
+            CompanyId: Guid.NewGuid(),
+            UserId: Guid.NewGuid(),
+            PurchaseTime: DateTimeOffset.UtcNow,
+            Invoice: "INV-2",
+            PaymentCompleted: true,
+            Received: true,
+            PayerId: Guid.NewGuid(),
+            ReceiverId: Guid.NewGuid(),
+            SupplierId: Guid.NewGuid(),
+            StoreId: Guid.NewGuid(),
+            Lines:
+            [
+                new PurchaseLineWriteDto(
+                    ProductId: Guid.NewGuid(),
+                    Quantity: 3,
+                    Price: 12.5m,
+                    Discount: 0,
+                    Tax: 10)
+            ]);
+
+        var result = validator.Validate(request);
+
+        Assert.True(result.IsValid);
+    }
+
+    [Fact]
     public void Supplier_accepts_required_name()
     {
         var validator = new SupplierWriteValidator();

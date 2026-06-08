@@ -336,6 +336,84 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/category-colors": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    companyId?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["CategoryColorDto"][];
+                        "application/json": components["schemas"]["CategoryColorDto"][];
+                        "text/json": components["schemas"]["CategoryColorDto"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/category-shapes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    companyId?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["CategoryShapeDto"][];
+                        "application/json": components["schemas"]["CategoryShapeDto"][];
+                        "text/json": components["schemas"]["CategoryShapeDto"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/categories/{id}": {
         parameters: {
             query?: never;
@@ -1246,6 +1324,45 @@ export interface paths {
                         "text/plain": components["schemas"]["PagedResultOfOrderListDto"];
                         "application/json": components["schemas"]["PagedResultOfOrderListDto"];
                         "text/json": components["schemas"]["PagedResultOfOrderListDto"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/branches": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    companyId?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["BranchDto"][];
+                        "application/json": components["schemas"]["BranchDto"][];
+                        "text/json": components["schemas"]["BranchDto"][];
                     };
                 };
             };
@@ -4242,6 +4359,17 @@ export interface components {
             /** Format: uuid */
             productId: string | null;
         };
+        BranchDto: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            address: string | null;
+            phone: string | null;
+            entryTrackingMode: components["schemas"]["EntryTrackingMode"];
+            active: boolean;
+        };
         CampaignDto: {
             /** Format: uuid */
             id: string;
@@ -4298,6 +4426,15 @@ export interface components {
             userId: string;
             reason: string;
         };
+        CategoryColorDto: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            content: string;
+            active: boolean;
+        };
         CategoryDto: {
             /** Format: uuid */
             id: string;
@@ -4306,6 +4443,15 @@ export interface components {
             name: string;
             /** Format: int32 */
             sortOrder: number;
+            active: boolean;
+        };
+        CategoryShapeDto: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            companyId: string;
+            name: string;
+            content: string;
             active: boolean;
         };
         CategoryWriteDto: {
@@ -4581,6 +4727,7 @@ export interface components {
             /** Format: int32 */
             quantity: number;
         };
+        EntryTrackingMode: number;
         IdentifiedCustomerDto: {
             /** Format: uuid */
             customerId: string;

@@ -54,6 +54,8 @@ public sealed record PosProductWriteDto(Guid CompanyId, Guid UserId, Guid PosId,
 
 public sealed record CategoryDto(Guid Id, Guid CompanyId, string Name, int SortOrder, bool Active);
 public sealed record CategoryWriteDto(Guid CompanyId, Guid UserId, string Name, int SortOrder, Guid CategoryColorId, Guid CategoryShapeId);
+public sealed record CategoryColorDto(Guid Id, Guid CompanyId, string Name, string Content, bool Active);
+public sealed record CategoryShapeDto(Guid Id, Guid CompanyId, string Name, string Content, bool Active);
 
 public sealed record CustomerDto(Guid Id, Guid CompanyId, string Name, string Surname, string Username, string? Phone, string? Mail, decimal Balance, bool Active);
 
@@ -177,6 +179,7 @@ public sealed record OrderListDto(
 
 public sealed record StoreDto(Guid Id, Guid CompanyId, string Name, Guid? BranchId, bool Active);
 public sealed record StoreWriteDto(Guid CompanyId, Guid UserId, string Name, Guid? BranchId);
+public sealed record BranchDto(Guid Id, Guid CompanyId, string Name, string? Address, string? Phone, EntryTrackingMode EntryTrackingMode, bool Active);
 
 public sealed record PosDto(Guid Id, Guid CompanyId, string Name, Guid BranchId, Guid StoreId, bool Active);
 public sealed record PosWriteDto(Guid CompanyId, Guid UserId, string Name, Guid BranchId, Guid StoreId);

@@ -55,7 +55,7 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:5088*
+All URIs are relative to *http://localhost:5254*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -64,6 +64,7 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**apiV1AdminAssignmentsIdGet**](doc\AdminApi.md#apiv1adminassignmentsidget) | **GET** /api/v1/admin/assignments/{id} | 
 *AdminApi* | [**apiV1AdminAssignmentsIdPut**](doc\AdminApi.md#apiv1adminassignmentsidput) | **PUT** /api/v1/admin/assignments/{id} | 
 *AdminApi* | [**apiV1AdminAssignmentsPost**](doc\AdminApi.md#apiv1adminassignmentspost) | **POST** /api/v1/admin/assignments | 
+*AdminApi* | [**apiV1AdminBranchesGet**](doc\AdminApi.md#apiv1adminbranchesget) | **GET** /api/v1/admin/branches | 
 *AdminApi* | [**apiV1AdminCampaignsGet**](doc\AdminApi.md#apiv1admincampaignsget) | **GET** /api/v1/admin/campaigns | 
 *AdminApi* | [**apiV1AdminCampaignsIdDelete**](doc\AdminApi.md#apiv1admincampaignsiddelete) | **DELETE** /api/v1/admin/campaigns/{id} | 
 *AdminApi* | [**apiV1AdminCampaignsIdGet**](doc\AdminApi.md#apiv1admincampaignsidget) | **GET** /api/v1/admin/campaigns/{id} | 
@@ -73,6 +74,8 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**apiV1AdminCategoriesIdDelete**](doc\AdminApi.md#apiv1admincategoriesiddelete) | **DELETE** /api/v1/admin/categories/{id} | 
 *AdminApi* | [**apiV1AdminCategoriesIdPut**](doc\AdminApi.md#apiv1admincategoriesidput) | **PUT** /api/v1/admin/categories/{id} | 
 *AdminApi* | [**apiV1AdminCategoriesPost**](doc\AdminApi.md#apiv1admincategoriespost) | **POST** /api/v1/admin/categories | 
+*AdminApi* | [**apiV1AdminCategoryColorsGet**](doc\AdminApi.md#apiv1admincategorycolorsget) | **GET** /api/v1/admin/category-colors | 
+*AdminApi* | [**apiV1AdminCategoryShapesGet**](doc\AdminApi.md#apiv1admincategoryshapesget) | **GET** /api/v1/admin/category-shapes | 
 *AdminApi* | [**apiV1AdminCustomersGet**](doc\AdminApi.md#apiv1admincustomersget) | **GET** /api/v1/admin/customers | 
 *AdminApi* | [**apiV1AdminCustomersIdDelete**](doc\AdminApi.md#apiv1admincustomersiddelete) | **DELETE** /api/v1/admin/customers/{id} | 
 *AdminApi* | [**apiV1AdminCustomersIdGet**](doc\AdminApi.md#apiv1admincustomersidget) | **GET** /api/v1/admin/customers/{id} | 
@@ -184,11 +187,14 @@ Class | Method | HTTP request | Description
  - [AssignmentWriteDto](doc\AssignmentWriteDto.md)
  - [AuthTokenResult](doc\AuthTokenResult.md)
  - [AvailableRewardDto](doc\AvailableRewardDto.md)
+ - [BranchDto](doc\BranchDto.md)
  - [CampaignDto](doc\CampaignDto.md)
  - [CampaignWriteDto](doc\CampaignWriteDto.md)
  - [CancelOrderResponse](doc\CancelOrderResponse.md)
  - [CancelTransferRequest](doc\CancelTransferRequest.md)
+ - [CategoryColorDto](doc\CategoryColorDto.md)
  - [CategoryDto](doc\CategoryDto.md)
+ - [CategoryShapeDto](doc\CategoryShapeDto.md)
  - [CategoryWriteDto](doc\CategoryWriteDto.md)
  - [ConfirmTransferRequest](doc\ConfirmTransferRequest.md)
  - [CreateAppOrderDiscountRequest](doc\CreateAppOrderDiscountRequest.md)

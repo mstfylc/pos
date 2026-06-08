@@ -143,6 +143,26 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
             .ToListAsync(cancellationToken);
     }
 
+    public async Task<IReadOnlyList<CategoryColorDto>> ListCategoryColorsAsync(Guid companyId, CancellationToken cancellationToken)
+    {
+        return await dbContext.CategoryColors
+            .AsNoTracking()
+            .Where(color => color.CompanyId == companyId)
+            .OrderBy(color => color.Name)
+            .Select(color => ToDto(color))
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<IReadOnlyList<CategoryShapeDto>> ListCategoryShapesAsync(Guid companyId, CancellationToken cancellationToken)
+    {
+        return await dbContext.CategoryShapes
+            .AsNoTracking()
+            .Where(shape => shape.CompanyId == companyId)
+            .OrderBy(shape => shape.Name)
+            .Select(shape => ToDto(shape))
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<CategoryDto?> CreateCategoryAsync(CategoryWriteDto request, CancellationToken cancellationToken)
     {
         var now = DateTimeOffset.UtcNow;
@@ -665,6 +685,15 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
             .Where(store => store.CompanyId == companyId)
             .OrderBy(store => store.Name)
             .Select(store => ToDto(store))
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<IReadOnlyList<BranchDto>> ListBranchesAsync(Guid companyId, CancellationToken cancellationToken)
+    {
+        return await dbContext.Branches.AsNoTracking()
+            .Where(branch => branch.CompanyId == companyId)
+            .OrderBy(branch => branch.Name)
+            .Select(branch => ToDto(branch))
             .ToListAsync(cancellationToken);
     }
 
@@ -1193,6 +1222,7 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         dbContext.Purchases.Add(purchase);
         await dbContext.SaveChangesAsync(cancellationToken);
         await SyncPurchaseLinesAsync(purchase, request, cancellationToken);
+        await ApplyPurchaseStockReceiptAsync(purchase.Id, request, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
         await transaction.CommitAsync(cancellationToken);
         return await GetPurchaseAsync(request.CompanyId, purchase.Id, cancellationToken);
@@ -1211,6 +1241,7 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
         ApplyPurchaseWrite(purchase, request);
         dbContext.PurchaseProducts.RemoveRange(purchase.PurchaseProducts);
         await SyncPurchaseLinesAsync(purchase, request, cancellationToken);
+        await ApplyPurchaseStockReceiptAsync(purchase.Id, request, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
         await transaction.CommitAsync(cancellationToken);
         return await GetPurchaseAsync(request.CompanyId, purchase.Id, cancellationToken);
@@ -1399,6 +1430,69 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
             Tax = line.Tax
         }).ToList();
         return Task.CompletedTask;
+    }
+
+    private async Task ApplyPurchaseStockReceiptAsync(Guid purchaseId, PurchaseWriteDto request, CancellationToken cancellationToken)
+    {
+        if (!request.Received) return;
+
+        var alreadyPosted = await dbContext.StockMovements.AnyAsync(
+            movement => movement.CompanyId == request.CompanyId
+                && movement.OperationId == purchaseId
+                && movement.MovementType == StoreProductMovementType.Purchase,
+            cancellationToken);
+        if (alreadyPosted) return;
+
+        var now = DateTimeOffset.UtcNow;
+        var productIds = request.Lines.Select(line => line.ProductId).Distinct().ToArray();
+        var storeProducts = await dbContext.StoreProducts
+            .Where(item => item.StoreId == request.StoreId && productIds.Contains(item.ProductId))
+            .ToDictionaryAsync(item => item.ProductId, cancellationToken);
+
+        foreach (var line in request.Lines
+            .GroupBy(line => line.ProductId)
+            .Select(group => new { ProductId = group.Key, Quantity = group.Sum(line => line.Quantity) }))
+        {
+            if (!storeProducts.TryGetValue(line.ProductId, out var storeProduct))
+            {
+                storeProduct = new StoreProduct
+                {
+                    Id = Guid.NewGuid(),
+                    StoreId = request.StoreId,
+                    ProductId = line.ProductId
+                };
+                dbContext.StoreProducts.Add(storeProduct);
+                storeProducts[line.ProductId] = storeProduct;
+            }
+
+            storeProduct.Quantity += line.Quantity;
+            var description = $"Purchase {purchaseId}";
+            dbContext.StockMovements.Add(new StockMovement
+            {
+                Id = Guid.NewGuid(),
+                CompanyId = request.CompanyId,
+                StoreId = request.StoreId,
+                ProductId = line.ProductId,
+                OperationId = purchaseId,
+                MovementType = StoreProductMovementType.Purchase,
+                Direction = LedgerDirection.Credit,
+                Quantity = line.Quantity,
+                State = LedgerEntryState.Posted,
+                Description = description,
+                OccurredAt = now
+            });
+            dbContext.StoreProductMovements.Add(new StoreProductMovement
+            {
+                Id = Guid.NewGuid(),
+                StoreId = request.StoreId,
+                ProductId = line.ProductId,
+                OperationId = purchaseId,
+                MovementType = StoreProductMovementType.Purchase,
+                Quantity = line.Quantity,
+                OperationTime = now,
+                Description = description
+            });
+        }
     }
 
     private async Task<bool> ProductAndPosBelongToCompanyAsync(Guid companyId, Guid productId, Guid posId, CancellationToken cancellationToken)
@@ -1763,10 +1857,13 @@ internal sealed class EfCoreCrudStore(PosDbContext dbContext, IPasswordHasher pa
     private static PermissionDto ToDto(Permission permission) => new(permission.Id, permission.Name, permission.DisplayName, permission.PermissionType);
 
     private static CategoryDto ToDto(Category category) => new(category.Id, category.CompanyId, category.Name, category.SortOrder, category.Active);
+    private static CategoryColorDto ToDto(CategoryColor color) => new(color.Id, color.CompanyId, color.Name, color.Content, color.Active);
+    private static CategoryShapeDto ToDto(CategoryShape shape) => new(shape.Id, shape.CompanyId, shape.Name, shape.Content, shape.Active);
     private static CustomerDto ToDto(Customer customer) => new(customer.Id, customer.CompanyId, customer.Name, customer.Surname, customer.Username, customer.Phone, customer.Mail, customer.Balance, customer.Active);
     private static AddressDto ToDto(Address address) => new(address.Id, address.AddressType, address.AddressHeader, address.CityId, address.TownId, address.District, address.MobilePhone, address.BusinessPhone, address.Description);
     private static WalletAccountDto ToDto(WalletAccount account) => new(account.Id, account.CompanyId, account.CustomerId, account.Currency, account.Balance);
     private static LoyaltyAccountDto ToDto(LoyaltyAccount account) => new(account.Id, account.CompanyId, account.CustomerId, account.LoyaltyTierId, account.PointBalance, account.LifetimePoints);
+    private static BranchDto ToDto(Branch branch) => new(branch.Id, branch.CompanyId, branch.Name, branch.Address, branch.Phone, branch.EntryTrackingMode, branch.Active);
     private static StoreDto ToDto(Store store) => new(store.Id, store.CompanyId, store.Name, store.BranchId, store.Active);
     private static PosDto ToDto(Domain.Entities.Pos pos) => new(pos.Id, pos.CompanyId, pos.Name, pos.BranchId, pos.StoreId, pos.Active);
     private static DiscountDto ToDto(Discount discount, IReadOnlyList<Guid> branchIds, IReadOnlyList<Guid> posIds, IReadOnlyList<Guid> userIds) => new(

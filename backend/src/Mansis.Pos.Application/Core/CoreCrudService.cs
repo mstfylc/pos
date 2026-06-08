@@ -13,6 +13,8 @@ public sealed class CoreCrudService(ICoreCrudStore store)
     public Task<IReadOnlyList<PosProductDto>> ListPosProductsForProductAsync(Guid companyId, Guid productId, CancellationToken cancellationToken) => store.ListPosProductsForProductAsync(companyId, productId, cancellationToken);
 
     public Task<IReadOnlyList<CategoryDto>> ListCategoriesAsync(Guid companyId, CancellationToken cancellationToken) => store.ListCategoriesAsync(companyId, cancellationToken);
+    public Task<IReadOnlyList<CategoryColorDto>> ListCategoryColorsAsync(Guid companyId, CancellationToken cancellationToken) => store.ListCategoryColorsAsync(companyId, cancellationToken);
+    public Task<IReadOnlyList<CategoryShapeDto>> ListCategoryShapesAsync(Guid companyId, CancellationToken cancellationToken) => store.ListCategoryShapesAsync(companyId, cancellationToken);
     public Task<CategoryDto?> CreateCategoryAsync(CategoryWriteDto request, CancellationToken cancellationToken) => store.CreateCategoryAsync(request, cancellationToken);
     public Task<CategoryDto?> UpdateCategoryAsync(Guid id, CategoryWriteDto request, CancellationToken cancellationToken) => store.UpdateCategoryAsync(id, request, cancellationToken);
     public Task<bool> DeactivateCategoryAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken) => store.DeactivateCategoryAsync(companyId, id, userId, cancellationToken);
@@ -51,6 +53,7 @@ public sealed class CoreCrudService(ICoreCrudStore store)
     public async Task<IReadOnlyList<OrderListDto>> ListOrdersAsync(Guid companyId, CancellationToken cancellationToken) =>
         (await store.ListOrdersAsync(companyId, new ListQuery(PageSize: 500), cancellationToken)).Items;
 
+    public Task<IReadOnlyList<BranchDto>> ListBranchesAsync(Guid companyId, CancellationToken cancellationToken) => store.ListBranchesAsync(companyId, cancellationToken);
     public Task<IReadOnlyList<StoreDto>> ListStoresAsync(Guid companyId, CancellationToken cancellationToken) => store.ListStoresAsync(companyId, cancellationToken);
     public Task<StoreDto?> CreateStoreAsync(StoreWriteDto request, CancellationToken cancellationToken) => store.CreateStoreAsync(request, cancellationToken);
     public Task<StoreDto?> UpdateStoreAsync(Guid id, StoreWriteDto request, CancellationToken cancellationToken) => store.UpdateStoreAsync(id, request, cancellationToken);

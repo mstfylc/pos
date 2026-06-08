@@ -28,7 +28,7 @@ final _defaultInterceptors = [
 
 class MansisPosApiClient {
 
-    static const String basePath = r'http://localhost:5088';
+    static const String basePath = r'http://localhost:5254';
 
     final Dio dio;
 

@@ -11,6 +11,8 @@ public interface ICoreCrudStore
     Task<IReadOnlyList<PosProductDto>> ListPosProductsForProductAsync(Guid companyId, Guid productId, CancellationToken cancellationToken);
 
     Task<IReadOnlyList<CategoryDto>> ListCategoriesAsync(Guid companyId, CancellationToken cancellationToken);
+    Task<IReadOnlyList<CategoryColorDto>> ListCategoryColorsAsync(Guid companyId, CancellationToken cancellationToken);
+    Task<IReadOnlyList<CategoryShapeDto>> ListCategoryShapesAsync(Guid companyId, CancellationToken cancellationToken);
     Task<CategoryDto?> CreateCategoryAsync(CategoryWriteDto request, CancellationToken cancellationToken);
     Task<CategoryDto?> UpdateCategoryAsync(Guid id, CategoryWriteDto request, CancellationToken cancellationToken);
     Task<bool> DeactivateCategoryAsync(Guid companyId, Guid id, Guid userId, CancellationToken cancellationToken);
@@ -45,6 +47,7 @@ public interface ICoreCrudStore
 
     Task<PagedResult<OrderListDto>> ListOrdersAsync(Guid companyId, ListQuery query, CancellationToken cancellationToken);
 
+    Task<IReadOnlyList<BranchDto>> ListBranchesAsync(Guid companyId, CancellationToken cancellationToken);
     Task<IReadOnlyList<StoreDto>> ListStoresAsync(Guid companyId, CancellationToken cancellationToken);
     Task<StoreDto?> CreateStoreAsync(StoreWriteDto request, CancellationToken cancellationToken);
     Task<StoreDto?> UpdateStoreAsync(Guid id, StoreWriteDto request, CancellationToken cancellationToken);

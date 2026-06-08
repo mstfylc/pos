@@ -11,11 +11,14 @@ doc/AssignmentWriteDto.md
 doc/AuthApi.md
 doc/AuthTokenResult.md
 doc/AvailableRewardDto.md
+doc/BranchDto.md
 doc/CampaignDto.md
 doc/CampaignWriteDto.md
 doc/CancelOrderResponse.md
 doc/CancelTransferRequest.md
+doc/CategoryColorDto.md
 doc/CategoryDto.md
+doc/CategoryShapeDto.md
 doc/CategoryWriteDto.md
 doc/ConfirmTransferRequest.md
 doc/CreateAppOrderDiscountRequest.md
@@ -126,11 +129,14 @@ lib/model/assignment_record_dto.dart
 lib/model/assignment_write_dto.dart
 lib/model/auth_token_result.dart
 lib/model/available_reward_dto.dart
+lib/model/branch_dto.dart
 lib/model/campaign_dto.dart
 lib/model/campaign_write_dto.dart
 lib/model/cancel_order_response.dart
 lib/model/cancel_transfer_request.dart
+lib/model/category_color_dto.dart
 lib/model/category_dto.dart
+lib/model/category_shape_dto.dart
 lib/model/category_write_dto.dart
 lib/model/confirm_transfer_request.dart
 lib/model/create_app_order_discount_request.dart
@@ -223,3 +229,6 @@ lib/model/wallet_account_dto.dart
 lib/model/wallet_adjustment_dto.dart
 lib/serializers.dart
 pubspec.yaml
+test/branch_dto_test.dart
+test/category_color_dto_test.dart
+test/category_shape_dto_test.dart

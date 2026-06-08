@@ -5,7 +5,7 @@
 import 'package:mansis_pos_api_client/api.dart';
 ```
 
-All URIs are relative to *http://localhost:5088*
+All URIs are relative to *http://localhost:5254*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

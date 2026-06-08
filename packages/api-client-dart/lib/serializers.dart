@@ -20,11 +20,14 @@ import 'package:mansis_pos_api_client/model/assignment_record_dto.dart';
 import 'package:mansis_pos_api_client/model/assignment_write_dto.dart';
 import 'package:mansis_pos_api_client/model/auth_token_result.dart';
 import 'package:mansis_pos_api_client/model/available_reward_dto.dart';
+import 'package:mansis_pos_api_client/model/branch_dto.dart';
 import 'package:mansis_pos_api_client/model/campaign_dto.dart';
 import 'package:mansis_pos_api_client/model/campaign_write_dto.dart';
 import 'package:mansis_pos_api_client/model/cancel_order_response.dart';
 import 'package:mansis_pos_api_client/model/cancel_transfer_request.dart';
+import 'package:mansis_pos_api_client/model/category_color_dto.dart';
 import 'package:mansis_pos_api_client/model/category_dto.dart';
+import 'package:mansis_pos_api_client/model/category_shape_dto.dart';
 import 'package:mansis_pos_api_client/model/category_write_dto.dart';
 import 'package:mansis_pos_api_client/model/confirm_transfer_request.dart';
 import 'package:mansis_pos_api_client/model/create_app_order_discount_request.dart';
@@ -126,11 +129,14 @@ part 'serializers.g.dart';
   AssignmentWriteDto,
   AuthTokenResult,
   AvailableRewardDto,
+  BranchDto,
   CampaignDto,
   CampaignWriteDto,
   CancelOrderResponse,
   CancelTransferRequest,
+  CategoryColorDto,
   CategoryDto,
+  CategoryShapeDto,
   CategoryWriteDto,
   ConfirmTransferRequest,
   CreateAppOrderDiscountRequest,
@@ -224,8 +230,16 @@ part 'serializers.g.dart';
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(CategoryShapeDto)]),
+        () => ListBuilder<CategoryShapeDto>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(PermissionDto)]),
         () => ListBuilder<PermissionDto>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(BranchDto)]),
+        () => ListBuilder<BranchDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(PosProductDto)]),
@@ -250,6 +264,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(RoleDto)]),
         () => ListBuilder<RoleDto>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(CategoryColorDto)]),
+        () => ListBuilder<CategoryColorDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(CustomerDto)]),

@@ -79,6 +79,14 @@ public sealed class AdminCoreController(
     public Task<IReadOnlyList<CategoryDto>> ListCategoriesAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
         coreCrudService.ListCategoriesAsync(companyId, cancellationToken);
 
+    [HttpGet("category-colors")]
+    public Task<IReadOnlyList<CategoryColorDto>> ListCategoryColorsAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        coreCrudService.ListCategoryColorsAsync(companyId, cancellationToken);
+
+    [HttpGet("category-shapes")]
+    public Task<IReadOnlyList<CategoryShapeDto>> ListCategoryShapesAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        coreCrudService.ListCategoryShapesAsync(companyId, cancellationToken);
+
     [HttpPost("categories")]
     public async Task<ActionResult<CategoryDto>> CreateCategoryAsync([FromBody] CategoryWriteDto request, CancellationToken cancellationToken) =>
         CreatedResult(await coreCrudService.CreateCategoryAsync(request, cancellationToken));
@@ -252,6 +260,10 @@ public sealed class AdminCoreController(
     [HttpGet("orders")]
     public Task<PagedResult<OrderListDto>> ListOrdersAsync([FromQuery] Guid companyId, CancellationToken cancellationToken, [FromQuery] int page = 1, [FromQuery] int pageSize = 50, [FromQuery] string? sort = null, [FromQuery] string? filter = null) =>
         coreCrudService.ListOrdersAsync(companyId, Query(page, pageSize, sort, filter), cancellationToken);
+
+    [HttpGet("branches")]
+    public Task<IReadOnlyList<BranchDto>> ListBranchesAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
+        coreCrudService.ListBranchesAsync(companyId, cancellationToken);
 
     [HttpGet("stores")]
     public Task<IReadOnlyList<StoreDto>> ListStoresAsync([FromQuery] Guid companyId, CancellationToken cancellationToken) =>
