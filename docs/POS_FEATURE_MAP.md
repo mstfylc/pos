@@ -11,7 +11,19 @@
 |---|---|---|
 | ✅ Hazır | Backend + üretilmiş client var | Tam fonksiyonel ekran tasarla |
 | 🟡 Kısmi | Kısmen var, bazı alan/akış eksik | Tasarla; eksik alanı "Yakında" işaretle, Codex'e DTO notu bırak |
-| 🔜 Yakında | Bizde backend yok | Ekranı tasarla ama **"Yakında" rozeti + disabled**; ileride Codex backend modülü çıkarır |
+| 🎯 Yakın vade | Backend yok ama **karar: yapılacak** (Codex modülü planlı) | Tam fonksiyonel ekran tasarla; "Yakında" rozeti **koyma** |
+| 🔜 Yakında | Bizde backend yok, sonraki faz | Ekranı tasarla ama **"Yakında" rozeti + disabled** |
+
+## Sürüm Hedefi (KARAR — 2026-06-10)
+
+Kademeli strateji: **önce Retail + QSR canlıya, sonra restoran modülü.**
+
+| Faz | Kimlik | Kapsam | Tasarım yaklaşımı |
+|---|---|---|---|
+| **Faz A (canlı hedef)** | Retail + Hızlı Servis (Square/Loyverse profili) | Satış çekirdeği + sadakat + stok + admin + **vardiya/kasa/Z-raporu** + offline + fiş | ✅ ve 🎯 olanlar gerçek ekran |
+| **Faz B (sonra)** | Tam restoran/adisyon (Simpra/Adisyo profili) | Masa planı + KDS + QR menü + garson çağrı + online sipariş/kurye + combo/modifier + hesap böl | 🔜 → tasarımda "Yakında" |
+
+> **Vardiya / kasa aç-kapa / Z-raporu** kararla 🔜'dan **🎯 Faz A**'ya alındı (benchmark: tüm POS'larda standart). Tasarım gerçek ekran olur; Codex backend modülünü çıkarır.
 
 ---
 
@@ -73,19 +85,19 @@
 | Mal kabul → stok girişi | ✅ | purchase received → stock receipt (son commit) |
 | Tedarikçi cari / ödeme takibi | 🟡 | OpeningBalance/Maturity alanları var; cari ekstre endpoint'i yok |
 
-## 5. Vardiya / Kasa / Gün Sonu — pos-web (BACKEND YOK)
+## 5. Vardiya / Kasa / Gün Sonu — pos-web (🎯 Faz A — Codex backend yapacak)
 
 | Özellik | Durum | Endpoint / Not |
 |---|---|---|
-| Kasa açılış (açılış nakdi) | 🔜 | Modül yok → tasarla "Yakında" |
-| Vardiya başlat/bitir | 🔜 | Modül yok |
-| Para giriş/çıkış (paid in/out) | 🔜 | Modül yok |
-| Kasa kapanış / nakit sayım / fark | 🔜 | Modül yok |
-| X / Z raporu (gün sonu) | 🔜 | Modül yok |
+| Kasa açılış (açılış nakdi) | 🎯 | Modül yok → Codex yapacak; tasarım gerçek ekran |
+| Vardiya başlat/bitir | 🎯 | Benchmark: Loyverse/Adisyo standart |
+| Para giriş/çıkış (paid in/out) | 🎯 | Kasa nakit hareketleri (satış dışı) |
+| Kasa kapanış / nakit sayım / fark | 🎯 | Sayılan vs beklenen fark |
+| X / Z raporu (gün sonu) | 🎯 | Kapanışta otomatik Z; X ara rapor |
 
-> Bu blok komple "Yakında". Tasarımı önce çıkar (design-first); onaylanınca Codex backend modülü olarak ekler.
+> Faz A kapsamında. Design-first: tasarım önce çıkar, onaylanınca Codex append-only ledger mantığıyla backend modülü ekler.
 
-## 6. Masa / Servis / Mutfak (restoran modu) — pos-web (BACKEND YOK)
+## 6. Masa / Servis / Mutfak (restoran modu) — pos-web (🔜 Faz B)
 
 | Özellik | Durum | Endpoint / Not |
 |---|---|---|
@@ -155,6 +167,29 @@
 7. **Raporlama + dashboard** — §8.
 8. **Restoran modu / masa / KDS** — §6 (hepsi "Yakında").
 9. **Müşteri kanalı / mobil** — §10 (Faz 3/5).
+
+## Benchmark — Referans POS'lar (2026-06)
+
+Karar, Türkiye (restoran/adisyon ağırlıklı) ve yurtdışı (retail+QSR) POS'larının özellik setleri incelenerek verildi.
+
+| Özellik | Simpra | Adisyo | Toast | Square | Loyverse | Biz |
+|---|:--:|:--:|:--:|:--:|:--:|:--:|
+| Masa yön. / kat planı | ✓ | ✓ | ✓ | ✓ | ✓ | 🔜 B |
+| KDS mutfak | ✓ | ✓ | ✓ | ✓ | ✓ | 🔜 B |
+| QR menü / garson çağrı | ✓ | ✓ | ✓ | ~ | ~ | 🔜 B |
+| Online sipariş / kurye | ✓ | ✓ | ✓ | ✓ | ~ | 🔜 B |
+| Vardiya + kasa + Z raporu | ✓ | ✓ | ✓ | ✓ | ✓ | 🎯 A |
+| Combo / modifier / reçete | ✓ | ✓ | ✓ | ✓ | ✓ | 🔜 B |
+| Hesap böl (split check) | ✓ | ✓ | ✓ | ✓ | ✓ | 🔜 B |
+| Stok / sayım / barkod | ✓ | ✓ | ✓ | ✓ | ✓ | ✅ |
+| Sadakat / kampanya | ✓ | ✓ | ✓ | ✓ | ✓ | ✅ |
+| Çok şube merkezi yön. | ✓ | ✓ | ✓ | ✓ | ✓ | ✅ |
+| Bulut + offline | ✓ | ✓ | ✓ | ✓ | ✓ | ✅ |
+| Cari hesap (veresiye) | ~ | ✓ | ~ | ~ | ~ | 🟡 |
+
+**Çıkarım:** Mevcut backend retail + sadakat (Square/Loyverse) profiline ~%80 hazır. Faz A için tek gerçek eksik vardiya/Z. Türkiye'nin restoran çekirdeği (masa/KDS/QR/kurye) Faz B'de büyük modül.
+
+Kaynaklar: [SimpraPOS](https://simprasuite.com/restaurant-software/pos-system/), [Adisyo](https://adisyo.com/restoran-otomasyon-sistemi), [Toast POS](https://pos.toasttab.com/restaurant-pos), [Square POS](https://squareup.com/us/en/point-of-sale), [Loyverse Shift Management](https://help.loyverse.com/help/shift-management-loyverse-pos), [Lightspeed X/Z Reports](https://shopkeep-support.lightspeedhq.com/support/reporting/z-and-x-reports)
 
 ## Her Design Brief'ine Eklenecek Sabit Bağlam
 > "Önce ARCHITECTURE.md ve docs/DESIGN_SYSTEM.md'yi oku. Token'lar (lacivert #1F3864 / accent #E08A2B) hardcode edilmez. Yeni buton/input icat etme; bileşen sözleşmesini kullan. Her veri ekranı 4 state taşır. Backend'i olmayan özellikler 'Yakında' rozeti + disabled ile gösterilir."
