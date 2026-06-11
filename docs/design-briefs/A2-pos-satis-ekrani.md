@@ -39,7 +39,7 @@ Kullanıcı: kasiyer/personel (giriş yapılmış, POS seçilmiş). Tipik akış
 | Üst bar | Card/Toolbar + IconButton | POS/şube adı, müşteri çipi, ayar |
 | Offline göstergesi | StatusBadge | yeşil=online · sarı="Çevrimdışı · kuyrukta N" |
 | Kategori şeridi | Tag/Chip (yatay scroll) | CategoryColor/Shape ile renk-kod; başta **⭐Favoriler** sekmesi |
-| Ürün kartı | Card (özel) | ≥80×80px, ad + fiyat; favori ⭐ işareti; stok yoksa soluk + "Tükendi" |
+| Ürün kartı | Card (özel) | ≥80×80px, **küçük ürün foto (thumbnail)** + ad + fiyat; favori ⭐; görsel yoksa placeholder/baş harf; stok yoksa soluk + "Tükendi" |
 | İndirim butonu | Button (secondary) | tanımlı indirim seç + yetki + tutar (modal) |
 | Kupon butonu | Button (ghost, **disabled** 🔜) | "Yakında" rozeti |
 | Arama/barkod | Input (search) | barkod okutmada otomatik sepete ekle |
@@ -54,7 +54,7 @@ Kullanıcı: kasiyer/personel (giriş yapılmış, POS seçilmiş). Tipik akış
 | Veri | Endpoint | Not |
 |---|---|---|
 | Kategoriler | `GET /api/v1/app/categories?companyId` | renk/şekil alanları |
-| POS ürünleri | `GET /api/v1/app/pos/{posId}/products` | **POS'a özel fiyat + stok** |
+| POS ürünleri | `GET /api/v1/app/pos/{posId}/products` | **POS'a özel fiyat + stok**; `image` (ürün görseli) döner → kartta thumbnail |
 | Favori ürünler | ürün listesi `favoriteProduct` filtresi | ⭐Favoriler sekmesi (`Product.FavoriteProduct`); müşteri bağlıysa `CustomerFavoriteProduct` |
 | Tanımlı indirimler | `GET /api/v1/app/discounts` | indirim seçici listesi (kapsam: şube/POS/personel) |
 | Müşteri tanıma | `POST /api/v1/app/customers/identify` | modal alt akış (telefon/QR) |
@@ -116,6 +116,7 @@ Tasarımda yeri ayrılır ama pasif gösterilir:
 - Stoğu biten ürün: kart soluk, "Tükendi", eklenmez (Stocktaking=true ürünlerde).
 - Offline'a düşüş: üst bar sarıya döner, satış devam eder; siparişler kuyruğa, online olunca idempotency_key ile gönderilir.
 - Fiyat/stok güncel değilse: pull-to-refresh / otomatik periyodik tazeleme.
+- Ürün görseli (`image`) yoksa: placeholder kutu veya ürün baş harfi; layout bozulmaz.
 
 ## 10. Claude Design'dan beklenen çıktı
 - Masaüstü/tablet ve dar (POS terminali) için **2 responsive varyant**.
