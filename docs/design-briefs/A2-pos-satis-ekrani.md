@@ -16,11 +16,11 @@ Kullanıcı: kasiyer/personel (giriş yapılmış, POS seçilmiş). Tipik akış
 │ ÜST BAR: logo · POS adı/şube · [Müşteri ekle] · ⚙ · sync●   │  ← offline göstergesi sağda
 ├──────────────────────────────────────┬──────────────────────┤
 │ KATEGORİ ŞERİDİ (yatay, renk/şekil)   │                      │
-│ [Tümü][İçecek][Yemek][Tatlı]...       │   SEPET (sağ panel)  │
+│ [⭐Favoriler][Tümü][İçecek][Yemek]... │   SEPET (sağ panel)  │
 ├──────────────────────────────────────┤   - satır listesi    │
 │                                       │   - adet +/− · sil   │
 │   ÜRÜN GRID (kartlar ≥80×80px)        │   - satır notu       │
-│   [Ürün][Ürün][Ürün][Ürün]            │   ───────────────    │
+│   [Ürün][Ürün][Ürün][Ürün]            │   [İndirim][Kupon🔜]  │
 │   [Ürün][Ürün][Ürün][Ürün]            │   Ara toplam         │
 │   [Ürün][Ürün][Ürün][Ürün]            │   İndirim / Puan      │
 │                                       │   TOPLAM (büyük)     │
@@ -38,8 +38,10 @@ Kullanıcı: kasiyer/personel (giriş yapılmış, POS seçilmiş). Tipik akış
 |---|---|---|
 | Üst bar | Card/Toolbar + IconButton | POS/şube adı, müşteri çipi, ayar |
 | Offline göstergesi | StatusBadge | yeşil=online · sarı="Çevrimdışı · kuyrukta N" |
-| Kategori şeridi | Tag/Chip (yatay scroll) | CategoryColor/Shape ile renk-kod |
-| Ürün kartı | Card (özel) | ≥80×80px, ad + fiyat; stok yoksa soluk + "Tükendi" |
+| Kategori şeridi | Tag/Chip (yatay scroll) | CategoryColor/Shape ile renk-kod; başta **⭐Favoriler** sekmesi |
+| Ürün kartı | Card (özel) | ≥80×80px, ad + fiyat; favori ⭐ işareti; stok yoksa soluk + "Tükendi" |
+| İndirim butonu | Button (secondary) | tanımlı indirim seç + yetki + tutar (modal) |
+| Kupon butonu | Button (ghost, **disabled** 🔜) | "Yakında" rozeti |
 | Arama/barkod | Input (search) | barkod okutmada otomatik sepete ekle |
 | Sepet satırı | List item | adet stepper, sil (IconButton), not |
 | Toplam alanı | Card | TOPLAM en büyük tipografi (2xl/3xl) |
@@ -53,6 +55,8 @@ Kullanıcı: kasiyer/personel (giriş yapılmış, POS seçilmiş). Tipik akış
 |---|---|---|
 | Kategoriler | `GET /api/v1/app/categories?companyId` | renk/şekil alanları |
 | POS ürünleri | `GET /api/v1/app/pos/{posId}/products` | **POS'a özel fiyat + stok** |
+| Favori ürünler | ürün listesi `favoriteProduct` filtresi | ⭐Favoriler sekmesi (`Product.FavoriteProduct`); müşteri bağlıysa `CustomerFavoriteProduct` |
+| Tanımlı indirimler | `GET /api/v1/app/discounts` | indirim seçici listesi (kapsam: şube/POS/personel) |
 | Müşteri tanıma | `POST /api/v1/app/customers/identify` | modal alt akış (telefon/QR) |
 | Sadakat önizleme | `POST /api/v1/app/loyalty/preview` | müşteri eklenince sepette "kazanılacak puan" |
 | Sipariş oluştur | `POST /api/v1/app/orders` | Checkout modalında (A3) · `idempotencyKey` zorunlu |
@@ -83,12 +87,30 @@ Kullanıcı: kasiyer/personel (giriş yapılmış, POS seçilmiş). Tipik akış
 - Yazıcı köprüsü (localhost:9100) erişilemezse: uyarı + "tekrar dene", **satışı bloklamaz**.
 - Renk/spacing/tipografi yalnız token'dan (lacivert #1F3864 / accent #E08A2B).
 
+## 7c. Favoriler · İndirim · Kupon akışları
+
+### Favoriler (✅)
+- Kategori şeridinde başta **⭐Favoriler** sekmesi → `favoriteProduct` filtresiyle öne çıkan ürünler.
+- Ürün kartında favori işareti (⭐); uzun bas/aksiyon ile favoriye ekle-çıkar (`Product.FavoriteProduct`).
+- Müşteri bağlıysa onun favorileri (`CustomerFavoriteProduct`) ayrı gösterilebilir.
+
+### Manuel indirim (✅)
+- Sepette **[İndirim]** → modal: `app/discounts`'tan tanımlı indirim seç (yüzde/tutar), **yetkili kullanıcı** (userId) + tutar gir.
+- **Limit:** `MaxDiscountAmount`'ı aşan tutarda uyarı/blok; kapsam (şube/POS/personel) dışıysa gösterme.
+- Order'a `discounts[]` (discountId, userId, amount) olarak yazılır; sepet toplamı güncellenir.
+
+### Kupon kodu (🔜 — backend yok)
+- Sepette **[Kupon]** butonu var ama **disabled + "Yakında" rozeti**.
+- Tasarımda kod girme alanı çizilir; aktif değil. Backend ihtiyacı (Codex): kupon/promo doğrulama endpoint'i.
+
 ## 8. Bu ekranda "Yakında" (Faz B — disabled + rozet)
 Tasarımda yeri ayrılır ama pasif gösterilir:
 - **Combo / modifier seçimi** (ürün varyant/seçenek paneli) — 🔜
 - **Siparişi beklet / park et (hold & recall)** — 🔜
 - **Hesabı böl (split)** — 🔜
-- **Kupon kodu** girişi — 🔜
+- **Kupon kodu** girişi — 🔜 (buton görünür, pasif)
+
+> Not: **Favoriler ve manuel indirim "Yakında" değil — gerçek, backend hazır.** Sadece kupon Yakında.
 
 ## 9. Edge / hata durumları
 - Stoğu biten ürün: kart soluk, "Tükendi", eklenmez (Stocktaking=true ürünlerde).
