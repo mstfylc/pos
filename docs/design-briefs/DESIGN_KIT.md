@@ -99,3 +99,76 @@ success) ayrı ayrı göster. Varsayılan palet + 1 alternatif, light + dark ver
 - Renkler token adıyla (hex gömme).
 
 > Onaylanan çıktı → Claude Code: "Onaylı <ekran> tasarımını packages/ui bileşenleri + tokens.json ile kur; DEFINITION_OF_DONE'dan geçir."
+
+## 10. Sıradaki prompt'lar (kopyala-yapıştır, aynı sohbette sırayla)
+> A2 bitti. Her ekranı beğenince sonrakine geç. Hepsi DESIGN_KIT kurallarına tabidir (4 state · token · light/dark + 1 alternatif palet · "Yakında" disabled+rozet).
+
+**A3 — Checkout**
+```
+docs/design-briefs/A3-pos-checkout.md'yi tasarla: çoklu/bölünmüş ödeme modalı, numpad,
+hızlı nakit + para üstü, "Kalan" göstergesi (0 olunca yeşil), kalan≠0 ise CTA pasif.
+4 state + light/dark + 1 alternatif palet.
+```
+**A1 — POS giriş**
+```
+docs/design-briefs/A1-pos-giris.md'yi tasarla: email/parola + PIN numpad ile giriş, sonra
+şube→POS seçimi, must_change_password yönlendirmesi. 4 state + light/dark.
+```
+**A4 — Müşteri tanıma**
+```
+docs/design-briefs/A4-pos-musteri-tanima.md'yi tasarla: telefon/isim arama + QR okut modalı,
+sonuç kartları (puan/tier/cüzdan rozeti), hızlı yeni müşteri ekle. 4 state + light/dark.
+```
+**A5 — Sadakat + ödül**
+```
+docs/design-briefs/A5-pos-sadakat-odul.md'yi tasarla: sepete bağlı müşteride sadakat önizleme
+kartı (+X puan, kampanya, accent vurgu) + kullanılabilir ödüller listesi (yetersiz puan pasif).
+4 state + light/dark.
+```
+**A6 — Offline + fiş**
+```
+docs/design-briefs/A6-pos-offline-fis.md'yi tasarla: üst bar online/offline göstergesi (yeşil/
+sarı+N), sync paneli (kuyruk + çakışma satırı), fiş yazdırma sonucu + köprü hatası modalı
+(satışı bloklamaz). 4 state + light/dark.
+```
+**A7 — Vardiya/kasa/Z** (backend yok, yine de gerçek ekran)
+```
+docs/design-briefs/A7-pos-vardiya-kasa.md'yi tasarla: kasa aç (açılış nakdi) → para giriş/çıkış
+→ X raporu → kasa kapat (sayım + fark) → Z raporu çıktısı. 4 state + light/dark.
+```
+**B5 — Tema ekranı**
+```
+docs/design-briefs/B5-admin-gorunum-tema.md'yi tasarla: işletme palet galerisi (canlı önizleme
+kartları) + logo yükle + açık/koyu/sistem toggle. Ayarlar→Görünüm. 5 paletin de önizlemesi.
+```
+**B1 — Admin stok**
+```
+docs/design-briefs/B1-admin-stok.md'yi tasarla (admin-web, Metronic): hareket listesi (DataGrid)
++ stok giriş/çıkış/imha/sayım formları + transfer akışı (talep/onay/teslim, StatusBadge). 4 state.
+```
+**B2 — Admin sadakat**
+```
+docs/design-briefs/B2-admin-sadakat.md'yi tasarla: earn-rules/tiers/rewards/campaigns/stamp-cards
+CRUD (Tabs + DataGrid + form modal) + müşteri puan/cüzdan düzeltme. 4 state.
+```
+**B3 — Satınalma/yapı/yetki**
+```
+docs/design-briefs/B3-admin-satinalma-yapi-yetki.md'yi tasarla: tedarikçi + satınalma (satır
+kalemli form) + şube/mağaza/POS + kullanıcı/rol/permission matrisi/atama. 4 state.
+```
+**B4 — Raporlama**
+```
+docs/design-briefs/B4-admin-raporlama.md'yi tasarla: dashboard KPI kartları + satış trend grafiği
++ rapor sekmeleri (giriş ürün hazır; Z/kâr-zarar/sadakat "Yakında" rozeti). Tarih+şube filtresi,
+export. 4 state.
+```
+**C1 — Restoran modu** (Faz B, hepsi Yakında)
+```
+docs/design-briefs/C1-restoran-modu.md'yi tasarla: masa planı, KDS mutfak, QR menü, online/kurye.
+Hepsi "Yakında" rozeti + disabled, ama tam mockup üret. Light/dark.
+```
+**D1 — Müşteri mobil**
+```
+docs/design-briefs/D1-musteri-mobil.md'yi tasarla (Flutter, Material 3): OTP giriş, sadakat kartı
+(QR), puan/tier, ödüller, kampanya/damga, geçmiş, profil. Eksik endpoint'leri "Yakında". Light/dark.
+```
