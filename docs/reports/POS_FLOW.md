@@ -1,5 +1,11 @@
 # POS_FLOW
 
+> **GÜNCELLEME (2026-06-11):** Bu rapor 07 Haziran POS satış akışı denetimidir. O tarihten sonra kontrat büyüdü; aşağıda "eksik" denen bazı parçalar artık var. Güncel ve bağlayıcı durum: **`docs/POS_FEATURE_MAP.md`** + `docs/design-briefs/`.
+>
+> **Artık MEVCUT (✅):** Order create `offlineOrder` ve `discounts[]` alıyor · `app/pos/{posId}/products` (POS'a özel fiyat/stok) · `customers/identify` + `card-token` (QR/kart) · `loyalty/preview` (sepet sadakat önizleme) · `orders/{id}/refund`.
+>
+> **Hâlâ EKSİK (güncel):** Alt ürün/combo (`OrderSubProduct`) order create'te · **Vardiya/kasa/Z-raporu** (karar: 🎯 Faz A — Codex backend modülü yapacak, bkz. `design-briefs/A7-pos-vardiya-kasa.md`) · kupon kodu · combo/modifier UI'i.
+
 ## Kaynaklar
 
 | Katman | Incelenen kaynak |
@@ -109,4 +115,4 @@
 
 | Konu | Not |
 |---|---|
-| Vardiya/gun sonu | Kapsam disi birakildi; ileride kasa acma-kapama, vardiya sayimi, X/Z raporu ve nakit farki icin ayri backend modul gerekecek. |
+| Vardiya/gun sonu | ~~Kapsam disi~~ → **GÜNCEL KARAR (2026-06-11): Faz A kapsamına alındı (🎯).** Kasa açma-kapama, vardiya sayımı, X/Z raporu, nakit farkı için Codex append-only ledger ile backend modülü yapacak. Tasarım: `docs/design-briefs/A7-pos-vardiya-kasa.md`. |

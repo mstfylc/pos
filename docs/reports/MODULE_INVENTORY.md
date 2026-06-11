@@ -2,6 +2,12 @@
 
 Tarih: 2026-06-07
 
+> **GÜNCELLEME (2026-06-11):** Bu rapor 07 Haziran snapshot'ıdır; o tarihten sonra `contracts/openapi.yaml` ciddi büyüdü (72 endpoint) ve aşağıda "yok" denen DTO/endpoint'lerin **çoğu eklendi**. Güncel ve bağlayıcı durum için **`docs/POS_FEATURE_MAP.md`**'ye bak. Aşağıdaki orijinal tablo tarihsel kayıt olarak korunmuştur; güncel durum sütunu için bu banner geçerlidir.
+>
+> **Artık KAPALI olan boşluklar (✅ kontratta var):** Loyalty admin CRUD (earn-rules, loyalty-tiers, rewards, campaigns, stamp-cards) · Stock giriş/çıkış/imha/sayım/transfer · Purchase + Supplier · User/Role/Permission/Assignment · Customer wallet/loyalty düzeltme · Order `offlineOrder` + `discounts[]` · Order refund · POS'a özel ürün listesi (`app/pos/{posId}/products`) · `customers/identify` + `card-token` · `loyalty/preview`.
+>
+> **Hâlâ AÇIK (güncel):** Order create'te alt ürün/combo (`OrderSubProduct`) · Vardiya/kasa/Z-raporu (karar: 🎯 Faz A, Codex yapacak) · Müşteri self-servis (mobil) endpoint'leri · kupon kodu.
+
 Kapsam: Kod yazmadan denetim. Kaynaklar: Domain entity dosyalari, Application DTO/use-case dosyalari, Infrastructure EF repositoryleri, `contracts/openapi.yaml`.
 
 ## Ozet: DTO eksigi riski
