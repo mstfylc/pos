@@ -45,5 +45,15 @@ DataGrid (filtre+pagination), StatusBadge (OrderState renk kodu), Drawer/Card (d
 - OrderState renkleri semantic: Received/Preparing(info) · Completed(success) · Cancelled(danger) · Transferring(warning).
 - Çoklu ödemede `PaymentSummary` (tek tip / Mixed) gösterilir.
 
-## 7. "Yakında"
+## 7a. Kanal / Kaynak — online platform siparişleri (🔜 backend yok)
+Siparişler tek ekranda toplanır; **kaynağına göre** ayrışır:
+- **Kaynaklar:** POS (kasa) · Kendi mobil app · **Trendyol Yemek** · **Getir** · **Yemeksepeti** · (Migros Yemek vb.)
+- **Liste:** her satırda **kaynak rozeti** (platform logosu/renk) + filtre (kaynağa göre).
+- **Detay:** platform sipariş no, teslimat tipi (paket/gel-al), kurye/teslimat durumu, platform komisyon notu (varsa).
+- **Canlı gelen sipariş yönetimi** (kabul/ret, hazırlık süresi, hazır/kuryede) **ayrı canlı panelde** → bkz. `C1-restoran-modu.md` (online sipariş/kurye). A8 bunların **geçmiş/takip** görünümüdür.
+
+> **Durum:** Tasarımda kaynak rozeti + filtre + detay alanları çizilir ama **"Yakında" işaretlenir** — entegrasyon backend'i yok.
+> **Backend ihtiyacı (Codex, Faz B):** `Order.channel/source` alanı + her platform için webhook/ingest entegrasyonu (sipariş çekme, durum geri bildirimi). Tek platform bile ayrı API sözleşmesi ister.
+
+## 7b. "Yakında" (diğer)
 - Alt ürün/combo satır gösterimi (🔜 backend) · sipariş durumu değiştirme/iş akışı (🔜) · sipariş notu/fatura (🔜).

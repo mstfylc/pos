@@ -9,7 +9,7 @@ Türkiye restoran pazarının çekirdek modülleri. Faz B'de gerçekleşecek; ş
 - **Masa planı / kat şeması**: salon görünümü, masa durumu (boş/dolu/ödeme bekliyor), masaya sipariş, masa birleştir/böl, hesap böl (split).
 - **KDS (mutfak ekranı)**: gelen siparişler istasyon bazlı, hazırlanıyor/hazır, süre takibi, "86" (tükendi) işaretleme.
 - **QR menü / garson çağrı**: müşteri masadan QR ile sipariş/çağrı; POS'a düşer.
-- **Online sipariş / kurye**: Yemeksepeti/Getir/Trendyol entegrasyon kuyruğu, kurye atama/teslim durumu.
+- **Online sipariş / kurye (canlı panel)**: **Trendyol Yemek · Getir · Yemeksepeti** (+ kendi mobil app) siparişleri tek kuyrukta; **kabul/ret**, hazırlık süresi, hazır/kuryede durumu, kurye atama/teslim takibi. Sesli/görsel uyarı (yeni sipariş). Geçmiş/takip görünümü `A8-pos-siparisler.md`'de (kaynak rozeti + filtre).
 
 ## 3. DS bileşen eşlemesi
 Masa kartları (özel), KDS ticket kartları, StatusBadge (yoğun renk kodu), Drawer, sürükle-bırak (masa birleştir).
