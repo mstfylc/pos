@@ -15,6 +15,7 @@
 | A5 | Sadakat paneli + ödül kullan | A | pos-web | ✅ | A5-pos-sadakat-odul.md | ⬜ |
 | A6 | Offline kuyruk + fiş köprüsü | A | pos-web | 🟡 | A6-pos-offline-fis.md | ⬜ |
 | A7 | Vardiya / kasa / Z-raporu | A | pos-web | 🎯 | A7-pos-vardiya-kasa.md | ⬜ |
+| A8 | Siparişler (liste/detay/iptal/iade) | A | pos-web + admin | ✅ | A8-pos-siparisler.md | ⬜ |
 | B1 | Admin stok modülü | A | admin-web | ✅ | B1-admin-stok.md | ⬜ |
 | B2 | Admin sadakat yönetimi | A | admin-web | ✅ | B2-admin-sadakat.md | ⬜ |
 | B3 | Admin satınalma + yapı + yetki | A | admin-web | ✅ | B3-admin-satinalma-yapi-yetki.md | ⬜ |

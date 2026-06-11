@@ -74,10 +74,10 @@ spacing(px): 4·8·12·16·24·32·48 · radius: sm6 md10 lg16 full · shadow: s
 
 ## 7. Ekran sırası (başlangıç → sona)
 1. **A2 POS satış ana ekranı** ← BURADAN BAŞLA
-2. A3 Checkout → 3. A1 POS giriş → 4. A4 müşteri tanıma → 5. A5 sadakat/ödül
-6. A6 offline/fiş → 7. A7 vardiya/kasa/Z → 8. B5 tema ekranı
-9. B1 stok → 10. B2 sadakat admin → 11. B3 satınalma/yapı/yetki → 12. B4 raporlama
-13. C1 restoran (Yakında) → 14. D1 müşteri mobil
+2. A3 Checkout → 3. **A8 Siparişler (liste/detay/iptal/iade)** → 4. A1 POS giriş → 5. A4 müşteri tanıma → 6. A5 sadakat/ödül
+7. A6 offline/fiş → 8. A7 vardiya/kasa/Z → 9. B5 tema ekranı
+10. B1 stok → 11. B2 sadakat admin → 12. B3 satınalma/yapı/yetki → 13. B4 raporlama
+14. C1 restoran (Yakında) → 15. D1 müşteri mobil
 
 ## 8. Ekran prompt şablonu + ilk örnekler
 **Şablon:**
@@ -108,6 +108,12 @@ success) ayrı ayrı göster. Varsayılan palet + 1 alternatif, light + dark ver
 docs/design-briefs/A3-pos-checkout.md'yi tasarla: çoklu/bölünmüş ödeme modalı, numpad,
 hızlı nakit + para üstü, "Kalan" göstergesi (0 olunca yeşil), kalan≠0 ise CTA pasif.
 4 state + light/dark + 1 alternatif palet.
+```
+**A8 — Siparişler**
+```
+docs/design-briefs/A8-pos-siparisler.md'yi tasarla: filtreli sipariş listesi (DataGrid +
+StatusBadge), sipariş detayı (satırlar/ödemeler/indirim/sadakat), iptal (reason zorunlu) ve
+satır bazlı iade modalları. 4 state + light/dark.
 ```
 **A1 — POS giriş**
 ```
