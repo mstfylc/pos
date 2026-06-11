@@ -39,10 +39,13 @@ packages/design-tokens/tokens.json   ← TEK token kaynağı (renk/font/spacing/
 
 ## 4. Adımlar (kodlama ayrı görevlerde; bu doküman plan)
 
-### Adım 1 — Token codegen (tek kaynak)
-- `tokens.json` → üretim: web için CSS değişkenleri + Tailwind `@theme`; mobil için Dart `ThemeData` map.
-- Araç önerisi: Style Dictionary (veya basit bir Node script). Çıktı `packages/design-tokens/dist/`.
+### Adım 1 — Token codegen (tek kaynak, **çok temalı**)
+- `tokens.json` **3 katmana** ayrılır: primitive / semantic / theme (bkz. `THEMING.md`). Bileşenler yalnız semantic kullanır.
+- Paletler `themes/<id>.json` (Lacivert/Turuncu varsayılan + alternatifler) × **light/dark**.
+- `tokens.json` → üretim: web için CSS değişkenleri (`[data-theme][data-mode]`) + Tailwind `var()` map; mobil için Dart `ThemeData` (light/dark).
+- Araç önerisi: Style Dictionary (veya Node script). Çıktı `packages/design-tokens/dist/`.
 - `admin-web/src/design-system/tokens/*.css` elle kaynak olmaktan çıkar → **üretilen** dosyaya bağlanır. Drift biter.
+- **Çıktı tüm paletleri + light/dark'ı kapsar**; tema değişimi runtime (rebuild yok).
 
 ### Adım 2 — `packages/ui` paketini çıkar
 - `admin-web/src/design-system/components` → `packages/ui/src` taşınır (barrel export korunur).

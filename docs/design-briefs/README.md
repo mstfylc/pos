@@ -19,6 +19,7 @@
 | B2 | Admin sadakat yönetimi | A | admin-web | ✅ | B2-admin-sadakat.md | ⬜ |
 | B3 | Admin satınalma + yapı + yetki | A | admin-web | ✅ | B3-admin-satinalma-yapi-yetki.md | ⬜ |
 | B4 | Raporlama + dashboard | A | admin-web | 🟡 | B4-admin-raporlama.md | ⬜ |
+| B5 | Ayarlar → Görünüm / Tema | A | admin-web + all | 🎯 | B5-admin-gorunum-tema.md | ⬜ |
 | C1 | Restoran modu (masa/KDS/QR/kurye) | B | pos-web | 🔜 | C1-restoran-modu.md | ⬜ |
 | D1 | Müşteri mobil sadakat app | 3 | mobile | 🔜 | D1-musteri-mobil.md | ⬜ |
 
@@ -28,4 +29,6 @@ Rozet: ✅ hazır · 🟡 kısmi · 🎯 yakın vade (Codex yapacak) · 🔜 yak
 1. Amaç & bağlam · 2. Layout bölgeleri · 3. DS bileşen eşlemesi · 4. Veri kaynakları (endpoint) · 5. 4 state · 6. Etkileşim/özel kurallar · 7. "Yakında" öğeleri.
 
 ## Design'a verilecek sabit bağlam (her oturum başı)
-> "Önce ARCHITECTURE.md ve docs/DESIGN_SYSTEM.md'yi oku. Metronic görsel temel; token'lar (lacivert #1F3864 / accent #E08A2B) hardcode edilmez. Yeni buton/input icat etme; bileşen sözleşmesini kullan. Her veri ekranı 4 state taşır. Backend'i olmayan özellikler 'Yakında' rozeti + disabled. POS'ta dokunmatik ≥48px, ürün kartı ≥80×80px."
+> "Önce ARCHITECTURE.md ve docs/DESIGN_SYSTEM.md'yi oku. Metronic görsel temel. Renkler **semantic token'dan** gelir (primary/accent/surface/text…), hex **hardcode edilmez** — varsayılan tema Lacivert/Turuncu ama arayüz **temalanabilir** (galeri + açık/koyu, bkz. docs/THEMING.md), bu yüzden mockup'ları token adlarıyla kur ve en az 1 alternatif palet + light/dark örneği ver. Yeni buton/input icat etme; bileşen sözleşmesini kullan. Her veri ekranı 4 state taşır. Backend'i olmayan özellikler 'Yakında' rozeti + disabled. POS'ta dokunmatik ≥48px, ürün kartı ≥80×80px."
+
+> **Tema notu:** Brief'lerde geçen `#1F3864 / #E08A2B` = **varsayılan palet**, tek seçenek değil. Tasarım renge değil semantic token'a bağlanır.
