@@ -56,6 +56,7 @@ Kullanıcı: kasiyer/personel (giriş yapılmış, POS seçilmiş). Tipik akış
 | Kategoriler | `GET /api/v1/app/categories?companyId` | renk/şekil alanları |
 | POS ürünleri | `GET /api/v1/app/pos/{posId}/products` | **POS'a özel fiyat + stok**; `image` (ürün görseli) döner → kartta thumbnail |
 | Favori ürünler | ürün listesi `favoriteProduct` filtresi | ⭐Favoriler sekmesi (`Product.FavoriteProduct`); müşteri bağlıysa `CustomerFavoriteProduct` |
+| Giriş ürünü | ürün `entryProduct` alanı + order `lines[].isEntry` | giriş ürünü ücretsiz satır (₺0), stok düşer, `reports/entry-products` |
 | Tanımlı indirimler | `GET /api/v1/app/discounts` | indirim seçici listesi (kapsam: şube/POS/personel) |
 | Müşteri tanıma | `POST /api/v1/app/customers/identify` | modal alt akış (telefon/QR) |
 | Sadakat önizleme | `POST /api/v1/app/loyalty/preview` | müşteri eklenince sepette "kazanılacak puan" |
@@ -102,6 +103,13 @@ Kullanıcı: kasiyer/personel (giriş yapılmış, POS seçilmiş). Tipik akış
 ### Kupon kodu (🔜 — backend yok)
 - Sepette **[Kupon]** butonu var ama **disabled + "Yakında" rozeti**.
 - Tasarımda kod girme alanı çizilir; aktif değil. Backend ihtiyacı (Codex): kupon/promo doğrulama endpoint'i.
+
+### Giriş ürünü (entry product) (✅)
+- Bazı ürünler **giriş ürünü** olabilir (`Product.EntryProduct=true`): müşteriye **ücretsiz** verilir ama **stoktan düşer** ve raporlanır (karşılama ikramı, abonelik/giriş hakkı, personel teslimi vb.).
+- Ürün kartında **"Giriş" işareti/rozeti**; sepete eklerken (entry üründe) **"Giriş olarak ekle"** seçeneği.
+- Sepet satırında **"Giriş · ₺0"** rozeti; satır **toplama katılmaz** ama stok düşer.
+- Order'a `lines[].isEntry=true` yazılır (yalnız `EntryProduct=true` üründe).
+- Teslim takibi: `reports/entry-products` (B4 raporlarında).
 
 ## 8. Bu ekranda "Yakında" (Faz B — disabled + rozet)
 Tasarımda yeri ayrılır ama pasif gösterilir:
