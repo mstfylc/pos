@@ -115,6 +115,13 @@ docs/design-briefs/A8-pos-siparisler.md'yi tasarla: filtreli sipariş listesi (D
 StatusBadge), sipariş detayı (satırlar/ödemeler/indirim/sadakat), iptal (reason zorunlu) ve
 satır bazlı iade modalları. 4 state + light/dark.
 ```
+**A9 — Ürün seçenek/combo/varyant** (design-first, backend Yakında)
+```
+docs/design-briefs/A9-pos-urun-secenek-combo.md'yi tasarla: ürüne dokununca açılan seçim paneli —
+varyant (radyo), seçenek/ekstra (ProductSubProduct Visible/Default, +₺ farkı, adet), çıkar/reçete
+çipleri, adet/tartı, not, canlı toplam, Sepete ekle. Backend verisi henüz yok → örnek veriyle çiz,
+"bağlanınca aktif" notuyla. 4 state + light/dark.
+```
 **A1 — POS giriş**
 ```
 docs/design-briefs/A1-pos-giris.md'yi tasarla: email/parola + PIN numpad ile giriş, sonra
