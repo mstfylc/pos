@@ -63,6 +63,28 @@ Kullanıcı: kasiyer/personel (giriş yapılmış, POS seçilmiş). Tipik akış
 | Sipariş oluştur | `POST /api/v1/app/orders` | Checkout modalında (A3) · `idempotencyKey` zorunlu |
 | Sepet | client-side | IndexedDB (offline outbox) |
 
+## 4b. Ürün kurgusu — birim · fiyat · vergi · varyant (kritik)
+POS kartı basit değil; ürün modeli zengin. `PosProductSaleDto` şunları döner ve UI bunlara uymalı:
+
+### Birim tipi (ProductUnitType: Adet / Gram / ML) ✅
+- **Adet**: karta dokun → +1 (mevcut davranış).
+- **Gram / ML (tartılı)**: dokununca **miktar/tartı girişi** açılır (numpad, ör. 250 g) → `quantity` o miktar olur. "+1 adet" mantığı bunlarda **çalışmaz**. Kartta birim etiketi (g/ml/adet) görünür.
+
+### Fiyat: base + POS override ✅
+- Geçerli fiyat = **`salePrice` (POS override) ?? `baseSalePrice`**. Override varsa kartta küçük "POS fiyatı" işareti.
+- Fiyat client'ta uydurulmaz; DTO'dan gelir.
+
+### Vergi (TaxType: %1 / %8 / %18) ✅
+- Her ürünün KDV oranı var. Satır vergisi hesaplanır (`lines[].taxAmount`); checkout/fişte **KDV gösterimi**.
+
+### Stok kontrolü ✅
+- `stocktaking=true` üründe `stockQuantity` 0 ise "Tükendi", eklenmez. `stocktaking=false` ürün **her zaman** satılır (stok kontrolsüz).
+
+### Combo / alt ürün / varyant — 🔜 backend eksik
+- Model destekliyor (`ProductSubProduct` Visible/Default, `Main`/`ParentId`) **ama yeni `PosProductSaleDto` alt ürün/varyant DÖNDÜRMÜYOR** ve order create alt satır almıyor.
+- Tasarımda combo/seçenek paneli ve varyant seçimi **"Yakında" + disabled** çizilir.
+- **Backend ihtiyacı (Codex):** `PosProductSaleDto`'ya `subProducts[]` (Visible/Default/price) + varyant; `CreateAppOrderLineRequest`'e alt ürün satırı.
+
 ## 5. Zorunlu 4 state (her veri bölgesi)
 
 | Bölge | loading | empty | error | success |
